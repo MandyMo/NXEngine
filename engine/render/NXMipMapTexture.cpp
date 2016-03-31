@@ -26,6 +26,7 @@ GLuint NX::MipMapTexture::Load(__in const std::vector<std::string>& strFileSet){
         glTexImage2D(GL_TEXTURE_2D, i, GL_RGBA, loader[i].Width(), loader[i].Height(), 0, GL_BGRA, GL_UNSIGNED_BYTE, loader[i].Pixels());
     }
     glBindTexture(GL_TEXTURE_2D, 0);
+    delete[] loader;
     return TexId;
 }
 
