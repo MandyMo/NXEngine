@@ -28,4 +28,7 @@
 
 #include "../redbook/Chap7/DoubeFaceShading.h"
 
+
+#include "../redbook/Chap8/BrickShader.h"
+
 #endif /* __ZX_OPENGL_DEMO_HEADER_H__ */

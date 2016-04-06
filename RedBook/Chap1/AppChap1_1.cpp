@@ -81,7 +81,7 @@ void AppChap1_1::Render(){
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
     //glViewport(100, 100, 400, 100);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_TRIANGLES, 0, 100000);
 }
 
 void AppChap1_1::OnKeyEvent(int key, int scancode, int action, int mods){

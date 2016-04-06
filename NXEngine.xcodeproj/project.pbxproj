@@ -14,6 +14,7 @@
 		6C3A6EE61CA908DB00CFB450 /* MultiTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A6EE41CA908DB00CFB450 /* MultiTexture.cpp */; };
 		6C3A6F041CA91BD400CFB450 /* MultiTextureCC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A6F021CA91BD400CFB450 /* MultiTextureCC.cpp */; };
 		6C3A6F091CA92D9100CFB450 /* Texture3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A6F071CA92D9100CFB450 /* Texture3D.cpp */; };
+		6C4BB6701CB5395000ABC075 /* BrickShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4BB66E1CB5395000ABC075 /* BrickShader.cpp */; };
 		6C4F70061CAA316A00C44153 /* NXImagePixelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4F70041CAA316A00C44153 /* NXImagePixelLoader.cpp */; };
 		6C4F70091CAAAE3100C44153 /* TextureMip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4F70071CAAAE3100C44153 /* TextureMip.cpp */; };
 		6C4F700E1CAABE3800C44153 /* NXMipMapTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4F700C1CAABE3800C44153 /* NXMipMapTexture.cpp */; };
@@ -572,6 +573,10 @@
 		6C3A6F081CA92D9100CFB450 /* Texture3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture3D.h; sourceTree = "<group>"; };
 		6C3A6F0A1CA92E5D00CFB450 /* Texture3DVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Texture3DVS.glsl; sourceTree = "<group>"; };
 		6C3A6F0B1CA92E6700CFB450 /* Texture3DFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Texture3DFS.glsl; sourceTree = "<group>"; };
+		6C4BB66E1CB5395000ABC075 /* BrickShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrickShader.cpp; sourceTree = "<group>"; };
+		6C4BB66F1CB5395000ABC075 /* BrickShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickShader.h; sourceTree = "<group>"; };
+		6C4BB6711CB53C3E00ABC075 /* BricksShaderFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BricksShaderFS.glsl; sourceTree = "<group>"; };
+		6C4BB6721CB53C4E00ABC075 /* BricksShaderVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BricksShaderVS.glsl; sourceTree = "<group>"; };
 		6C4F70041CAA316A00C44153 /* NXImagePixelLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXImagePixelLoader.cpp; sourceTree = "<group>"; };
 		6C4F70051CAA316A00C44153 /* NXImagePixelLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXImagePixelLoader.h; sourceTree = "<group>"; };
 		6C4F70071CAAAE3100C44153 /* TextureMip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureMip.cpp; sourceTree = "<group>"; };
@@ -1766,6 +1771,18 @@
 				6C3A6EF51CA90A1300CFB450 /* Top.bmp */,
 			);
 			path = SkyBox1;
+			sourceTree = "<group>";
+		};
+		6C4BB66D1CB538E700ABC075 /* Chap8 */ = {
+			isa = PBXGroup;
+			children = (
+				6C4BB66E1CB5395000ABC075 /* BrickShader.cpp */,
+				6C4BB66F1CB5395000ABC075 /* BrickShader.h */,
+				6C4BB6711CB53C3E00ABC075 /* BricksShaderFS.glsl */,
+				6C4BB6721CB53C4E00ABC075 /* BricksShaderVS.glsl */,
+			);
+			name = Chap8;
+			path = RedBook/Chap8;
 			sourceTree = "<group>";
 		};
 		6C4F700F1CAB7B3400C44153 /* dds */ = {
@@ -3380,6 +3397,7 @@
 				6C02018B1C99547A002D2A9D /* Chap4 */,
 				6C53C2C31CA3E565007D5F33 /* Chap6 */,
 				6C4F70501CABF9A100C44153 /* Chap7 */,
+				6C4BB66D1CB538E700ABC075 /* Chap8 */,
 			);
 			name = redbook;
 			sourceTree = "<group>";
@@ -3731,6 +3749,7 @@
 				6CD71B1F1C83EA0B00910E57 /* jidctfst.c in Sources */,
 				6CD71AE81C83EA0B00910E57 /* Channels.cpp in Sources */,
 				6CD71B911C83EA0B00910E57 /* tif_dirinfo.c in Sources */,
+				6C4BB6701CB5395000ABC075 /* BrickShader.cpp in Sources */,
 				6CD71B411C83EA0B00910E57 /* strInvTransform.c in Sources */,
 				6CD71AB11C83EA0B00910E57 /* FreeImageC.c in Sources */,
 				6CD71AA11C83EA0B00910E57 /* ColorLookup.cpp in Sources */,
