@@ -38,6 +38,12 @@ namespace NX {
             }
         }
     public:
+        vector<T, Scale>& operator - (){
+            for(int i = 0; i < Scale; ++i){
+                v[i] = -v[i];
+            }
+            return *this;
+        }
         T& operator[] (const int index){
             assert(index >= 0 && index < Scale);
             return v[index];
@@ -161,6 +167,10 @@ namespace NX {
         template<typename U, int CC>
         vector(const vector<U, CC> & rhs):x(rhs.v[0])   {  }
     public:
+        vector<T, 1>& operator - (){
+            x = -x;
+            return *this;
+        }
         T& operator[] (const int index){
             assert(index < 1 && index >= 0);
             return v[index];
@@ -275,6 +285,10 @@ namespace NX {
             *this = rhs;
         }
     public:
+        vector<T, 2>& operator - (){
+            x = -x; y = -y;
+            return *this;
+        }
         T& operator[] (const int index){
             assert(index < 2 && index >= 0);
             return v[index];
@@ -394,6 +408,10 @@ namespace NX {
             *this = rhs;
         }
     public:
+        vector<T, 3>& operator - (){
+            x = -x; y = -y; z= -z;
+            return *this;
+        }
         T& operator[] (const int index){
             assert(index < 3 && index >= 0);
             return v[index];
@@ -526,6 +544,10 @@ namespace NX {
             *this = rhs;
         }
     public:
+        vector<T, 4>& operator - (){
+            x = -x; y = -y; z = -z; w = -w;
+            return *this;
+        }
         T& operator[] (const int index){
             assert(index < 4 && index >= 0);
             return v[index];

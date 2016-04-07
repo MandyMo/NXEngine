@@ -30,5 +30,7 @@
 
 
 #include "../redbook/Chap8/BrickShader.h"
+#include "../redBook/Chap8/Bricks.h"
+
 
 #endif /* __ZX_OPENGL_DEMO_HEADER_H__ */

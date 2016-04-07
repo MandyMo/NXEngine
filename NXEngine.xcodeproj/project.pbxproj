@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6C1607171C9BF0EF00932D61 /* MRTDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C1607151C9BF0EF00932D61 /* MRTDemo.cpp */; };
 		6C16071E1C9C007B00932D61 /* AppChap1_4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C16071A1C9C007B00932D61 /* AppChap1_4.cpp */; };
+		6C335A191CB65F87004B32B9 /* Bricks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C335A171CB65F87004B32B9 /* Bricks.cpp */; };
+		6C335A1E1CB66EBF004B32B9 /* NXCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C335A1C1CB66EBF004B32B9 /* NXCamera.cpp */; };
 		6C3A6EE01CA8D02300CFB450 /* SamplerDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A6EDE1CA8D02300CFB450 /* SamplerDemo.cpp */; };
 		6C3A6EE31CA8DA1C00CFB450 /* SwizzleDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A6EE11CA8DA1C00CFB450 /* SwizzleDemo.cpp */; };
 		6C3A6EE61CA908DB00CFB450 /* MultiTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A6EE41CA908DB00CFB450 /* MultiTexture.cpp */; };
@@ -535,6 +537,12 @@
 		6C16071B1C9C007B00932D61 /* AppChap1_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppChap1_4.h; sourceTree = "<group>"; };
 		6C16071C1C9C007B00932D61 /* FS1_4.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FS1_4.glsl; sourceTree = "<group>"; };
 		6C16071D1C9C007B00932D61 /* VS1_4.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VS1_4.glsl; sourceTree = "<group>"; };
+		6C335A171CB65F87004B32B9 /* Bricks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bricks.cpp; sourceTree = "<group>"; };
+		6C335A181CB65F87004B32B9 /* Bricks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bricks.h; sourceTree = "<group>"; };
+		6C335A1A1CB6609D004B32B9 /* BricksVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BricksVS.glsl; sourceTree = "<group>"; };
+		6C335A1B1CB660A9004B32B9 /* BricksFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BricksFS.glsl; sourceTree = "<group>"; };
+		6C335A1C1CB66EBF004B32B9 /* NXCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXCamera.cpp; sourceTree = "<group>"; };
+		6C335A1D1CB66EBF004B32B9 /* NXCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXCamera.h; sourceTree = "<group>"; };
 		6C3A6EDE1CA8D02300CFB450 /* SamplerDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SamplerDemo.cpp; sourceTree = "<group>"; };
 		6C3A6EDF1CA8D02300CFB450 /* SamplerDemo.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = SamplerDemo.h; sourceTree = "<group>"; };
 		6C3A6EE11CA8DA1C00CFB450 /* SwizzleDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwizzleDemo.cpp; sourceTree = "<group>"; };
@@ -1780,6 +1788,10 @@
 				6C4BB66F1CB5395000ABC075 /* BrickShader.h */,
 				6C4BB6711CB53C3E00ABC075 /* BricksShaderFS.glsl */,
 				6C4BB6721CB53C4E00ABC075 /* BricksShaderVS.glsl */,
+				6C335A171CB65F87004B32B9 /* Bricks.cpp */,
+				6C335A181CB65F87004B32B9 /* Bricks.h */,
+				6C335A1A1CB6609D004B32B9 /* BricksVS.glsl */,
+				6C335A1B1CB660A9004B32B9 /* BricksFS.glsl */,
 			);
 			name = Chap8;
 			path = RedBook/Chap8;
@@ -2054,6 +2066,8 @@
 				6C4F70051CAA316A00C44153 /* NXImagePixelLoader.h */,
 				6C4F700C1CAABE3800C44153 /* NXMipMapTexture.cpp */,
 				6C4F700D1CAABE3800C44153 /* NXMipMapTexture.h */,
+				6C335A1C1CB66EBF004B32B9 /* NXCamera.cpp */,
+				6C335A1D1CB66EBF004B32B9 /* NXCamera.h */,
 			);
 			path = render;
 			sourceTree = "<group>";
@@ -3714,6 +3728,7 @@
 				6CD71B941C83EA0B00910E57 /* tif_dumpmode.c in Sources */,
 				6CD71A9F1C83EA0B00910E57 /* BitmapAccess.cpp in Sources */,
 				6CD71BC01C83EA0B00910E57 /* demux.demux.c in Sources */,
+				6C335A1E1CB66EBF004B32B9 /* NXCamera.cpp in Sources */,
 				6CD71C231C83EA0B00910E57 /* ImfBoxAttribute.cpp in Sources */,
 				6CD71C721C83EA0B00910E57 /* ImfTimeCode.cpp in Sources */,
 				6CD71BDF1C83EA0B00910E57 /* dsp.lossless_sse2.c in Sources */,
@@ -3887,6 +3902,7 @@
 				6CD71B881C83EA0B00910E57 /* libraw_datastream.cpp in Sources */,
 				6CD71BBB1C83EA0B00910E57 /* dec.quant.c in Sources */,
 				6CD71B271C83EA0B00910E57 /* jmemnobs.c in Sources */,
+				6C335A191CB65F87004B32B9 /* Bricks.cpp in Sources */,
 				6CD71B091C83EA0B00910E57 /* jdapimin.c in Sources */,
 				6CD71BF61C83EA0B00910E57 /* enc.picture_csp.c in Sources */,
 				6CD71C1B1C83EA0B00910E57 /* IexThrowErrnoExc.cpp in Sources */,

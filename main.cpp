@@ -8,7 +8,7 @@
 
 int main(int argc, const char* argv[]){
     NX::glb_GetLog().logToConsole("begin main");
-    std::auto_ptr<NX::Application> app(new BricksShader());
+    std::auto_ptr<NX::Application> app(new Bricks());
     if(!app->Init(argv, argc, 800, 800)){
         std::cout << "failed init application..." << std::endl;
         return 1;

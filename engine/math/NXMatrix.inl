@@ -328,7 +328,11 @@ Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T near, 
 typedef Matrix<type, row, 1> type##row##X##1;\
 typedef Matrix<type, row, 2> type##row##X##2;\
 typedef Matrix<type, row, 3> type##row##X##3;\
-typedef Matrix<type, row, 4> type##row##X##4;
+typedef Matrix<type, row, 4> type##row##X##4;\
+typedef Matrix<type, row, 1> type##row##x##1;\
+typedef Matrix<type, row, 2> type##row##x##2;\
+typedef Matrix<type, row, 3> type##row##x##3;\
+typedef Matrix<type, row, 4> type##row##x##4;
 #endif
 
 #ifndef DECLARE_MATRIX_TYPE
