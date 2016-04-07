@@ -2,12 +2,6 @@
 
 
 BricksShader::BricksShader(){
-//    GLuint           vao;
-//    GLuint           ibo;
-//    GLuint           vbo;
-//    NX::Program      *m_pg;
-//    GLuint           DeltaLocation;
-    
 }
 
 BricksShader::~BricksShader(){
@@ -18,10 +12,10 @@ bool BricksShader::Init(const char* vCmdLine[], const int iCmdCount, const int i
         return false;
     }
     {//vertex data
-        v[0] = {NX::float3(-1, 1, 0),  NX::float2(0, 5)};
+        v[0] = {NX::float3(-1, 1, 0),  NX::float2(0, 10)};
         v[1] = {NX::float3(-1, -1, 0), NX::float2(0, 0)};
-        v[2] = {NX::float3(1, 1, 0),   NX::float2(5, 5)};
-        v[3] = {NX::float3(1, -1, 0),   NX::float2(5, 0)};
+        v[2] = {NX::float3(1, 1, 0),   NX::float2(10, 10)};
+        v[3] = {NX::float3(1, -1, 0),   NX::float2(10, 0)};
     }
 
     {//vbo
@@ -53,17 +47,17 @@ bool BricksShader::Init(const char* vCmdLine[], const int iCmdCount, const int i
         m_pg->LinkProgram();
         m_pg->UseProgram();
         DeltaLocation  = glGetUniformLocation(m_pg->GetId(), "Deleta");
-        glUniform1f(DeltaLocation, 0.1f);
+        glUniform1f(DeltaLocation, 0.025 / 2);
     }
     return true;
 }
 
 void BricksShader::Tick(const double DeltaTime){
-    
+    Application::Tick(DeltaTime);
 }
 
 void BricksShader::Render(){
-    glClearColor(0.3, 0.3, 0.3, 1);
+    glClearColor(0.3, 0.3, 0.3, 0);
     glClear(GL_COLOR_BUFFER_BIT);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, BUFFER_OFFSET(0));
 }
