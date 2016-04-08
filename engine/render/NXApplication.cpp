@@ -13,7 +13,10 @@ static GLFWwindow*        g_window = NULL;
 
 static void error_callback(int error, const char* description);
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-
+static void mousebutton_callback(GLFWwindow*,int,int,int);
+static void windowposition_callback(GLFWwindow*,int,int);
+static void windowsize_callback(GLFWwindow*,int,int);
+static void cursorposition_callback(GLFWwindow*,double,double);
 NX::Application::Application(){
     g_pThis   = NULL;
     g_window  = NULL;
@@ -50,7 +53,14 @@ bool NX::Application::Init(const char* vCmdLine[], const int iCmdCount, const in
         }
         g_window = window;
         glfwMakeContextCurrent(window);
-        glfwSetKeyCallback(window, key_callback);
+    }
+    
+    {//call backs
+        glfwSetKeyCallback(g_window, key_callback);
+        glfwSetMouseButtonCallback(g_window, mousebutton_callback);
+        glfwSetWindowPosCallback(g_window, windowposition_callback);
+        glfwSetWindowSizeCallback(g_window, windowsize_callback);
+        glfwSetCursorPosCallback(g_window, cursorposition_callback);
     }
     glb_GetLog().logToConsole("OpenGL version supported by this platform (%s)", glGetString(GL_VERSION));
     glb_GetLog().log("OpenGL version supported by this platform (%s)", glGetString(GL_VENDOR));
@@ -91,6 +101,26 @@ void NX::Application::OnKeyEvent(int key, int scancode, int action, int mods){
     }
 }
 
+
+void NX::Application::OnMouseButtonEvent(int btn,int action,int mods){
+    glb_GetLog().logToConsole("void NX::Application::OnMouseButtonEvent(int btn,int action,int mods)");
+}
+
+
+void NX::Application::OnWindowPositionEvent(int xByScreen,int yByScreen){
+    glb_GetLog().logToConsole("void NX::Application::OnWindowPositionEvent(int xByScreen,int yByScreen)");
+}
+
+
+void NX::Application::OnWindowSizeEvent(int iNewWidth, int iNewHeight){
+    glb_GetLog().logToConsole("void NX::Application::OnWindowSizeEvent(int iNewWidth, int iNewHeight)");
+}
+
+
+void NX::Application::OnCursorPositionEvent(double xByScreen, double yByScreen){
+    glb_GetLog().logToConsole("void NX::Application::OnCursorPositionEvent(double xByScreen, double yByScreen)");
+}
+
 void NX::Application::Run(){
     static double PreTime = glfwGetTime();
     static double NowTime = glfwGetTime();
@@ -105,7 +135,6 @@ void NX::Application::Run(){
     }
 }
 
-
 static void error_callback(int error, const char* description) {
     if(!g_pThis){
         return;
@@ -118,4 +147,32 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         return;
     }
     g_pThis->OnKeyEvent(key, scancode, action, mods);
+}
+
+void mousebutton_callback(GLFWwindow* window, int btn,int action,int mods){
+    if(!g_window){
+        return;
+    }
+    g_pThis->OnMouseButtonEvent(btn, action, mods);
+}
+
+void windowposition_callback(GLFWwindow* window, int xByScreen,int yByScreen){
+    if(!g_window){
+        return;
+    }
+    g_pThis->OnWindowPositionEvent(xByScreen, yByScreen);
+}
+
+void windowsize_callback(GLFWwindow*, int iNewWidth, int iNewHeight){
+    if(!g_window){
+        return;
+    }
+    g_pThis->OnWindowSizeEvent(iNewWidth, iNewHeight);
+}
+
+void cursorposition_callback(GLFWwindow*, double xByScreen, double yByScreen){
+    if(!g_window){
+        return;
+    }
+    g_pThis->OnCursorPositionEvent(xByScreen, yByScreen);
 }

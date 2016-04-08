@@ -6,7 +6,9 @@
 #include "NXMatrix.h"
 #include "DemoHeader.h"
 
+
 int main(int argc, const char* argv[]){
+    
     NX::glb_GetLog().logToConsole("begin main");
     std::auto_ptr<NX::Application> app(new Bricks());
     if(!app->Init(argv, argc, 800, 800)){

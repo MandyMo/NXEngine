@@ -1734,6 +1734,13 @@
 			path = RedBook/Chap4;
 			sourceTree = "<group>";
 		};
+		6C335A1F1CB79250004B32B9 /* device */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = device;
+			sourceTree = "<group>";
+		};
 		6C3A6EE71CA90A1300CFB450 /* image */ = {
 			isa = PBXGroup;
 			children = (
@@ -1985,6 +1992,7 @@
 		6C54CCA71C7AC7AE00FD2F7D /* NXEngine */ = {
 			isa = PBXGroup;
 			children = (
+				6C335A1F1CB79250004B32B9 /* device */,
 				6CCAE3FB1C7C4F2000D090CB /* common */,
 				6CCAE3F01C7C4EC800D090CB /* render */,
 				6CCAE3EB1C7C4EC400D090CB /* math */,

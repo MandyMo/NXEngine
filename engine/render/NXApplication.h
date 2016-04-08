@@ -79,6 +79,42 @@ namespace NX {
          *  与glfw中键盘事件回调函数的参数意义完全相同
          */
         virtual void OnKeyEvent(int key, int scancode, int action, int mods);
+        
+        /*
+         *  <函数功能>
+         *  mouse按下消息
+         *
+         *  <函数参数>
+         *  与glfw中键盘事件回调函数的参数意义完全相同
+         */
+        virtual void OnMouseButtonEvent(int btn,int action,int mods);
+        
+        /*
+         *  <函数功能>
+         *  窗口移动消息
+         *
+         *  <函数参数>
+         *  与glfw中键盘事件回调函数的参数意义完全相同
+         */
+        virtual void OnWindowPositionEvent(int xByScreen,int yByScreen);
+        
+        /*
+         *  <函数功能>
+         *  窗口大小消息
+         *
+         *  <函数参数>
+         *  与glfw中键盘事件回调函数的参数意义完全相同
+         */
+        virtual void OnWindowSizeEvent(int iNewWidth, int iNewHeight);
+        
+        /*
+         *  <函数功能>
+         *  mouse移动消息
+         *
+         *  <函数参数>
+         *  与glfw中键盘事件回调函数的参数意义完全相同
+         */
+        virtual void OnCursorPositionEvent(double xByScreen, double yByScreen);
     };
 }
 

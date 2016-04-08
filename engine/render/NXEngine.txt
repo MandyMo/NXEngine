@@ -1,5 +1,6 @@
-[2016-04-07 21:47:38]  log file [./engine/render/NXEngine.txt] open.
-[2016-04-07 21:47:38]  OpenGL version supported by this platform (Intel Inc.)
-[2016-04-07 21:47:38]  compile shader [./redBook/Chap8/BricksVS.glsl] with compile msg [Compile succeed]
-[2016-04-07 21:47:38]  compile shader [./redBook/Chap8/BricksFS.glsl] with compile msg [Compile succeed]
-[2016-04-07 21:47:38]  Link program with link msg [link succeed]
+[2016-04-08 15:42:54]  log file [./engine/render/NXEngine.txt] open.
+[2016-04-08 15:42:54]  OpenGL version supported by this platform (Intel Inc.)
+[2016-04-08 15:42:55]  compile shader [./redBook/Chap8/BricksVS.glsl] with compile msg [Compile succeed]
+[2016-04-08 15:42:55]  compile shader [./redBook/Chap8/BricksFS.glsl] with compile msg [Compile succeed]
+[2016-04-08 15:42:55]  Link program with link msg [link succeed]
+[2016-04-08 15:44:25]  log file [./engine/render/NXEngine.txt] closed.

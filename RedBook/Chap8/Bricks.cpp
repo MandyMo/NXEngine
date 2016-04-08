@@ -1,5 +1,7 @@
 #include "Bricks.h"
 
+static unsigned int State;
+
 Bricks::Bricks():camera(NX::float3(0, 0, 0), NX::float3(0, 0.25, 1), NX::float3(0, 1, 0), 90, 1, 1, 1000){
 }
 
@@ -53,7 +55,7 @@ bool Bricks::Init(const char* vCmdLine[], const int iCmdCount, const int iWidth,
 
 void Bricks::Tick(const double DeltaTime){
     Application::Tick(DeltaTime);
-    camera.RotateByUpDownAxis(DeltaTime / 10);
+    //camera.RotateByUpDownAxis(DeltaTime / 10);
 }
 
 void Bricks::Render(){
@@ -68,6 +70,36 @@ void Bricks::Render(){
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, BUFFER_OFFSET(0));
 }
 
+void Bricks::OnCursorPositionEvent(double xByScreen, double yByScreen){
+    static double xPrePos = xByScreen;
+    static double yPrePos = yByScreen;
+    if(State == GLFW_PRESS){
+        camera.RotateByUpDownAxis((xByScreen - xPrePos) * 0.001);
+        camera.RotateByLeftRightAxis((yByScreen - yPrePos) * 0.001);
+    }
+    xPrePos = xByScreen;
+    yPrePos = yByScreen;
+}
+
 void Bricks::OnKeyEvent(int key, int scancode, int action, int mods){
-    return Application::OnKeyEvent(key, scancode, action, mods);
+    Application::OnKeyEvent(key, scancode, action, mods);
+    if(key == GLFW_KEY_LEFT_CONTROL){
+        State = action;
+    }
+    if(action != GLFW_PRESS){
+        return;
+    }
+    if(key == GLFW_KEY_LEFT){
+        camera.MoveLeft(50);
+    }else if(key == GLFW_KEY_RIGHT){
+        camera.MoveRight(50);
+    }else if(key == GLFW_KEY_UP){
+        camera.MoveUp(50);
+    }else if(key == GLFW_KEY_DOWN){
+        camera.MoveDown(50);
+    }else if(key == GLFW_KEY_W){
+        camera.MoveFront(50);
+    }else if(key == GLFW_KEY_S){
+        camera.MoveBack(50);
+    }
 }

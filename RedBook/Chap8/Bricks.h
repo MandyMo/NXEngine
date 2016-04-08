@@ -20,6 +20,7 @@ public:
     virtual void Tick(const double DeltaTime);
     virtual void Render();
     virtual void OnKeyEvent(int key, int scancode, int action, int mods);
+    virtual void OnCursorPositionEvent(double xByScreen, double yByScreen);
 private:
     GLuint           vao;
     GLuint           ibo;
