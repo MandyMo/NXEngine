@@ -100,6 +100,10 @@ NX::float4x4 NX::PerspectCamera::GetWatchMatrix(){
     return NX::Perspective(m_fFovByAngel, m_fRatio, m_fNearPlane, m_fFarPlane) * GetMVMatrix();
 }
 
+NX::float4x4 NX::PerspectCamera::GetProjectMatrix(){
+    return NX::Perspective<float, 4>(m_fFovByAngel, m_fRatio, m_fNearPlane, m_fFarPlane);
+}
+
 NX::OrthogonalCamera::OrthogonalCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
                                        const float Width, const float Height, const float Near, const float Far):MVMatrixController(Eye, Looked, Up){
     m_fWidth     = Width;
@@ -113,4 +117,8 @@ NX::OrthogonalCamera::~OrthogonalCamera(){
 
 NX::float4x4 NX::OrthogonalCamera::GetWatchMatrix(){
     return NX::Orthogonal(m_fWidth, m_fHeight, m_fNearPlane, m_fFarPlane) * GetMVMatrix();
+}
+
+NX::float4x4 NX::OrthogonalCamera::GetProjectMatrix(){
+    return NX::Orthogonal(m_fWidth, m_fHeight, m_fNearPlane, m_fFarPlane);
 }

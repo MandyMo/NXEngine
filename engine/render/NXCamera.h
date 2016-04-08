@@ -43,9 +43,10 @@ namespace NX {
     class ProjectController{
     public:
         ProjectController();
-        virtual ~ProjectController() = 0;
+        virtual ~ProjectController()        = 0;
     public:
-        virtual float4x4 GetWatchMatrix()= 0;
+        virtual float4x4 GetWatchMatrix()   = 0;
+        virtual float4x4 GetProjectMatrix() = 0;
     };
     
     template<typename T>
@@ -65,6 +66,7 @@ namespace NX {
         virtual ~PerspectCamera();
     public:
         virtual float4x4 GetWatchMatrix();
+        virtual float4x4 GetProjectMatrix();
     private:
         float           m_fFovByAngel;
         float           m_fRatio;
@@ -79,6 +81,7 @@ namespace NX {
         virtual ~OrthogonalCamera();
     public:
         virtual float4x4 GetWatchMatrix();
+        virtual float4x4 GetProjectMatrix();
     private:
         float           m_fWidth;
         float           m_fHeight;
