@@ -23,24 +23,36 @@ vec4 CaculateColor(){
     vec2 position = MCposition / BrickSize;
     float u = fract(position.x);
     float v = fract(position.y);
-    if(v >= 1- Deleta){
+//    if(v >= 1- Deleta){
+//        FragColor = vec4(1);
+//    }else if (v <= Deleta){
+//        FragColor = vec4(1);
+//    }else if(v >= 0.5 - Deleta && v <= 0.5 + Deleta){
+//        FragColor = vec4(1);
+//    }else if(v < 0.5 - Deleta){
+//        if(u <= Deleta || u >= 1 - Deleta){
+//            FragColor = vec4(1);
+//        }else{
+//            FragColor = vec4(0);
+//        }
+//    }else{
+//        if(u <= 0.5 + Deleta && u >= 0.5 - Deleta){
+//            FragColor = vec4(1);
+//        }else{
+//            FragColor = vec4(0);
+//        }
+//    }
+//    u -= 0.5;
+//    v -= 0.5;
+//    if(u*u + v * v >= 0.25){
+//        FragColor = vec4(1);
+//    }else{
+//        FragColor = vec4(0);
+//    }
+    if(u >= 0.2 && v >= 0.2){
         FragColor = vec4(1);
-    }else if (v <= Deleta){
-        FragColor = vec4(1);
-    }else if(v >= 0.5 - Deleta && v <= 0.5 + Deleta){
-        FragColor = vec4(1);
-    }else if(v < 0.5 - Deleta){
-        if(u <= Deleta || u >= 1 - Deleta){
-            FragColor = vec4(1);
-        }else{
-            FragColor = vec4(0);
-        }
     }else{
-        if(u <= 0.5 + Deleta && u >= 0.5 - Deleta){
-            FragColor = vec4(1);
-        }else{
-            FragColor = vec4(0);
-        }
+        discard;
     }
     return FragColor;
 }

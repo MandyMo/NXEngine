@@ -23,3 +23,11 @@ inline float  RandFloatInRange(float left, float right){
     assert(std::abs(right - left) > FLOAT_EPISION);
     return RandUnitFloat() * (right - left) + left;
 }
+
+double QuickSinWithAngle(const int Angle){
+    return std::sin(DG2RD(Angle));
+}
+
+double QuickCosWithAngle(const int Angle){
+    return std::cos(DG2RD(Angle));
+}

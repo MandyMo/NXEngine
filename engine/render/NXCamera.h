@@ -5,6 +5,9 @@
  *  purpose: 定义一组操作摄像机的方法
  */
 
+#ifndef __ZX_NXENGINE_CAMERA_H__
+#define __ZX_NXENGINE_CAMERA_H__
+
 #include "../math/NXVector.h"
 #include "../math/NXMatrix.h"
 
@@ -90,5 +93,5 @@ namespace NX {
     };
 }
 
-
+#endif
 
