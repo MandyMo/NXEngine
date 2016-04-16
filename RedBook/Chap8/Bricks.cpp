@@ -2,7 +2,7 @@
 
 static unsigned int State;
 
-Bricks::Bricks():camera(NX::float3(0, 0, 0), NX::float3(0, 0.25, 1), NX::float3(0, 1, 0), 90, 1, 1, 1000){
+Bricks::Bricks():camera(NX::float3(0, 0, -600), NX::float3(0, 0, 1), NX::float3(0, 1, 0), 90, 1, 1, 1000){
 }
 
 Bricks::~Bricks(){
@@ -13,10 +13,10 @@ bool Bricks::Init(const char* vCmdLine[], const int iCmdCount, const int iWidth,
         return false;
     }
     {//vertex data
-        v[0] = {NX::float3(-500, 500, 500)};
-        v[1] = {NX::float3(-500, -500, 600)};
-        v[2] = {NX::float3(500, 500, 700)};
-        v[3] = {NX::float3(500, -500, 800)};
+        v[0] = {NX::float3(-500, 500, 0)};
+        v[1] = {NX::float3(-500, -500, 0)};
+        v[2] = {NX::float3(500, 500, 0)};
+        v[3] = {NX::float3(500, -500, 0)};
     }
     
     {//vbo
@@ -48,8 +48,8 @@ bool Bricks::Init(const char* vCmdLine[], const int iCmdCount, const int iWidth,
         MVPLocation  = glGetUniformLocation(m_pg->GetId(), "MVP");
     }
     
-    camera.MoveUp(-200);
-    camera.MoveRight(-200);
+//    camera.MoveUp(-200);
+//    camera.MoveRight(-200);
     return true;
 }
 
@@ -58,6 +58,9 @@ void Bricks::Tick(const double DeltaTime){
     //camera.RotateByUpDownAxis(DeltaTime / 10);
 }
 
+#include <iostream>
+using namespace std;
+
 void Bricks::Render(){
     glClearColor(0.3, 0.3, 0.3, 0);
     glClearDepth(1.0f);
@@ -65,6 +68,11 @@ void Bricks::Render(){
     glEnable(GL_DEPTH_TEST);
     
     auto MVP = camera.GetWatchMatrix();
+    auto xx = camera.m_vLooked - camera.m_vEye;
+    for(int i = 0; i < 3; ++i){
+        cout << " " << xx.v[i];
+    }
+    cout << endl;
     glUniformMatrix4fv(MVPLocation, 1, GL_TRUE, &MVP[0][0]);
     
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, BUFFER_OFFSET(0));

@@ -34,7 +34,7 @@ namespace NX {
         virtual void RotateByAxis(const float3 &axis, const float radius);
     public:
         float4x4  GetMVMatrix();
-    private:
+    public:
         float3                  m_vRight;
         float3                  m_vUp;
         float3                  m_vFront;

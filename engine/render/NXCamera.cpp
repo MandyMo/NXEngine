@@ -55,15 +55,15 @@ void NX::MVMatrixController::MoveByAxis(const float3 &vDirection, const float Di
 }
 
 void NX::MVMatrixController::RotateByFrontBackAxis(const float radius){
-    RotateByAxis(m_vFront, radius);
+    RotateByAxis(NX::float3(0, 0, 1), radius);
 }
 
 void NX::MVMatrixController::RotateByLeftRightAxis(const float radius){
-    RotateByAxis(m_vRight, radius);
+    RotateByAxis(NX::float3(1, 0, 0), radius);
 }
 
 void NX::MVMatrixController::RotateByUpDownAxis(const float radius){
-    RotateByAxis(m_vUp, radius);
+    RotateByAxis(NX::float3(0, 1, 0), radius);
 }
 
 static inline void Rotate(const NX::float3x3 &TranslateMatrix, NX::float3 &Rotated){
@@ -76,8 +76,9 @@ void NX::MVMatrixController::RotateByAxis(const float3 &axis, const float radius
     Rotate(RotateMatrix, m_vRight);
     Rotate(RotateMatrix, m_vUp);
     Rotate(RotateMatrix, m_vFront);
-    Rotate(RotateMatrix, m_vEye);
+    m_vLooked -= m_vEye;
     Rotate(RotateMatrix, m_vLooked);
+    m_vLooked += m_vEye;
 }
 
 NX::float4x4  NX::MVMatrixController::GetMVMatrix(){
