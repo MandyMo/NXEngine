@@ -706,6 +706,12 @@
 		6C54CC941C7AC78A00FD2F7D /* NXEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NXEngine; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C54CCB21C7AC7AE00FD2F7D /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6C54CCBB1C7AC8B000FD2F7D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		6C65F84F1CC47A2D005506C0 /* TSDemo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TSDemo.cpp; sourceTree = "<group>"; };
+		6C65F8501CC47A2D005506C0 /* TSDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSDemo.h; sourceTree = "<group>"; };
+		6C65F8511CC47A2D005506C0 /* TSDemoFS.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TSDemoFS.glsl; sourceTree = "<group>"; };
+		6C65F8521CC47A2D005506C0 /* TSDemoTCS.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TSDemoTCS.glsl; sourceTree = "<group>"; };
+		6C65F8531CC47A2D005506C0 /* TSDemoTES.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TSDemoTES.glsl; sourceTree = "<group>"; };
+		6C65F8541CC47A2D005506C0 /* TSDemoVS.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TSDemoVS.glsl; sourceTree = "<group>"; };
 		6C7A68401C86FA90005BC4C7 /* skybox2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox2.png; path = image/skybox2.png; sourceTree = SOURCE_ROOT; };
 		6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointSize.cpp; sourceTree = "<group>"; };
 		6C8BD5A31C96B3E700BBD775 /* PointSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointSize.h; sourceTree = "<group>"; };
@@ -2000,6 +2006,20 @@
 			);
 			name = FrameWorks;
 			sourceTree = "<group>";
+		};
+		6C65F84E1CC47A2D005506C0 /* Chap9 */ = {
+			isa = PBXGroup;
+			children = (
+				6C65F84F1CC47A2D005506C0 /* TSDemo.cpp */,
+				6C65F8501CC47A2D005506C0 /* TSDemo.h */,
+				6C65F8511CC47A2D005506C0 /* TSDemoFS.glsl */,
+				6C65F8521CC47A2D005506C0 /* TSDemoTCS.glsl */,
+				6C65F8531CC47A2D005506C0 /* TSDemoTES.glsl */,
+				6C65F8541CC47A2D005506C0 /* TSDemoVS.glsl */,
+			);
+			name = Chap9;
+			path = RedBook/Chap9;
+			sourceTree = SOURCE_ROOT;
 		};
 		6C8BD5A11C96B3D100BBD775 /* Chap3 */ = {
 			isa = PBXGroup;
@@ -3412,6 +3432,7 @@
 				6C53C2C31CA3E565007D5F33 /* Chap6 */,
 				6C4F70501CABF9A100C44153 /* Chap7 */,
 				6C4BB66D1CB538E700ABC075 /* Chap8 */,
+				6C65F84E1CC47A2D005506C0 /* Chap9 */,
 			);
 			name = redbook;
 			sourceTree = "<group>";
