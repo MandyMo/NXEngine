@@ -4,9 +4,17 @@
 NX::MVMatrixController::MVMatrixController(const float3 &Eye, const float3 &Looked, const float3 &Up){
     m_vLooked = Looked;
     m_vEye    = Eye;
+    m_vUp     = Up;
+    CaculateAxis();
+}
+
+void NX::MVMatrixController::CaculateAxis(){
     m_vFront  = m_vLooked - m_vEye;
-    m_vRight  = NX::Cross(Up, m_vFront);
+    m_vRight  = NX::Cross(m_vUp, m_vFront);
     m_vUp     = NX::Cross(m_vFront, m_vRight);
+    Normalize(m_vUp);
+    Normalize(m_vFront);
+    Normalize(m_vRight);
 }
 
 NX::MVMatrixController::~MVMatrixController(){
@@ -38,7 +46,7 @@ void NX::MVMatrixController::MoveUp(const float PosDiff){
 }
 
 void NX::MVMatrixController::MoveByVector(const float3 &vTranslate){
-    m_vEye   += vTranslate;
+    m_vEye    += vTranslate;
     m_vLooked += vTranslate;
 }
 
@@ -73,12 +81,11 @@ static inline void Rotate(const NX::float3x3 &TranslateMatrix, NX::float3 &Rotat
 
 void NX::MVMatrixController::RotateByAxis(const float3 &axis, const float radius){
     NX::float3x3 RotateMatrix = NX::RotateAix<float, 3, float>(axis, radius);
-    Rotate(RotateMatrix, m_vRight);
     Rotate(RotateMatrix, m_vUp);
-    Rotate(RotateMatrix, m_vFront);
     m_vLooked -= m_vEye;
     Rotate(RotateMatrix, m_vLooked);
     m_vLooked += m_vEye;
+    CaculateAxis();
 }
 
 NX::float4x4  NX::MVMatrixController::GetMVMatrix(){
