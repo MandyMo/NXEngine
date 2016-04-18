@@ -31,6 +31,7 @@
 		6C53C2CC1CA41415007D5F33 /* ProxyTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C53C2CA1CA41415007D5F33 /* ProxyTexture.cpp */; };
 		6C54CCB91C7AC7AE00FD2F7D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C54CCB21C7AC7AE00FD2F7D /* main.cpp */; };
 		6C54CCBC1C7AC8B000FD2F7D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C54CCBB1C7AC8B000FD2F7D /* OpenGL.framework */; };
+		6C65F8551CC47ACD005506C0 /* TSDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F84F1CC47A2D005506C0 /* TSDemo.cpp */; };
 		6C8BD5A41C96B3E700BBD775 /* PointSize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */; };
 		6C966F661CA9524400E4A9BC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C966F641CA9524400E4A9BC /* SkyBox.cpp */; };
 		6CB884621C97BC760022CB52 /* DrawInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB884601C97BC760022CB52 /* DrawInstance.cpp */; };
@@ -3702,6 +3703,7 @@
 				6CD71BE61C83EA0B00910E57 /* dsp.upsampling_sse2.c in Sources */,
 				6CD71ABD1C83EA0B00910E57 /* PluginBMP.cpp in Sources */,
 				6CD71B681C83EA0B00910E57 /* tcd.c in Sources */,
+				6C65F8551CC47ACD005506C0 /* TSDemo.cpp in Sources */,
 				6CD71B141C83EA0B00910E57 /* jdmarker.c in Sources */,
 				6CD71ABA1C83EA0B00910E57 /* NNQuantizer.cpp in Sources */,
 				6CD71BB81C83EA0B00910E57 /* dec.frame.c in Sources */,

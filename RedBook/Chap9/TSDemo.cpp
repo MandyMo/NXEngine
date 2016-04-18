@@ -121,7 +121,7 @@ bool TSDemo::Init(const char* vCmdLine[], const int iCmdCount, const int iWidth,
 
 void TSDemo::Tick(const double DeltaTime){
     Application::Tick(DeltaTime);
-    camera.RotateByUpDownAxis(DeltaTime / 10);
+    //camera.RotateByUpDownAxis(DeltaTime / 10);
 }
 
 void TSDemo::Render(){

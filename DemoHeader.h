@@ -34,5 +34,6 @@
 #include "../redBook/Chap8/BricksSphere.h"
 #include "../redBook/Chap8/NormalTexture.h"
 
+#include "../redbook/Chap9/TSDemo.h"
 
 #endif /* __ZX_OPENGL_DEMO_HEADER_H__ */

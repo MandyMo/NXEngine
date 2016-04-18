@@ -230,7 +230,7 @@ Matrix<T, Scale, Scale> RotateY(const T radius){
     T CosValue(std::cos(radius));
     T SinValue(std::sin(radius));
     result.m_Element[Scale - 1][Scale - 1] = T(1), result.m_Element[1][1] = T(1);
-    result.m_Element[0][0] = CosValue, result.m_Element[0][2] = SinValue;
+    result.m_Element[0][0] = CosValue, result.m_Element[0][2]  = SinValue;
     result.m_Element[2][0] = -SinValue, result.m_Element[2][2] = CosValue;
     return result;
 }
@@ -242,8 +242,8 @@ Matrix<T, Scale, Scale> RotateZ(const T radius){
     T CosValue(std::cos(radius));
     T SinValue(std::sin(radius));
     result.m_Element[Scale - 1][Scale - 1] = T(1), result.m_Element[2][2] = T(1);
-    result.m_Element[0][0] = CosValue, result.m_Element[0][1] = SinValue;
-    result.m_Element[1][0] = -SinValue, result.m_Element[1][1] = CosValue;
+    result.m_Element[0][0] = CosValue, result.m_Element[0][1] = -SinValue;
+    result.m_Element[1][0] = SinValue, result.m_Element[1][1] = CosValue;
     return result;
 }
 
