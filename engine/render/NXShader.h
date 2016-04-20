@@ -40,6 +40,7 @@ namespace NX {
         }
     private:
         std::string ReadShaderSource();
+        const char* GetSaderTypeDescription() const;
     private:
         GLuint         m_uShaderId;
         GLenum         m_uShaderType;

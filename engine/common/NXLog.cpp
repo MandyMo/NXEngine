@@ -59,6 +59,8 @@ std::string NX::Log::GetTimeDescription(){
     return buf;
 }
 
+#undef FORMAT_MSG_LOG_2016_02_22
+
 namespace NX {
     Log& glb_GetLog(){
         static Log log("./engine/render/NXEngine.txt");
