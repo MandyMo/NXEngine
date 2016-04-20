@@ -36,4 +36,5 @@
 
 #include "../redbook/Chap9/TSDemo.h"
 #include "../redbook/chap9/BezierLine.h"
+#include "../redbook/chap9/TCSphere.h"
 #endif /* __ZX_OPENGL_DEMO_HEADER_H__ */

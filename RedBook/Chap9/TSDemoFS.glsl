@@ -22,6 +22,6 @@ vec4 CaculateColor(){
     float v = fract(position.y);
 
     FragColor = vec4(u, v, u * v, 1.0f);
-
+    FragColor = vec4(0.7);
     return FragColor;
 }

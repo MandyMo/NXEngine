@@ -131,10 +131,13 @@ void TSDemo::Render(){
     glEnable(GL_DEPTH_TEST);
     
     glPatchParameteri(GL_PATCH_VERTICES, 3);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     auto MVP = camera.GetWatchMatrix();
     glUniformMatrix4fv(MVPLocation, 1, GL_TRUE, &MVP[0][0]);
-    glDrawArrays(GL_PATCHES, 0, 24);
+    glDrawArrays(GL_PATCHES, 0, 3);
+    
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glDrawArrays(GL_PATCHES, 0, 3);
 }
 
 void TSDemo::OnCursorPositionEvent(double xByScreen, double yByScreen){
