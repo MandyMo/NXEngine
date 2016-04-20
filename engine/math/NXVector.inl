@@ -44,8 +44,8 @@ inline RT Dot (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
 
 template<typename T, typename U, typename RT = T>
 inline vector<RT, 3> Cross(const vector<T, 3> &lhs, const vector<U, 3> &rhs){
-    return vector<RT, 3>(lhs.v[1] * rhs.v[2] + lhs.v[2] * rhs.v[1],
-                         lhs.v[2] * rhs.v[0] - rhs.v[2] * lhs.v[0],
+    return vector<RT, 3>(lhs.v[1] * rhs.v[2] - lhs.v[2] * rhs.v[1],
+                         lhs.v[2] * rhs.v[0] - lhs.v[0] * rhs.v[2],
                          lhs.v[0] * rhs.v[1] - rhs.v[0] * lhs.v[1]);
 }
 

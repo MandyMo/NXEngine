@@ -142,8 +142,8 @@ void TSDemo::OnCursorPositionEvent(double xByScreen, double yByScreen){
     static double yPrePos = yByScreen;
     if(State == 1){
         camera.RotateByUpDownAxis((xByScreen - xPrePos) * 0.001);
-    }else if(State == 2){
         camera.RotateByLeftRightAxis((yByScreen - yPrePos) * 0.001);
+    }else if(State == 2){
     }
     xPrePos = xByScreen;
     yPrePos = yByScreen;
@@ -172,5 +172,9 @@ void TSDemo::OnKeyEvent(int key, int scancode, int action, int mods){
         camera.MoveFront(50);
     }else if(key == GLFW_KEY_S){
         camera.MoveBack(50);
+    }else if(key == GLFW_KEY_PAGE_UP){
+        camera.RotateByLeftRightAxis(DG2RD(15));
+    }else if(key == GLFW_KEY_PAGE_DOWN){
+        camera.RotateByLeftRightAxis(-DG2RD(15));
     }
 }

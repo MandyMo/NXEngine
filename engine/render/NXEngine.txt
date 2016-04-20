@@ -1,8 +1,8 @@
-[2016-04-18 11:45:34]  log file [./engine/render/NXEngine.txt] open.
-[2016-04-18 11:45:34]  OpenGL version supported by this platform (Intel Inc.)
-[2016-04-18 11:45:34]  compile shader [./redBook/Chap9/TSDemoVS.glsl] with compile msg [Compile succeed]
-[2016-04-18 11:45:34]  compile shader [./redBook/Chap9/TSDemoFS.glsl] with compile msg [Compile succeed]
-[2016-04-18 11:45:34]  compile shader [./redbook/Chap9/TSDemoTCS.glsl] with compile msg [Compile succeed]
-[2016-04-18 11:45:34]  compile shader [./redbook/chap9/TSDemoTES.glsl] with compile msg [Compile succeed]
-[2016-04-18 11:45:34]  Link program with link msg [link succeed]
-[2016-04-18 11:50:26]  log file [./engine/render/NXEngine.txt] closed.
+[2016-04-20 15:45:28]  log file [./engine/render/NXEngine.txt] open.
+[2016-04-20 15:45:28]  OpenGL version supported by this platform (Intel Inc.)
+[2016-04-20 15:45:28]  compile shader [./redBook/Chap9/TSDemoVS.glsl] with compile msg [Compile succeed]
+[2016-04-20 15:45:28]  compile shader [./redBook/Chap9/TSDemoFS.glsl] with compile msg [Compile succeed]
+[2016-04-20 15:45:28]  compile shader [./redbook/Chap9/TSDemoTCS.glsl] with compile msg [Compile succeed]
+[2016-04-20 15:45:28]  compile shader [./redbook/chap9/TSDemoTES.glsl] with compile msg [Compile succeed]
+[2016-04-20 15:45:28]  Link program with link msg [link succeed]
+[2016-04-20 15:45:54]  log file [./engine/render/NXEngine.txt] closed.
