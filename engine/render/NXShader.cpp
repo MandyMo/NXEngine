@@ -43,7 +43,7 @@ std::string NX::Shader::ReadShaderSource(){
     std::string strShaderSrc;
     while(std::getline(in, line)){
         line          += "\r\n";
-        strShaderSrc += line;
+        strShaderSrc  += line;
     }
     in.close();
     return strShaderSrc;;

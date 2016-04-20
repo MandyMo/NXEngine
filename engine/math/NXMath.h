@@ -27,6 +27,17 @@ namespace NX {
     inline int    RandIntInRange(int left, int right);
     inline float  RandUnitFloat();//rand float with (0,1)
     inline float  RandFloatInRange(float left, float right);
+    
+    //ComparedValue >= NewValue
+    template<typename T, typename U>
+    T ClampFloor(T& ComparedValue, const U NewValue);
+    //ComparedValue <= NewValue
+    template<typename T, typename U>
+    T ClampCeil(T& ComparedValue, const U NewValue);
+    //FloorValue <= CompraedValue <= CeilValue
+    template<typename T, typename U, typename X>
+    T Clamp(T& ComparedValue, const U FloorValue, const X CeilValue);
+    
 #include "NXMath.inl"
 }
 

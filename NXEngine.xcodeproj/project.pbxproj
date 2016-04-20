@@ -32,6 +32,7 @@
 		6C54CCB91C7AC7AE00FD2F7D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C54CCB21C7AC7AE00FD2F7D /* main.cpp */; };
 		6C54CCBC1C7AC8B000FD2F7D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C54CCBB1C7AC8B000FD2F7D /* OpenGL.framework */; };
 		6C65F8551CC47ACD005506C0 /* TSDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F84F1CC47A2D005506C0 /* TSDemo.cpp */; };
+		6C65F8591CC77053005506C0 /* BezierLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F8571CC77053005506C0 /* BezierLine.cpp */; };
 		6C8BD5A41C96B3E700BBD775 /* PointSize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */; };
 		6C966F661CA9524400E4A9BC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C966F641CA9524400E4A9BC /* SkyBox.cpp */; };
 		6CB884621C97BC760022CB52 /* DrawInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB884601C97BC760022CB52 /* DrawInstance.cpp */; };
@@ -713,6 +714,12 @@
 		6C65F8521CC47A2D005506C0 /* TSDemoTCS.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TSDemoTCS.glsl; sourceTree = "<group>"; };
 		6C65F8531CC47A2D005506C0 /* TSDemoTES.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TSDemoTES.glsl; sourceTree = "<group>"; };
 		6C65F8541CC47A2D005506C0 /* TSDemoVS.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TSDemoVS.glsl; sourceTree = "<group>"; };
+		6C65F8571CC77053005506C0 /* BezierLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BezierLine.cpp; sourceTree = "<group>"; };
+		6C65F8581CC77053005506C0 /* BezierLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierLine.h; sourceTree = "<group>"; };
+		6C65F85A1CC7706F005506C0 /* BezierLineVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BezierLineVS.glsl; sourceTree = "<group>"; };
+		6C65F85B1CC7707B005506C0 /* BezierLineFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BezierLineFS.glsl; sourceTree = "<group>"; };
+		6C65F85C1CC77086005506C0 /* BezierLineTCS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BezierLineTCS.glsl; sourceTree = "<group>"; };
+		6C65F85D1CC77091005506C0 /* BezierLineTES.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BezierLineTES.glsl; sourceTree = "<group>"; };
 		6C7A68401C86FA90005BC4C7 /* skybox2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox2.png; path = image/skybox2.png; sourceTree = SOURCE_ROOT; };
 		6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointSize.cpp; sourceTree = "<group>"; };
 		6C8BD5A31C96B3E700BBD775 /* PointSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointSize.h; sourceTree = "<group>"; };
@@ -2017,6 +2024,12 @@
 				6C65F8521CC47A2D005506C0 /* TSDemoTCS.glsl */,
 				6C65F8531CC47A2D005506C0 /* TSDemoTES.glsl */,
 				6C65F8541CC47A2D005506C0 /* TSDemoVS.glsl */,
+				6C65F8571CC77053005506C0 /* BezierLine.cpp */,
+				6C65F8581CC77053005506C0 /* BezierLine.h */,
+				6C65F85A1CC7706F005506C0 /* BezierLineVS.glsl */,
+				6C65F85B1CC7707B005506C0 /* BezierLineFS.glsl */,
+				6C65F85C1CC77086005506C0 /* BezierLineTCS.glsl */,
+				6C65F85D1CC77091005506C0 /* BezierLineTES.glsl */,
 			);
 			name = Chap9;
 			path = RedBook/Chap9;
@@ -4014,6 +4027,7 @@
 				6CD71C3D1C83EA0B00910E57 /* ImfFloatAttribute.cpp in Sources */,
 				6CD71B551C83EA0B00910E57 /* cio.c in Sources */,
 				6CD71B001C83EA0B00910E57 /* jcinit.c in Sources */,
+				6C65F8591CC77053005506C0 /* BezierLine.cpp in Sources */,
 				6CD71AA41C83EA0B00910E57 /* Conversion16_565.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

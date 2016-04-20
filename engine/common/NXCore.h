@@ -124,4 +124,5 @@ namespace NX{
     static const double DOUBLE_EPISION  = 0.0000001;
 }
 
+
 #endif
