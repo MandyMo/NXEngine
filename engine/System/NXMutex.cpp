@@ -16,6 +16,10 @@ NX::Mutex::~Mutex(){
     //empty here
 }
 
+void NX::Mutex::Destroy(__in Mutex * const pMutex){
+    delete pMutex;
+}
+
 NX::MutexWraper::MutexWraper(Mutex *pMutex):m_pMutex(pMutex){
     assert(m_pMutex);
     m_pMutex->Enter();

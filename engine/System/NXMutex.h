@@ -15,6 +15,7 @@ namespace NX {
         virtual ~Mutex() = 0;
     public:
         static Mutex* Create();
+        static void Destroy(__in Mutex * const pMutex);
     public:
         /**
          *  Fetch lock
