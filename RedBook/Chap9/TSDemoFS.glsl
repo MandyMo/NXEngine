@@ -13,7 +13,7 @@ vec4 CaculateColor();
 
 void main() {
     FragColor = vec4(1.0);
-    CaculateColor();
+    FragColor = CaculateColor();
 }
 
 vec4 CaculateColor(){
@@ -23,5 +23,5 @@ vec4 CaculateColor(){
 
     FragColor = vec4(u, v, u * v, 1.0f);
     FragColor = vec4(0.7);
-    return FragColor;
+    return vec4(1.0f , 0, 0, 1);
 }

@@ -34,13 +34,11 @@ namespace NX {
          *  编译shader,shader文件和类型由构造函数给出
          */
         virtual std::string Compile();
-    public:
+        std::string ReadShaderSource();
+        const char* GetSaderTypeDescription() const;
         operator GLuint(){
             return m_uShaderId;
         }
-    private:
-        std::string ReadShaderSource();
-        const char* GetSaderTypeDescription() const;
     private:
         GLuint         m_uShaderId;
         GLenum         m_uShaderType;

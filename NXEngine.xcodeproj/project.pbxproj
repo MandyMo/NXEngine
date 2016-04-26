@@ -34,6 +34,9 @@
 		6C65F8551CC47ACD005506C0 /* TSDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F84F1CC47A2D005506C0 /* TSDemo.cpp */; };
 		6C65F8591CC77053005506C0 /* BezierLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F8571CC77053005506C0 /* BezierLine.cpp */; };
 		6C65F8601CC78D6B005506C0 /* TCSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F85E1CC78D6B005506C0 /* TCSphere.cpp */; };
+		6C65F8F11CCE269A005506C0 /* GSDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F8EF1CCE269A005506C0 /* GSDemo.cpp */; };
+		6C65F8F91CCF098C005506C0 /* NXShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F8F71CCF098C005506C0 /* NXShaderManager.cpp */; };
+		6C65F8FD1CCF1115005506C0 /* NXMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F8FB1CCF1115005506C0 /* NXMutex.cpp */; };
 		6C8BD5A41C96B3E700BBD775 /* PointSize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */; };
 		6C966F661CA9524400E4A9BC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C966F641CA9524400E4A9BC /* SkyBox.cpp */; };
 		6CB884621C97BC760022CB52 /* DrawInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB884601C97BC760022CB52 /* DrawInstance.cpp */; };
@@ -727,6 +730,17 @@
 		6C65F8621CC78E09005506C0 /* TSSphereTCS.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TSSphereTCS.glsl; sourceTree = "<group>"; };
 		6C65F8631CC78E09005506C0 /* TSSphereTES.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TSSphereTES.glsl; sourceTree = "<group>"; };
 		6C65F8641CC78E09005506C0 /* TSSphereVS.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TSSphereVS.glsl; sourceTree = "<group>"; };
+		6C65F8EF1CCE269A005506C0 /* GSDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSDemo.cpp; sourceTree = "<group>"; };
+		6C65F8F01CCE269A005506C0 /* GSDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSDemo.h; sourceTree = "<group>"; };
+		6C65F8F21CCE284F005506C0 /* GSDemoVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GSDemoVS.glsl; sourceTree = "<group>"; };
+		6C65F8F31CCE2865005506C0 /* GSDemoTCS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GSDemoTCS.glsl; sourceTree = "<group>"; };
+		6C65F8F41CCE2885005506C0 /* GSDemoTES.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GSDemoTES.glsl; sourceTree = "<group>"; };
+		6C65F8F51CCE2893005506C0 /* GSDemoFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GSDemoFS.glsl; sourceTree = "<group>"; };
+		6C65F8F61CCE28D4005506C0 /* GSDemoGS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GSDemoGS.glsl; sourceTree = "<group>"; };
+		6C65F8F71CCF098C005506C0 /* NXShaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXShaderManager.cpp; sourceTree = "<group>"; };
+		6C65F8F81CCF098C005506C0 /* NXShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXShaderManager.h; sourceTree = "<group>"; };
+		6C65F8FB1CCF1115005506C0 /* NXMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXMutex.cpp; sourceTree = "<group>"; };
+		6C65F8FC1CCF1115005506C0 /* NXMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXMutex.h; sourceTree = "<group>"; };
 		6C7A68401C86FA90005BC4C7 /* skybox2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox2.png; path = image/skybox2.png; sourceTree = SOURCE_ROOT; };
 		6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointSize.cpp; sourceTree = "<group>"; };
 		6C8BD5A31C96B3E700BBD775 /* PointSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointSize.h; sourceTree = "<group>"; };
@@ -1760,13 +1774,6 @@
 			path = RedBook/Chap4;
 			sourceTree = "<group>";
 		};
-		6C335A1F1CB79250004B32B9 /* device */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = device;
-			sourceTree = "<group>";
-		};
 		6C335A291CB8FB63004B32B9 /* image */ = {
 			isa = PBXGroup;
 			children = (
@@ -2005,7 +2012,7 @@
 		6C54CCA71C7AC7AE00FD2F7D /* NXEngine */ = {
 			isa = PBXGroup;
 			children = (
-				6C335A1F1CB79250004B32B9 /* device */,
+				6C65F8FA1CCF10E4005506C0 /* system */,
 				6CCAE3FB1C7C4F2000D090CB /* common */,
 				6CCAE3F01C7C4EC800D090CB /* render */,
 				6CCAE3EB1C7C4EC400D090CB /* math */,
@@ -2037,9 +2044,9 @@
 				6C65F8541CC47A2D005506C0 /* TSDemoVS.glsl */,
 				6C65F8571CC77053005506C0 /* BezierLine.cpp */,
 				6C65F8581CC77053005506C0 /* BezierLine.h */,
-				6C65F85A1CC7706F005506C0 /* BezierLineVS.glsl */,
 				6C65F85B1CC7707B005506C0 /* BezierLineFS.glsl */,
 				6C65F85C1CC77086005506C0 /* BezierLineTCS.glsl */,
+				6C65F85A1CC7706F005506C0 /* BezierLineVS.glsl */,
 				6C65F85D1CC77091005506C0 /* BezierLineTES.glsl */,
 				6C65F85E1CC78D6B005506C0 /* TCSphere.cpp */,
 				6C65F85F1CC78D6B005506C0 /* TCSphere.h */,
@@ -2047,6 +2054,31 @@
 			name = Chap9;
 			path = RedBook/Chap9;
 			sourceTree = SOURCE_ROOT;
+		};
+		6C65F8EE1CCE267A005506C0 /* Chap10 */ = {
+			isa = PBXGroup;
+			children = (
+				6C65F8EF1CCE269A005506C0 /* GSDemo.cpp */,
+				6C65F8F01CCE269A005506C0 /* GSDemo.h */,
+				6C65F8F21CCE284F005506C0 /* GSDemoVS.glsl */,
+				6C65F8F31CCE2865005506C0 /* GSDemoTCS.glsl */,
+				6C65F8F41CCE2885005506C0 /* GSDemoTES.glsl */,
+				6C65F8F51CCE2893005506C0 /* GSDemoFS.glsl */,
+				6C65F8F61CCE28D4005506C0 /* GSDemoGS.glsl */,
+			);
+			name = Chap10;
+			path = RedBook/Chap10;
+			sourceTree = SOURCE_ROOT;
+		};
+		6C65F8FA1CCF10E4005506C0 /* system */ = {
+			isa = PBXGroup;
+			children = (
+				6C65F8FB1CCF1115005506C0 /* NXMutex.cpp */,
+				6C65F8FC1CCF1115005506C0 /* NXMutex.h */,
+			);
+			name = system;
+			path = System;
+			sourceTree = "<group>";
 		};
 		6C8BD5A11C96B3D100BBD775 /* Chap3 */ = {
 			isa = PBXGroup;
@@ -2115,6 +2147,8 @@
 				6C4F700D1CAABE3800C44153 /* NXMipMapTexture.h */,
 				6C335A1C1CB66EBF004B32B9 /* NXCamera.cpp */,
 				6C335A1D1CB66EBF004B32B9 /* NXCamera.h */,
+				6C65F8F71CCF098C005506C0 /* NXShaderManager.cpp */,
+				6C65F8F81CCF098C005506C0 /* NXShaderManager.h */,
 			);
 			path = render;
 			sourceTree = "<group>";
@@ -3460,6 +3494,7 @@
 				6C4F70501CABF9A100C44153 /* Chap7 */,
 				6C4BB66D1CB538E700ABC075 /* Chap8 */,
 				6C65F84E1CC47A2D005506C0 /* Chap9 */,
+				6C65F8EE1CCE267A005506C0 /* Chap10 */,
 			);
 			name = redbook;
 			sourceTree = "<group>";
@@ -3740,6 +3775,7 @@
 				6CD71B2D1C83EA0B00910E57 /* rdcolmap.c in Sources */,
 				6CD71B9E1C83EA0B00910E57 /* tif_luv.c in Sources */,
 				6CD71C4E1C83EA0B00910E57 /* ImfMatrixAttribute.cpp in Sources */,
+				6C65F8F91CCF098C005506C0 /* NXShaderManager.cpp in Sources */,
 				6CD71BAA1C83EA0B00910E57 /* tif_strip.c in Sources */,
 				6CD71C341C83EA0B00910E57 /* ImfDeepTiledInputFile.cpp in Sources */,
 				6CD71C181C83EA0B00910E57 /* half.cpp in Sources */,
@@ -3892,6 +3928,7 @@
 				6CD71AD01C83EA0B00910E57 /* PluginPICT.cpp in Sources */,
 				6CD71B601C83EA0B00910E57 /* opj_clock.c in Sources */,
 				6CD71AE71C83EA0B00910E57 /* BSplineRotate.cpp in Sources */,
+				6C65F8FD1CCF1115005506C0 /* NXMutex.cpp in Sources */,
 				6CD71B561C83EA0B00910E57 /* dwt.c in Sources */,
 				6CD71C321C83EA0B00910E57 /* ImfDeepScanLineOutputFile.cpp in Sources */,
 				6CD71BEF1C83EA0B00910E57 /* enc.cost.c in Sources */,
@@ -3942,6 +3979,7 @@
 				6CD71C711C83EA0B00910E57 /* ImfTileOffsets.cpp in Sources */,
 				6CD71C731C83EA0B00910E57 /* ImfTimeCodeAttribute.cpp in Sources */,
 				6CD71B761C83EA0B00910E57 /* pngset.c in Sources */,
+				6C65F8F11CCE269A005506C0 /* GSDemo.cpp in Sources */,
 				6CD71B651C83EA0B00910E57 /* t1.c in Sources */,
 				6CD71B1E1C83EA0B00910E57 /* jidctflt.c in Sources */,
 				6CD71AD81C83EA0B00910E57 /* PluginTIFF.cpp in Sources */,

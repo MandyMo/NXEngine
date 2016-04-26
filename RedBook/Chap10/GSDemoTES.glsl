@@ -3,7 +3,7 @@
 layout(quads, equal_spacing) in;
 
 uniform mat4 MVP;
-out vec3 Color;
+
 
 void main(){
     vec4 p0 = gl_in[0].gl_Position;
@@ -16,6 +16,6 @@ void main(){
     vec4 PosB = (1 - v) * p1 + v * p2;
     gl_Position = (1 - u) * PosA + u * PosB;
     gl_Position.w = 1.0f;
-    Color = gl_Position.xyz;
+
     gl_Position = MVP * gl_Position;
 }

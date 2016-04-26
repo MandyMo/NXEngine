@@ -1,14 +1,14 @@
-#include "BezierLine.h"
+#include "GSDemo.h"
 
 static unsigned int State;
 
-BezierLine::BezierLine():camera(NX::float3(0, 0, 0), NX::float3(0, 0, 1), NX::float3(0, 1, 0), 90, 1, 1, 3000){
+GSDemo::GSDemo():camera(NX::float3(0, 0, 0), NX::float3(0, 0, 1), NX::float3(0, 1, 0), 90, 1, 1, 3000){
 }
 
-BezierLine::~BezierLine(){
+GSDemo::~GSDemo(){
 }
 
-bool BezierLine::Init(const char* vCmdLine[], const int iCmdCount, const int iWidth, const int iHeight){
+bool GSDemo::Init(const char* vCmdLine[], const int iCmdCount, const int iWidth, const int iHeight){
     if(!NX::Application::Init(vCmdLine, iCmdCount, iWidth, iHeight)){
         return false;
     }
@@ -16,7 +16,7 @@ bool BezierLine::Init(const char* vCmdLine[], const int iCmdCount, const int iWi
         v[0] = {NX::float3(-400, -400, 800)};
         v[1] = {NX::float3(400, 400, 400)};
         v[2] = {NX::float3(400, -400, 600)};
-        v[3] = {NX::float3(-400, 400, 450)};
+        v[3] = {NX::float3(-400, 400, 900)};
     }
     
     {//vbo
@@ -37,10 +37,11 @@ bool BezierLine::Init(const char* vCmdLine[], const int iCmdCount, const int iWi
     
     {//shader
         m_pg = new NX::Program();
-        m_pg->AddShader("./redBook/Chap9/BezierLineVS.glsl", GL_VERTEX_SHADER);
-        m_pg->AddShader("./redBook/Chap9/BezierLineFS.glsl", GL_FRAGMENT_SHADER);
-        m_pg->AddShader("./redbook/Chap9/BezierLineTCS.glsl", GL_TESS_CONTROL_SHADER);
-        m_pg->AddShader("./redbook/chap9/BezierLineTES.glsl", GL_TESS_EVALUATION_SHADER);
+        m_pg->AddShader("./redBook/Chap10/GSDemoVS.glsl", GL_VERTEX_SHADER);
+        m_pg->AddShader("./redBook/Chap10/GSDemoFS.glsl", GL_FRAGMENT_SHADER);
+        m_pg->AddShader("./redbook/Chap10/GSDemoTCS.glsl", GL_TESS_CONTROL_SHADER);
+        m_pg->AddShader("./redbook/chap10/GSDemoTES.glsl", GL_TESS_EVALUATION_SHADER);
+        m_pg->AddShader("./redbook/chap10/GSDemoGS.glsl", GL_GEOMETRY_SHADER);
         m_pg->LinkProgram();
         m_pg->UseProgram();
         MVPLocation  = glGetUniformLocation(m_pg->GetId(), "MVP");
@@ -51,11 +52,11 @@ bool BezierLine::Init(const char* vCmdLine[], const int iCmdCount, const int iWi
     return true;
 }
 
-void BezierLine::Tick(const double DeltaTime){
+void GSDemo::Tick(const double DeltaTime){
     Application::Tick(DeltaTime);
 }
 
-void BezierLine::Render(){
+void GSDemo::Render(){
     glClearColor(0.3, 0.3, 0.3, 0);
     glClearDepth(1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -67,9 +68,10 @@ void BezierLine::Render(){
     glUniformMatrix4fv(MVPLocation, 1, GL_TRUE, &MVP[0][0]);
     glUniform1i(OutLocation, OutValue);
     glDrawArrays(GL_PATCHES, 0, 4);
+    //glDrawArrays(GL_QUADS, 0, 4);
 }
 
-void BezierLine::OnCursorPositionEvent(double xByScreen, double yByScreen){
+void GSDemo::OnCursorPositionEvent(double xByScreen, double yByScreen){
     static double xPrePos = xByScreen;
     static double yPrePos = yByScreen;
     if(State == 1){
@@ -81,7 +83,7 @@ void BezierLine::OnCursorPositionEvent(double xByScreen, double yByScreen){
     yPrePos = yByScreen;
 }
 
-void BezierLine::OnKeyEvent(int key, int scancode, int action, int mods){
+void GSDemo::OnKeyEvent(int key, int scancode, int action, int mods){
     Application::OnKeyEvent(key, scancode, action, mods);
     if(action != GLFW_PRESS){
         State = 0;

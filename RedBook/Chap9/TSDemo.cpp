@@ -2,7 +2,7 @@
 
 static unsigned int State;
 
-TSDemo::TSDemo():camera(NX::float3(0, 0, -1000), NX::float3(0, 0, 1), NX::float3(0, 1, 0), 90, 1, 1, 3000){
+TSDemo::TSDemo():camera(NX::float3(0, 0, 0), NX::float3(0, 0, 1), NX::float3(0, 1, 0), 90, 1, 1, 3000){
 }
 
 TSDemo::~TSDemo(){
@@ -13,38 +13,44 @@ bool TSDemo::Init(const char* vCmdLine[], const int iCmdCount, const int iWidth,
         return false;
     }
     {//vertex data
-
-        v[0] = {NX::float3(0, 0, 400)};
-        v[1] = {NX::float3(0, 400, 0)};
-        v[2] = {NX::float3(400, 0, 0)};
         
-        v[3] = {NX::float3(0, 0, 400)};
-        v[4] = {NX::float3(0, 400, 0)};
-        v[5] = {NX::float3(-400, 0, 0)};
+        v[0] = {NX::float3(-400, 400, 500)};
+        v[1] = {NX::float3(-400, -400, 500)};
+        v[2] = {NX::float3(400, 400, 500)};
+        v[3] = {NX::float3(400, -400, 500)};
+//        v[0] = {NX::float3(0, 0, 400)};
+//        v[1] = {NX::float3(0, 400, 0)};
+//        v[2] = {NX::float3(400, 0, 0)};
+//        
+//        v[3] = {NX::float3(0, 0, 400)};
+//        v[4] = {NX::float3(0, 400, 0)};
+//        v[5] = {NX::float3(-400, 0, 0)};
+//        
+//        v[6] = {NX::float3(0, 0, 400)};
+//        v[7] = {NX::float3(0, -400, 0)};
+//        v[8] = {NX::float3(400, 0, 0)};
+//        
+//        v[9] = {NX::float3(0, 0, -400)};
+//        v[10] = {NX::float3(0, 400, 0)};
+//        v[11] = {NX::float3(400, 0, 0)};
+//        
+//        v[12] = {NX::float3(0, 0, -400)};
+//        v[13] = {NX::float3(0, -400, 0)};
+//        v[14] = {NX::float3(400, 0, 0)};
+//        
+//        v[15] = {NX::float3(0, 0, -400)};
+//        v[16] = {NX::float3(0, 400, 0)};
+//        v[17] = {NX::float3(-400, 0, 0)};
+//        
+//        v[18] = {NX::float3(0, 0, 400)};
+//        v[19] = {NX::float3(0, -400, 0)};
+//        v[20] = {NX::float3(-400, 0, 0)};
+//        
+//        v[21] = {NX::float3(0, 0, -400)};
+//        v[22] = {NX::float3(0, -400, 0)};
+//        v[23] = {NX::float3(-400, 0, 0)};
         
-        v[6] = {NX::float3(0, 0, 400)};
-        v[7] = {NX::float3(0, -400, 0)};
-        v[8] = {NX::float3(400, 0, 0)};
         
-        v[9] = {NX::float3(0, 0, -400)};
-        v[10] = {NX::float3(0, 400, 0)};
-        v[11] = {NX::float3(400, 0, 0)};
-        
-        v[12] = {NX::float3(0, 0, -400)};
-        v[13] = {NX::float3(0, -400, 0)};
-        v[14] = {NX::float3(400, 0, 0)};
-        
-        v[15] = {NX::float3(0, 0, -400)};
-        v[16] = {NX::float3(0, 400, 0)};
-        v[17] = {NX::float3(-400, 0, 0)};
-        
-        v[18] = {NX::float3(0, 0, 400)};
-        v[19] = {NX::float3(0, -400, 0)};
-        v[20] = {NX::float3(-400, 0, 0)};
-        
-        v[21] = {NX::float3(0, 0, -400)};
-        v[22] = {NX::float3(0, -400, 0)};
-        v[23] = {NX::float3(-400, 0, 0)};
         
 //        v[0] = {NX::float3(-400, 400, 400)};
 //        v[1] = {NX::float3(-400, -400,400)};
@@ -130,14 +136,14 @@ void TSDemo::Render(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     
-    glPatchParameteri(GL_PATCH_VERTICES, 3);
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPatchParameteri(GL_PATCH_VERTICES, 4);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     auto MVP = camera.GetWatchMatrix();
     glUniformMatrix4fv(MVPLocation, 1, GL_TRUE, &MVP[0][0]);
-    glDrawArrays(GL_PATCHES, 0, 3);
+    glDrawArrays(GL_PATCHES, 0, 4);
     
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glDrawArrays(GL_PATCHES, 0, 3);
+//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//    glDrawArrays(GL_PATCHES, 0, 3);
 }
 
 void TSDemo::OnCursorPositionEvent(double xByScreen, double yByScreen){

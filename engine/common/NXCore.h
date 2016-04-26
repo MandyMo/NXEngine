@@ -125,4 +125,9 @@ namespace NX{
 }
 
 
+//plat form is MAC OSX, then you should deine the flowing macro
+//#define PLATFORM_OSX 1
+
+
+
 #endif

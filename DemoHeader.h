@@ -6,7 +6,7 @@
 
 #ifndef __ZX_OPENGL_DEMO_HEADER_H__
 #define __ZX_OPENGL_DEMO_HEADER_H__
-
+#include "./engine/system/NXMutex.h"
 
 #include "../redbook/chap1/AppChap1_1.h"
 #include "../redbook/chap2/BufferObject.h"
@@ -37,4 +37,7 @@
 #include "../redbook/Chap9/TSDemo.h"
 #include "../redbook/chap9/BezierLine.h"
 #include "../redbook/chap9/TCSphere.h"
+
+
+#include "../redbook/Chap10/GSDemo.h"
 #endif /* __ZX_OPENGL_DEMO_HEADER_H__ */
