@@ -46,7 +46,7 @@ namespace NX {
     };
     
     OSXMutex::~OSXMutex(){
-        //do nothing
+        pthread_mutex_destroy(&m_pMutex);
     }
     
     OSXMutex::OSXMutex(){

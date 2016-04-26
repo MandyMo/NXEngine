@@ -1,17 +1,22 @@
-[2016-04-26 12:37:41]  log file [./engine/render/NXEngine.txt] open.
-[2016-04-26 12:37:41]  OpenGL version supported by this platform (Intel Inc.)
-[2016-04-26 12:37:41]  Construct ShaderManager
-[2016-04-26 12:37:41]  compile shader [type: Vertex shader] [file: ./redBook/Chap10/GSDemoVS.glsl] with compile msg [Compile succeed]
-[2016-04-26 12:37:41]  compile shader [type: Fragment shader] [file: ./redBook/Chap10/GSDemoFS.glsl] with compile msg [Compile succeed]
-[2016-04-26 12:37:41]  compile shader [type: Tesslation control shader] [file: ./redbook/Chap10/GSDemoTCS.glsl] with compile msg [Compile succeed]
-[2016-04-26 12:37:41]  compile shader [type: Tesslation evaluation shader] [file: ./redbook/chap10/GSDemoTES.glsl] with compile msg [Compile succeed]
-[2016-04-26 12:37:41]  compile shader [type: Geometry shader] [file: ./redbook/chap10/GSDemoGS.glsl] with compile msg [Compile succeed]
-[2016-04-26 12:37:41]  Link program with link msg [link succeed]
-[2016-04-26 12:37:42]  FreeAllShaderResource
-[2016-04-26 12:37:42]  Free Shader [Type: Fragment shader] [File: ./redBook/Chap10/GSDemoFS.glsl]
-[2016-04-26 12:37:42]  Free Shader [Type: Vertex shader] [File: ./redBook/Chap10/GSDemoVS.glsl]
-[2016-04-26 12:37:42]  Free Shader [Type: Tesslation control shader] [File: ./redbook/Chap10/GSDemoTCS.glsl]
-[2016-04-26 12:37:42]  Free Shader [Type: Geometry shader] [File: ./redbook/chap10/GSDemoGS.glsl]
-[2016-04-26 12:37:42]  Free Shader [Type: Tesslation evaluation shader] [File: ./redbook/chap10/GSDemoTES.glsl]
-[2016-04-26 12:37:42]  Destruct ShaderManager
-[2016-04-26 12:37:42]  log file [./engine/render/NXEngine.txt] closed.
+[2016-04-26 16:05:57]  log file [./engine/render/NXEngine.txt] open.
+[2016-04-26 16:05:57]  OpenGL version supported by this platform (Intel Inc.)
+[2016-04-26 16:06:00]  Construct ShaderManager
+[2016-04-26 16:06:00]  compile shader [type: Vertex shader] [file: ./redBook/Chap10/GSDemoVS.glsl] with compile msg [Compile succeed]
+[2016-04-26 16:06:00]  compile shader [type: Fragment shader] [file: ./redBook/Chap10/GSDemoFS.glsl] with compile msg [Compile succeed]
+[2016-04-26 16:06:00]  compile shader [type: Tesslation control shader] [file: ./redbook/Chap10/GSDemoTCS.glsl] with compile msg [Compile succeed]
+[2016-04-26 16:06:00]  compile shader [type: Tesslation evaluation shader] [file: ./redbook/chap10/GSDemoTES.glsl] with compile msg [Compile succeed]
+[2016-04-26 16:06:00]  compile shader [type: Geometry shader] [file: ./redbook/chap10/GSDemoGS.glsl] with compile msg [Compile succeed]
+[2016-04-26 16:06:00]  Link program with link msg [link succeed]
+[2016-04-26 16:06:00]  compile shader [type: Geometry shader] [file: ./redbook/chap10/GSDemoGS2.glsl] with compile msg [Compile succeed]
+[2016-04-26 16:06:00]  compile shader [type: Fragment shader] [file: ./redbook/chap10/GSDemoFS2.glsl] with compile msg [Compile succeed]
+[2016-04-26 16:06:00]  Link program with link msg [link succeed]
+[2016-04-26 16:06:57]  FreeAllShaderResource
+[2016-04-26 16:06:57]  Free Shader [Type: Fragment shader] [File: ./redBook/Chap10/GSDemoFS.glsl]
+[2016-04-26 16:06:57]  Free Shader [Type: Vertex shader] [File: ./redBook/Chap10/GSDemoVS.glsl]
+[2016-04-26 16:06:57]  Free Shader [Type: Tesslation control shader] [File: ./redbook/Chap10/GSDemoTCS.glsl]
+[2016-04-26 16:06:57]  Free Shader [Type: Fragment shader] [File: ./redbook/chap10/GSDemoFS2.glsl]
+[2016-04-26 16:06:57]  Free Shader [Type: Geometry shader] [File: ./redbook/chap10/GSDemoGS.glsl]
+[2016-04-26 16:06:57]  Free Shader [Type: Geometry shader] [File: ./redbook/chap10/GSDemoGS2.glsl]
+[2016-04-26 16:06:57]  Free Shader [Type: Tesslation evaluation shader] [File: ./redbook/chap10/GSDemoTES.glsl]
+[2016-04-26 16:06:57]  Destruct ShaderManager
+[2016-04-26 16:06:57]  log file [./engine/render/NXEngine.txt] closed.

@@ -15,6 +15,7 @@ namespace  NX {
     public:
         Program();
         virtual ~Program();
+        Program(__in const Program &rhs);
     public:
         /*
          *  <函数功能>
@@ -27,6 +28,14 @@ namespace  NX {
         
         /*
          *  <函数功能>
+         *  给当前program移除shader,注意，创建program需要在application init成功之后
+         *
+         *  <函数参数>
+         *  shader:   要移除的shader指针，shader必须是正确的，可用的以及已经编译好的
+         */
+        void RemoveShader(__in Shader * shader);
+        /*
+         *  <函数功能>
          *  给当前Program添加shader
          * 
          *  <函数参数>
@@ -34,6 +43,16 @@ namespace  NX {
          *  ShaderType:        要添加的shader类型
          */
         void AddShader(__in const std::string& strShaderFilePath, __in GLenum ShaderType);
+        
+        /*
+         *  <函数功能>
+         *  从当前Program中删除Shader
+         *
+         *  <函数参数>
+         *  strShaderFilePath: 要删除的shader文件路径(要保证通过此路径可找到shader)
+         *  ShaderType:        要删除的shader类型
+         */
+        void RemoveShader(__in const std::string& strShaderFilePath, __in GLenum ShaderType);
         
         /*
          *  <函数功能>

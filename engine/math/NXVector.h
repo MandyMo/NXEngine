@@ -49,6 +49,11 @@ namespace NX {
             return v[index];
         }
         
+        const T operator[] (const int index) const{
+            assert(index >= 0 && index < Scale);
+            return v[index];
+        }
+        
         void Set(T* ptr){
             memcpy(v, ptr, sizeof(v));
         }
@@ -176,6 +181,11 @@ namespace NX {
             return v[index];
         }
         
+        const T operator[] (const int index) const{
+            assert(index >= 0 && index < 1);
+            return v[index];
+        }
+        
         void Set(const T &value){
             x = value;
         }
@@ -293,6 +303,12 @@ namespace NX {
             assert(index < 2 && index >= 0);
             return v[index];
         }
+        
+        const T operator[] (const int index) const{
+            assert(index >= 0 && index < 2);
+            return v[index];
+        }
+        
         void Set(const T &v1, const T &v2){
             x = v1;
             y = v2;
@@ -416,6 +432,12 @@ namespace NX {
             assert(index < 3 && index >= 0);
             return v[index];
         }
+        
+        const T operator[] (const int index) const{
+            assert(index >= 0 && index < 3);
+            return v[index];
+        }
+        
         void Set(const T &v1, const T &v2, const T &v3){
             x = v1;
             y = v2;
@@ -552,6 +574,12 @@ namespace NX {
             assert(index < 4 && index >= 0);
             return v[index];
         }
+        
+        const T operator[] (const int index) const{
+            assert(index >= 0 && index < 4);
+            return v[index];
+        }
+        
         void Set(const T &v1, const T &v2, const T &v3, const T &v4){
             x = v1;
             y = v2;

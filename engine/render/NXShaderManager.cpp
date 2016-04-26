@@ -22,7 +22,7 @@ NX::ShaderManager& NX::ShaderManager::Instance(){
     return RefObject;
 }
 
-NX::Shader* NX::ShaderManager::FetchShader(__in const std::string& strShaderFilePath, __in const GLenum ShaderType){
+NX::Shader* NX::ShaderManager::FetchShaderResource(__in const std::string& strShaderFilePath, __in const GLenum ShaderType){
     NX::MutexWraper Lock(m_pMutex);
     if(m_vShaderCollection.find(strShaderFilePath) != m_vShaderCollection.end() && m_vShaderCollection[strShaderFilePath] != NULL){
         return m_vShaderCollection.find(strShaderFilePath)->second;
@@ -45,4 +45,14 @@ void NX::ShaderManager::FreeAllShaderResource(){
         it->second = NULL;
     }
     m_vShaderCollection.clear();
+}
+
+void NX::ShaderManager::FreeShaderResource(__in const std::string& strShaderFilePath){
+    NX::MutexWraper Lock(m_pMutex);
+    auto it = m_vShaderCollection.find(strShaderFilePath);
+    if(it == m_vShaderCollection.end()){
+        return;
+    }
+    delete it->second;
+    m_vShaderCollection.erase(it);
 }

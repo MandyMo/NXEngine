@@ -10,6 +10,7 @@
 #include "NXCore.h"
 
 namespace NX{
+    class Mutex;
     class Log{
     public:
         /*

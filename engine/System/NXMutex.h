@@ -44,6 +44,4 @@ namespace NX {
     };
 }
 
-
-
 #endif  //!__ZX_NXENGINE_MUTEX_H__

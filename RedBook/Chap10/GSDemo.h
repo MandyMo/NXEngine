@@ -31,6 +31,7 @@ private:
     GLuint           OutLocation;
     GLuint           OutValue;
     NX::PerspectCamera camera;
+    NX::Program      *m_Cull;
 };
 
 

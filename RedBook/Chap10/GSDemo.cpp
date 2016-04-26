@@ -37,16 +37,23 @@ bool GSDemo::Init(const char* vCmdLine[], const int iCmdCount, const int iWidth,
     
     {//shader
         m_pg = new NX::Program();
-        m_pg->AddShader("./redBook/Chap10/GSDemoVS.glsl", GL_VERTEX_SHADER);
-        m_pg->AddShader("./redBook/Chap10/GSDemoFS.glsl", GL_FRAGMENT_SHADER);
+        m_pg->AddShader("./redBook/Chap10/GSDemoVS.glsl",  GL_VERTEX_SHADER);
+        m_pg->AddShader("./redBook/Chap10/GSDemoFS.glsl",  GL_FRAGMENT_SHADER);
         m_pg->AddShader("./redbook/Chap10/GSDemoTCS.glsl", GL_TESS_CONTROL_SHADER);
         m_pg->AddShader("./redbook/chap10/GSDemoTES.glsl", GL_TESS_EVALUATION_SHADER);
-        m_pg->AddShader("./redbook/chap10/GSDemoGS.glsl", GL_GEOMETRY_SHADER);
+        m_pg->AddShader("./redbook/chap10/GSDemoGS.glsl",  GL_GEOMETRY_SHADER);
         m_pg->LinkProgram();
         m_pg->UseProgram();
         MVPLocation  = glGetUniformLocation(m_pg->GetId(), "MVP");
         OutLocation  = glGetUniformLocation(m_pg->GetId(), "Outer");
         OutValue     = 5;
+        
+        m_Cull      = new NX::Program(*m_pg);
+        m_Cull->RemoveShader("./redbook/chap10/GSDemoGS.glsl", GL_GEOMETRY_SHADER);
+        m_Cull->RemoveShader("./redBook/Chap10/GSDemoFS.glsl", GL_FRAGMENT_SHADER);
+        m_Cull->AddShader("./redbook/chap10/GSDemoGS2.glsl", GL_GEOMETRY_SHADER);
+        m_Cull->AddShader("./redbook/chap10/GSDemoFS2.glsl", GL_FRAGMENT_SHADER);
+        m_Cull->LinkProgram();
     }
     
     return true;
@@ -62,13 +69,21 @@ void GSDemo::Render(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    m_pg->UseProgram();
     glPatchParameteri(GL_PATCH_VERTICES, 4);
     auto MVP = camera.GetWatchMatrix();
     glUniformMatrix4fv(MVPLocation, 1, GL_TRUE, &MVP[0][0]);
     glUniform1i(OutLocation, OutValue);
     glDrawArrays(GL_PATCHES, 0, 4);
-    //glDrawArrays(GL_QUADS, 0, 4);
+    
+    {//Cull mvp
+        m_Cull->UseProgram();
+        GLuint loc = glGetUniformLocation(m_Cull->GetId(), "MVP");
+        glUniformMatrix4fv(loc, 1, GL_TRUE, &MVP[0][0]);
+        loc  = glGetUniformLocation(m_Cull->GetId(), "Outer");
+        glUniform1i(loc, OutValue);
+        glDrawArrays(GL_PATCHES, 0, 4);
+    }
 }
 
 void GSDemo::OnCursorPositionEvent(double xByScreen, double yByScreen){

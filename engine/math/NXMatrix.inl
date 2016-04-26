@@ -179,6 +179,13 @@ T (&Matrix<T, Row, Col>::operator [] (int index))[Col]{
     return m_Element[index];
 }
 
+template<typename T, int Row, int Col>
+const T (&Matrix<T, Row, Col>::operator [] (int index) const)[Col]{
+    assert(index >= 0 && index < Row);
+    return m_Element[index];
+}
+
+
 template<typename U, typename T = float>
 Matrix<T, 4, 4> LookAt(const vector<U, 3> &eye, const vector<U, 3> &look, const vector<U, 3> &up){
     vector<T, 3> oz = look - eye;
@@ -320,6 +327,57 @@ Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T near, 
     const T b   = -near / dif;
     result.m_Element[2][2] = a;
     result.m_Element[2][3] = b;
+    return result;
+}
+
+template<typename T, typename RT = T>
+RT Detaminate(const Matrix<T, 2, 2>& matrix){
+    RT result(matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]);
+    return result;
+}
+
+template<typename T, typename RT = T>
+RT Detaminate(const Matrix<T, 3, 3>& matrix){
+    NX::vector<T, 3> a(matrix[0][0], matrix[0][1], matrix[0][2]);
+    NX::vector<T, 3> b(matrix[1][0], matrix[1][1], matrix[1][2]);
+    NX::vector<T, 3> c(matrix[2][0], matrix[2][1], matrix[2][2]);
+    RT result(Dot(b, Cross(a, c)));
+    return -result;
+}
+
+template<typename T, typename RT = T>
+Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix){
+    Matrix<RT, 2, 2> result = matrix;
+    RT det = Detaminate<T, RT>(matrix);
+    result[0][1] = - result[0][1];
+    result[1][0] = - result[1][0];
+    result /= det;
+    return result;
+}
+
+template<typename T, typename RT = T>
+Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix){
+    Matrix<RT, 3, 3> result;
+    RT det = Detaminate(matrix);
+    {//first row
+        result[0][0] = matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1];
+        result[0][1] = matrix[1][2] * matrix[2][0] - matrix[1][0] * matrix[2][2];
+        result[0][2] = matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0];
+    }
+    
+    {//second row
+        result[1][0] = matrix[0][2] * matrix[2][1] - matrix[0][1] * matrix[2][2];
+        result[1][1] = matrix[0][0] * matrix[2][2] - matrix[0][2] * matrix[2][0];
+        result[1][2] = matrix[0][1] * matrix[2][0] - matrix[0][0] * matrix[2][1];
+    }
+    
+    {//third row
+        result[2][0] = matrix[0][1] * matrix[1][2] - matrix[0][2] * matrix[1][1];
+        result[2][1] = matrix[0][2] * matrix[1][0] - matrix[0][0] * matrix[1][2];
+        result[2][2] = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+    }
+    result /= det;
+    Transpose(result);
     return result;
 }
 

@@ -140,6 +140,7 @@ void TSDemo::Render(){
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     auto MVP = camera.GetWatchMatrix();
     glUniformMatrix4fv(MVPLocation, 1, GL_TRUE, &MVP[0][0]);
+    
     glDrawArrays(GL_PATCHES, 0, 4);
     
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

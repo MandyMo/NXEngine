@@ -28,7 +28,8 @@ namespace NX{
         /**
          *  if shader exist,then just return, else create and compile it then return
          */
-        Shader* FetchShader(__in const std::string& strShaderFilePath, __in const GLenum ShaderType);
+        Shader* FetchShaderResource(__in const std::string& strShaderFilePath, __in const GLenum ShaderType);
+        void    FreeShaderResource (__in const std::string& strShaderFilePath);
         void    FreeAllShaderResource();
     private:
         std::map<std::string, Shader*>  m_vShaderCollection;

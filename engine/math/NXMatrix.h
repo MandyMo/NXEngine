@@ -39,6 +39,7 @@ namespace NX {
         Matrix<T, Row, Col>& operator /= (const T &value);
         
         T (&operator [] (int index))[Col];
+        const T (&operator [] (int index) const)[Col];
     public:
         T& GetElement(int row, int col);
         

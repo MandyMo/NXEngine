@@ -1,4 +1,11 @@
+/*
+ *  File:    NXLog.cpp
+ *  Author:  张雄
+ *  Date:    2016_02_22
+ *  purpose: 日志文件的实现
+ */
 
+#include "../System/NXMutex.h"
 #include "NXLog.h"
 
 static char MsgBuf[1024];

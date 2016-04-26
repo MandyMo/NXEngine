@@ -21,7 +21,7 @@ NX::Shader::~Shader(){
 
 std::string NX::Shader::Compile(){
     std::string strErr(256 + 1, 0);
-    m_uShaderId   = glCreateShader(m_uShaderType);
+    m_uShaderId                    = glCreateShader(m_uShaderType);
     const std::string strShaderSrc = ReadShaderSource();
     if(strShaderSrc.empty()){
         sprintf((char*)strErr.c_str(), "shader file [%s] not exist or is empty", m_strShaderSourceFilePath.c_str());

@@ -39,6 +39,9 @@ namespace NX {
         operator GLuint(){
             return m_uShaderId;
         }
+        GLuint   GetId(){
+            return m_uShaderId;
+        }
     private:
         GLuint         m_uShaderId;
         GLenum         m_uShaderType;

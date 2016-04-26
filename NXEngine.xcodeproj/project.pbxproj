@@ -741,6 +741,8 @@
 		6C65F8F81CCF098C005506C0 /* NXShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXShaderManager.h; sourceTree = "<group>"; };
 		6C65F8FB1CCF1115005506C0 /* NXMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXMutex.cpp; sourceTree = "<group>"; };
 		6C65F8FC1CCF1115005506C0 /* NXMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXMutex.h; sourceTree = "<group>"; };
+		6C65F8FE1CCF44D9005506C0 /* GSDemoGS2.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GSDemoGS2.glsl; sourceTree = "<group>"; };
+		6C65F8FF1CCF44EA005506C0 /* GSDemoFS2.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GSDemoFS2.glsl; sourceTree = "<group>"; };
 		6C7A68401C86FA90005BC4C7 /* skybox2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox2.png; path = image/skybox2.png; sourceTree = SOURCE_ROOT; };
 		6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointSize.cpp; sourceTree = "<group>"; };
 		6C8BD5A31C96B3E700BBD775 /* PointSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointSize.h; sourceTree = "<group>"; };
@@ -2065,6 +2067,8 @@
 				6C65F8F41CCE2885005506C0 /* GSDemoTES.glsl */,
 				6C65F8F51CCE2893005506C0 /* GSDemoFS.glsl */,
 				6C65F8F61CCE28D4005506C0 /* GSDemoGS.glsl */,
+				6C65F8FE1CCF44D9005506C0 /* GSDemoGS2.glsl */,
+				6C65F8FF1CCF44EA005506C0 /* GSDemoFS2.glsl */,
 			);
 			name = Chap10;
 			path = RedBook/Chap10;
