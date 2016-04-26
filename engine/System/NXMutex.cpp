@@ -189,7 +189,7 @@ namespace NX {
     };
     
     WinMutex::~WinMutex(){
-        //do nothing
+        ::DeleteCriticalSection(&m_CriticalSection);
     }
     
     WinMutex::WinMutex(){
