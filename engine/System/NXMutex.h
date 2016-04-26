@@ -16,8 +16,22 @@ namespace NX {
     public:
         static Mutex* Create();
     public:
+        /**
+         *  Fetch lock
+         */
         virtual void Enter()    = 0;
+        
+        /**
+         *  Release lock
+         */
         virtual void Leave()    = 0;
+        
+        /**
+         *  try fetch lock
+         *  <return value>
+         *  false:   fetch failed, maybe lock has got by others
+         *  true;    fetch succced
+         */
         virtual bool TryEnter() = 0;
     };
     

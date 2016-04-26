@@ -17,7 +17,6 @@ int main(int argc, const char* argv[]){
     NX::Mutex *pMutex = NX::Mutex::Create();
     pMutex->Enter();
     NX::glb_GetLog().logToConsole("begin application");
-    pMutex->Enter();
     app->Run();
     NX::glb_GetLog().logToConsole("end main");
     return 0;

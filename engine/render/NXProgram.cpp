@@ -1,5 +1,6 @@
 #include "NXProgram.h"
 #include "NXLog.h"
+#include "NXShaderManager.h"
 
 NX::Program::Program(){
     m_vShaderSet.clear();
@@ -7,9 +8,6 @@ NX::Program::Program(){
 }
 
 NX::Program::~Program(){
-    for(int i = 0, len = (int)m_vShaderSet.size(); i < len; ++i){
-        delete m_vShaderSet[i];
-    }
     if(m_uProgramId != 0){
         glDeleteProgram(m_uProgramId);
         m_uProgramId = 0;
@@ -21,13 +19,14 @@ void NX::Program::AddShader(NX::Shader *shader){
 }
 
 void NX::Program::AddShader(const std::string &strShaderFilePath, GLenum ShaderType){
-    Shader * shader = new Shader(strShaderFilePath.c_str(), ShaderType);
-    shader->Compile();
-    AddShader(shader);
+    AddShader(ShaderManager::Instance().FetchShader(strShaderFilePath, ShaderType));
 }
 
 std::string NX::Program::LinkProgram(){
     for(int i = 0, len = (int)m_vShaderSet.size(); i < len; ++i){
+        if(m_vShaderSet[i] == NULL){
+            continue;
+        }
         glAttachShader(m_uProgramId, (int)(*m_vShaderSet[i]));
     }
     glLinkProgram(m_uProgramId);

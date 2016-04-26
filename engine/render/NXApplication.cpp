@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "NXApplication.h"
+#include "NXShaderManager.h"
 #include "../math/NXMath.h"
 #include "../common/NXLog.h"
 
@@ -25,6 +26,8 @@ NX::Application::Application(){
 NX::Application::~Application(){
     g_pThis    = NULL;
     g_window   = NULL;
+    NX::ShaderManager &shaderManager = NX::ShaderManager::Instance();
+    shaderManager.FreeAllShaderResource();
 }
 
 bool NX::Application::Init(const char* vCmdLine[], const int iCmdCount, const int iWidth, const int iHeight){

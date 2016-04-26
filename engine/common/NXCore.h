@@ -125,9 +125,11 @@ namespace NX{
 }
 
 
-//plat form is MAC OSX, then you should deine the flowing macro
-//#define PLATFORM_OSX 1
-
+//plat form is MAC OSX, then you should deine the flowing macro and comments the nxet three macos
+#define PLATFORM_OSX     1
+//#define PLATFORM_IOS     1
+//#define PLATFORM_ANDROID 1
+//#define PLATFORM_WINDOWS 1
 
 
 #endif
