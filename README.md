@@ -1,2 +1,1 @@
-# NXEngine
-used for learning opengl(ES)
+欢迎指出代码中的问题，欢迎给出好的建议
