@@ -3,7 +3,7 @@
 layout (location = 0) in vec3 vPosition;
 
 out vec4 TPosition;
-
+out vec4 XPosition;
 uniform mat4 MVP;
 
 void main(){
@@ -14,4 +14,5 @@ void main(){
     }
     TPosition   = gl_Position;
     TPosition /= TPosition.w;
+    XPosition = TPosition * 10;
 }

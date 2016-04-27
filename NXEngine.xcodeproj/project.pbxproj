@@ -39,6 +39,7 @@
 		6C65F8FD1CCF1115005506C0 /* NXMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F8FB1CCF1115005506C0 /* NXMutex.cpp */; };
 		6C65F9021CD05AB1005506C0 /* TFBDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F9011CD05AB1005506C0 /* TFBDemo.cpp */; };
 		6C65F9091CD09967005506C0 /* NXSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F9071CD09967005506C0 /* NXSystem.cpp */; };
+		6C65F90C1CD0B8C6005506C0 /* MultiViewRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F90A1CD0B8C6005506C0 /* MultiViewRender.cpp */; };
 		6C8BD5A41C96B3E700BBD775 /* PointSize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */; };
 		6C966F661CA9524400E4A9BC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C966F641CA9524400E4A9BC /* SkyBox.cpp */; };
 		6CB884621C97BC760022CB52 /* DrawInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB884601C97BC760022CB52 /* DrawInstance.cpp */; };
@@ -751,6 +752,13 @@
 		6C65F9061CD05F33005506C0 /* TFBDemoFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TFBDemoFS.glsl; sourceTree = "<group>"; };
 		6C65F9071CD09967005506C0 /* NXSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXSystem.cpp; sourceTree = "<group>"; };
 		6C65F9081CD09967005506C0 /* NXSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXSystem.h; sourceTree = "<group>"; };
+		6C65F90A1CD0B8C6005506C0 /* MultiViewRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiViewRender.cpp; sourceTree = "<group>"; };
+		6C65F90B1CD0B8C6005506C0 /* MultiViewRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiViewRender.h; sourceTree = "<group>"; };
+		6C65F90D1CD0B996005506C0 /* MultiViewRenderVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MultiViewRenderVS.glsl; sourceTree = "<group>"; };
+		6C65F90E1CD0B9A5005506C0 /* MultiViewRenderTCS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MultiViewRenderTCS.glsl; sourceTree = "<group>"; };
+		6C65F90F1CD0B9AF005506C0 /* MultiViewRenderTES.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MultiViewRenderTES.glsl; sourceTree = "<group>"; };
+		6C65F9101CD0B9B8005506C0 /* MultiViewRenderGS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MultiViewRenderGS.glsl; sourceTree = "<group>"; };
+		6C65F9111CD0B9BF005506C0 /* MultiViewRenderFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MultiViewRenderFS.glsl; sourceTree = "<group>"; };
 		6C7A68401C86FA90005BC4C7 /* skybox2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox2.png; path = image/skybox2.png; sourceTree = SOURCE_ROOT; };
 		6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointSize.cpp; sourceTree = "<group>"; };
 		6C8BD5A31C96B3E700BBD775 /* PointSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointSize.h; sourceTree = "<group>"; };
@@ -2081,6 +2089,13 @@
 				6C65F9011CD05AB1005506C0 /* TFBDemo.cpp */,
 				6C65F9051CD05F2A005506C0 /* TFBDemoVS.glsl */,
 				6C65F9061CD05F33005506C0 /* TFBDemoFS.glsl */,
+				6C65F90A1CD0B8C6005506C0 /* MultiViewRender.cpp */,
+				6C65F90B1CD0B8C6005506C0 /* MultiViewRender.h */,
+				6C65F90D1CD0B996005506C0 /* MultiViewRenderVS.glsl */,
+				6C65F90E1CD0B9A5005506C0 /* MultiViewRenderTCS.glsl */,
+				6C65F90F1CD0B9AF005506C0 /* MultiViewRenderTES.glsl */,
+				6C65F9101CD0B9B8005506C0 /* MultiViewRenderGS.glsl */,
+				6C65F9111CD0B9BF005506C0 /* MultiViewRenderFS.glsl */,
 			);
 			name = Chap10;
 			path = RedBook/Chap10;
@@ -3772,6 +3787,7 @@
 				6C4F707D1CAD070A00C44153 /* SkyBox1.cpp in Sources */,
 				6CD71B8E1C83EA0B00910E57 /* tif_color.c in Sources */,
 				6C4F700E1CAABE3800C44153 /* NXMipMapTexture.cpp in Sources */,
+				6C65F90C1CD0B8C6005506C0 /* MultiViewRender.cpp in Sources */,
 				6CD71C7E1C83EA0B00910E57 /* IlmThreadPosix.cpp in Sources */,
 				6CD71C151C83EA0B00910E57 /* TagLib.cpp in Sources */,
 				6C335A221CB7A330004B32B9 /* BricksSphere.cpp in Sources */,

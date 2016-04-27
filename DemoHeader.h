@@ -41,5 +41,7 @@
 
 #include "../redbook/Chap10/GSDemo.h"
 #include "../redbook/Chap10/TFBDemo.h"
+#include "../redbook/Chap10/MultiViewRender.h"
+
 
 #endif /* __ZX_OPENGL_DEMO_HEADER_H__ */

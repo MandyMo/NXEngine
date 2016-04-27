@@ -69,7 +69,8 @@ bool TFBDemo::Init(__in const char* vCmdLine[], __in const int iCmdCount,
         glGenBuffers(1, &m_TFB);
         glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, m_TFB);
         glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, 10000, NULL, GL_DYNAMIC_COPY);
-        glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, m_TFB);
+        glBindBufferRange(GL_TRANSFORM_FEEDBACK_BUFFER, 0, m_TFB, 0, 5000);
+        glBindBufferRange(GL_TRANSFORM_FEEDBACK_BUFFER, 1, m_TFB, 5000, 5000);
     }
     return true;
 }
@@ -86,8 +87,8 @@ void TFBDemo::Render(){
         m_pg->UseProgram();
         glEnable(GL_RASTERIZER_DISCARD);
         glBeginTransformFeedback(GL_TRIANGLES);
-        static const char *name[] = {"TPosition"};
-        glTransformFeedbackVaryings(m_pg->GetId(), 1, name, GL_INTERLEAVED_ATTRIBS);
+        static const char *name[] = {"TPosition", "gl_NextBuffer", "XPosition"};
+        glTransformFeedbackVaryings(m_pg->GetId(), 3, name, GL_INTERLEAVED_ATTRIBS);
         m_pg->LinkProgram();
         m_pg->UseProgram();
         auto MVP = m_Camera.GetWatchMatrix();
@@ -101,8 +102,16 @@ void TFBDemo::Render(){
         const char *name[] = {"first", "second", "third", "fourth"};
         glBindBuffer(GL_PIXEL_PACK_BUFFER, m_TFB);
         float * ptr = (float*)glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_READ_ONLY);
-        for(int i = 0; i < 4; ++i){
-            NX::glb_GetLog().logToConsole("The %s vertex is [%.2f, %.2f, %.2f, %.2f]\n", name[i], *ptr++, *ptr++, *ptr++, *ptr++);
+        float * nptr = (float*)(((char*)ptr) + 5000);
+        {//bind index = 0
+            for(int i = 0; i < 4; ++i){
+                NX::glb_GetLog().logToConsole("The %s vertex is [%.2f, %.2f, %.2f, %.2f]\n", name[i], *ptr++, *ptr++, *ptr++, *ptr++);
+            }
+        }
+        {//bind inxex = 1
+            for(int i = 0; i < 4; ++i){
+                NX::glb_GetLog().logToConsole("The %s vertex is [%.2f, %.2f, %.2f, %.2f]\n", name[i], *nptr++, *nptr++, *nptr++, *nptr++);
+            }
         }
         glUnmapBuffer(GL_PIXEL_PACK_BUFFER);
     }
