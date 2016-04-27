@@ -33,6 +33,7 @@ private:
     NX::Program         *m_pg;
     GLuint              m_MVPLocation;
     GLuint              m_ColorLocation;
+    GLuint              m_OuterLocation;
 };
 
 

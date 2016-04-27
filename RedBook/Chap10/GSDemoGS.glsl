@@ -1,7 +1,7 @@
 #version 410 core
 
 layout (triangles) in;
-layout (triangle_strip) out;
+layout (triangle_strip, max_vertices = 10) out;
 
 void main(){
     for(int i = 0; i < gl_in.length(); ++i){

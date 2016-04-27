@@ -3,11 +3,12 @@
 #include "../engine/common/NXLog.h"
 #include "../engine/render/NXShaderManager.h"
 #include "../engine/system/NXSystem.h"
+#include "../engine/math/NXMath.h"
 #include "iostream"
 using namespace std;
 
 static int State;
-
+uint Outer;
 MultiViewRender::MultiViewRender():m_Camera(NX::float3(0, 0, 0), NX::float3(0, 0, 1), NX::float3(0, 1, 0), 90, 1.0f, 1.0f, 3000){
 }
 
@@ -30,19 +31,19 @@ bool MultiViewRender::Init(__in const char* vCmdLine[], __in const int iCmdCount
         v[3] = {NX::float3(-400, 400, 900)};
     }
     
-    {//vbo
-        glGenBuffers(1, &m_vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(v), v, GL_STATIC_DRAW);
-    }
     
     {//vao
         glGenVertexArrays(1, &m_vao);
         glBindVertexArray(m_vao);
+    }
+    
+    {//vbo
+        glGenBuffers(1, &m_vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(v), v, GL_STATIC_DRAW);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), CLS_MEM_OFFSET(Vertex, Position));
         glEnableVertexAttribArray(0);
     }
-    
     {//ibo
 //        ubyte idx[] = {0, 1, 2, 1, 2, 3};
 //        glGenBuffers(1, &m_ibo);
@@ -60,7 +61,10 @@ bool MultiViewRender::Init(__in const char* vCmdLine[], __in const int iCmdCount
         m_pg->AddShader(SM.FetchShaderResource("./redbook/Chap10/MultiViewRenderFS.glsl",  GL_FRAGMENT_SHADER));
         m_pg->LinkProgram();
         m_pg->UseProgram();
-        m_MVPLocation = glGetUniformLocation(m_pg->GetId(), "MVP");
+        Outer = 4;
+        m_MVPLocation    = glGetUniformLocation(m_pg->GetId(), "MVP");
+        m_OuterLocation  = glGetUniformLocation(m_pg->GetId(), "Outer");
+        m_ColorLocation  = glGetUniformLocation(m_pg->GetId(), "Color");
     }
     
     {//4 view port
@@ -68,6 +72,16 @@ bool MultiViewRender::Init(__in const char* vCmdLine[], __in const int iCmdCount
         glViewportIndexedf(1, 0, 400, 400, 400);
         glViewportIndexedf(2, 400, 0, 400, 400);
         glViewportIndexedf(3, 400, 400, 400, 400);
+    }
+    
+    {//color value
+        NX::float4 cc[] = {
+            NX::float4(1, 0, 0, 1),
+            NX::float4(0, 1, 0, 1),
+            NX::float4(0, 0, 1, 1),
+            NX::float4(1, 1, 1, 1)
+        };
+        glUniform4fv(m_ColorLocation, 4, &cc[0].x);
     }
     return true;
 }
@@ -79,11 +93,13 @@ void MultiViewRender::Render(){
     glEnable(GL_DEPTH_TEST);
     
     {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBindVertexArray(m_vao);
         m_pg->UseProgram();
         glPatchParameteri(GL_PATCH_VERTICES, 4);
         auto MVP = m_Camera.GetWatchMatrix();
         glUniformMatrix4fv(m_MVPLocation, 1, GL_TRUE, &MVP[0][0]);
+        glUniform1i(m_OuterLocation, Outer);
         glDrawArrays(GL_PATCHES, 0, 4);
     }
     
@@ -131,6 +147,9 @@ void MultiViewRender::OnKeyEvent(int key, int scancode, int action, int mods){
     }else if(key == GLFW_KEY_PAGE_DOWN){
         m_Camera.RotateByLeftRightAxis(-DG2RD(15));
     }else if(key == GLFW_KEY_1){
+        ++Outer;
     }else if(key == GLFW_KEY_2){
+        --Outer;
+        NX::ClampFloor(Outer, 2);
     }
 }
