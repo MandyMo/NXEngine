@@ -16,6 +16,7 @@ NX::System::~System(){
 }
 
 #ifdef PLATFORM_WINDOWS
+#include <Windows.h>
 namespace NX {
     class WinSystem: public NX::System{
     public:
