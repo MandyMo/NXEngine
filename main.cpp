@@ -6,17 +6,9 @@
 #include "NXMatrix.h"
 #include "NXShaderManager.h"
 #include "DemoHeader.h"
+#include "../engine/common/NXMemory.h"
 
 int main(int argc, const char* argv[]){
-    
-    
-    NX::float3X3 m;
-    m.SetRow(0, NX::float3(1, 2, 3));
-    m.SetRow(1, NX::float3(2, 3, 4));
-    m.SetRow(2, NX::float3(3, 4, 6));
-    
-    auto XX = Reverse(m);
-    
     NX::glb_GetLog().logToConsole("begin main");
     std::auto_ptr<NX::Application> app(new MultiViewRender());
     if(!app->Init(argv, argc, 800, 800)){
