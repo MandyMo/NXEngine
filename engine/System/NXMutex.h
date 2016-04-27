@@ -8,6 +8,8 @@
 #ifndef __ZX_NXENGINE_MUTEX_H__
 #define __ZX_NXENGINE_MUTEX_H__
 
+#include "../common/NXCore.h"
+
 namespace NX {
     class Mutex{
     public:

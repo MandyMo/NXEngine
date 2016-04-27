@@ -37,6 +37,8 @@
 		6C65F8F11CCE269A005506C0 /* GSDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F8EF1CCE269A005506C0 /* GSDemo.cpp */; };
 		6C65F8F91CCF098C005506C0 /* NXShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F8F71CCF098C005506C0 /* NXShaderManager.cpp */; };
 		6C65F8FD1CCF1115005506C0 /* NXMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F8FB1CCF1115005506C0 /* NXMutex.cpp */; };
+		6C65F9021CD05AB1005506C0 /* TFBDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F9011CD05AB1005506C0 /* TFBDemo.cpp */; };
+		6C65F9091CD09967005506C0 /* NXSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F9071CD09967005506C0 /* NXSystem.cpp */; };
 		6C8BD5A41C96B3E700BBD775 /* PointSize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */; };
 		6C966F661CA9524400E4A9BC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C966F641CA9524400E4A9BC /* SkyBox.cpp */; };
 		6CB884621C97BC760022CB52 /* DrawInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB884601C97BC760022CB52 /* DrawInstance.cpp */; };
@@ -743,6 +745,12 @@
 		6C65F8FC1CCF1115005506C0 /* NXMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXMutex.h; sourceTree = "<group>"; };
 		6C65F8FE1CCF44D9005506C0 /* GSDemoGS2.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GSDemoGS2.glsl; sourceTree = "<group>"; };
 		6C65F8FF1CCF44EA005506C0 /* GSDemoFS2.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GSDemoFS2.glsl; sourceTree = "<group>"; };
+		6C65F9001CD05A99005506C0 /* TFBDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFBDemo.h; sourceTree = "<group>"; };
+		6C65F9011CD05AB1005506C0 /* TFBDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TFBDemo.cpp; sourceTree = "<group>"; };
+		6C65F9051CD05F2A005506C0 /* TFBDemoVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TFBDemoVS.glsl; sourceTree = "<group>"; };
+		6C65F9061CD05F33005506C0 /* TFBDemoFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TFBDemoFS.glsl; sourceTree = "<group>"; };
+		6C65F9071CD09967005506C0 /* NXSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXSystem.cpp; sourceTree = "<group>"; };
+		6C65F9081CD09967005506C0 /* NXSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXSystem.h; sourceTree = "<group>"; };
 		6C7A68401C86FA90005BC4C7 /* skybox2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox2.png; path = image/skybox2.png; sourceTree = SOURCE_ROOT; };
 		6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointSize.cpp; sourceTree = "<group>"; };
 		6C8BD5A31C96B3E700BBD775 /* PointSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointSize.h; sourceTree = "<group>"; };
@@ -2069,6 +2077,10 @@
 				6C65F8F61CCE28D4005506C0 /* GSDemoGS.glsl */,
 				6C65F8FE1CCF44D9005506C0 /* GSDemoGS2.glsl */,
 				6C65F8FF1CCF44EA005506C0 /* GSDemoFS2.glsl */,
+				6C65F9001CD05A99005506C0 /* TFBDemo.h */,
+				6C65F9011CD05AB1005506C0 /* TFBDemo.cpp */,
+				6C65F9051CD05F2A005506C0 /* TFBDemoVS.glsl */,
+				6C65F9061CD05F33005506C0 /* TFBDemoFS.glsl */,
 			);
 			name = Chap10;
 			path = RedBook/Chap10;
@@ -2079,6 +2091,8 @@
 			children = (
 				6C65F8FB1CCF1115005506C0 /* NXMutex.cpp */,
 				6C65F8FC1CCF1115005506C0 /* NXMutex.h */,
+				6C65F9071CD09967005506C0 /* NXSystem.cpp */,
+				6C65F9081CD09967005506C0 /* NXSystem.h */,
 			);
 			name = system;
 			path = System;
@@ -3617,6 +3631,7 @@
 				6CD71AAB1C83EA0B00910E57 /* ConversionRGBA16.cpp in Sources */,
 				6CD71B2E1C83EA0B00910E57 /* rdgif.c in Sources */,
 				6CD71B6E1C83EA0B00910E57 /* pngerror.c in Sources */,
+				6C65F9021CD05AB1005506C0 /* TFBDemo.cpp in Sources */,
 				6CD71C891C83EA0B00910E57 /* ImathShear.cpp in Sources */,
 				6CD71B5E1C83EA0B00910E57 /* mqc.c in Sources */,
 				6CD71C391C83EA0B00910E57 /* ImfDwaCompressor.cpp in Sources */,
@@ -3694,6 +3709,7 @@
 				6CD71B861C83EA0B00910E57 /* libraw_c_api.cpp in Sources */,
 				6CD71AED1C83EA0B00910E57 /* Flip.cpp in Sources */,
 				6CD71AF81C83EA0B00910E57 /* jaricom.c in Sources */,
+				6C65F9091CD09967005506C0 /* NXSystem.cpp in Sources */,
 				6CD71B8F1C83EA0B00910E57 /* tif_compress.c in Sources */,
 				6CD71C961C83EA0B00910E57 /* inftrees.c in Sources */,
 				6CD71C091C83EA0B00910E57 /* utils.huffman_encode.c in Sources */,
