@@ -32,8 +32,7 @@ std::string NX::Shader::Compile(){
     glShaderSource(m_uShaderId, 1, &szShaderSrc, NULL);
     glCompileShader(m_uShaderId);
     glGetShaderInfoLog(m_uShaderId, (GLuint)strErr.length(), NULL, &(strErr[0]));
-    glb_GetLog().log("compile shader [type: %s] [file: %s] with compile msg [%s]", GetSaderTypeDescription(), m_strShaderSourceFilePath.c_str(),
-                     (strErr[0] == 0 ? "Compile succeed" : strErr.c_str()));
+    glb_GetLog().log("compile shader [type: %s] [file: %s] with compile msg [%s]", GetSaderTypeDescription(), m_strShaderSourceFilePath.c_str(), (strErr[0] == 0 ? "Compile succeed" : strErr.c_str()));
     return strErr;
 }
 

@@ -93,7 +93,7 @@ void MultiViewRender::Render(){
     glEnable(GL_DEPTH_TEST);
     
     {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBindVertexArray(m_vao);
         m_pg->UseProgram();
         glPatchParameteri(GL_PATCH_VERTICES, 4);
