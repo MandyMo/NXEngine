@@ -24,6 +24,7 @@ public:
     virtual void Render();
     virtual void OnKeyEvent(int key, int scancode, int action, int mods);
     virtual void OnCursorPositionEvent(double xByScreen, double yByScreen);
+    virtual void Tick(const double DeltaTime);
 private:
     Vertex v[4];
     NX::PerspectCamera  m_Camera;

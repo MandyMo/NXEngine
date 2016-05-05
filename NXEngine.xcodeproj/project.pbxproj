@@ -526,7 +526,7 @@
 		6CD71C991C83EA0B00910E57 /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CD71A921C83EA0B00910E57 /* uncompr.c */; };
 		6CD71C9A1C83EA0B00910E57 /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CD71A9B1C83EA0B00910E57 /* zutil.c */; };
 		6CE162BA1C8D8A530076B200 /* BufferObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE162B61C8D89F40076B200 /* BufferObject.cpp */; };
-		6CFF7C2C1CDB257900834460 /* NXQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CFF7C2A1CDB257900834460 /* NXQuaternion.cpp */; };
+		6CFF7C2C1CDB257900834460 /* NXQuaternion.inl in Sources */ = {isa = PBXBuildFile; fileRef = 6CFF7C2A1CDB257900834460 /* NXQuaternion.inl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1765,7 +1765,7 @@
 		6CE162B91C8D89F40076B200 /* BufferObjectVS.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = BufferObjectVS.glsl; sourceTree = "<group>"; };
 		6CF79BC01C7FF06F0037F256 /* NXMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXMath.cpp; sourceTree = "<group>"; };
 		6CF79BC11C7FF1EB0037F256 /* NXMath.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NXMath.inl; sourceTree = "<group>"; };
-		6CFF7C2A1CDB257900834460 /* NXQuaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXQuaternion.cpp; sourceTree = "<group>"; };
+		6CFF7C2A1CDB257900834460 /* NXQuaternion.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NXQuaternion.inl; sourceTree = "<group>"; };
 		6CFF7C2B1CDB257900834460 /* NXQuaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXQuaternion.h; sourceTree = "<group>"; };
 		8E0FCE131C7F6C8700176BB3 /* NXMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXMath.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2164,7 +2164,7 @@
 				8E0FCE131C7F6C8700176BB3 /* NXMath.h */,
 				6CF79BC01C7FF06F0037F256 /* NXMath.cpp */,
 				6CF79BC11C7FF1EB0037F256 /* NXMath.inl */,
-				6CFF7C2A1CDB257900834460 /* NXQuaternion.cpp */,
+				6CFF7C2A1CDB257900834460 /* NXQuaternion.inl */,
 				6CFF7C2B1CDB257900834460 /* NXQuaternion.h */,
 			);
 			path = math;
@@ -3842,7 +3842,7 @@
 				6CD71B151C83EA0B00910E57 /* jdmaster.c in Sources */,
 				6CD71B191C83EA0B00910E57 /* jdtrans.c in Sources */,
 				6CD71B2B1C83EA0B00910E57 /* jutils.c in Sources */,
-				6CFF7C2C1CDB257900834460 /* NXQuaternion.cpp in Sources */,
+				6CFF7C2C1CDB257900834460 /* NXQuaternion.inl in Sources */,
 				6CD71AFA1C83EA0B00910E57 /* jcapistd.c in Sources */,
 				6CD71ACD1C83EA0B00910E57 /* PluginPCD.cpp in Sources */,
 				6CD71C5D1C83EA0B00910E57 /* ImfRationalAttribute.cpp in Sources */,

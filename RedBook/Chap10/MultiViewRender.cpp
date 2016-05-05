@@ -4,12 +4,16 @@
 #include "../engine/render/NXShaderManager.h"
 #include "../engine/system/NXSystem.h"
 #include "../engine/math/NXMath.h"
+#include "../engine/math/NXQuaternion.h"
 #include "iostream"
 using namespace std;
 
 static int State;
 uint Outer;
-MultiViewRender::MultiViewRender():m_Camera(NX::float3(0, 0, 0), NX::float3(0, 0, 1), NX::float3(0, 1, 0), 90, 1.0f, 1.0f, 3000){
+
+NX::Quaternion quad;
+
+MultiViewRender::MultiViewRender():m_Camera(NX::float3(0, 0, -500), NX::float3(0, 0, 1), NX::float3(0, 1, 0), 90, 1.0f, 1.0f, 3000){
 }
 
 
@@ -25,10 +29,10 @@ bool MultiViewRender::Init(__in const char* vCmdLine[], __in const int iCmdCount
     
    
     {//vertex data
-        v[0] = {NX::float3(-400, -400, 800)};
-        v[1] = {NX::float3(400, 400, 400)};
-        v[2] = {NX::float3(400, -400, 600)};
-        v[3] = {NX::float3(-400, 400, 900)};
+        v[0] = {NX::float3(-400, -400, 0)};
+        v[1] = {NX::float3(400, 400, 0)};
+        v[2] = {NX::float3(400, -400, 0)};
+        v[3] = {NX::float3(-400, 400, 0)};
     }
     
     
@@ -68,10 +72,10 @@ bool MultiViewRender::Init(__in const char* vCmdLine[], __in const int iCmdCount
     }
     
     {//4 view port
-        glViewportIndexedf(0, 0, 0, 400, 400);
-        glViewportIndexedf(1, 0, 400, 400, 400);
-        glViewportIndexedf(2, 400, 0, 400, 400);
-        glViewportIndexedf(3, 400, 400, 400, 400);
+        glViewportIndexedf(0, 0, 0, 400, 0);
+        glViewportIndexedf(1, 0, 400, 400, 0);
+        glViewportIndexedf(2, 400, 0, 400, 0);
+        glViewportIndexedf(3, 400, 400, 400, 0);
     }
     
     {//color value
@@ -97,7 +101,7 @@ void MultiViewRender::Render(){
         glBindVertexArray(m_vao);
         m_pg->UseProgram();
         glPatchParameteri(GL_PATCH_VERTICES, 4);
-        auto MVP = m_Camera.GetWatchMatrix();
+        auto MVP = m_Camera.GetWatchMatrix() * quad.GetRotateMatrix();
         glUniformMatrix4fv(m_MVPLocation, 1, GL_TRUE, &MVP[0][0]);
         glUniform1i(m_OuterLocation, Outer);
         glDrawArrays(GL_PATCHES, 0, 4);
@@ -152,4 +156,11 @@ void MultiViewRender::OnKeyEvent(int key, int scancode, int action, int mods){
         --Outer;
         NX::ClampFloor(Outer, 2);
     }
+}
+
+void MultiViewRender::Tick(const double DeltaTime){
+    Application::Tick(DeltaTime);
+    static double Sum = 0;
+    Sum += DeltaTime;
+    quad = NX::Quaternion(Sum / 3, NX::float3(0, 1,0));
 }

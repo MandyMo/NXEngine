@@ -7,7 +7,11 @@
 
 #ifndef __ZX_NXENGINE_QUATERNION_H__
 #define __ZX_NXENGINE_QUATERNION_H__
-
+#include <cstdlib>
+#include <cstring>
+#include "NXQuaternion.h"
+#include "../math/NXVector.h"
+#include "../math/NXMatrix.h"
 
 namespace NX {
     template<typename T, int iScale> class vector;
@@ -17,6 +21,7 @@ namespace NX {
     public:
         friend inline Quaternion operator * (const Quaternion &lhs, const Quaternion &rhs);
     public:
+        inline Quaternion();
         inline Quaternion(const float w,  const float x, const float y, const float z);
         inline Quaternion(const float *v, int len = 4);
         inline Quaternion(const float radian, const vector<float, 3> &Axis);
@@ -83,6 +88,7 @@ namespace NX {
             float m_Ele[4];
         };
     };
+#include "NXQuaternion.inl"
 }
 
 
