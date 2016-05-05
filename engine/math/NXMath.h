@@ -15,12 +15,12 @@ namespace NX {
     void InitNXMath();
     inline double QuickCosWithAngle(const double Angle);
     inline double QuickSinWithAngle(const double Angle);
-    inline double QuickCosWithRadius(const double Radius);
-    inline double QuickSinWithRadius(const double Radius);
+    inline double QuickCosWithRadian(const double Radian);
+    inline double QuickSinWithRadian(const double Radian);
     inline float  QuickCosWithAngle(const float Angle);
     inline float  QuickSinWithAngle(const float Angle);
-    inline double QuickCosWithRadius(const float Radius);
-    inline double QuickSinWithRadius(const float Radius);
+    inline double QuickCosWithRadian(const float Radian);
+    inline double QuickSinWithRadian(const float Radian);
     inline double QuickSinWithAngle(const int Angle);
     inline double QuickCosWithAngle(const int Angle);
     inline int    RandInt();

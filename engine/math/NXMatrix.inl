@@ -218,11 +218,11 @@ Matrix<T, 4, 4> Translate(const T dx, const T dy, const T dz){
 }
 
 template<typename T, int Scale = 4>
-Matrix<T, Scale, Scale> RotateX(const T radius){
+Matrix<T, Scale, Scale> RotateX(const T radian){
     assert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
-    T CosValue(std::cos(radius));
-    T SinValue(std::sin(radius));
+    T CosValue(std::cos(radian));
+    T SinValue(std::sin(radian));
     result.m_Element[Scale - 1][Scale - 1] = T(1);
     result.m_Element[0][0] = T(1);
     result.m_Element[1][1] = CosValue, result.m_Element[1][2] = -SinValue;
@@ -231,11 +231,11 @@ Matrix<T, Scale, Scale> RotateX(const T radius){
 }
 
 template<typename T, int Scale = 4>
-Matrix<T, Scale, Scale> RotateY(const T radius){
+Matrix<T, Scale, Scale> RotateY(const T radian){
     assert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
-    T CosValue(std::cos(radius));
-    T SinValue(std::sin(radius));
+    T CosValue(std::cos(radian));
+    T SinValue(std::sin(radian));
     result.m_Element[Scale - 1][Scale - 1] = T(1), result.m_Element[1][1] = T(1);
     result.m_Element[0][0] = CosValue, result.m_Element[0][2]  = SinValue;
     result.m_Element[2][0] = -SinValue, result.m_Element[2][2] = CosValue;
@@ -243,11 +243,11 @@ Matrix<T, Scale, Scale> RotateY(const T radius){
 }
 
 template<typename T, int Scale = 4>
-Matrix<T, Scale, Scale> RotateZ(const T radius){
+Matrix<T, Scale, Scale> RotateZ(const T radian){
     assert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
-    T CosValue(std::cos(radius));
-    T SinValue(std::sin(radius));
+    T CosValue(std::cos(radian));
+    T SinValue(std::sin(radian));
     result.m_Element[Scale - 1][Scale - 1] = T(1), result.m_Element[2][2] = T(1);
     result.m_Element[0][0] = CosValue, result.m_Element[0][1] = -SinValue;
     result.m_Element[1][0] = SinValue, result.m_Element[1][1] = CosValue;
@@ -265,7 +265,7 @@ Matrix<T, Scale, Scale> Scalar(const T sx, const T sy, const T sz){
 }
 
 template<typename T, int Scale = 4, typename U>
-Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radius){
+Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radian){
     vector<T, 3> ax(Aix);
     Normalize(ax);
     T nxx = ax.x * ax.x;
@@ -274,8 +274,8 @@ Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radius){
     T nxy = ax.x * ax.y;
     T nyz = ax.y * ax.z;
     T nzx = ax.z * ax.x;
-    T CosValue  = std::cos(radius);
-    T SinValue  = std::sin(radius);
+    T CosValue  = std::cos(radian);
+    T SinValue  = std::sin(radian);
     T OneMinCos = T(1) - CosValue;
     Matrix<T, Scale, Scale> result;
     result.m_Element[Scale -1 ][Scale - 1] = T(1);

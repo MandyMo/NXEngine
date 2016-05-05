@@ -13,6 +13,16 @@ inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const vector<U
     return (vector<RT, Scale>(lhs) += rhs);
 }
 
+template<typename T, int Scale, typename RT = T>
+inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const T value){
+    return (vector<RT, Scale>(lhs) += value);
+}
+
+template<typename T, int Scale, typename RT = T>
+inline vector<RT, Scale> operator - (const vector<T, Scale> &lhs, const T value){
+    return (vector<RT, Scale>(lhs) -= value);
+}
+
 template<typename T, typename U, int Scale, typename RT = T>
 inline vector<RT, Scale> operator - (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
     return (vector<RT, Scale>(lhs) -= rhs);
@@ -23,9 +33,24 @@ inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const vector<U
     return (vector<RT, Scale>(lhs) *= rhs);
 }
 
+template<typename T, int Scale, typename RT = T>
+inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const T value){
+    return (vector<RT, Scale>(lhs) *= value);
+}
+
+template<typename T, int Scale, typename RT = T>
+inline vector<RT, Scale> operator * (const T value, const vector<T, Scale> &lhs){
+    return (vector<RT, Scale>(lhs) *= value);
+}
+
 template<typename T, typename U, int Scale, typename RT = T>
 inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
     return (vector<RT, Scale>(lhs) /= rhs);
+}
+
+template<typename T, int Scale, typename RT = T>
+inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const T value){
+    return (vector<RT, Scale>(lhs) /= value);
 }
 
 template<typename T, int Scale>
@@ -95,6 +120,17 @@ inline bool operator > (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs
 template<typename T, int Scale>
 inline bool operator >= (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs){
     return !(lhs < rhs);
+}
+
+
+template<typename TA, typename TB, int Scale, typename RT = TA>
+inline vector<RT, Scale> Lerp(const vector<TA, Scale> &lhs, const vector<TB, Scale> &rhs, const float t){
+    vector<RT, Scale> result;
+    RT a = 1 - t, b = t;
+    for(int i = 0; i < Scale; ++i){
+        result[i] = lhs[i] * a + rhs[i] * b;
+    }
+    return result;
 }
 
 template<int Scale>

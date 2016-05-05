@@ -44,8 +44,8 @@
 
 
 #ifndef RD2DG
-#define RD2DG(radius)\
-    (radius * 180.0 / PI)
+#define RD2DG(radian)\
+    (radian * 180.0 / PI)
 #endif
 
 

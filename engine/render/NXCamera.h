@@ -28,10 +28,10 @@ namespace NX {
         virtual void MoveByAxis(const float3 &vDirection, const float Distance);
         
     public:
-        virtual void RotateByFrontBackAxis(const float radius);
-        virtual void RotateByLeftRightAxis(const float radius);
-        virtual void RotateByUpDownAxis(const float radius);
-        virtual void RotateByAxis(const float3 &axis, const float radius);
+        virtual void RotateByFrontBackAxis(const float radian);
+        virtual void RotateByLeftRightAxis(const float radian);
+        virtual void RotateByUpDownAxis(const float radian);
+        virtual void RotateByAxis(const float3 &axis, const float radian);
     public:
         float4x4  GetMVMatrix();
     private:

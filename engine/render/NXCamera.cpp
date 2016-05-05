@@ -62,16 +62,16 @@ void NX::MVMatrixController::MoveByAxis(const float3 &vDirection, const float Di
     m_vLooked += oo;
 }
 
-void NX::MVMatrixController::RotateByFrontBackAxis(const float radius){
-    RotateByAxis(NX::float3(0, 0, 1), radius);
+void NX::MVMatrixController::RotateByFrontBackAxis(const float radian){
+    RotateByAxis(NX::float3(0, 0, 1), radian);
 }
 
-void NX::MVMatrixController::RotateByLeftRightAxis(const float radius){
-    RotateByAxis(NX::float3(1, 0, 0), radius);
+void NX::MVMatrixController::RotateByLeftRightAxis(const float radian){
+    RotateByAxis(NX::float3(1, 0, 0), radian);
 }
 
-void NX::MVMatrixController::RotateByUpDownAxis(const float radius){
-    RotateByAxis(NX::float3(0, 1, 0), radius);
+void NX::MVMatrixController::RotateByUpDownAxis(const float radian){
+    RotateByAxis(NX::float3(0, 1, 0), radian);
 }
 
 static inline void Rotate(const NX::float3x3 &TranslateMatrix, NX::float3 &Rotated){
@@ -79,8 +79,8 @@ static inline void Rotate(const NX::float3x3 &TranslateMatrix, NX::float3 &Rotat
     Rotated.Set(oo[0][0], oo[1][0], oo[2][0]);
 }
 
-void NX::MVMatrixController::RotateByAxis(const float3 &axis, const float radius){
-    NX::float3x3 RotateMatrix = NX::RotateAix<float, 3, float>(axis, radius);
+void NX::MVMatrixController::RotateByAxis(const float3 &axis, const float radian){
+    NX::float3x3 RotateMatrix = NX::RotateAix<float, 3, float>(axis, radian);
     Rotate(RotateMatrix, m_vUp);
     m_vLooked -= m_vEye;
     Rotate(RotateMatrix, m_vLooked);
