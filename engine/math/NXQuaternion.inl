@@ -1,5 +1,5 @@
 /*
- *  File:    NXQuaternion.cpp
+ *  File:    NXQuaternion.inl
  *  author:  张雄
  *  date:    2016_05_05
  *  purpose: 四元数操作函数
@@ -138,7 +138,7 @@ inline Quaternion Quaternion::GetConjugate(){
 }
 
 inline  vector<float, 3> Quaternion::Rotate(const vector<float, 3> &rhs){
-    const Quaternion &RefObj = (*this) * Quaternion(0, rhs.x, rhs.y, rhs.z) * GetConjugate();
+    const Quaternion &RefObj = (*this) * Quaternion(0, rhs.x, rhs.y, rhs.z) * GetInverse();
     return float3(RefObj.x, RefObj.y, RefObj.z);
 }
 
@@ -197,12 +197,25 @@ inline Quaternion& Quaternion::Conjugate(){
     return *this;
 }
 
+
+inline float LengthSquare(const Quaternion &lhs){
+    return lhs.x * lhs.x + lhs.y * lhs.y + lhs.z * lhs.z + lhs.w * lhs.w;
+}
+
 inline float Dot(const Quaternion &lhs, const Quaternion &rhs){
     return lhs.w * rhs.w + lhs.x * rhs.x + rhs.y * rhs.y + lhs.z * rhs.z;
 }
 
 inline Quaternion Cross(const Quaternion &lhs, const Quaternion &rhs){
-    return lhs * rhs;
+    return lhs * rhs ;
+}
+
+inline float RadianByTwoQuaternion(const Quaternion &lhs, const Quaternion &rhs){
+    float DotValue       = Dot(lhs, rhs);
+    float DotSquareValue = DotValue * DotValue;
+    float LenSquare      = LengthSquare(lhs) * LengthSquare(rhs);
+    float CosValue       = std::abs(DotSquareValue / LenSquare);
+    return std::acos(CosValue);
 }
 
 inline Quaternion Lerp(const Quaternion &lhs, const Quaternion &rhs, const float t){

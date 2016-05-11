@@ -1896,6 +1896,14 @@
 			path = Textures;
 			sourceTree = "<group>";
 		};
+		6C3752691CE2D518009C9B02 /* interst */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = interst;
+			path = RedBook/interst;
+			sourceTree = "<group>";
+		};
 		6C4BB66D1CB538E700ABC075 /* Chap8 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3538,6 +3546,7 @@
 				6C4BB66D1CB538E700ABC075 /* Chap8 */,
 				6C65F84E1CC47A2D005506C0 /* Chap9 */,
 				6C65F8EE1CCE267A005506C0 /* Chap10 */,
+				6C3752691CE2D518009C9B02 /* interst */,
 			);
 			name = redbook;
 			sourceTree = "<group>";
