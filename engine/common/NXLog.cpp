@@ -4,9 +4,17 @@
  *  Date:    2016_02_22
  *  purpose: 日志文件的实现
  */
-
 #include "../System/NXMutex.h"
 #include "NXLog.h"
+
+#if defined(PLATFORM_IOS) || defined(PLATFORM_OSX)         //iOS OSX us std::cout
+#include <iostream>
+#elif defined(PLATFORM_ANDROID)                            //android us __android_log_print
+#include <android/log.h>
+#else                                                      //windows us OutputDebugStringA
+#include <windows.h>
+#pragma comment(lib, "kernel32.lib")
+#endif
 
 static char MsgBuf[1024];
 
@@ -53,7 +61,14 @@ void NX::Log::log(__out std::string& strDst, __in const char *szFormat, ...){
 
 void NX::Log::logToConsole(__in const char *szFormat, ...){
     FORMAT_MSG_LOG_2016_02_22;
-    std::cout << GetTimeDescription() << "  " << MsgBuf << std::endl;
+    std::string StrMsg = GetTimeDescription() + std::string(" ") + MsgBuf;
+#if defined(PLATFORM_OSX) || defined(PLATFORM_IOS)
+    std::cout << StrMsg << std::endl;
+#elif defined(A_PLATFORM_ANDROID)
+    __android_log_print(ANDROID_LOG_INFO, "JoyStick", "%s", StrMsg.c_str());
+#else
+    OutputDebugStringA(StrMsg.c_str());
+#endif
 }
 
 std::string NX::Log::GetTimeDescription(){
