@@ -1,18 +1,18 @@
-[2016-05-05 19:45:57]  log file [./engine/render/NXEngine.txt] open.
-[2016-05-05 19:45:57]  OpenGL version supported by this platform (Intel Inc.)
-[2016-05-05 19:45:57]  Construct ShaderManager
-[2016-05-05 19:45:57]  compile shader [type: Vertex shader] [file: ./redbook/Chap10/MultiViewRenderVS.glsl] with compile msg [Compile succeed]
-[2016-05-05 19:45:57]  compile shader [type: Tesslation control shader] [file: ./redbook/Chap10/MultiViewRenderTCS.glsl] with compile msg [Compile succeed]
-[2016-05-05 19:45:57]  compile shader [type: Tesslation evaluation shader] [file: ./redbook/Chap10/MultiViewRenderTES.glsl] with compile msg [Compile succeed]
-[2016-05-05 19:45:57]  compile shader [type: Geometry shader] [file: ./redbook/Chap10/MultiViewRenderGS.glsl] with compile msg [Compile succeed]
-[2016-05-05 19:45:57]  compile shader [type: Fragment shader] [file: ./redbook/Chap10/MultiViewRenderFS.glsl] with compile msg [Compile succeed]
-[2016-05-05 19:45:57]  Link program with link msg [WARNING: Output of geometry shader 'gColor' not read by fragment shader
+[2016-05-13 17:48:07]  log file [./engine/render/NXEngine.txt] open.
+[2016-05-13 17:48:51]  OpenGL version supported by this platform (Intel Inc.)
+[2016-05-13 17:48:51]  Construct ShaderManager
+[2016-05-13 17:48:51]  compile shader [type: Vertex shader] [file: ./redbook/Chap10/MultiViewRenderVS.glsl] with compile msg [Compile succeed]
+[2016-05-13 17:48:51]  compile shader [type: Tesslation control shader] [file: ./redbook/Chap10/MultiViewRenderTCS.glsl] with compile msg [Compile succeed]
+[2016-05-13 17:48:51]  compile shader [type: Tesslation evaluation shader] [file: ./redbook/Chap10/MultiViewRenderTES.glsl] with compile msg [Compile succeed]
+[2016-05-13 17:48:51]  compile shader [type: Geometry shader] [file: ./redbook/Chap10/MultiViewRenderGS.glsl] with compile msg [Compile succeed]
+[2016-05-13 17:48:51]  compile shader [type: Fragment shader] [file: ./redbook/Chap10/MultiViewRenderFS.glsl] with compile msg [Compile succeed]
+[2016-05-13 17:48:51]  Link program with link msg [WARNING: Output of geometry shader 'gColor' not read by fragment shader
 ]
-[2016-05-05 19:47:40]  FreeAllShaderResource
-[2016-05-05 19:47:40]  Free Shader [Type: Fragment shader] [File: ./redbook/Chap10/MultiViewRenderFS.glsl]
-[2016-05-05 19:47:40]  Free Shader [Type: Geometry shader] [File: ./redbook/Chap10/MultiViewRenderGS.glsl]
-[2016-05-05 19:47:40]  Free Shader [Type: Tesslation control shader] [File: ./redbook/Chap10/MultiViewRenderTCS.glsl]
-[2016-05-05 19:47:40]  Free Shader [Type: Tesslation evaluation shader] [File: ./redbook/Chap10/MultiViewRenderTES.glsl]
-[2016-05-05 19:47:40]  Free Shader [Type: Vertex shader] [File: ./redbook/Chap10/MultiViewRenderVS.glsl]
-[2016-05-05 19:47:40]  Destruct ShaderManager
-[2016-05-05 19:47:40]  log file [./engine/render/NXEngine.txt] closed.
+[2016-05-13 17:48:53]  FreeAllShaderResource
+[2016-05-13 17:48:53]  Free Shader [Type: Fragment shader] [File: ./redbook/Chap10/MultiViewRenderFS.glsl]
+[2016-05-13 17:48:53]  Free Shader [Type: Geometry shader] [File: ./redbook/Chap10/MultiViewRenderGS.glsl]
+[2016-05-13 17:48:53]  Free Shader [Type: Tesslation control shader] [File: ./redbook/Chap10/MultiViewRenderTCS.glsl]
+[2016-05-13 17:48:53]  Free Shader [Type: Tesslation evaluation shader] [File: ./redbook/Chap10/MultiViewRenderTES.glsl]
+[2016-05-13 17:48:53]  Free Shader [Type: Vertex shader] [File: ./redbook/Chap10/MultiViewRenderVS.glsl]
+[2016-05-13 17:48:53]  Destruct ShaderManager
+[2016-05-13 17:48:53]  log file [./engine/render/NXEngine.txt] closed.

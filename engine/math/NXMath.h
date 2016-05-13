@@ -9,6 +9,7 @@
 #ifndef __ZX_NXENGINE_MATH_H__
 #define __ZX_NXENGINE_MATH_H__
 
+#include "NXNumeric.h"
 #include "../common/NXCore.h"
 
 namespace NX {
@@ -38,6 +39,14 @@ namespace NX {
     template<typename T, typename U, typename X>
     T Clamp(T& ComparedValue, const U FloorValue, const X CeilValue);
     
+    template<typename T>
+    T abs(const T value);
+    
+    template<typename T, typename U>
+    T min(const T l, const U r);
+    
+    template<typename T, typename U>
+    T max(const T l, const U r);
 #include "NXMath.inl"
 }
 

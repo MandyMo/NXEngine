@@ -10,7 +10,7 @@
 #define __ZX_NXENGINE_VECTOR_H__
 
 #include "NXCore.h"
-
+#include "NXNumeric.h"
 namespace NX {
     template<typename T, int Scale>
     class vector{
@@ -19,6 +19,10 @@ namespace NX {
             for(int i = 0; i < Scale; ++i){
                 std::memset(v, 0, sizeof(v));
             }
+        }
+        
+        vector(const T* ptr){
+            Set(ptr);
         }
         
         vector(const vector<T, Scale> &rhs){
@@ -161,8 +165,10 @@ namespace NX {
     class vector<T, 1>{
     public:
         vector():x(T()){}
-        
-        vector(const T &value):x(value)                 {  }
+        vector(const T* ptr){
+            Set(ptr);
+        }
+        vector(const T value):x(value)                 {  }
         
         vector(const vector<T, 1> &rhs):x(rhs.x)        {  }
         
@@ -280,8 +286,10 @@ namespace NX {
     class vector<T, 2>{
     public:
         vector():x(T()),y(T()){}
-        
-        vector(const T &v1, const T &v2):x(v1), y(v2){}
+        vector(const T* ptr){
+            Set(ptr);
+        }
+        vector(const T v1, const T v2):x(v1), y(v2){}
         
         vector(const vector<T, 2> &rhs):x(rhs.x), y(rhs.y){}
         
@@ -413,8 +421,10 @@ namespace NX {
     class vector<T, 3>{
     public:
         vector():x(T()), y(T()), z(T()){}
-        
-        vector(const T &v1, const T &v2, const T &v3):x(v1), y(v2), z(v3){}
+        vector(const T* ptr){
+            Set(ptr);
+        }
+        vector(const T v1, const T v2, const T v3):x(v1), y(v2), z(v3){}
         
         template<typename U>
         vector(const vector<U, 3> &rhs):x(rhs.x), y(rhs.y), z(rhs.z){}
@@ -555,8 +565,10 @@ namespace NX {
     class vector<T, 4>{
     public:
         vector():x(T()), y(T()), z(T()), w(T()){}
-
-        vector(const T &v1, const T &v2, const T &v3, const T &v4):x(v1), y(v2), z(v3), w(v4){}
+        vector(const T* ptr){
+            Set(ptr);
+        }
+        vector(const T v1, const T v2, const T v3, const T v4):x(v1), y(v2), z(v3), w(v4){}
         
         template<typename U>
         vector(const vector<U, 4> &rhs):x(rhs.x), y(rhs.y), z(rhs.z), w(rhs.w){}

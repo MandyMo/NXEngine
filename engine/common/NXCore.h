@@ -119,10 +119,7 @@ public:
     }
 };
 
-namespace NX{
-    static const float  FLOAT_EPISION   = 0.0001f;
-    static const double DOUBLE_EPISION  = 0.0000001;
-}
+
 
 
 //plat form is MAC OSX, then you should deine the flowing macro and comments the nxet three macos

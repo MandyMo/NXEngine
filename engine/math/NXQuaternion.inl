@@ -53,7 +53,7 @@ inline const float Quaternion::operator[] (const int idx) const{
 }
 
 inline bool Quaternion::operator == (const Quaternion &rhs){
-#define FLOAT_EQUAL(x, y) (std::abs((x) - (y)) <= FLOAT_EPISION)
+#define FLOAT_EQUAL(x, y) (std::abs((x) - (y)) <= FLOAT_EPSILON)
     return FLOAT_EQUAL(w, rhs.w)  && FLOAT_EQUAL(x, rhs.x) && FLOAT_EQUAL(y, rhs.y) && FLOAT_EQUAL(z, rhs.z);
 #undef FLOAT_EQUAL
 }
@@ -229,7 +229,7 @@ inline Quaternion Lerp(const Quaternion &lhs, const Quaternion &rhs, const float
         sign = 1.0f;
     }
     
-    if (CosValue > 1.0 - FLOAT_EPISION){
+    if (CosValue > 1.0 - FLOAT_EPSILON){
         a = 1.0f - t;
         b = t    * sign;
     }else{

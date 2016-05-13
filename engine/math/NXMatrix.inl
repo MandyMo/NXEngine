@@ -1,6 +1,6 @@
 template<typename T, int Row, int Col>
 template<typename U>
-Matrix<T, Row, Col>::Matrix(const Matrix<U, Row, Col> &rhs){
+inline Matrix<T, Row, Col>::Matrix(const Matrix<U, Row, Col> &rhs){
     for(int r = 0; r < Row; ++r){
         for(int c = 0; c < Col; ++c){
             m_Element[r][c] = rhs.m_Element[r][c];
@@ -9,23 +9,23 @@ Matrix<T, Row, Col>::Matrix(const Matrix<U, Row, Col> &rhs){
 }
 
 template<typename T, int Row, int Col>
-Matrix<T, Row, Col>::Matrix(const Matrix &rhs){
+inline Matrix<T, Row, Col>::Matrix(const Matrix &rhs){
     std::memcpy(m_Element, rhs.m_Element, sizeof(m_Element));
 }
 
 template<typename T, int Row, int Col>
-Matrix<T, Row, Col>::Matrix(){
+inline Matrix<T, Row, Col>::Matrix(){
     std::memset(m_Element, 0, sizeof(m_Element));
 }
 
 template<typename T, int Row, int Col>
-Matrix<T, Row, Col>::Matrix(const T *ptr){
+inline Matrix<T, Row, Col>::Matrix(const T *ptr){
     memcpy(m_Element, ptr, sizeof(m_Element));
 }
 
 template<typename T, int Row, int Col>
 template<typename U>
-Matrix<T, Row, Col>::Matrix(const vector<U, Col> *v){
+inline Matrix<T, Row, Col>::Matrix(const vector<U, Col> *v){
     for(int r = 0; r < Row; ++r){
         for(int c = 0; c < Col; ++c){
             m_Element[r][c] = v[r][c];
@@ -35,7 +35,7 @@ Matrix<T, Row, Col>::Matrix(const vector<U, Col> *v){
 
 template<typename T, int Row, int Col>
 template<typename U>
-Matrix<T, Row, Col>::Matrix(const U (&ary)[Row][Col]){
+inline Matrix<T, Row, Col>::Matrix(const U (&ary)[Row][Col]){
     for(int r = 0; r < Row; ++r){
         for(int c = 0; c < Col; ++c){
             m_Element[r][c] = ary[r][c];
@@ -45,7 +45,7 @@ Matrix<T, Row, Col>::Matrix(const U (&ary)[Row][Col]){
 
 template<typename T, int Row, int Col>
 template<typename U>
-Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator += (const Matrix<U, Row, Col> &rhs){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator += (const Matrix<U, Row, Col> &rhs){
     for(int r = 0; r < Row; ++r){
         for(int c = 0; c < Col; ++c){
             m_Element[r][c] += rhs.m_Element[r][c];
@@ -56,7 +56,7 @@ Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator += (const Matrix<U, Row, Col>
 
 template<typename T, int Row, int Col>
 template<typename U>
-Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator -= (const Matrix<U, Row, Col> &rhs){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator -= (const Matrix<U, Row, Col> &rhs){
     for(int r = 0; r < Row; ++r){
         for(int c = 0; c < Col; ++c){
             m_Element[r][c] -= rhs.m_Element[r][c];
@@ -66,7 +66,7 @@ Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator -= (const Matrix<U, Row, Col>
 }
 
 template<typename T, int Row, int Col>
-Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator += (const T &value){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator += (const T &value){
     for(int r = 0; r < Row; ++r){
         for(int c = 0; c < Col; ++c){
             m_Element[r][c] += value;
@@ -76,7 +76,7 @@ Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator += (const T &value){
 }
 
 template<typename T, int Row, int Col>
-Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator -= (const T &value){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator -= (const T &value){
     for(int r = 0; r < Row; ++r){
         for(int c = 0; c < Col; ++c){
             m_Element[r][c] -= value;
@@ -86,7 +86,7 @@ Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator -= (const T &value){
 }
 
 template<typename T, int Row, int Col>
-Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator *= (const T &value){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator *= (const T &value){
     for(int r = 0; r < Row; ++r){
         for(int c = 0; c < Col; ++c){
             m_Element[r][c] *= value;
@@ -96,7 +96,7 @@ Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator *= (const T &value){
 }
 
 template<typename T, int Row, int Col>
-Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator /= (const T &value){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator /= (const T &value){
     for(int r = 0; r < Row; ++r){
         for(int c = 0; c < Col; ++c){
             m_Element[r][c] /= value;
@@ -106,31 +106,93 @@ Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator /= (const T &value){
 }
 
 template<typename T, int Row, int Col>
-T& Matrix<T, Row, Col>::GetElement(int row, int col){
+inline T& Matrix<T, Row, Col>::GetElement(int row, int col){
     assert(row >= 0 && col >= 0 && row < Row && col < Col);
     return m_Element[row][col];
 }
 
 template<typename T, int Row, int Col>
 template<typename U, int Scale>
-void Matrix<T, Row, Col>::SetRow(int row, const vector<U, Scale> &rhs){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const vector<U, Scale> &rhs){
     assert(row < Row && row >=0);
     for(int i = 0, l = std::min(Scale, Col); i < l; ++i){
         m_Element[row][i] = rhs.v[i];
     }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+template<typename U>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const U *ptr){
+    assert(row < Row && row >=0);
+    const U *p = ptr;
+    for(int i = 0; i < Col; ++i){
+        m_Element[row][i] = *p++;
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const T value){
+    assert(row < Row && row >=0);
+    for(int i = 0; i < Col; ++i){
+        m_Element[row][i] = value;
+    }
+    return *this;
 }
 
 template<typename T, int Row, int Col>
 template<typename U, int Scale>
-void Matrix<T, Row, Col>::SetCol(int col, const vector<U, Scale> &rhs){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, U (&ary)[Scale]){
+    assert(row < Row && row >=0);
+    for(int i = 0, l = std::min(Scale, Col); i < l; ++i){
+        m_Element[row][i] = ary[i];
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+template<typename U, int Scale>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const vector<U, Scale> &rhs){
     assert(col < Col && col >=0);
     for(int i = 0, l = std::min(Scale, Row); i < l; ++i){
         m_Element[i][col] = rhs.v[i];
     }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+template<typename U, int Scale>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, U (&ary)[Scale]){
+    assert(col < Col && col >=0);
+    for(int i = 0, l = std::min(Scale, Row); i < l; ++i){
+        m_Element[i][col] = ary[i];
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+template<typename U>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const U *ptr){
+   const  U *p = ptr;
+    assert(col < Col && col >=0);
+    for(int i = 0; i < Row; ++i){
+        m_Element[i][col] = *p++;
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const T value){
+    assert(col < Col && col >=0);
+    for(int i = 0; i < Row; ++i){
+        m_Element[i][col] = value;
+    }
+    return *this;
 }
 
 template<typename T, int M, int N, typename U, int K, typename RT = T>
-Matrix<RT, M, K> operator * (const Matrix<T, M, N> &lhs, const Matrix<U, N, K> &rhs){
+inline Matrix<RT, M, K> operator * (const Matrix<T, M, N> &lhs, const Matrix<U, N, K> &rhs){
     Matrix<RT, M, K> result;
     for(int r = 0; r < M; ++r){
         for(int c = 0; c < K; ++c){
@@ -143,7 +205,7 @@ Matrix<RT, M, K> operator * (const Matrix<T, M, N> &lhs, const Matrix<U, N, K> &
 }
 
 template<typename T, int M, int N, typename U, typename RT = T>
-vector<RT, N> operator * (const vector<T, M> &lhs, const Matrix<U, M, N> &rhs){
+inline vector<RT, N> operator * (const vector<T, M> &lhs, const Matrix<U, M, N> &rhs){
     vector<RT, N> result;
     for(int i = 0; i < N; ++i){
         for(int j = 0; j < M; ++j){
@@ -154,7 +216,7 @@ vector<RT, N> operator * (const vector<T, M> &lhs, const Matrix<U, M, N> &rhs){
 }
 
 template<typename T, int M, int N, typename U, typename RT = T>
-Matrix<RT, M, 1> operator * (const Matrix<U, M, N> &lhs, const vector<T, N> &rhs){
+inline Matrix<RT, M, 1> operator * (const Matrix<U, M, N> &lhs, const vector<T, N> &rhs){
     Matrix<RT, M, 1> result;
     for(int i = 0; i < M; ++i){
         for(int j = 0; j < N; ++j){
@@ -165,7 +227,7 @@ Matrix<RT, M, 1> operator * (const Matrix<U, M, N> &lhs, const vector<T, N> &rhs
 }
 
 template<typename T, int M>
-void Transpose(Matrix<T, M, M> &lhs){
+inline void Transpose(Matrix<T, M, M> &lhs){
     for(int r = 0; r < M; ++r){
         for(int c = 0; c < r; ++c){
             std::swap(lhs.m_Element[r][c], lhs.m_Element[c][r]);
@@ -174,20 +236,157 @@ void Transpose(Matrix<T, M, M> &lhs){
 }
 
 template<typename T, int Row, int Col>
-T (&Matrix<T, Row, Col>::operator [] (int index))[Col]{
+inline T (&Matrix<T, Row, Col>::operator [] (int index))[Col]{
     assert(index >= 0 && index < Row);
     return m_Element[index];
 }
 
 template<typename T, int Row, int Col>
-const T (&Matrix<T, Row, Col>::operator [] (int index) const)[Col]{
+inline const T (&Matrix<T, Row, Col>::operator [] (int index) const)[Col]{
     assert(index >= 0 && index < Row);
     return m_Element[index];
 }
 
+template<typename T, int Row, int Col>
+template<typename U>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MultiRow(int row, const U value){
+    assert(row < Row && row >= 0);
+    for(int i = 0; i < Col; ++i){
+        m_Element[row][i] *= value;
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+template<typename U>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MultiCol(int col, const U value){
+    assert(col < Col && col >= 0);
+    for(int i = 0; i < Row; ++i){
+        m_Element[i][col] *= value;
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+template<typename U>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddRow(int row, const U value){
+    assert(row < Row && row >= 0);
+    for(int i = 0; i < Col; ++i){
+        m_Element[row][i] += value;
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+template<typename U>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddCol(int col, const U value){
+    assert(col < Col && col >= 0);
+    for(int i = 0; i < Row; ++i){
+        m_Element[i][col] += value;
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneRowToAnother(const int first, const int second){
+    assert(first < Row && first >= 0 && second < Row && second >= 0);
+    for(int i = 0; i < Col; ++i){
+        m_Element[second][i] += m_Element[first][i];
+    }
+    return *this;
+}
+
+//row[second] += row[first] * factor;
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneRowToAnotherByFactor(const int first, const int second, const T factor){
+    assert(first < Row && first >= 0 && second < Row && second >= 0);
+    for(int i = 0; i < Col; ++i){
+        m_Element[second][i] += m_Element[first][i] * factor;
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneColToAnotherByFactor(const int first, const int second, const T factor){
+    assert(first < Col && first >= 0 && second < Col && second >= 0);
+    for(int i = 0; i < Row; ++i){
+        m_Element[i][second] += m_Element[i][first] * factor;
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneColToAnother(const int first, const int second){
+    assert(first < Col && first >= 0 && second < Col && second >= 0);
+    for(int i = 0; i < Row; ++i){
+        m_Element[i][second] += m_Element[i][first];
+    }
+    return *this;
+}
+
+
+//row[second] = row[first] && clear(row[first])
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MoveOnRowToAnother(const int first, const int second){
+    assert(first < Row && first >= 0 && second < Row && second >= 0);
+    for(int i = 0; i < Col; ++i){
+        m_Element[second][i] = m_Element[first][i];
+        m_Element[first][i]  = 0;
+    }
+    return *this;
+}
+
+//col[second] = col[first] && clear(col[first])
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MoveOnColToAnother(const int first, const int second){
+    assert(first < Col && first >= 0 && second < Col && second >= 0);
+    for(int i = 0; i < Row; ++i){
+        m_Element[i][second] = m_Element[i][first];
+        m_Element[i][first]  = 0;
+    }
+    return *this;
+}
+
+//row[second] = row[first] but not clear(row[first])
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetOneRowWithAnother(const int first, const int second){
+    assert(first < Row && first >= 0 && second < Row && second >= 0);
+    for(int i = 0; i < Col; ++i){
+        m_Element[second][i] = m_Element[first][i];
+    }
+    return *this;
+}
+
+//col[second] = col[first] but not clear(col[first])
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetOneColWithAnother(const int first, const int second){
+    assert(first < Col && first >= 0 && second < Col && second >= 0);
+    for(int i = 0; i < Row; ++i){
+        m_Element[i][second] = m_Element[i][first];
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SwapRow(int first, int second){
+    assert(first < Row && first >= 0 && second < Row && second >= 0);
+    for(int i = 0; i < Col; ++i){
+        std::swap(m_Element[second][i], m_Element[first][i]);
+    }
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SwapCol(int first, int second){
+    assert(first < Col && first >= 0 && second < Col && second >= 0);
+    for(int i = 0; i < Row; ++i){
+        std::swap(m_Element[i][second], m_Element[i][first]);
+    }
+    return *this;
+}
 
 template<typename U, typename T = float>
-Matrix<T, 4, 4> LookAt(const vector<U, 3> &eye, const vector<U, 3> &look, const vector<U, 3> &up){
+inline Matrix<T, 4, 4> LookAt(const vector<U, 3> &eye, const vector<U, 3> &look, const vector<U, 3> &up){
     vector<T, 3> oz = look - eye;
     Normalize(oz);
     vector<T, 3> ox = Cross(up, oz);
@@ -208,7 +407,7 @@ Matrix<T, 4, 4> LookAt(const vector<U, 3> &eye, const vector<U, 3> &look, const 
 }
 
 template<typename T>
-Matrix<T, 4, 4> Translate(const T dx, const T dy, const T dz){
+inline Matrix<T, 4, 4> Translate(const T dx, const T dy, const T dz){
     Matrix<T, 4, 4> result;
     result[0][0] = result[1][1] = result[2][2] = result[3][3] = T(1);
     result[0][3] = dx;
@@ -218,7 +417,7 @@ Matrix<T, 4, 4> Translate(const T dx, const T dy, const T dz){
 }
 
 template<typename T, int Scale = 4>
-Matrix<T, Scale, Scale> RotateX(const T radian){
+inline Matrix<T, Scale, Scale> RotateX(const T radian){
     assert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CosValue(std::cos(radian));
@@ -231,7 +430,7 @@ Matrix<T, Scale, Scale> RotateX(const T radian){
 }
 
 template<typename T, int Scale = 4>
-Matrix<T, Scale, Scale> RotateY(const T radian){
+inline Matrix<T, Scale, Scale> RotateY(const T radian){
     assert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CosValue(std::cos(radian));
@@ -243,7 +442,7 @@ Matrix<T, Scale, Scale> RotateY(const T radian){
 }
 
 template<typename T, int Scale = 4>
-Matrix<T, Scale, Scale> RotateZ(const T radian){
+inline Matrix<T, Scale, Scale> RotateZ(const T radian){
     assert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CosValue(std::cos(radian));
@@ -255,7 +454,7 @@ Matrix<T, Scale, Scale> RotateZ(const T radian){
 }
 
 template<typename T, int Scale = 4>
-Matrix<T, Scale, Scale> Scalar(const T sx, const T sy, const T sz){
+inline Matrix<T, Scale, Scale> Scalar(const T sx, const T sy, const T sz){
     Matrix<T, Scale, Scale> result;
     result.m_Element[Scale - 1][Scale - 1] = T(1);
     result.m_Element[0][0] = sx;
@@ -265,7 +464,7 @@ Matrix<T, Scale, Scale> Scalar(const T sx, const T sy, const T sz){
 }
 
 template<typename T, int Scale = 4, typename U>
-Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radian){
+inline Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radian){
     vector<T, 3> ax(Aix);
     Normalize(ax);
     T nxx = ax.x * ax.x;
@@ -296,7 +495,7 @@ Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radian){
 //z/w: [0, 1]
 //w: z
 template<typename T, int Scale = 4>
-Matrix<T, Scale, Scale> Perspective(const T FovAngle, const T aspect, const T near, const T far){
+inline Matrix<T, Scale, Scale> Perspective(const T FovAngle, const T aspect, const T near, const T far){
     assert(Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CotValue = 1 / std::tan(DG2RD(FovAngle) / 2);
@@ -316,7 +515,7 @@ Matrix<T, Scale, Scale> Perspective(const T FovAngle, const T aspect, const T ne
 //z: [0, 1]
 //w: 1
 template<typename T, int Scale = 4>
-Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T near, const T far){
+inline Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T near, const T far){
     assert(Scale == 4);
     Matrix<T, Scale, Scale> result;
     result.m_Element[Scale - 1][Scale - 1] = T(1);
@@ -331,22 +530,58 @@ Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T near, 
 }
 
 template<typename T, typename RT = T>
-RT Detaminate(const Matrix<T, 2, 2>& matrix){
+inline RT Detaminate(const Matrix<T, 2, 2>& matrix){
     RT result(matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]);
     return result;
 }
 
 template<typename T, typename RT = T>
-RT Detaminate(const Matrix<T, 3, 3>& matrix){
+inline RT Detaminate(const Matrix<T, 3, 3>& matrix){
     NX::vector<T, 3> a(matrix[0][0], matrix[0][1], matrix[0][2]);
     NX::vector<T, 3> b(matrix[1][0], matrix[1][1], matrix[1][2]);
     NX::vector<T, 3> c(matrix[2][0], matrix[2][1], matrix[2][2]);
-    RT result(Dot(b, Cross(a, c)));
-    return -result;
+    return RT(Dot(c, Cross(a, b)));
 }
 
 template<typename T, typename RT = T>
-Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix){
+inline RT Detaminate(const Matrix<T, 4, 4> &matrix){
+    RT result(0);
+    {//M{0, 0}
+        Matrix<T, 3, 3> m;
+        m.SetRow(0, &matrix[1][1]);
+        m.SetRow(1, &matrix[2][1]);
+        m.SetRow(2, &matrix[3][1]);
+        result += matrix[0][0] * Detaminate(m);
+    }
+    
+    {//M{1, 0}
+        Matrix<T, 3, 3> m;
+        m.SetRow(0, &matrix[0][1]);
+        m.SetRow(1, &matrix[2][1]);
+        m.SetRow(2, &matrix[3][1]);
+        result -= matrix[1][0] * Detaminate(m);
+    }
+    
+    {//M{2, 0}
+        Matrix<T, 3, 3> m;
+        m.SetRow(0, &matrix[0][1]);
+        m.SetRow(1, &matrix[1][1]);
+        m.SetRow(2, &matrix[3][1]);
+        result += matrix[2][0] * Detaminate(m);
+    }
+    
+    {//M{3, 0}
+        Matrix<T, 3, 3> m;
+        m.SetRow(0, &matrix[0][1]);
+        m.SetRow(1, &matrix[1][1]);
+        m.SetRow(2, &matrix[2][1]);
+        result -= matrix[3][0] * Detaminate(m);
+    }
+    return result;
+}
+
+template<typename T, typename RT = T>
+inline Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix){
     Matrix<RT, 2, 2> result = matrix;
     RT det = Detaminate<T, RT>(matrix);
     result[0][1] = - result[0][1];
@@ -356,9 +591,13 @@ Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix){
 }
 
 template<typename T, typename RT = T>
-Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix){
+inline Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix){
     Matrix<RT, 3, 3> result;
     RT det = Detaminate(matrix);
+    if(NX::abs(det) < Epsilon<T>::m_Epsilon){//to small
+        return result;
+    }
+    
     {//first row
         result[0][0] = matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1];
         result[0][1] = matrix[1][2] * matrix[2][0] - matrix[1][0] * matrix[2][2];
@@ -379,6 +618,70 @@ Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix){
     result /= det;
     Transpose(result);
     return result;
+}
+
+
+template<typename T, typename RT = T>
+inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix){
+    Matrix<RT, 4, 8> m;
+    {//init m = {matrix, I};
+        m[0][4] = 1, m[1][5] = 1, m[2][6] = 1, m[3][7] = 1;
+        m.template SetRow<T, 4>(0, matrix[0]);
+        m.template SetRow<T, 4>(1, matrix[1]);
+        m.template SetRow<T, 4>(2, matrix[2]);
+        m.template SetRow<T, 4>(3, matrix[3]);
+    }
+    
+    if(NX::abs(Detaminate(matrix)) < Epsilon<T>::m_Epsilon){
+        return matrix;
+    }
+    
+    {//gauss - jordan method
+        int iSelRow = 0;
+        for(int c = 0; c < 4; ++c){
+            iSelRow = c;
+            for(int i = c + 1; i < 4; ++i){//select pivot row
+                if(NX::abs(m[iSelRow][c]) < NX::abs(m[i][c])){
+                    iSelRow = i;
+                }
+            }
+            if(iSelRow != c){
+                m.SwapRow(iSelRow, c);
+            }
+            for(int i = 0; i < 4; ++i){
+                if(i == c){
+                    continue;
+                }
+                m.AddOneRowToAnotherByFactor(c, i, -m[i][c] / m[c][c]);
+            }
+            m.MultiRow(c, 1 / m[c][c]);
+        }
+    }
+    
+    Matrix<RT, 4, 4> result;
+    {//copy back
+        result.SetRow(0, &m[0][4]);
+        result.SetRow(1, &m[1][4]);
+        result.SetRow(2, &m[2][4]);
+        result.SetRow(3, &m[3][4]);
+    }
+    return result;
+}
+
+
+/**
+ *  zero some small elements such as 0.0000001
+ */
+template<typename T, int iScale>
+inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matrix, const T EpsilonValue = Epsilon<T>::m_Epsilon){
+    for(int r = 0; r < iScale; ++r){
+        for(int c = 0; c < iScale; ++c){
+            if(abs(matrix[r][c] < EpsilonValue)){
+                matrix[r][c] = T(0);
+            }
+        }
+    }
+    return matrix;
 }
 
 #ifndef DECLARE_MATRIX_TYPE_ROW

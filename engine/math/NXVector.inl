@@ -136,7 +136,7 @@ inline vector<RT, Scale> Lerp(const vector<TA, Scale> &lhs, const vector<TB, Sca
 template<int Scale>
 inline bool operator == (const vector<float, Scale> &lhs, const vector<float, Scale> &rhs){
     for(int i = 0; i < Scale; ++i){
-        if(std::abs(lhs.v[i] - rhs.v[i]) >= FLOAT_EPISION){
+        if(std::abs(lhs.v[i] - rhs.v[i]) >= FLOAT_EPSILON){
             return false;
         }
     }
@@ -146,7 +146,7 @@ inline bool operator == (const vector<float, Scale> &lhs, const vector<float, Sc
 template<int Scale>
 inline bool operator == (const vector<double, Scale> &lhs, const vector<double, Scale> &rhs){
     for(int i = 0; i < Scale; ++i){
-        if(std::abs(lhs.v[i] - rhs.v[i]) >= DOUBLE_EPISION){
+        if(std::abs(lhs.v[i] - rhs.v[i]) >= DOUBLE_EPSILON){
             return false;
         }
     }
