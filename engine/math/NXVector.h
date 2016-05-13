@@ -716,7 +716,73 @@ namespace NX {
 #endif
     };
     
+    //==============================================begin nomember function=============================================
+    template<typename T, int Scale>
+    inline bool operator == (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs);
     
+    template<typename T, typename U, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs);
+    
+    template<typename T, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const T value);
+    
+    template<typename T, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator - (const vector<T, Scale> &lhs, const T value);
+    
+    template<typename T, typename U, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator - (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs);
+    
+    template<typename T, typename U, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs);
+    
+    template<typename T, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const T value);
+    
+    template<typename T, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator * (const T value, const vector<T, Scale> &lhs);
+    
+    template<typename T, typename U, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs);
+    
+    template<typename T, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const T value);
+    
+    template<typename T, int Scale>
+    inline bool operator != (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs);
+    
+    template<typename T, typename U, int Scale, typename RT = T>
+    inline RT Dot (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs);
+    
+    template<typename T, typename U, typename RT = T>
+    inline vector<RT, 3> Cross(const vector<T, 3> &lhs, const vector<U, 3> &rhs);
+    
+    template<typename T, int Scale, typename RT = double>
+    inline RT Length(const vector<T, Scale> &lhs);
+    
+    template<typename T, int Scale>
+    void Normalize(vector<T, Scale> &lhs);
+    
+    template<typename T, int Scale>
+    inline bool operator < (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs);
+    
+    template<typename T, int Scale>
+    inline bool operator <= (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs);
+    
+    template<typename T, int Scale>
+    inline bool operator > (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs);
+    
+    template<typename T, int Scale>
+    inline bool operator >= (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs);
+    
+    template<typename TA, typename TB, int Scale, typename RT = TA>
+    inline vector<RT, Scale> Lerp(const vector<TA, Scale> &lhs, const vector<TB, Scale> &rhs, const float t);
+    
+    template<int Scale>
+    inline bool operator == (const vector<float, Scale> &lhs, const vector<float, Scale> &rhs);
+    
+    template<int Scale>
+    inline bool operator == (const vector<double, Scale> &lhs, const vector<double, Scale> &rhs);
+    //==============================================end of nomember function============================================
 #include "NXVector.inl"
     
 }

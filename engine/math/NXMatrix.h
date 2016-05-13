@@ -66,7 +66,7 @@ namespace NX {
         inline Matrix<T, Row, Col>& MoveOnRowToAnother(const int first, const int second);
         
         //col[second] = col[first] && clear(col[first])
-        inline Matrix<T, Row, Col>& MoveOnColToAnother(const int first, const int second);
+        inline Matrix<T, Row, Col>& MoveOneColToAnother(const int first, const int second);
         
         //row[second] = row[first] but not clear(row[first])
         inline Matrix<T, Row, Col>& SetOneRowWithAnother(const int first, const int second);
@@ -115,6 +115,76 @@ namespace NX {
         T m_Element[Row][Col];
     };
     
+    //==============================================begin nomember function=============================================
+    
+    template<typename T, int M, int N, typename U, int K, typename RT = T>
+    inline Matrix<RT, M, K> operator * (const Matrix<T, M, N> &lhs, const Matrix<U, N, K> &rhs);
+    
+    template<typename T, int M, int N, typename U, typename RT = T>
+    inline vector<RT, N> operator * (const vector<T, M> &lhs, const Matrix<U, M, N> &rhs);
+    
+    template<typename T, int M, int N, typename U, typename RT = T>
+    inline Matrix<RT, M, 1> operator * (const Matrix<U, M, N> &lhs, const vector<T, N> &rhs);
+    
+    template<typename T, int M>
+    inline void Transpose(Matrix<T, M, M> &lhs);
+    
+    template<typename U, typename T = float>
+    inline Matrix<T, 4, 4> LookAt(const vector<U, 3> &eye, const vector<U, 3> &look, const vector<U, 3> &up);
+    
+    template<typename T>
+    inline Matrix<T, 4, 4> Translate(const T dx, const T dy, const T dz);
+    
+    template<typename T, int Scale = 4>
+    inline Matrix<T, Scale, Scale> RotateX(const T radian);
+    
+    template<typename T, int Scale = 4>
+    inline Matrix<T, Scale, Scale> RotateY(const T radian);
+    
+    template<typename T, int Scale = 4>
+    inline Matrix<T, Scale, Scale> RotateZ(const T radian);
+    
+    template<typename T, int Scale = 4>
+    inline Matrix<T, Scale, Scale> Scalar(const T sx, const T sy, const T sz);
+    
+    template<typename T, int Scale = 4, typename U>
+    inline Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radian);
+    
+    //x/w: [-1, 1]
+    //y/w: [-1, 1]
+    //z/w: [0, 1]
+    //w: z
+    template<typename T, int Scale = 4>
+    inline Matrix<T, Scale, Scale> Perspective(const T FovAngle, const T aspect, const T near, const T far);
+    
+    //x: [-1, 1]
+    //y: [-1, 1]
+    //z: [0, 1]
+    //w: 1
+    template<typename T, int Scale = 4>
+    inline Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T near, const T far);
+    
+    template<typename T, typename RT = T>
+    inline RT Detaminate(const Matrix<T, 2, 2>& matrix);
+    
+    template<typename T, typename RT = T>
+    inline RT Detaminate(const Matrix<T, 3, 3>& matrix);
+    
+    template<typename T, typename RT = T>
+    inline RT Detaminate(const Matrix<T, 4, 4> &matrix);
+    
+    template<typename T, typename RT = T>
+    inline Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix);
+    
+    template<typename T, typename RT = T>
+    inline Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix);
+    
+    template<typename T, typename RT = T>
+    inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix);
+    
+    template<typename T, int iScale>
+    inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matrix, const T EpsilonValue = Epsilon<T>::m_Epsilon);
+    //==============================================end of nomember function============================================
 #include "NXMatrix.inl"
     
 }

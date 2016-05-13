@@ -191,7 +191,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const T value){
     return *this;
 }
 
-template<typename T, int M, int N, typename U, int K, typename RT = T>
+template<typename T, int M, int N, typename U, int K, typename RT>
 inline Matrix<RT, M, K> operator * (const Matrix<T, M, N> &lhs, const Matrix<U, N, K> &rhs){
     Matrix<RT, M, K> result;
     for(int r = 0; r < M; ++r){
@@ -204,7 +204,7 @@ inline Matrix<RT, M, K> operator * (const Matrix<T, M, N> &lhs, const Matrix<U, 
     return result;
 }
 
-template<typename T, int M, int N, typename U, typename RT = T>
+template<typename T, int M, int N, typename U, typename RT>
 inline vector<RT, N> operator * (const vector<T, M> &lhs, const Matrix<U, M, N> &rhs){
     vector<RT, N> result;
     for(int i = 0; i < N; ++i){
@@ -215,7 +215,7 @@ inline vector<RT, N> operator * (const vector<T, M> &lhs, const Matrix<U, M, N> 
     return result;
 }
 
-template<typename T, int M, int N, typename U, typename RT = T>
+template<typename T, int M, int N, typename U, typename RT>
 inline Matrix<RT, M, 1> operator * (const Matrix<U, M, N> &lhs, const vector<T, N> &rhs){
     Matrix<RT, M, 1> result;
     for(int i = 0; i < M; ++i){
@@ -338,7 +338,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MoveOnRowToAnother(const int fi
 
 //col[second] = col[first] && clear(col[first])
 template<typename T, int Row, int Col>
-inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MoveOnColToAnother(const int first, const int second){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MoveOneColToAnother(const int first, const int second){
     assert(first < Col && first >= 0 && second < Col && second >= 0);
     for(int i = 0; i < Row; ++i){
         m_Element[i][second] = m_Element[i][first];
@@ -385,7 +385,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SwapCol(int first, int second){
     return *this;
 }
 
-template<typename U, typename T = float>
+template<typename U, typename T>
 inline Matrix<T, 4, 4> LookAt(const vector<U, 3> &eye, const vector<U, 3> &look, const vector<U, 3> &up){
     vector<T, 3> oz = look - eye;
     Normalize(oz);
@@ -416,7 +416,7 @@ inline Matrix<T, 4, 4> Translate(const T dx, const T dy, const T dz){
     return result;
 }
 
-template<typename T, int Scale = 4>
+template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> RotateX(const T radian){
     assert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
@@ -429,7 +429,7 @@ inline Matrix<T, Scale, Scale> RotateX(const T radian){
     return result;
 }
 
-template<typename T, int Scale = 4>
+template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> RotateY(const T radian){
     assert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
@@ -441,7 +441,7 @@ inline Matrix<T, Scale, Scale> RotateY(const T radian){
     return result;
 }
 
-template<typename T, int Scale = 4>
+template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> RotateZ(const T radian){
     assert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
@@ -453,7 +453,7 @@ inline Matrix<T, Scale, Scale> RotateZ(const T radian){
     return result;
 }
 
-template<typename T, int Scale = 4>
+template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> Scalar(const T sx, const T sy, const T sz){
     Matrix<T, Scale, Scale> result;
     result.m_Element[Scale - 1][Scale - 1] = T(1);
@@ -463,7 +463,7 @@ inline Matrix<T, Scale, Scale> Scalar(const T sx, const T sy, const T sz){
     return result;
 }
 
-template<typename T, int Scale = 4, typename U>
+template<typename T, int Scale, typename U>
 inline Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radian){
     vector<T, 3> ax(Aix);
     Normalize(ax);
@@ -494,7 +494,7 @@ inline Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radian
 //y/w: [-1, 1]
 //z/w: [0, 1]
 //w: z
-template<typename T, int Scale = 4>
+template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> Perspective(const T FovAngle, const T aspect, const T near, const T far){
     assert(Scale == 4);
     Matrix<T, Scale, Scale> result;
@@ -514,7 +514,7 @@ inline Matrix<T, Scale, Scale> Perspective(const T FovAngle, const T aspect, con
 //y: [-1, 1]
 //z: [0, 1]
 //w: 1
-template<typename T, int Scale = 4>
+template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T near, const T far){
     assert(Scale == 4);
     Matrix<T, Scale, Scale> result;
@@ -529,13 +529,13 @@ inline Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T
     return result;
 }
 
-template<typename T, typename RT = T>
+template<typename T, typename RT>
 inline RT Detaminate(const Matrix<T, 2, 2>& matrix){
     RT result(matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]);
     return result;
 }
 
-template<typename T, typename RT = T>
+template<typename T, typename RT>
 inline RT Detaminate(const Matrix<T, 3, 3>& matrix){
     NX::vector<T, 3> a(matrix[0][0], matrix[0][1], matrix[0][2]);
     NX::vector<T, 3> b(matrix[1][0], matrix[1][1], matrix[1][2]);
@@ -543,7 +543,7 @@ inline RT Detaminate(const Matrix<T, 3, 3>& matrix){
     return RT(Dot(c, Cross(a, b)));
 }
 
-template<typename T, typename RT = T>
+template<typename T, typename RT>
 inline RT Detaminate(const Matrix<T, 4, 4> &matrix){
     RT result(0);
     {//M{0, 0}
@@ -580,7 +580,7 @@ inline RT Detaminate(const Matrix<T, 4, 4> &matrix){
     return result;
 }
 
-template<typename T, typename RT = T>
+template<typename T, typename RT>
 inline Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix){
     Matrix<RT, 2, 2> result = matrix;
     RT det = Detaminate<T, RT>(matrix);
@@ -590,7 +590,7 @@ inline Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix){
     return result;
 }
 
-template<typename T, typename RT = T>
+template<typename T, typename RT>
 inline Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix){
     Matrix<RT, 3, 3> result;
     RT det = Detaminate(matrix);
@@ -621,7 +621,7 @@ inline Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix){
 }
 
 
-template<typename T, typename RT = T>
+template<typename T, typename RT>
 inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix){
     Matrix<RT, 4, 8> m;
     {//init m = {matrix, I};
@@ -673,7 +673,7 @@ inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix){
  *  zero some small elements such as 0.0000001
  */
 template<typename T, int iScale>
-inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matrix, const T EpsilonValue = Epsilon<T>::m_Epsilon){
+inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matrix, const T EpsilonValue){
     for(int r = 0; r < iScale; ++r){
         for(int c = 0; c < iScale; ++c){
             if(abs(matrix[r][c] < EpsilonValue)){

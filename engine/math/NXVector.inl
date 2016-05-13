@@ -8,47 +8,47 @@ inline bool operator == (const vector<T, Scale> &lhs, const vector<T, Scale> &rh
     return true;
 }
 
-template<typename T, typename U, int Scale, typename RT = T>
+template<typename T, typename U, int Scale, typename RT>
 inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
     return (vector<RT, Scale>(lhs) += rhs);
 }
 
-template<typename T, int Scale, typename RT = T>
+template<typename T, int Scale, typename RT>
 inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const T value){
     return (vector<RT, Scale>(lhs) += value);
 }
 
-template<typename T, int Scale, typename RT = T>
+template<typename T, int Scale, typename RT>
 inline vector<RT, Scale> operator - (const vector<T, Scale> &lhs, const T value){
     return (vector<RT, Scale>(lhs) -= value);
 }
 
-template<typename T, typename U, int Scale, typename RT = T>
+template<typename T, typename U, int Scale, typename RT>
 inline vector<RT, Scale> operator - (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
     return (vector<RT, Scale>(lhs) -= rhs);
 }
 
-template<typename T, typename U, int Scale, typename RT = T>
+template<typename T, typename U, int Scale, typename RT>
 inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
     return (vector<RT, Scale>(lhs) *= rhs);
 }
 
-template<typename T, int Scale, typename RT = T>
+template<typename T, int Scale, typename RT>
 inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const T value){
     return (vector<RT, Scale>(lhs) *= value);
 }
 
-template<typename T, int Scale, typename RT = T>
+template<typename T, int Scale, typename RT>
 inline vector<RT, Scale> operator * (const T value, const vector<T, Scale> &lhs){
     return (vector<RT, Scale>(lhs) *= value);
 }
 
-template<typename T, typename U, int Scale, typename RT = T>
+template<typename T, typename U, int Scale, typename RT>
 inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
     return (vector<RT, Scale>(lhs) /= rhs);
 }
 
-template<typename T, int Scale, typename RT = T>
+template<typename T, int Scale, typename RT>
 inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const T value){
     return (vector<RT, Scale>(lhs) /= value);
 }
@@ -58,7 +58,7 @@ inline bool operator != (const vector<T, Scale> &lhs, const vector<T, Scale> &rh
     return !(lhs == rhs);
 }
 
-template<typename T, typename U, int Scale, typename RT = T>
+template<typename T, typename U, int Scale, typename RT>
 inline RT Dot (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
     RT sum = 0;
     for(int i = 0; i < Scale; ++i){
@@ -67,7 +67,7 @@ inline RT Dot (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
     return sum;
 }
 
-template<typename T, typename U, typename RT = T>
+template<typename T, typename U, typename RT>
 inline vector<RT, 3> Cross(const vector<T, 3> &lhs, const vector<U, 3> &rhs){
     return vector<RT, 3>(lhs.v[1] * rhs.v[2] - lhs.v[2] * rhs.v[1],
                          lhs.v[2] * rhs.v[0] - lhs.v[0] * rhs.v[2],
@@ -75,7 +75,7 @@ inline vector<RT, 3> Cross(const vector<T, 3> &lhs, const vector<U, 3> &rhs){
 }
 
 
-template<typename T, int Scale, typename RT = double>
+template<typename T, int Scale, typename RT>
 inline RT Length(const vector<T, Scale> &lhs){
     double Sum = 0.0;
     for(int i = 0; i < Scale; ++i){
@@ -123,7 +123,7 @@ inline bool operator >= (const vector<T, Scale> &lhs, const vector<T, Scale> &rh
 }
 
 
-template<typename TA, typename TB, int Scale, typename RT = TA>
+template<typename TA, typename TB, int Scale, typename RT>
 inline vector<RT, Scale> Lerp(const vector<TA, Scale> &lhs, const vector<TB, Scale> &rhs, const float t){
     vector<RT, Scale> result;
     RT a = 1 - t, b = t;
