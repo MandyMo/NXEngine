@@ -51,7 +51,7 @@ void NX::MVMatrixController::MoveByVector(const float3 &vTranslate){
 }
 
 void NX::MVMatrixController::MoveByAxis(const float3 &vDirection, const float Distance){
-    if(std::abs(Distance) < FLOAT_EPSILON){//too small, then skip
+    if(NXAbs(Distance) < FLOAT_EPSILON){//too small, then skip
         return;
     }
     

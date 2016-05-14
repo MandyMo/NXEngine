@@ -53,7 +53,7 @@ inline const float Quaternion::operator[] (const int idx) const{
 }
 
 inline bool Quaternion::operator == (const Quaternion &rhs){
-#define FLOAT_EQUAL(x, y) (std::abs((x) - (y)) <= FLOAT_EPSILON)
+#define FLOAT_EQUAL(x, y) (NXAbs((x) - (y)) <= FLOAT_EPSILON)
     return FLOAT_EQUAL(w, rhs.w)  && FLOAT_EQUAL(x, rhs.x) && FLOAT_EQUAL(y, rhs.y) && FLOAT_EQUAL(z, rhs.z);
 #undef FLOAT_EQUAL
 }
@@ -214,7 +214,7 @@ inline float RadianByTwoQuaternion(const Quaternion &lhs, const Quaternion &rhs)
     float DotValue       = Dot(lhs, rhs);
     float DotSquareValue = DotValue * DotValue;
     float LenSquare      = LengthSquare(lhs) * LengthSquare(rhs);
-    float CosValue       = std::abs(DotSquareValue / LenSquare);
+    float CosValue       = NXAbs(DotSquareValue / LenSquare);
     return std::acos(CosValue);
 }
 

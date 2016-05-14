@@ -20,7 +20,7 @@ inline float  RandUnitFloat(){
 }
 
 inline float  RandFloatInRange(float left, float right){
-    assert(std::abs(right - left) > FLOAT_EPSILON);
+    assert(NXAbs(right - left) > FLOAT_EPSILON);
     return RandUnitFloat() * (right - left) + left;
 }
 
@@ -66,16 +66,16 @@ inline T Clamp(T& ComparedValue, const U FloorValue, const X CeilValue){
 }
 
 template<typename T>
-T abs(const T value){
+T NXAbs(const T value){
     return value < 0 ? -value : value;
 }
 
 template<typename T, typename U>
-T min(const T l, const U r){
+T NXMin(const T l, const U r){
     return l < r ? l : r;
 }
 
 template<typename T, typename U>
-T max(const T l, const U r){
+T NXMax(const T l, const U r){
     return l > r ? l : r;
 }

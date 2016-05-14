@@ -8,33 +8,33 @@
 #include "DemoHeader.h"
 #include "../engine/common/NXMemory.h"
 
+#include "../engine/math/NXPrimitive.h"
+
 int main(int argc, const char* argv[]){
-    for(int i = 0; i < 1000; ++i){
-        NX::float4x4 m;
-        for(int i = 0; i < 4; ++i){
-            for(int j = 0; j < 4; ++j){
-                m[i][j] = NX::RandFloatInRange(-100, 100);
-            }
+//    NX::Plane pA(NX::float4(1, 2, 3, 4));
+//    NX::Plane pB(NX::float4(2, 3, 4, 5));
+//    auto X = pA.Intersect(pB);
+    NX::Matrix<double, 50, 50> M;
+    for(int i = 0; i< M.GetRowCount(); ++i){
+        for(int j = 0; j < M.GetColCount(); ++j){
+            M[i][j] = NX::RandFloatInRange(-100, 100);
         }
-    
-        auto x = NX::Reverse(m);
-        auto y = x * m;
-        SimplifyMatrix(y);
-        bool Ok = true;
-        for(int i = 0; i < 4; ++i){
-            for(int j = 0; j < 4; ++j){
-                if(i == j && NX::abs(y[i][j] - 1) > NX::FLOAT_EPSILON){
-                    Ok = false;
-                }
-                if(i != j && NX::abs(y[i][j]) > NX::FLOAT_EPSILON){
-                    Ok = false;
-                }
-            }
-        }
-        
-        NX::glb_GetLog().logToConsole("Check Result: %s\n", Ok ? "true" : "false");
     }
-    NX::glb_GetLog().logToConsole("begin main");
+    auto X = Reverse(M);
+    auto Y = M * X;
+    SimplifyMatrix(Y);
+    bool bOK = true;
+    for(int i = 0; i < M.GetRowCount(); ++i){
+        for(int j = 0; j < M.GetColCount(); ++j){
+            if(i == j && NX::NXAbs(Y[i][j] - 1) > NX::Epsilon<double>::m_Epsilon){
+                bOK = false;
+            }
+            if(i != j && NX::NXAbs(Y[i][j]) > NX::Epsilon<double>::m_Epsilon){
+                bOK= false;
+            }
+        }
+    }
+    NX::glb_GetLog().logToConsole("Reverse: %s", bOK ? "true" : "false");
     std::auto_ptr<NX::Application> app(new MultiViewRender());
     if(!app->Init(argv, argc, 800, 800)){
         std::cout << "failed init application..." << std::endl;

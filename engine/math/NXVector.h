@@ -36,7 +36,7 @@ namespace NX {
             }
         }
         
-        vector(const T &value){
+        vector(const T value){
             for(int i = 0; i < Scale; ++i){
                 v[i] = value[i];
             }
@@ -58,7 +58,7 @@ namespace NX {
             return v[index];
         }
         
-        void Set(T* ptr){
+        void Set(const T* ptr){
             memcpy(v, ptr, sizeof(v));
         }
         
@@ -68,7 +68,7 @@ namespace NX {
         }
         
         template<typename U>
-        vector<T, Scale>& operator = (const vector<U, Scale> & rhs){
+        vector<T, Scale>& operator = (const vector<U, Scale> &rhs){
             for(int i = 0; i < Scale; ++i){
                 v[i] = rhs.v[i];
             }
@@ -110,7 +110,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, Scale>& operator += (const T &value){
+        vector<T, Scale>& operator += (const T value){
             for(int i = 0; i < Scale; ++i){
                 v[i] += value;
             }
@@ -126,27 +126,27 @@ namespace NX {
             return *this;
         }
         
-        vector<T, Scale>& operator -= (const T &value){
+        vector<T, Scale>& operator -= (const T value){
             for(int i = 0; i < Scale; ++i){
                 v[i] -= value;
             }
         }
         
-        vector<T, Scale>& operator = (const T &value){
+        vector<T, Scale>& operator = (const T value){
             for(int i = 0; i < Scale; ++i){
                 v[i] = value;
             }
             return *this;
         }
         
-        vector<T, Scale>& operator *= (const T &value){
+        vector<T, Scale>& operator *= (const T value){
             for(int i = 0; i < Scale; ++i){
                 v[i] *= value;
             }
             return *this;
         }
         
-        vector<T, Scale>& operator /= (const T &value){
+        vector<T, Scale>& operator /= (const T value){
             for(int i = 0; i < Scale; ++i){
                 v[i] /= value;
             }
@@ -192,7 +192,7 @@ namespace NX {
             return v[index];
         }
         
-        void Set(const T &value){
+        void Set(const T value){
             x = value;
         }
         
@@ -222,7 +222,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 1>& operator = (const T &value){
+        vector<T, 1>& operator = (const T value){
             x = value;
             return *this;
         }
@@ -233,7 +233,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 1>& operator += (const T &value){
+        vector<T, 1>& operator += (const T value){
             x += value;
             return *this;
         }
@@ -244,7 +244,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 1>& operator -= (const T &value){
+        vector<T, 1>& operator -= (const T value){
             x -= value;
             return *this;
         }
@@ -255,7 +255,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 1>& operator *= (const T &value){
+        vector<T, 1>& operator *= (const T value){
             x *= value;
             return *this;
         }
@@ -266,7 +266,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 1>& operator /= (const T &value){
+        vector<T, 1>& operator /= (const T value){
             x /= value;
             return *this;
         }
@@ -296,10 +296,10 @@ namespace NX {
         template<typename U>
         vector(const vector<U, 2> &rhs):x(rhs.x), y(rhs.y){}
         
-        vector(const T &value):x(value), y(value){}
+        vector(const T value):x(value), y(value){}
         
         template<typename U, int CC>
-        vector(const vector<U, CC> & rhs){
+        vector(const vector<U, CC> &rhs){
             *this = rhs;
         }
     public:
@@ -317,7 +317,7 @@ namespace NX {
             return v[index];
         }
         
-        void Set(const T &v1, const T &v2){
+        void Set(const T v1, const T v2){
             x = v1;
             y = v2;
         }
@@ -341,7 +341,7 @@ namespace NX {
             }
             return *this;
         }
-        vector<T, 2>& operator = (const T &value){
+        vector<T, 2>& operator = (const T value){
             x = y = value;
             return *this;
         }
@@ -353,7 +353,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 2>& operator += (const T &value){
+        vector<T, 2>& operator += (const T value){
             x += value;
             y += value;
             return *this;
@@ -366,7 +366,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 2>& operator -= (const T &value){
+        vector<T, 2>& operator -= (const T value){
             x -= value;
             y -= value;
             return *this;
@@ -379,7 +379,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 2>& operator *= (const T &value){
+        vector<T, 2>& operator *= (const T value){
             x *= value;
             y *= value;
             return *this;
@@ -392,7 +392,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 2>& operator /= (const T &value){
+        vector<T, 2>& operator /= (const T value){
             x /= value;
             y /= value;
             return *this;
@@ -448,7 +448,7 @@ namespace NX {
             return v[index];
         }
         
-        void Set(const T &v1, const T &v2, const T &v3){
+        void Set(const T v1, const T v2, const T v3){
             x = v1;
             y = v2;
             z = v3;
@@ -475,7 +475,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 3>& operator = (const T &value){
+        vector<T, 3>& operator = (const T value){
             x = y = z = value;
             return *this;
         }
@@ -488,7 +488,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 3>& operator += (const T &value){
+        vector<T, 3>& operator += (const T value){
             x += value;
             y += value;
             z += value;
@@ -503,7 +503,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 3>& operator -= (const T &value){
+        vector<T, 3>& operator -= (const T value){
             x -= value;
             y -= value;
             z -= value;
@@ -518,7 +518,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 3>& operator *= (const T &value){
+        vector<T, 3>& operator *= (const T value){
             x *= value;
             y *= value;
             z *= value;
@@ -533,7 +533,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 3>& operator /= (const T &value){
+        vector<T, 3>& operator /= (const T value){
             x /= value;
             y /= value;
             z /= value;
@@ -592,7 +592,7 @@ namespace NX {
             return v[index];
         }
         
-        void Set(const T &v1, const T &v2, const T &v3, const T &v4){
+        void Set(const T v1, const T v2, const T v3, const T v4){
             x = v1;
             y = v2;
             z = v3;
@@ -620,7 +620,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 4>& operator = (const T &value){
+        vector<T, 4>& operator = (const T value){
             x = y = z = w = value;
             return *this;
         }
@@ -634,7 +634,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 4>& operator += (const T &value){
+        vector<T, 4>& operator += (const T value){
             x += value;
             y += value;
             z += value;
@@ -651,7 +651,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 4>& operator -= (const T &value){
+        vector<T, 4>& operator -= (const T value){
             x -= value;
             y -= value;
             z -= value;
@@ -668,7 +668,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 4>& operator *= (const T &value){
+        vector<T, 4>& operator *= (const T value){
             x *= value;
             y *= value;
             z *= value;
@@ -685,7 +685,7 @@ namespace NX {
             return *this;
         }
         
-        vector<T, 4>& operator /= (const T &value){
+        vector<T, 4>& operator /= (const T value){
             x /= value;
             y /= value;
             z /= value;
@@ -758,6 +758,9 @@ namespace NX {
     
     template<typename T, int Scale, typename RT = double>
     inline RT Length(const vector<T, Scale> &lhs);
+    
+    template<typename T, int Scale, typename RT = double>
+    inline RT LengthSquare(const vector<T, Scale> &lhs);
     
     template<typename T, int Scale>
     void Normalize(vector<T, Scale> &lhs);

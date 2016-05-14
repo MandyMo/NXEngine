@@ -191,6 +191,17 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const T value){
     return *this;
 }
 
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::Transpose(){
+    assert(Row == Col);
+    for(int r = 0; r < Row; ++r){
+        for(int c = 0; c < r; ++c){
+            std::swap(m_Element[r][c], m_Element[c][r]);
+        }
+    }
+    return *this;
+}
+
 template<typename T, int M, int N, typename U, int K, typename RT>
 inline Matrix<RT, M, K> operator * (const Matrix<T, M, N> &lhs, const Matrix<U, N, K> &rhs){
     Matrix<RT, M, K> result;
@@ -226,13 +237,13 @@ inline Matrix<RT, M, 1> operator * (const Matrix<U, M, N> &lhs, const vector<T, 
     return result;
 }
 
-template<typename T, int M>
-inline void Transpose(Matrix<T, M, M> &lhs){
-    for(int r = 0; r < M; ++r){
-        for(int c = 0; c < r; ++c){
-            std::swap(lhs.m_Element[r][c], lhs.m_Element[c][r]);
-        }
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col> Transpose(const Matrix<T, Col, Row> &lhs){
+    Matrix<T, Row, Col> result;
+    for(int i = 0; i < Col; ++i){
+        result.template SetCol<T, Row>(i, lhs[i]);
     }
+    return result;
 }
 
 template<typename T, int Row, int Col>
@@ -543,6 +554,38 @@ inline RT Detaminate(const Matrix<T, 3, 3>& matrix){
     return RT(Dot(c, Cross(a, b)));
 }
 
+template<typename T, int Scale, typename RT>
+inline RT Detaminate(const Matrix<T, Scale, Scale> &matrix){
+    Matrix<RT, Scale, Scale> M(matrix);
+    unsigned int iSwapCount = 0;
+    {//gauss - jordan method
+        int iSelRow = 0;
+        for(int c = 0; c < Scale; ++c){
+            iSelRow = c;
+            for(int i = c + 1; i < Scale; ++i){//select pivot row for numeric stability
+                if(NX::NXAbs(M[iSelRow][c]) < NX::NXAbs(M[i][c])){
+                    iSelRow = i;
+                }
+            }
+            if(iSelRow != c){
+                M.SwapRow(iSelRow, c);
+                ++iSwapCount;
+            }
+            if(NXAbs(M[c][c]) < Epsilon<RT>::m_Epsilon){
+                return RT(0);
+            }
+            for(int i = c+ 1; i < Scale; ++i){
+                M.AddOneRowToAnotherByFactor(c, i, -M[i][c] / M[c][c]);
+            }
+        }
+    }
+    RT result(1);
+    for(int i = 0; i < Scale; ++i){
+        result *= M[i][i];
+    }
+    return iSwapCount & 1 ? -result : result;
+}
+
 template<typename T, typename RT>
 inline RT Detaminate(const Matrix<T, 4, 4> &matrix){
     RT result(0);
@@ -594,7 +637,7 @@ template<typename T, typename RT>
 inline Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix){
     Matrix<RT, 3, 3> result;
     RT det = Detaminate(matrix);
-    if(NX::abs(det) < Epsilon<T>::m_Epsilon){//to small
+    if(NX::NXAbs(det) < Epsilon<T>::m_Epsilon){//to small
         return result;
     }
     
@@ -632,7 +675,7 @@ inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix){
         m.template SetRow<T, 4>(3, matrix[3]);
     }
     
-    if(NX::abs(Detaminate(matrix)) < Epsilon<T>::m_Epsilon){
+    if(NX::NXAbs(Detaminate(matrix)) < Epsilon<T>::m_Epsilon){
         return matrix;
     }
     
@@ -641,7 +684,7 @@ inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix){
         for(int c = 0; c < 4; ++c){
             iSelRow = c;
             for(int i = c + 1; i < 4; ++i){//select pivot row
-                if(NX::abs(m[iSelRow][c]) < NX::abs(m[i][c])){
+                if(NX::NXAbs(m[iSelRow][c]) < NX::NXAbs(m[i][c])){
                     iSelRow = i;
                 }
             }
@@ -668,6 +711,43 @@ inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix){
     return result;
 }
 
+template<typename T, int Scale, typename RT>
+inline Matrix<RT, Scale, Scale> Reverse(const Matrix<T, Scale, Scale> &matrix){
+    Matrix<RT, Scale, (Scale << 1)> M;
+    for(int i = 0; i < Scale; ++i){
+        M.template SetRow<T, Scale>(i, matrix[i]);
+        M[i][i + Scale] = 1;
+    }
+    {//gauss - jordan method
+        int iSelRow = 0;
+        for(int c = 0; c < Scale; ++c){
+            iSelRow = c;
+            for(int i = c + 1; i < Scale; ++i){//select pivot row
+                if(NX::NXAbs(M[iSelRow][c]) < NX::NXAbs(M[i][c])){
+                    iSelRow = i;
+                }
+            }
+            if(iSelRow != c){
+                M.SwapRow(iSelRow, c);
+            }
+            for(int i = 0; i < Scale; ++i){
+                if(i == c){
+                    continue;
+                }
+                M.AddOneRowToAnotherByFactor(c, i, -M[i][c] / M[c][c]);
+            }
+            M.MultiRow(c, 1 / M[c][c]);
+        }
+    }
+    
+    Matrix<RT, Scale, Scale> result;
+    {//copy back
+        for(int i = 0; i < Scale; ++i){
+            result.SetRow(i, &M[i][Scale]);
+        }
+    }
+    return result;
+}
 
 /**
  *  zero some small elements such as 0.0000001
@@ -676,7 +756,7 @@ template<typename T, int iScale>
 inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matrix, const T EpsilonValue){
     for(int r = 0; r < iScale; ++r){
         for(int c = 0; c < iScale; ++c){
-            if(abs(matrix[r][c] < EpsilonValue)){
+            if(NXAbs(matrix[r][c] < EpsilonValue)){
                 matrix[r][c] = T(0);
             }
         }

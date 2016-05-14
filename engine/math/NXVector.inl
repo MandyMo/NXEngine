@@ -77,11 +77,16 @@ inline vector<RT, 3> Cross(const vector<T, 3> &lhs, const vector<U, 3> &rhs){
 
 template<typename T, int Scale, typename RT>
 inline RT Length(const vector<T, Scale> &lhs){
-    double Sum = 0.0;
+    return std::sqrt(LengthSquare(lhs));
+}
+
+template<typename T, int Scale, typename RT>
+inline RT LengthSquare(const vector<T, Scale> &lhs){
+    RT Sum = 0.0;
     for(int i = 0; i < Scale; ++i){
         Sum += (lhs.v[i] * lhs.v[i]);
     }
-    return std::sqrt(Sum);
+    return Sum;
 }
 
 template<typename T, int Scale>
@@ -136,7 +141,7 @@ inline vector<RT, Scale> Lerp(const vector<TA, Scale> &lhs, const vector<TB, Sca
 template<int Scale>
 inline bool operator == (const vector<float, Scale> &lhs, const vector<float, Scale> &rhs){
     for(int i = 0; i < Scale; ++i){
-        if(std::abs(lhs.v[i] - rhs.v[i]) >= FLOAT_EPSILON){
+        if(NXAbs(lhs.v[i] - rhs.v[i]) >= FLOAT_EPSILON){
             return false;
         }
     }
@@ -146,7 +151,7 @@ inline bool operator == (const vector<float, Scale> &lhs, const vector<float, Sc
 template<int Scale>
 inline bool operator == (const vector<double, Scale> &lhs, const vector<double, Scale> &rhs){
     for(int i = 0; i < Scale; ++i){
-        if(std::abs(lhs.v[i] - rhs.v[i]) >= DOUBLE_EPSILON){
+        if(NXAbs(lhs.v[i] - rhs.v[i]) >= DOUBLE_EPSILON){
             return false;
         }
     }

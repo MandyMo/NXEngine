@@ -38,6 +38,8 @@ namespace NX {
         
         inline Matrix<T, Row, Col>& operator /= (const T &value);
         
+        inline Matrix<T, Row, Col>& Transpose();
+        
         template<typename U>
         inline Matrix<T, Row, Col>& MultiRow(int row, const U value);
         
@@ -173,6 +175,9 @@ namespace NX {
     template<typename T, typename RT = T>
     inline RT Detaminate(const Matrix<T, 4, 4> &matrix);
     
+    template<typename T, int Scale, typename RT = T>
+    inline RT Detaminate(const Matrix<T, Scale, Scale> &matrix);
+    
     template<typename T, typename RT = T>
     inline Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix);
     
@@ -181,6 +186,9 @@ namespace NX {
     
     template<typename T, typename RT = T>
     inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix);
+    
+    template<typename T, int Scale, typename RT = T>
+    inline Matrix<RT, Scale, Scale> Reverse(const Matrix<T, Scale, Scale> &matrix);
     
     template<typename T, int iScale>
     inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matrix, const T EpsilonValue = Epsilon<T>::m_Epsilon);
