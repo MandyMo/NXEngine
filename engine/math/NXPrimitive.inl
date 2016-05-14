@@ -216,3 +216,54 @@ inline std::pair<bool, Line> Plane::Intersect(const Plane &rhs) const{  //平面
 inline float  Plane::Distance(const vector<float, 3> &rhs) const{      //点到平面距离
     return (Dot(m_vPlaneNormal, rhs) + m_fDistFromOriginal) / Length(m_vPlaneNormal);
 }
+
+template<typename T, typename U>
+inline Plane Transform(const Plane &plane, const Matrix<T, 3, 3> &matrix, const vector<U, 3> &translation){
+    return Plane(plane).Transform(matrix, translation);
+}
+
+template<typename T>
+inline Plane Transform(const Plane &plane, const Matrix<T, 4, 4> &matrix){
+    return Plane(plane).Transform(matrix);
+}
+
+template<typename T>
+inline Plane Transform(const Matrix<T, 4, 4> &matrix, const Plane &plane){
+    return Plane(plane).Transform(matrix);
+}
+
+inline float Distance(const Line &lhs, const Line &rhs){
+    return lhs.Distance(rhs);
+}
+
+inline std::pair<bool, vector<float, 3> >  Intersect(const Line &lhs, const Line &rhs){
+    return lhs.Intersect(rhs);
+}
+
+inline std::pair<bool, Line> Intersect(const Plane &lhs, const Plane &rhs){
+    return lhs.Intersect(rhs);
+}
+
+inline float  Distance(const Plane &plane, const vector<float, 3> &rhs){
+    return plane.Distance(rhs);
+}
+
+inline float  Distance(const vector<float, 3> &rhs, const Plane &plane){
+    return plane.Distance(rhs);
+}
+
+inline std::pair<bool, vector<float, 3> > Intersect(const Plane &PlaneA, const Plane &PlaneB, const Plane &PlaneC){
+    Matrix<float, 3, 3> M;
+    Matrix<float, 3, 1> Result;
+    {
+        M.SetRow(0, PlaneA.m_vPlaneNormal);
+        M.SetRow(1, PlaneB.m_vPlaneNormal);
+        M.SetRow(2, PlaneC.m_vPlaneNormal);
+        const std::pair<bool, Matrix<float, 3, 3> > &SS = ReverseSafe(M);
+        if(!SS.first){
+            return std::make_pair(false, vector<float, 3>());
+        }
+        Result = SS.second * float3(PlaneA.m_fDistFromOriginal, PlaneB.m_fDistFromOriginal, PlaneC.m_fDistFromOriginal);
+    }
+    return std::make_pair(true, vector<float, 3>(-Result[0][0], -Result[1][0], -Result[2][0]));
+}

@@ -45,6 +45,10 @@ namespace NX{
     
     template<typename T>
     inline Line Transform(const Matrix<T, 4, 4> &lhs, const Line &rhs);
+    
+    inline float Distance(const Line &lhs, const Line &rhs);
+    
+    inline std::pair<bool, vector<float, 3> >  Intersect(const Line &lhs, const Line &rhs);
     //==================================end line nomember function======================================================
     
     
@@ -78,10 +82,6 @@ namespace NX{
     
     template<typename T>
     inline Plane Transform(const Matrix<T, 4, 4> &matrix, const Plane &plane);
-    
-    inline float Distance(const Line &lhs, const Line &rhs);
-    
-    inline std::pair<bool, vector<float, 3> >  Intersect(const Line &lhs, const Line &rhs);
     
     inline std::pair<bool, Line> Intersect(const Plane &lhs, const Plane &rhs);
     

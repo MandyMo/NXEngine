@@ -190,6 +190,9 @@ namespace NX {
     template<typename T, int Scale, typename RT = T>
     inline Matrix<RT, Scale, Scale> Reverse(const Matrix<T, Scale, Scale> &matrix);
     
+    template<typename T, int Scale, typename RT = T>
+    inline std::pair<bool, Matrix<RT, Scale, Scale> > ReverseSafe(const Matrix<T, Scale, Scale> &matrix);
+    
     template<typename T, int iScale>
     inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matrix, const T EpsilonValue = Epsilon<T>::m_Epsilon);
     //==============================================end of nomember function============================================

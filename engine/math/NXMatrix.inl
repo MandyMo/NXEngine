@@ -749,6 +749,48 @@ inline Matrix<RT, Scale, Scale> Reverse(const Matrix<T, Scale, Scale> &matrix){
     return result;
 }
 
+template<typename T, int Scale, typename RT>
+inline std::pair<bool, Matrix<RT, Scale, Scale> > ReverseSafe(const Matrix<T, Scale, Scale> &matrix){
+    Matrix<RT, Scale, (Scale << 1)> M;
+    for(int i = 0; i < Scale; ++i){
+        M.template SetRow<T, Scale>(i, matrix[i]);
+        M[i][i + Scale] = 1;
+    }
+    {//gauss - jordan method
+        int iSelRow = 0;
+        for(int c = 0; c < Scale; ++c){
+            iSelRow = c;
+            for(int i = c + 1; i < Scale; ++i){//select pivot row
+                if(NX::NXAbs(M[iSelRow][c]) < NX::NXAbs(M[i][c])){
+                    iSelRow = i;
+                }
+            }
+            if(iSelRow != c){
+                M.SwapRow(iSelRow, c);
+            }
+            if(NXAbs(M[c][c]) < Epsilon<RT>::m_Epsilon){
+                return std::make_pair(true, Matrix<RT, Scale, Scale>());
+            }
+            for(int i = 0; i < Scale; ++i){
+                if(i == c){
+                    continue;
+                }
+                M.AddOneRowToAnotherByFactor(c, i, -M[i][c] / M[c][c]);
+            }
+            M.MultiRow(c, 1 / M[c][c]);
+        }
+    }
+    
+    std::pair<bool, Matrix<RT, Scale, Scale> >result;
+    {//copy back
+        result.first = true;
+        for(int i = 0; i < Scale; ++i){
+            result.second.SetRow(i, &M[i][Scale]);
+        }
+    }
+    return result;
+}
+
 /**
  *  zero some small elements such as 0.0000001
  */
