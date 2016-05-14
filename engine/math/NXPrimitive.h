@@ -12,6 +12,9 @@
 #include "NXVector.h"
 #include "NXMatrix.h"
 namespace NX{
+    class Line;
+    class Plane;
+    
     class Line{
     public:
         inline explicit Line();
@@ -28,7 +31,8 @@ namespace NX{
         inline float Distance(const Line &rhs) const;//两直线距离
         template<typename T>
         inline float Distance(const vector<T, 3> &Point) const;
-        inline std::pair<bool, vector<float, 3> >  Intersect(const Line &rhs) const; //两直线的交点
+        inline std::pair<bool, vector<float, 3> >  Intersect(const Line &rhs) const;   //两直线的交点
+        inline std::pair<bool, vector<float, 3> >  Intersect(const Plane &plane) const;//直线与平面交点
     public:
         vector<float, 3> m_BeginPosition;
         vector<float, 3> m_vDirection;
@@ -67,8 +71,9 @@ namespace NX{
         template<typename T>
         inline Plane& Transform(const Matrix<T, 4, 4> &matrix);
     public:
-        inline std::pair<bool, Line> Intersect(const Plane &rhs) const;  //平面交线
-        inline float  Distance(const vector<float, 3> &rhs) const;       //点到平面距离
+        inline std::pair<bool, Line>   Intersect(const Plane &rhs) const;  //平面交线
+        inline std::pair<bool, float3> Intersect(const Line  &rhs) const;  //直线与平面交点
+        inline float  Distance(const vector<float, 3> &rhs) const;         //点到平面距离
     public:
         vector<float, 3> m_vPlaneNormal;
         float            m_fDistFromOriginal;
@@ -83,7 +88,11 @@ namespace NX{
     template<typename T>
     inline Plane Transform(const Matrix<T, 4, 4> &matrix, const Plane &plane);
     
-    inline std::pair<bool, Line> Intersect(const Plane &lhs, const Plane &rhs);
+    inline std::pair<bool, Line>   Intersect(const Plane &lhs, const Plane &rhs);
+    
+    inline std::pair<bool, float3> Intersect(const Line  &line,  const Plane &plane);
+    
+    inline std::pair<bool, float3> Intersect(const Plane &plane, const Line  &line);
     
     inline float  Distance(const Plane &plane, const vector<float, 3> &rhs);
     

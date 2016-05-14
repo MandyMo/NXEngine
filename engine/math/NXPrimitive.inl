@@ -87,6 +87,10 @@ static std::pair<bool, vector<float, 2> > SolveEquation(const Matrix<float, 2, 2
     return result;
 }
 
+inline std::pair<bool, vector<float, 3> >  Line::Intersect(const Plane &plane) const{//直线与平面交点
+    return plane.Intersect(*this);
+}
+
 inline std::pair<bool, vector<float, 3> >  Line::Intersect(const Line &rhs) const{ //两直线的交点
     Matrix<float, 2, 2> M;
     vector<float, 2>    V;
@@ -240,6 +244,15 @@ inline std::pair<bool, vector<float, 3> >  Intersect(const Line &lhs, const Line
     return lhs.Intersect(rhs);
 }
 
+inline std::pair<bool, float3> Plane::Intersect(const Line  &rhs) const{
+    float Delta = Dot(rhs.m_vDirection, m_vPlaneNormal);
+    if(NXAbs(Delta) < Epsilon<float>::m_Epsilon){
+        return std::make_pair(false, float3());
+    }
+    float t = -(Dot(m_vPlaneNormal, rhs.m_BeginPosition) + m_fDistFromOriginal) / Delta;
+    return std::make_pair(true, rhs.GetPoint(t));
+}
+
 inline std::pair<bool, Line> Intersect(const Plane &lhs, const Plane &rhs){
     return lhs.Intersect(rhs);
 }
@@ -250,6 +263,14 @@ inline float  Distance(const Plane &plane, const vector<float, 3> &rhs){
 
 inline float  Distance(const vector<float, 3> &rhs, const Plane &plane){
     return plane.Distance(rhs);
+}
+
+inline std::pair<bool, float3> Intersect(const Line  &line,  const Plane &plane){
+    return plane.Intersect(line);
+}
+
+inline std::pair<bool, float3> Intersect(const Plane &plane, const Line  &line){
+    return plane.Intersect(line);
 }
 
 inline std::pair<bool, vector<float, 3> > Intersect(const Plane &PlaneA, const Plane &PlaneB, const Plane &PlaneC){
