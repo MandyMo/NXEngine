@@ -94,35 +94,13 @@ inline std::pair<bool, vector<float, 3> >  Line::Intersect(const Plane &plane) c
 inline std::pair<bool, vector<float, 3> >  Line::Intersect(const Line &rhs) const{ //两直线的交点
     Matrix<float, 2, 2> M;
     vector<float, 2>    V;
-    vector<float, 2>    DS = rhs.m_BeginPosition - m_BeginPosition;
-    {
-        M[0][0] = m_vDirection[0],    M[0][1] = -rhs.m_vDirection[0];
-        M[1][0] = m_vDirection[1],    M[1][1] = -rhs.m_vDirection[1];
-        V[0]    = DS[0],              V[1]    = DS[1];
-        const std::pair<bool, vector<float, 2> > &SS = SolveEquation(M, V);
-        if(SS.first){
-            return std::make_pair(true, GetPoint(SS.second[0]));
-        }
-    }
-    
-    {
-        M[0][0] = m_vDirection[0],    M[0][1] = -rhs.m_vDirection[0];
-        M[1][0] = m_vDirection[2],    M[1][1] = -rhs.m_vDirection[2];
-        V[0]    = DS[0],              V[1]    = DS[2];
-        const std::pair<bool, vector<float, 2> > &SS = SolveEquation(M, V);
-        if(SS.first){
-            return std::make_pair(true, GetPoint(SS.second[0]));
-        }
-    }
-    
-    {
-        M[0][0] = m_vDirection[1],    M[0][1] = -rhs.m_vDirection[1];
-        M[1][0] = m_vDirection[2],    M[1][1] = -rhs.m_vDirection[2];
-        V[0]    = DS[1],              V[1]    = DS[2];
-        const std::pair<bool, vector<float, 2> > &SS = SolveEquation(M, V);
-        if(SS.first){
-            return std::make_pair(true, GetPoint(SS.second[0]));
-        }
+    M[0][0] = LengthSquare(m_vDirection),  M[0][1] = -Dot(m_vDirection, rhs.m_vDirection);
+    M[1][0] = -M[0][1],                    M[1][1] = LengthSquare(rhs.m_vDirection);
+    V[0] = Dot(m_vDirection, rhs.m_BeginPosition - m_BeginPosition);
+    V[1] = Dot(rhs.m_vDirection, m_BeginPosition - rhs.m_BeginPosition);
+    const std::pair<bool, vector<float, 2> > &SS = SolveEquation(M, V);
+    if(SS.first){
+        return std::make_pair(true, GetPoint(SS.second[0]));
     }
     return std::make_pair(false, vector<float, 2>());
 }
