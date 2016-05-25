@@ -173,6 +173,21 @@ inline bool operator == (const vector<double, Scale> &lhs, const vector<double, 
     return true;
 }
 
+
+template<typename T, int Scale>
+inline vector<T, Scale> GetNegative(const vector<T, Scale> &lhs){
+    return Negative(vector<T, Scale>(lhs));
+}
+
+template<typename T, int Scale>
+inline vector<T, Scale>& Negative(vector<T, Scale> &lhs){
+    for(int i = 0; i < Scale; ++i){
+        lhs.v[i] = -lhs.v[i];
+    }
+    return lhs;
+}
+
+
 #ifndef DECLARE_VECTOR_TYPE
 #define DECLARE_VECTOR_TYPE(type) \
     typedef NX::vector<type, 1> type##1;\

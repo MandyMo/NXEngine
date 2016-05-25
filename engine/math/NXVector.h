@@ -773,7 +773,7 @@ namespace NX {
     inline RT LengthSquare(const vector<T, Scale> &lhs);
     
     template<typename T, int Scale>
-    void Normalize(vector<T, Scale> &lhs);
+    inline void Normalize(vector<T, Scale> &lhs);
     
     template<typename T, int Scale>
     inline bool operator < (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs);
@@ -795,6 +795,13 @@ namespace NX {
     
     template<int Scale>
     inline bool operator == (const vector<double, Scale> &lhs, const vector<double, Scale> &rhs);
+    
+    
+    template<typename T, int Scale>
+    inline vector<T, Scale> GetNegative(const vector<T, Scale> &lhs);
+    
+    template<typename T, int Scale>
+    inline vector<T, Scale>& Negative(vector<T, Scale> &lhs);
     //==============================================end of nomember function============================================
 #include "NXVector.inl"
     
