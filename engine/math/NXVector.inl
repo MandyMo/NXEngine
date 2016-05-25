@@ -13,14 +13,24 @@ inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const vector<U
     return (vector<RT, Scale>(lhs) += rhs);
 }
 
-template<typename T, int Scale, typename RT>
-inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const T value){
+template<typename T, typename U, int Scale, typename RT>
+inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const U value){
     return (vector<RT, Scale>(lhs) += value);
 }
 
-template<typename T, int Scale, typename RT>
-inline vector<RT, Scale> operator - (const vector<T, Scale> &lhs, const T value){
+template<typename T, typename U, int Scale, typename RT>
+inline vector<RT, Scale> operator + (const U value, const vector<T, Scale> &rhs){
+    return (vector<RT, Scale>(rhs) += value);
+}
+
+template<typename T, typename U, int Scale, typename RT>
+inline vector<RT, Scale> operator - (const vector<T, Scale> &lhs, const U value){
     return (vector<RT, Scale>(lhs) -= value);
+}
+
+template<typename T, typename U, int Scale, typename RT>
+inline vector<RT, Scale> operator - (const U value, const vector<T, Scale> &rhs){
+    return (vector<RT, Scale>(value) -= rhs);
 }
 
 template<typename T, typename U, int Scale, typename RT>
@@ -33,13 +43,13 @@ inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const vector<U
     return (vector<RT, Scale>(lhs) *= rhs);
 }
 
-template<typename T, int Scale, typename RT>
-inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const T value){
+template<typename T, typename U, int Scale, typename RT>
+inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const U value){
     return (vector<RT, Scale>(lhs) *= value);
 }
 
-template<typename T, int Scale, typename RT>
-inline vector<RT, Scale> operator * (const T value, const vector<T, Scale> &lhs){
+template<typename T, typename U, int Scale, typename RT>
+inline vector<RT, Scale> operator * (const U value, const vector<T, Scale> &lhs){
     return (vector<RT, Scale>(lhs) *= value);
 }
 
@@ -48,9 +58,14 @@ inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const vector<U
     return (vector<RT, Scale>(lhs) /= rhs);
 }
 
-template<typename T, int Scale, typename RT>
-inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const T value){
+template<typename T, typename U, int Scale, typename RT>
+inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const U value){
     return (vector<RT, Scale>(lhs) /= value);
+}
+
+template<typename T, typename U, int Scale, typename RT>
+inline vector<RT, Scale> operator / (const U value, const vector<T, Scale> &lhs){
+    return (vector<RT, Scale>(value) -= lhs);
 }
 
 template<typename T, int Scale>

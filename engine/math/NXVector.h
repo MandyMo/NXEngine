@@ -428,7 +428,7 @@ namespace NX {
         
         template<typename U>
         vector(const vector<U, 3> &rhs):x(rhs.x), y(rhs.y), z(rhs.z){}
-        
+        vector(const T v):x(v), y(v), z(v){}
         template<typename U, int CC>
         vector(const vector<U, CC> & rhs){
             *this = rhs;
@@ -568,6 +568,7 @@ namespace NX {
         vector(const T* ptr){
             Set(ptr);
         }
+        vector(const T v):x(v), y(v), z(v), w(v){}
         vector(const T v1, const T v2, const T v3, const T v4):x(v1), y(v2), z(v3), w(v4){}
         
         template<typename U>
@@ -723,29 +724,38 @@ namespace NX {
     template<typename T, typename U, int Scale, typename RT = T>
     inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs);
     
-    template<typename T, int Scale, typename RT = T>
-    inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const T value);
+    template<typename T, typename U, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator + (const vector<T, Scale> &lhs, const U value);
     
-    template<typename T, int Scale, typename RT = T>
-    inline vector<RT, Scale> operator - (const vector<T, Scale> &lhs, const T value);
+    template<typename T, typename U, int Scale, typename RT>
+    inline vector<RT, Scale> operator + (const U value, const vector<T, Scale> &rhs);
+    
+    template<typename T, typename U, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator - (const vector<T, Scale> &lhs, const U value);
     
     template<typename T, typename U, int Scale, typename RT = T>
     inline vector<RT, Scale> operator - (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs);
     
     template<typename T, typename U, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator - (const U value, const vector<T, Scale> &lhs);
+    
+    template<typename T, typename U, int Scale, typename RT = T>
     inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs);
     
-    template<typename T, int Scale, typename RT = T>
-    inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const T value);
+    template<typename T, typename U, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator * (const vector<T, Scale> &lhs, const U value);
     
-    template<typename T, int Scale, typename RT = T>
-    inline vector<RT, Scale> operator * (const T value, const vector<T, Scale> &lhs);
+    template<typename T, typename U, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator * (const U value, const vector<T, Scale> &lhs);
     
     template<typename T, typename U, int Scale, typename RT = T>
     inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs);
     
-    template<typename T, int Scale, typename RT = T>
-    inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const T value);
+    template<typename T, typename U, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const U value);
+    
+    template<typename T, typename U, int Scale, typename RT = T>
+    inline vector<RT, Scale> operator / (const U value, const vector<T, Scale> &lhs);
     
     template<typename T, int Scale>
     inline bool operator != (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs);
