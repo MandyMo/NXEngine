@@ -181,10 +181,7 @@ inline vector<T, Scale> GetNegative(const vector<T, Scale> &lhs){
 
 template<typename T, int Scale>
 inline vector<T, Scale>& Negative(vector<T, Scale> &lhs){
-    for(int i = 0; i < Scale; ++i){
-        lhs.v[i] = -lhs.v[i];
-    }
-    return lhs;
+    return -lhs;
 }
 
 
