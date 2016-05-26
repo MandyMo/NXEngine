@@ -4,7 +4,10 @@
  *  date:    2016_05_05
  *  purpose: 四元数操作函数
  */
-    
+
+#ifndef __ZX_NXENGINE_QUATERNION_INL__
+#define __ZX_NXENGINE_QUATERNION_INL__
+
 inline Quaternion::Quaternion(){
     w = 1.0f;
     x = y = z = 0.0f;
@@ -240,3 +243,5 @@ inline Quaternion Lerp(const Quaternion &lhs, const Quaternion &rhs, const float
     }
     return a * lhs + b * rhs;
 }
+
+#endif

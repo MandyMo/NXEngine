@@ -1,9 +1,4 @@
-/*
- *  File:    vector.h
- *  author:  张雄
- *  date:    2016_02_22
- *  purpose: 用于定义3d数学的vector，注意，此vector只适合于存储简单的内置基本类型，若存放class和struct类型，请不要使用。
- */
+
 
 
 #ifndef __ZX_NXENGINE_VECTOR_H__
@@ -11,6 +6,7 @@
 
 #include "NXCore.h"
 #include "NXNumeric.h"
+
 namespace NX {
     template<typename T, int Scale>
     class vector{
@@ -802,10 +798,24 @@ namespace NX {
     
     template<typename T, int Scale>
     inline vector<T, Scale>& Negative(vector<T, Scale> &lhs);
+    
+    /**
+     *  求点位于直接(2维)或平面(三维)上的投影(其中normal是法线，且默认直线或平面过原点)
+     */
+    template<typename T, typename U>
+    inline vector<T, 2>& Project(vector<T, 2> &lhs, const vector<U, 2> &normal);
+    
+    template<typename T, typename U>
+    inline vector<T, 3>& Project(vector<T, 3> &lhs, const vector<U, 3> &normal);
+    
+    template<typename  T, typename U, typename RT = T>
+    inline vector<RT, 2> GetProject(const vector<T, 2> &lhs, const vector<U, 2> &normal);
+    
+    template<typename  T, typename U, typename RT = T>
+    inline vector<RT, 3> GetProject(const vector<T, 3> &lhs, const vector<U, 3> &normal);
+    
     //==============================================end of nomember function============================================
 #include "NXVector.inl"
-    
 }
-
 
 #endif

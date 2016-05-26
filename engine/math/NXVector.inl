@@ -1,3 +1,13 @@
+/*
+ *  File:    NXVector.inl
+ *  author:  张雄
+ *  date:    2016_02_22
+ *  purpose: 实现3d数学的vector，注意，此vector只适合于存储简单的内置基本类型，若存放class和struct类型，请不要使用。
+ */
+
+#ifndef __ZX_NXENGINE_VECTOR_INL__
+#define __ZX_NXENGINE_VECTOR_INL__
+
 template<typename T, int Scale>
 inline bool operator == (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs){
     for(int i = 0; i < Scale; ++i){
@@ -184,6 +194,40 @@ inline vector<T, Scale>& Negative(vector<T, Scale> &lhs){
     return -lhs;
 }
 
+/**
+ *  求点位于直接(2维)或平面(三维)上的投影(其中normal是法线，且默认直线或平面过原点)
+ */
+template<typename T, typename U>
+inline vector<T, 2>& Project(vector<T, 2> &lhs, const vector<U, 2> &normal){
+    vector<T, 2> n(normal);
+    Normalize(n);
+    T nxx = 1 - n.x * n.x, nyy = 1 - n.y * n.y, nxy = -n.x * n.y;
+    return lhs = vector<T, 2>(
+                              nxx * lhs[0] + nxy * lhs[1],
+                              nxy * lhs[0] + nyy * lhs[1]);
+}
+
+template<typename T, typename U>
+inline vector<T, 3>& Project(vector<T, 3> &lhs, const vector<U, 3> &normal){
+    vector<T, 3> n(normal);
+    Normalize(n);
+    T nxx = 1 - n.x * n.x, nyy = 1 - n.y * n.y, nzz = 1 - n.z * n.z, nxy = -n.x * n.y, nyz = -n.y * n.z, nzx = -n.z * n.x;
+    return lhs = vector<T, 3>(
+                               nxx * lhs[0] + nxy * lhs[1] + nzx * lhs[2],
+                               nxy * lhs[0] + nyy * lhs[1] + nyz * lhs[2],
+                               nzx * lhs[0] + nyz * lhs[1] + nzz * lhs[2]
+                               );
+}
+
+template<typename  T, typename U, typename RT>
+inline vector<RT, 2> GetProject(const vector<T, 2> &lhs, const vector<U, 2> &normal){
+    return Project(vector<RT, 2>(lhs), normal);
+}
+
+template<typename  T, typename U, typename RT>
+inline vector<RT, 3> GetProject(const vector<T, 3> &lhs, const vector<U, 3> &normal){
+    return Project(vector<RT, 3>(lhs), normal);
+}
 
 #ifndef DECLARE_VECTOR_TYPE
 #define DECLARE_VECTOR_TYPE(type) \
@@ -236,3 +280,5 @@ DECLARE_VECTOR_TYPE(float);    //float
 DECLARE_VECTOR_TYPE(double);   //double
 
 #undef DECLARE_VECTOR_TYPE
+
+#endif //!__ZX_NXENGINE_VECTOR_INL__

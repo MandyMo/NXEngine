@@ -5,6 +5,9 @@
  *  purpose: 基本的3D图元
  */
 
+#ifndef __ZX_NXENGINE_PRIMITIVE_INL__
+#define __ZX_NXENGINE_PRIMITIVE_INL__
+
 inline Line::Line(){/*empty*/}
 
 inline Line::Line(const vector<float, 3> &begin, const vector<float, 3> &end):m_BeginPosition(begin), m_vDirection(end - begin){/*empty*/}
@@ -266,3 +269,5 @@ inline std::pair<bool, vector<float, 3> > Intersect(const Plane &PlaneA, const P
     }
     return std::make_pair(true, vector<float, 3>(-Result[0][0], -Result[1][0], -Result[2][0]));
 }
+
+#endif

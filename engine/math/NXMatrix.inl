@@ -1,3 +1,13 @@
+/*
+ *  File:    NXMatrix.inl
+ *  author:  张雄
+ *  date:    2016_02_23
+ *  purpose: 实现3d数学的matrix，注意，此matrix只适合于存储简单的内置基本类型，存放class和struct类型，请不要使用
+ */
+
+#ifndef __ZX_NXENGINE_MATRIX_INL__
+#define __ZX_NXENGINE_MATRIX_INL__
+
 template<typename T, int Row, int Col>
 template<typename U>
 inline Matrix<T, Row, Col>::Matrix(const Matrix<U, Row, Col> &rhs){
@@ -806,6 +816,30 @@ inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matr
     return matrix;
 }
 
+/**
+ *  返回点投影到直线(2维)或平面(3维)上的投影方程（其中normal是法线，且默认直线或平面过原点)
+ */
+template<typename  T, typename U, typename RT>
+inline Matrix<RT, 2, 2> GetProjectMatrix(const vector<T, 2> &lhs, const vector<U, 2> &normal){
+    Matrix<RT, 2, 2> result;
+    vector<RT, 2> n(normal);
+    Normalize(n);
+    result[0][0] = 1 - n.x * n.x,    result[0][1] =    -n.x * n.y;
+    result[1][0] =    -n.y * n.x,    result[1][1] = 1 - n.y * n.y;
+    return result;
+}
+
+template<typename  T, typename U, typename RT>
+inline Matrix<RT, 3, 3> GetProjectMatrix(const vector<T, 3> &lhs, const vector<U, 3> &normal){
+    Matrix<RT, 3, 3> result;
+    vector<RT, 3> n(normal);
+    Normalize(n);
+    result[0][0] = 1 - n.x * n.x,    result[0][1] =    -n.x * n.y,    result[0][2] =   -n.x * n.z;
+    result[1][0] =    -n.y * n.x,    result[1][1] = 1 - n.y * n.y,    result[1][2] =   -n.y * n.z;
+    result[2][0] =    -n.z * n.x,    result[2][1] =    -n.z * n.y,    result[2][2] = 1 -n.z * n.z;
+    return result;
+}
+
 #ifndef DECLARE_MATRIX_TYPE_ROW
 #define DECLARE_MATRIX_TYPE_ROW(type, row) \
 typedef Matrix<type, row, 1> type##row##X##1;\
@@ -872,3 +906,6 @@ DECLARE_MATRIX_TYPE(double);   //double
 
 #undef DECLARE_MATRIX_TYPE_ROW
 #undef DECLARE_MATRIX_TYPE
+
+
+#endif  //!__ZX_NXENGINE_MATRIX_INL__
