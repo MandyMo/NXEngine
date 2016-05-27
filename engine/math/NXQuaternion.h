@@ -89,6 +89,7 @@ namespace NX {
             float m_Ele[4];
         };
     };
+    extern const Quaternion kQuanternionIndentity;
 }
 
 

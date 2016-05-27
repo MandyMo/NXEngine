@@ -20,10 +20,14 @@ namespace NX {
     class EulerAngle{
     public:
         EulerAngle();
+        EulerAngle(const EulerAngle &rhs);
         EulerAngle(const Matrix<float, 3, 3> &rhs, const EulerAngleMode mode);
         EulerAngle(const Matrix<float, 4, 4> &rhs, const EulerAngleMode mode);
         EulerAngle(const float yAxisRotateAngle, const float xAxisRotateAngle, const float zAxisRotateAngle);
         ~EulerAngle();
+    public:
+        EulerAngle& Normalize();
+        
     public:
         /**
          *  (heading, pitch, bank) = (yaw, pitch, roll) = (y, x, z) rotate angles
@@ -40,6 +44,7 @@ namespace NX {
             };
         };
     };
+    extern const EulerAngle kEulerAngleIndentity;
 }
 
 #endif

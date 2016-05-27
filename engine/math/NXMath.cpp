@@ -42,3 +42,11 @@ void NX::GetSinAndCos(const float radian, float * const pSinvalue, float * const
     *pSinvalue = std::sin(radian);
     *pCosValue = std::cos(radian);
 }
+
+template<typename T, typename U, typename R>
+T NX::Wrap(T &value, const U mode){
+    T OldValue = value;
+    R v        = value / mode;
+    value     -= v * mode;
+    return OldValue;
+}

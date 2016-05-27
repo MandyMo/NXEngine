@@ -264,4 +264,5 @@ namespace NX{
         }
         return a * lhs + b * rhs;
     }
+    const Quaternion kQuanternionIndentity(1.0f, 0.0f, 0.0f, 0.0f);
 }
