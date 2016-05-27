@@ -10,7 +10,6 @@
 
 #include "../math/NXVector.h"
 #include "../math/NXMatrix.h"
-
 namespace NX {
     class MVMatrixController{
     public:
@@ -69,7 +68,7 @@ namespace NX {
         PerspectCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
                        const float FovByAngel, const float Ratio, const float Near, const float Far);
         virtual ~PerspectCamera();
-    public:
+    public:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         virtual float4x4 GetWatchMatrix();
         virtual float4x4 GetProjectMatrix();
     private:

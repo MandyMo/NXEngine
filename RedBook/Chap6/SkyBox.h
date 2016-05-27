@@ -6,6 +6,7 @@
 #include "../engine/common/NXLog.h"
 #include "../engine/render/NXProgram.h"
 #include "../engine/math/NXVector.h"
+#include "../engine/math/NXAlgorithm.h"
 #include "../engine/math/NXMatrix.h"
 #include "../engine/render/NXTexture.h"
 #include "../engine/render/NXImagePixelLoader.h"

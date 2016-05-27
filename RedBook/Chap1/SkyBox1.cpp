@@ -1,5 +1,5 @@
 #include "SkyBox1.h"
-
+#include "../engine/math/NXAlgorithm.h"
 SkyBox1::SkyBox1(){
 
 }

@@ -1,5 +1,6 @@
 
 #include "NXCamera.h"
+#include "../math/NXAlgorithm.h"
 
 NX::MVMatrixController::MVMatrixController(const float3 &Eye, const float3 &Looked, const float3 &Up){
     m_vLooked = Looked;

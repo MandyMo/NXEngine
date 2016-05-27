@@ -1,6 +1,6 @@
 #include "TextureMip.h"
 #include "../engine/render/NXMipMapTexture.h"
-
+#include "../engine/math/NXAlgorithm.h"
 bool TextureMip::Init(__in const char* vCmdLine[], __in const int iCmdCount, __in const int iWidth, __in const int iHeight){
     if(!NX::Application::Init(vCmdLine, iCmdCount, iWidth, iHeight)){
         return false;

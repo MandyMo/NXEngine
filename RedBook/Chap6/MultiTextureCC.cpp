@@ -1,5 +1,5 @@
 #include "MultiTextureCC.h"
-
+#include "../engine/math/NXAlgorithm.h"
 MultiTextureCC::MultiTextureCC(){
     Radius = 0;
 }

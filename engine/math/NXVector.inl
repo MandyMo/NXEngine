@@ -83,44 +83,7 @@ inline bool operator != (const vector<T, Scale> &lhs, const vector<T, Scale> &rh
     return !(lhs == rhs);
 }
 
-template<typename T, typename U, int Scale, typename RT>
-inline RT Dot (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
-    RT sum = 0;
-    for(int i = 0; i < Scale; ++i){
-        sum += lhs.v[i] * rhs.v[i];
-    }
-    return sum;
-}
 
-template<typename T, typename U, typename RT>
-inline vector<RT, 3> Cross(const vector<T, 3> &lhs, const vector<U, 3> &rhs){
-    return vector<RT, 3>(lhs.v[1] * rhs.v[2] - lhs.v[2] * rhs.v[1],
-                         lhs.v[2] * rhs.v[0] - lhs.v[0] * rhs.v[2],
-                         lhs.v[0] * rhs.v[1] - rhs.v[0] * lhs.v[1]);
-}
-
-
-template<typename T, int Scale, typename RT>
-inline RT Length(const vector<T, Scale> &lhs){
-    return std::sqrt(LengthSquare(lhs));
-}
-
-template<typename T, int Scale, typename RT>
-inline RT LengthSquare(const vector<T, Scale> &lhs){
-    RT Sum = 0.0;
-    for(int i = 0; i < Scale; ++i){
-        Sum += (lhs.v[i] * lhs.v[i]);
-    }
-    return Sum;
-}
-
-template<typename T, int Scale>
-void Normalize(vector<T, Scale> &lhs){
-    T v = Length(lhs);
-    for(int i = 0; i < Scale; ++i){
-        lhs.v[i] /= v;
-    }
-}
 
 template<typename T, int Scale>
 inline bool operator < (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs){
@@ -153,16 +116,6 @@ inline bool operator >= (const vector<T, Scale> &lhs, const vector<T, Scale> &rh
 }
 
 
-template<typename TA, typename TB, int Scale, typename RT>
-inline vector<RT, Scale> Lerp(const vector<TA, Scale> &lhs, const vector<TB, Scale> &rhs, const float t){
-    vector<RT, Scale> result;
-    RT a = 1 - t, b = t;
-    for(int i = 0; i < Scale; ++i){
-        result[i] = lhs[i] * a + rhs[i] * b;
-    }
-    return result;
-}
-
 template<int Scale>
 inline bool operator == (const vector<float, Scale> &lhs, const vector<float, Scale> &rhs){
     for(int i = 0; i < Scale; ++i){
@@ -184,50 +137,7 @@ inline bool operator == (const vector<double, Scale> &lhs, const vector<double, 
 }
 
 
-template<typename T, int Scale>
-inline vector<T, Scale> GetNegative(const vector<T, Scale> &lhs){
-    return Negative(vector<T, Scale>(lhs));
-}
 
-template<typename T, int Scale>
-inline vector<T, Scale>& Negative(vector<T, Scale> &lhs){
-    return -lhs;
-}
-
-/**
- *  求点位于直接(2维)或平面(三维)上的投影(其中normal是法线，且默认直线或平面过原点)
- */
-template<typename T, typename U>
-inline vector<T, 2>& Project(vector<T, 2> &lhs, const vector<U, 2> &normal){
-    vector<T, 2> n(normal);
-    Normalize(n);
-    T nxx = 1 - n.x * n.x, nyy = 1 - n.y * n.y, nxy = -n.x * n.y;
-    return lhs = vector<T, 2>(
-                              nxx * lhs[0] + nxy * lhs[1],
-                              nxy * lhs[0] + nyy * lhs[1]);
-}
-
-template<typename T, typename U>
-inline vector<T, 3>& Project(vector<T, 3> &lhs, const vector<U, 3> &normal){
-    vector<T, 3> n(normal);
-    Normalize(n);
-    T nxx = 1 - n.x * n.x, nyy = 1 - n.y * n.y, nzz = 1 - n.z * n.z, nxy = -n.x * n.y, nyz = -n.y * n.z, nzx = -n.z * n.x;
-    return lhs = vector<T, 3>(
-                               nxx * lhs[0] + nxy * lhs[1] + nzx * lhs[2],
-                               nxy * lhs[0] + nyy * lhs[1] + nyz * lhs[2],
-                               nzx * lhs[0] + nyz * lhs[1] + nzz * lhs[2]
-                               );
-}
-
-template<typename  T, typename U, typename RT>
-inline vector<RT, 2> GetProject(const vector<T, 2> &lhs, const vector<U, 2> &normal){
-    return Project(vector<RT, 2>(lhs), normal);
-}
-
-template<typename  T, typename U, typename RT>
-inline vector<RT, 3> GetProject(const vector<T, 3> &lhs, const vector<U, 3> &normal){
-    return Project(vector<RT, 3>(lhs), normal);
-}
 
 #ifndef DECLARE_VECTOR_TYPE
 #define DECLARE_VECTOR_TYPE(type) \

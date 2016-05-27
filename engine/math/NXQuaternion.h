@@ -9,7 +9,6 @@
 #define __ZX_NXENGINE_QUATERNION_H__
 #include <cstdlib>
 #include <cstring>
-#include "NXQuaternion.h"
 #include "../math/NXVector.h"
 #include "../math/NXMatrix.h"
 
@@ -19,57 +18,57 @@ namespace NX {
     
     class Quaternion{
     public:
-        friend inline Quaternion operator * (const Quaternion &lhs, const Quaternion &rhs);
+        friend  Quaternion operator * (const Quaternion &lhs, const Quaternion &rhs);
     public:
-        inline Quaternion();
-        inline Quaternion(const float w,  const float x, const float y, const float z);
-        inline Quaternion(const float *v, int len = 4);
-        inline Quaternion(const float radian, const vector<float, 3> &Axis);
-        inline Quaternion(const vector<float, 4> &rhs);
-        inline Quaternion(const Quaternion &rhs);
+         Quaternion();
+         Quaternion(const float w,  const float x, const float y, const float z);
+         Quaternion(const float *v, int len = 4);
+         Quaternion(const float radian, const vector<float, 3> &Axis);
+         Quaternion(const vector<float, 4> &rhs);
+         Quaternion(const Quaternion &rhs);
         ~Quaternion();
         
     public:
-        inline float& operator[] (const int idx);
-        inline const float operator[] (const int idx) const;
-        inline bool operator == (const Quaternion &rhs);
-        inline Quaternion& operator *= (const Quaternion &rhs);
-        inline Quaternion& operator *= (const float value);
-        inline Quaternion& operator += (const Quaternion &rhs);
-        inline Quaternion& operator += (const float value);
-        inline Quaternion& operator -= (const Quaternion &rhs);
-        inline Quaternion& operator -= (const float value);
-        inline Quaternion& operator /= (const float value);
-        friend inline Quaternion operator * (const Quaternion &lhs, const Quaternion &rhs);
-        friend inline Quaternion operator * (const Quaternion &lhs, const float value);
-        friend inline Quaternion operator * (const float value, const Quaternion &lhs);
-        friend inline Quaternion operator - (const Quaternion &lhs, const Quaternion &rhs);
-        friend inline Quaternion operator - (const Quaternion &lhs, const float value);
-        friend inline Quaternion operator + (const Quaternion &lhs, const Quaternion &rhs);
-        friend inline Quaternion operator + (const Quaternion &lhs, const float value);
-        friend inline Quaternion operator / (const Quaternion &lhs, const float value);
+         float& operator[] (const int idx);
+         const float operator[] (const int idx) const;
+         bool operator == (const Quaternion &rhs);
+         Quaternion& operator *= (const Quaternion &rhs);
+         Quaternion& operator *= (const float value);
+         Quaternion& operator += (const Quaternion &rhs);
+         Quaternion& operator += (const float value);
+         Quaternion& operator -= (const Quaternion &rhs);
+         Quaternion& operator -= (const float value);
+         Quaternion& operator /= (const float value);
+        friend  Quaternion operator * (const Quaternion &lhs, const Quaternion &rhs);
+        friend  Quaternion operator * (const Quaternion &lhs, const float value);
+        friend  Quaternion operator * (const float value, const Quaternion &lhs);
+        friend  Quaternion operator - (const Quaternion &lhs, const Quaternion &rhs);
+        friend  Quaternion operator - (const Quaternion &lhs, const float value);
+        friend  Quaternion operator + (const Quaternion &lhs, const Quaternion &rhs);
+        friend  Quaternion operator + (const Quaternion &lhs, const float value);
+        friend  Quaternion operator / (const Quaternion &lhs, const float value);
     public:
-        inline float Length();
+         float Length();
 
-        inline Matrix<float, 4, 4> GetRotateMatrix();
-        inline Quaternion GetConjugate();
-        inline Quaternion GetInverse();
-        inline Quaternion GetNormalized();
-        inline Quaternion GetPow(float e);
+         Matrix<float, 4, 4> GetRotateMatrix() const;
+         Quaternion GetConjugate() const;
+         Quaternion GetInverse() const;
+         Quaternion GetNormalized() const;
+         Quaternion GetPow(float e) const;
         
-        inline Quaternion& Pow(float e);
-        inline Quaternion& Inverse();
-        inline Quaternion& Conjugate();
-        inline vector<float, 3> Rotate(const vector<float, 3> &rhs);
-        inline Quaternion& Normalized();
+         Quaternion& Pow(float e);
+         Quaternion& Inverse();
+         Quaternion& Conjugate();
+         vector<float, 3> Rotate(const vector<float, 3> &rhs);
+         Quaternion& Normalized();
         
     private:
-        inline float LengthSquare();
+         float LengthSquare();
         
     public:
-        friend inline float Dot(const Quaternion &lhs, const Quaternion &rhs);
-        friend inline Quaternion Cross(const Quaternion &lhs, const Quaternion &rhs);
-        friend inline Quaternion Lerp(const Quaternion &lhs, const Quaternion &rhs, const float t);
+        friend  float Dot(const Quaternion &lhs, const Quaternion &rhs);
+        friend  Quaternion Cross(const Quaternion &lhs, const Quaternion &rhs);
+        friend  Quaternion Lerp(const Quaternion &lhs, const Quaternion &rhs, const float t);
 
     public:
         union{
@@ -88,7 +87,6 @@ namespace NX {
             float m_Ele[4];
         };
     };
-#include "NXQuaternion.inl"
 }
 
 

@@ -756,21 +756,6 @@ namespace NX {
     template<typename T, int Scale>
     inline bool operator != (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs);
     
-    template<typename T, typename U, int Scale, typename RT = T>
-    inline RT Dot (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs);
-    
-    template<typename T, typename U, typename RT = T>
-    inline vector<RT, 3> Cross(const vector<T, 3> &lhs, const vector<U, 3> &rhs);
-    
-    template<typename T, int Scale, typename RT = double>
-    inline RT Length(const vector<T, Scale> &lhs);
-    
-    template<typename T, int Scale, typename RT = double>
-    inline RT LengthSquare(const vector<T, Scale> &lhs);
-    
-    template<typename T, int Scale>
-    inline void Normalize(vector<T, Scale> &lhs);
-    
     template<typename T, int Scale>
     inline bool operator < (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs);
     
@@ -783,37 +768,11 @@ namespace NX {
     template<typename T, int Scale>
     inline bool operator >= (const vector<T, Scale> &lhs, const vector<T, Scale> &rhs);
     
-    template<typename TA, typename TB, int Scale, typename RT = TA>
-    inline vector<RT, Scale> Lerp(const vector<TA, Scale> &lhs, const vector<TB, Scale> &rhs, const float t);
-    
     template<int Scale>
     inline bool operator == (const vector<float, Scale> &lhs, const vector<float, Scale> &rhs);
     
     template<int Scale>
     inline bool operator == (const vector<double, Scale> &lhs, const vector<double, Scale> &rhs);
-    
-    
-    template<typename T, int Scale>
-    inline vector<T, Scale> GetNegative(const vector<T, Scale> &lhs);
-    
-    template<typename T, int Scale>
-    inline vector<T, Scale>& Negative(vector<T, Scale> &lhs);
-    
-    /**
-     *  求点位于直接(2维)或平面(三维)上的投影(其中normal是法线，且默认直线或平面过原点)
-     */
-    template<typename T, typename U>
-    inline vector<T, 2>& Project(vector<T, 2> &lhs, const vector<U, 2> &normal);
-    
-    template<typename T, typename U>
-    inline vector<T, 3>& Project(vector<T, 3> &lhs, const vector<U, 3> &normal);
-    
-    template<typename  T, typename U, typename RT = T>
-    inline vector<RT, 2> GetProject(const vector<T, 2> &lhs, const vector<U, 2> &normal);
-    
-    template<typename  T, typename U, typename RT = T>
-    inline vector<RT, 3> GetProject(const vector<T, 3> &lhs, const vector<U, 3> &normal);
-    
     //==============================================end of nomember function============================================
 #include "NXVector.inl"
 }

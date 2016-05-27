@@ -1,7 +1,7 @@
 
 #include "AppChap1_4.h"
 #include "NXShader.h"
-
+#include "../engine/math/NXAlgorithm.h"
 AppChap1_4::AppChap1_4(){
     vao   = 0;
     vbo   = 0;
