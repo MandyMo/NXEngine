@@ -101,9 +101,9 @@ void TCSphere::OnKeyEvent(int key, int scancode, int action, int mods){
     }else if(key == GLFW_KEY_S){
         camera.MoveBack(50);
     }else if(key == GLFW_KEY_PAGE_UP){
-        camera.RotateByLeftRightAxis(DG2RD(15));
+        camera.RotateByLeftRightAxis(NX::DG2RD(15));
     }else if(key == GLFW_KEY_PAGE_DOWN){
-        camera.RotateByLeftRightAxis(-DG2RD(15));
+        camera.RotateByLeftRightAxis(-NX::DG2RD(15));
     }else if(key == GLFW_KEY_1){
         OutValue += 2;
     }else if(key == GLFW_KEY_2){

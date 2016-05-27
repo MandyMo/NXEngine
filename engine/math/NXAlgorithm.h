@@ -11,6 +11,7 @@
 #include "NXMatrix.h"
 #include "NXVector.h"
 #include "NXQuaternion.h"
+#include "NXEulerAngle.h"
 
 namespace NX {
     //===============================begin some vector function=========================================================
@@ -166,6 +167,18 @@ namespace NX {
     template<typename T, typename U, typename RT = T>
     inline Matrix<RT, 3, 3> GetScaleMatrix(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s);
     //==================================end some matrix function========================================================
+    
+    
+    //================================================几种旋转模型转换函数=====================================================
+    EulerAngle MatrixToEulerAngle(const Matrix<float, 3, 3> &rhs, const EulerAngleMode mode);
+    EulerAngle MatrixToEulerAngle(const Matrix<float, 4, 4> &rhs, const EulerAngleMode mode);
+    Matrix<float, 4, 4> EulerAngleToMatrix(const EulerAngle &lhs, const EulerAngleMode mode);
+    Matrix<float, 4, 4> QuaternionToMatrix(const Quaternion &lhs);
+    Quaternion MatrixToQuaternion(const Matrix<float, 4, 4> &lhs);
+    Quaternion MatrixToQuaternion(const Matrix<float, 3, 3> &lhs);
+    EulerAngle QuaternionToEulerAngle(const Quaternion &lhs, const EulerAngleMode mode);
+    Quaternion EulerAngleToQuaternion(const EulerAngle &lhs, const EulerAngleMode mode);
+    //==================================================================================================================
 #include "NXAlgorithm.inl"
 }
 

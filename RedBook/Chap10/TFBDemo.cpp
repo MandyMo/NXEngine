@@ -1,6 +1,7 @@
 
 #include "TFBDemo.h"
 #include "../engine/common/NXLog.h"
+#include "../engine/math/NXMath.h"
 #include "../engine/render/NXShaderManager.h"
 #include "../engine/system/NXSystem.h"
 #include "iostream"
@@ -164,9 +165,9 @@ void TFBDemo::OnKeyEvent(int key, int scancode, int action, int mods){
     }else if(key == GLFW_KEY_S){
         m_Camera.MoveBack(50);
     }else if(key == GLFW_KEY_PAGE_UP){
-        m_Camera.RotateByLeftRightAxis(DG2RD(15));
+        m_Camera.RotateByLeftRightAxis(NX::DG2RD(15));
     }else if(key == GLFW_KEY_PAGE_DOWN){
-        m_Camera.RotateByLeftRightAxis(-DG2RD(15));
+        m_Camera.RotateByLeftRightAxis(-NX::DG2RD(15));
     }else if(key == GLFW_KEY_1){
         //OutValue += 2;
     }else if(key == GLFW_KEY_2){

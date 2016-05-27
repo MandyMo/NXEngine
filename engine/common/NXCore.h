@@ -37,16 +37,7 @@
 #define PI 3.1415926
 #endif
 
-#ifndef DG2RD
-#define DG2RD(angel)\
-    (angel * PI / 180.0)
-#endif
 
-
-#ifndef RD2DG
-#define RD2DG(radian)\
-    (radian * 180.0 / PI)
-#endif
 
 
 #ifndef CLS_MEM_OFFSET

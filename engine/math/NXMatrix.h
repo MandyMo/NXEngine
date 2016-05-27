@@ -25,6 +25,12 @@ namespace NX {
         inline Matrix(const vector<U, Col> *v);
         template<typename U>
         inline Matrix(const U (&ary)[Row][Col]);
+        
+        template<typename U, int RB, int CB>
+        inline Matrix(const U (&ary)[RB][CB]);
+        
+        template<typename U, int RB, int CB>
+        inline Matrix(const Matrix<U, RB, CB> &rhs);
     public:
         template<typename U>
         inline Matrix<T, Row, Col>& operator += (const Matrix<U, Row, Col> &rhs);

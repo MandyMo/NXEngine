@@ -613,5 +613,4 @@ inline Matrix<RT, 3, 3> GetScaleMatrix(const vector<T, 3> &lhs, const vector<U, 
     result[2][0] =     (s - 1) * n.z * n.x, result[2][1] =     (s - 1) * n.z * n.y, result[2][2] = 1 + (s - 1) * n.z * n.z;
     return result;
 }
-
 #endif //!__ZX_NXENGINE_ALGORITHM_INL__

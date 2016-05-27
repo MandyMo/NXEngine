@@ -3,6 +3,27 @@ inline int    RandInt(){
     return std::rand();
 }
 
+template<typename T>
+
+inline T DG2RD(const T angle){
+    return angle * kfPi / 180.0f;
+}
+
+template<typename T>
+inline T RD2DG(const T radian){
+    return radian * 180.0f / kfPi;
+}
+
+template<>
+inline double DG2RD<double>(const double angle){
+    return angle * klfPi / 180.0;
+}
+
+template<>
+inline double RD2DG<double>(const double radian){
+    return radian * 180.0 / klfPi;
+}
+
 inline int RandIntInRange(int left, int right){
     assert(left <= right);
     return left + RandInt() % (right - left + 1);

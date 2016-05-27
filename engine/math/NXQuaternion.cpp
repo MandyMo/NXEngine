@@ -5,11 +5,14 @@
  *  purpose: 四元数操作函数
  */
 
+#include <cstring>
+#include <cstdlib>
+#include "NXVector.h"
+#include "NXMatrix.h"
 #include "NXQuaternion.h"
 #include "NXAlgorithm.h"
 
 namespace NX{
-
     Quaternion::Quaternion(){
         w = 1.0f;
         x = y = z = 0.0f;
@@ -26,7 +29,7 @@ namespace NX{
     Quaternion::Quaternion(const float radian, const vector<float, 3> &Axis){
         //<w, (x, y, z)>  == <cos(theta / 2), Axis * sin(theta / 2)>
         vector<float, 3> axis = Axis;
-        Normalize(axis);
+        NX::Normalize(axis);
         float CosValue = std::cos(radian / 2);
         float SinValue = std::sin(radian / 2);
         w = CosValue;
@@ -147,7 +150,7 @@ namespace NX{
         return float3(RefObj.x, RefObj.y, RefObj.z);
     }
 
-    Quaternion& Quaternion::Normalized(){
+    Quaternion& Quaternion::Normalize(){
         const float len = Length();
         w /= len, x /= len, y /= len, z /= len;
         return *this;
@@ -175,7 +178,7 @@ namespace NX{
     }
 
     Quaternion Quaternion::GetNormalized() const{
-        return Quaternion(*this).Normalized();
+        return Quaternion(*this).Normalize();
     }
 
     Quaternion Quaternion::GetPow(float e) const{
@@ -202,7 +205,23 @@ namespace NX{
         return *this;
     }
 
+    vector<float, 3> Quaternion::GetRotateAxis(){
+        float SinValue = 1.0f - w * w;
+        if(SinValue < 0.0f){
+            return vector<float, 3>(1.0f, 0, 0);
+        }
+        float factor = 1.0f / std::sqrt(SinValue);
+        return vector<float, 3>(factor * x, factor * y, factor * z);
+    }
 
+    float Quaternion::GetRotateRadian(){
+        return SafeACos(w) * 2.0f;
+    }
+    
+    float Quaternion::GetRotateAngle(){
+        return RD2DG(GetRotateRadian());
+    }
+    
     float LengthSquare(const Quaternion &lhs){
         return lhs.x * lhs.x + lhs.y * lhs.y + lhs.z * lhs.z + lhs.w * lhs.w;
     }

@@ -10,6 +10,8 @@
 		6C1607171C9BF0EF00932D61 /* MRTDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C1607151C9BF0EF00932D61 /* MRTDemo.cpp */; };
 		6C16071E1C9C007B00932D61 /* AppChap1_4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C16071A1C9C007B00932D61 /* AppChap1_4.cpp */; };
 		6C2E382F1CF7EA3C007A488D /* NXAlgorithm.inl in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E382D1CF7EA3C007A488D /* NXAlgorithm.inl */; };
+		6C2E38321CF820BE007A488D /* NXEulerAngle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E38301CF820BE007A488D /* NXEulerAngle.cpp */; };
+		6C2E38341CF840F4007A488D /* NXAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E38331CF840F4007A488D /* NXAlgorithm.cpp */; };
 		6C335A191CB65F87004B32B9 /* Bricks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C335A171CB65F87004B32B9 /* Bricks.cpp */; };
 		6C335A1E1CB66EBF004B32B9 /* NXCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C335A1C1CB66EBF004B32B9 /* NXCamera.cpp */; };
 		6C335A221CB7A330004B32B9 /* BricksSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C335A201CB7A330004B32B9 /* BricksSphere.cpp */; };
@@ -555,6 +557,9 @@
 		6C16071D1C9C007B00932D61 /* VS1_4.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VS1_4.glsl; sourceTree = "<group>"; };
 		6C2E382D1CF7EA3C007A488D /* NXAlgorithm.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NXAlgorithm.inl; sourceTree = "<group>"; };
 		6C2E382E1CF7EA3C007A488D /* NXAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXAlgorithm.h; sourceTree = "<group>"; };
+		6C2E38301CF820BE007A488D /* NXEulerAngle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXEulerAngle.cpp; sourceTree = "<group>"; };
+		6C2E38311CF820BE007A488D /* NXEulerAngle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXEulerAngle.h; sourceTree = "<group>"; };
+		6C2E38331CF840F4007A488D /* NXAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXAlgorithm.cpp; sourceTree = "<group>"; };
 		6C335A171CB65F87004B32B9 /* Bricks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bricks.cpp; sourceTree = "<group>"; };
 		6C335A181CB65F87004B32B9 /* Bricks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bricks.h; sourceTree = "<group>"; };
 		6C335A1A1CB6609D004B32B9 /* BricksVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BricksVS.glsl; sourceTree = "<group>"; };
@@ -2186,6 +2191,9 @@
 				6C738C6D1CE5798F0053D9D5 /* NXPrimitive.h */,
 				6C2E382D1CF7EA3C007A488D /* NXAlgorithm.inl */,
 				6C2E382E1CF7EA3C007A488D /* NXAlgorithm.h */,
+				6C2E38301CF820BE007A488D /* NXEulerAngle.cpp */,
+				6C2E38311CF820BE007A488D /* NXEulerAngle.h */,
+				6C2E38331CF840F4007A488D /* NXAlgorithm.cpp */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -3690,6 +3698,7 @@
 				6CD71C851C83EA0B00910E57 /* ImathColorAlgo.cpp in Sources */,
 				6CD71B361C83EA0B00910E57 /* wrgif.c in Sources */,
 				6CD71BBA1C83EA0B00910E57 /* dec.io.c in Sources */,
+				6C2E38341CF840F4007A488D /* NXAlgorithm.cpp in Sources */,
 				6CD71C7C1C83EA0B00910E57 /* IlmThreadMutexWin32.cpp in Sources */,
 				6CD71B481C83EA0B00910E57 /* strPredQuantEnc.c in Sources */,
 				6C3A6F091CA92D9100CFB450 /* Texture3D.cpp in Sources */,
@@ -4018,6 +4027,7 @@
 				6CD71C501C83EA0B00910E57 /* ImfMultiPartInputFile.cpp in Sources */,
 				6CD71B5B1C83EA0B00910E57 /* j2k.c in Sources */,
 				6C4F704D1CABBD6800C44153 /* PointSprite.cpp in Sources */,
+				6C2E38321CF820BE007A488D /* NXEulerAngle.cpp in Sources */,
 				6CD71BA01C83EA0B00910E57 /* tif_lzw.c in Sources */,
 				6CD71BD91C83EA0B00910E57 /* dsp.filters_mips_dsp_r2.c in Sources */,
 				6CD71BFE1C83EA0B00910E57 /* enc.vp8l.c in Sources */,

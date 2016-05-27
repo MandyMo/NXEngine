@@ -12,8 +12,24 @@
 #include "NXNumeric.h"
 #include "../common/NXCore.h"
 
+
+
 namespace NX {
     void InitNXMath();
+    template<typename T>
+    inline T DG2RD(const T angle);
+    
+    template<typename T>
+    inline T RD2DG(const T angle);
+    /**
+     *  返回acos和asin值，若value超出[-1, 1]，则返回边界上的最大值
+     */
+    float SafeACos(const float value);
+    float SafeASin(const float value);
+    
+    std::pair<float, float> GetSinAndCos(const float radian);
+    void GetSinAndCos(const float radian, float * const pSinvalue, float * const pCosValue);
+    
     inline double QuickCosWithAngle(const double Angle);
     inline double QuickSinWithAngle(const double Angle);
     inline double QuickCosWithRadian(const double Radian);

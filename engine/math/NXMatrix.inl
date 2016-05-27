@@ -54,6 +54,30 @@ inline Matrix<T, Row, Col>::Matrix(const U (&ary)[Row][Col]){
 }
 
 template<typename T, int Row, int Col>
+template<typename U, int RB, int CB>
+inline Matrix<T, Row, Col>::Matrix(const U (&ary)[RB][CB]){
+    memset(m_Element, 0, sizeof(m_Element));
+    int rl = NXMin(Row, RB), cl = NXMin(Col, CB);
+    for(int r = 0; r < rl; ++r){
+        for(int c = 0; c < cl; ++c){
+            m_Element[r][c] = ary[r][c];
+        }
+    }
+}
+
+template<typename T, int Row, int Col>
+template<typename U, int RB, int CB>
+inline Matrix<T, Row, Col>::Matrix(const Matrix<U, RB, CB> &rhs){
+    memset(m_Element, 0, sizeof(m_Element));
+    int rl = NXMin(Row, RB), cl = NXMin(Col, CB);
+    for(int r = 0; r < rl; ++r){
+        for(int c = 0; c < cl; ++c){
+            m_Element[r][c] = rhs[r][c];
+        }
+    }
+}
+
+template<typename T, int Row, int Col>
 template<typename U>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator += (const Matrix<U, Row, Col> &rhs){
     for(int r = 0; r < Row; ++r){
