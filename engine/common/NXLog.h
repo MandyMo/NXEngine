@@ -7,6 +7,7 @@
 
 #ifndef __ZX_NXENGINE_LOG_H__
 #define __ZX_NXENGINE_LOG_H__
+
 #include "NXCore.h"
 
 namespace NX{

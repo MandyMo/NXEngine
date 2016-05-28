@@ -75,7 +75,7 @@ inline vector<RT, Scale> operator / (const vector<T, Scale> &lhs, const U value)
 
 template<typename T, typename U, int Scale, typename RT>
 inline vector<RT, Scale> operator / (const U value, const vector<T, Scale> &lhs){
-    return (vector<RT, Scale>(value) -= lhs);
+    return (vector<RT, Scale>(value) /= lhs);
 }
 
 template<typename T, int Scale>

@@ -29,6 +29,15 @@ inline Matrix<T, Row, Col>::Matrix(){
 }
 
 template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>::Matrix(const T v){
+    for(int r = 0; r < Row; ++r){
+        for(int c = 0; c < Col; ++c){
+            m_Element[r][c] = v;
+        }
+    }
+}
+
+template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>::Matrix(const T *ptr){
     memcpy(m_Element, ptr, sizeof(m_Element));
 }
@@ -141,14 +150,20 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator /= (const T &value){
 
 template<typename T, int Row, int Col>
 inline T& Matrix<T, Row, Col>::GetElement(int row, int col){
-    assert(row >= 0 && col >= 0 && row < Row && col < Col);
+    NXAssert(row >= 0 && col >= 0 && row < Row && col < Col);
+    return m_Element[row][col];
+}
+
+template<typename T, int Row, int Col>
+inline T Matrix<T, Row, Col>::GetElement(int row, int col) const{
+    NXAssert(row >= 0 && col >= 0 && row < Row && col < Col);
     return m_Element[row][col];
 }
 
 template<typename T, int Row, int Col>
 template<typename U, int Scale>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const vector<U, Scale> &rhs){
-    assert(row < Row && row >=0);
+    NXAssert(row < Row && row >=0);
     for(int i = 0, l = std::min(Scale, Col); i < l; ++i){
         m_Element[row][i] = rhs.v[i];
     }
@@ -156,9 +171,22 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const vector<U,
 }
 
 template<typename T, int Row, int Col>
+template<int Scale>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const vector<T, Scale> &rhs){
+    std::memcpy(&m_Element[row][0], rhs.v, NXMin(Col, Scale) * sizeof(T));
+    return *this;
+}
+
+template<typename T, int Row, int Col>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const vector<T, Col> &rhs){
+    std::memcpy(&m_Element[row][0], rhs.v, sizeof(T) * Col);
+    return *this;
+}
+
+template<typename T, int Row, int Col>
 template<typename U>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const U *ptr){
-    assert(row < Row && row >=0);
+    NXAssert(row < Row && row >=0);
     const U *p = ptr;
     for(int i = 0; i < Col; ++i){
         m_Element[row][i] = *p++;
@@ -168,7 +196,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const U *ptr){
 
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const T value){
-    assert(row < Row && row >=0);
+    NXAssert(row < Row && row >=0);
     for(int i = 0; i < Col; ++i){
         m_Element[row][i] = value;
     }
@@ -178,7 +206,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const T value){
 template<typename T, int Row, int Col>
 template<typename U, int Scale>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, U (&ary)[Scale]){
-    assert(row < Row && row >=0);
+    NXAssert(row < Row && row >=0);
     for(int i = 0, l = std::min(Scale, Col); i < l; ++i){
         m_Element[row][i] = ary[i];
     }
@@ -186,9 +214,18 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, U (&ary)[Scale]
 }
 
 template<typename T, int Row, int Col>
+template<int Scale>
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, T (&ary)[Scale]){
+    NXAssert(row < Row && row >= 0);
+    std::memcpy(&m_Element[row][0], &ary[0], NXMin(Col, Scale) * sizeof(T));
+    return *this;
+}
+
+
+template<typename T, int Row, int Col>
 template<typename U, int Scale>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const vector<U, Scale> &rhs){
-    assert(col < Col && col >=0);
+    NXAssert(col < Col && col >=0);
     for(int i = 0, l = std::min(Scale, Row); i < l; ++i){
         m_Element[i][col] = rhs.v[i];
     }
@@ -198,7 +235,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const vector<U,
 template<typename T, int Row, int Col>
 template<typename U, int Scale>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, U (&ary)[Scale]){
-    assert(col < Col && col >=0);
+    NXAssert(col < Col && col >=0);
     for(int i = 0, l = std::min(Scale, Row); i < l; ++i){
         m_Element[i][col] = ary[i];
     }
@@ -209,7 +246,7 @@ template<typename T, int Row, int Col>
 template<typename U>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const U *ptr){
    const  U *p = ptr;
-    assert(col < Col && col >=0);
+    NXAssert(col < Col && col >=0);
     for(int i = 0; i < Row; ++i){
         m_Element[i][col] = *p++;
     }
@@ -218,7 +255,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const U *ptr){
 
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const T value){
-    assert(col < Col && col >=0);
+    NXAssert(col < Col && col >=0);
     for(int i = 0; i < Row; ++i){
         m_Element[i][col] = value;
     }
@@ -227,7 +264,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const T value){
 
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::Transpose(){
-    assert(Row == Col);
+    NXAssert(Row == Col);
     for(int r = 0; r < Row; ++r){
         for(int c = 0; c < r; ++c){
             std::swap(m_Element[r][c], m_Element[c][r]);
@@ -273,20 +310,20 @@ inline Matrix<RT, M, 1> operator * (const Matrix<U, M, N> &lhs, const vector<T, 
 
 template<typename T, int Row, int Col>
 inline T (&Matrix<T, Row, Col>::operator [] (int index))[Col]{
-    assert(index >= 0 && index < Row);
+    NXAssert(index >= 0 && index < Row);
     return m_Element[index];
 }
 
 template<typename T, int Row, int Col>
 inline const T (&Matrix<T, Row, Col>::operator [] (int index) const)[Col]{
-    assert(index >= 0 && index < Row);
+    NXAssert(index >= 0 && index < Row);
     return m_Element[index];
 }
 
 template<typename T, int Row, int Col>
 template<typename U>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MultiRow(int row, const U value){
-    assert(row < Row && row >= 0);
+    NXAssert(row < Row && row >= 0);
     for(int i = 0; i < Col; ++i){
         m_Element[row][i] *= value;
     }
@@ -296,7 +333,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MultiRow(int row, const U value
 template<typename T, int Row, int Col>
 template<typename U>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MultiCol(int col, const U value){
-    assert(col < Col && col >= 0);
+    NXAssert(col < Col && col >= 0);
     for(int i = 0; i < Row; ++i){
         m_Element[i][col] *= value;
     }
@@ -306,7 +343,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MultiCol(int col, const U value
 template<typename T, int Row, int Col>
 template<typename U>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddRow(int row, const U value){
-    assert(row < Row && row >= 0);
+    NXAssert(row < Row && row >= 0);
     for(int i = 0; i < Col; ++i){
         m_Element[row][i] += value;
     }
@@ -316,7 +353,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddRow(int row, const U value){
 template<typename T, int Row, int Col>
 template<typename U>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddCol(int col, const U value){
-    assert(col < Col && col >= 0);
+    NXAssert(col < Col && col >= 0);
     for(int i = 0; i < Row; ++i){
         m_Element[i][col] += value;
     }
@@ -325,7 +362,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddCol(int col, const U value){
 
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneRowToAnother(const int first, const int second){
-    assert(first < Row && first >= 0 && second < Row && second >= 0);
+    NXAssert(first < Row && first >= 0 && second < Row && second >= 0);
     for(int i = 0; i < Col; ++i){
         m_Element[second][i] += m_Element[first][i];
     }
@@ -335,7 +372,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneRowToAnother(const int fi
 //row[second] += row[first] * factor;
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneRowToAnotherByFactor(const int first, const int second, const T factor){
-    assert(first < Row && first >= 0 && second < Row && second >= 0);
+    NXAssert(first < Row && first >= 0 && second < Row && second >= 0);
     for(int i = 0; i < Col; ++i){
         m_Element[second][i] += m_Element[first][i] * factor;
     }
@@ -344,7 +381,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneRowToAnotherByFactor(cons
 
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneColToAnotherByFactor(const int first, const int second, const T factor){
-    assert(first < Col && first >= 0 && second < Col && second >= 0);
+    NXAssert(first < Col && first >= 0 && second < Col && second >= 0);
     for(int i = 0; i < Row; ++i){
         m_Element[i][second] += m_Element[i][first] * factor;
     }
@@ -353,7 +390,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneColToAnotherByFactor(cons
 
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneColToAnother(const int first, const int second){
-    assert(first < Col && first >= 0 && second < Col && second >= 0);
+    NXAssert(first < Col && first >= 0 && second < Col && second >= 0);
     for(int i = 0; i < Row; ++i){
         m_Element[i][second] += m_Element[i][first];
     }
@@ -364,7 +401,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::AddOneColToAnother(const int fi
 //row[second] = row[first] && clear(row[first])
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MoveOnRowToAnother(const int first, const int second){
-    assert(first < Row && first >= 0 && second < Row && second >= 0);
+    NXAssert(first < Row && first >= 0 && second < Row && second >= 0);
     for(int i = 0; i < Col; ++i){
         m_Element[second][i] = m_Element[first][i];
         m_Element[first][i]  = 0;
@@ -375,7 +412,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MoveOnRowToAnother(const int fi
 //col[second] = col[first] && clear(col[first])
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MoveOneColToAnother(const int first, const int second){
-    assert(first < Col && first >= 0 && second < Col && second >= 0);
+    NXAssert(first < Col && first >= 0 && second < Col && second >= 0);
     for(int i = 0; i < Row; ++i){
         m_Element[i][second] = m_Element[i][first];
         m_Element[i][first]  = 0;
@@ -386,7 +423,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::MoveOneColToAnother(const int f
 //row[second] = row[first] but not clear(row[first])
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetOneRowWithAnother(const int first, const int second){
-    assert(first < Row && first >= 0 && second < Row && second >= 0);
+    NXAssert(first < Row && first >= 0 && second < Row && second >= 0);
     for(int i = 0; i < Col; ++i){
         m_Element[second][i] = m_Element[first][i];
     }
@@ -396,7 +433,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetOneRowWithAnother(const int 
 //col[second] = col[first] but not clear(col[first])
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetOneColWithAnother(const int first, const int second){
-    assert(first < Col && first >= 0 && second < Col && second >= 0);
+    NXAssert(first < Col && first >= 0 && second < Col && second >= 0);
     for(int i = 0; i < Row; ++i){
         m_Element[i][second] = m_Element[i][first];
     }
@@ -405,7 +442,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetOneColWithAnother(const int 
 
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SwapRow(int first, int second){
-    assert(first < Row && first >= 0 && second < Row && second >= 0);
+    NXAssert(first < Row && first >= 0 && second < Row && second >= 0);
     for(int i = 0; i < Col; ++i){
         std::swap(m_Element[second][i], m_Element[first][i]);
     }
@@ -414,7 +451,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SwapRow(int first, int second){
 
 template<typename T, int Row, int Col>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SwapCol(int first, int second){
-    assert(first < Col && first >= 0 && second < Col && second >= 0);
+    NXAssert(first < Col && first >= 0 && second < Col && second >= 0);
     for(int i = 0; i < Row; ++i){
         std::swap(m_Element[i][second], m_Element[i][first]);
     }
@@ -422,6 +459,15 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SwapCol(int first, int second){
 }
 
 
+template<typename T, int Row, int Col, typename U, typename RT>
+inline Matrix<RT, Row, Col> operator + (const Matrix<T, Row, Col> &lhs, const Matrix<U, Row, Col> &rhs){
+    return Matrix<RT, Row, Col>(lhs) += rhs;
+}
+
+template<typename T, int Row, int Col, typename U, typename RT>
+inline Matrix<RT, Row, Col> operator - (const Matrix<T, Row, Col> &lhs, const Matrix<U, Row, Col> &rhs){
+    return Matrix<RT, Row, Col>(lhs) -= rhs;
+}
 
 #ifndef DECLARE_MATRIX_TYPE_ROW
 #define DECLARE_MATRIX_TYPE_ROW(type, row) \

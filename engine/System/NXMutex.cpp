@@ -21,12 +21,12 @@ void NX::Mutex::Destroy(__in Mutex * const pMutex){
 }
 
 NX::MutexWraper::MutexWraper(Mutex *pMutex):m_pMutex(pMutex){
-    assert(m_pMutex);
+    NXAssert(m_pMutex);
     m_pMutex->Enter();
 }
 
 NX::MutexWraper::~MutexWraper(){
-    assert(m_pMutex);
+    NXAssert(m_pMutex);
     m_pMutex->Leave();
 }
 

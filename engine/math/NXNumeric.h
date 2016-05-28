@@ -13,7 +13,6 @@ namespace NX{
     template<typename T>
     class Epsilon{
     public:
-        const static T m_Epsilon = 0;
     };
     #ifndef NX_EPSILON_SPECIALLIZE
     #define NX_EPSILON_SPECIALLIZE(type, value) \
@@ -50,13 +49,13 @@ namespace NX{
     //========================================constant about pi=========================================================
     static const float kfPi            = 3.1415926f;
     static const float kf2Pi           = kfPi * 2.0f;
-    static const float kfPiOver2       = kfPi / 2.0f;
+    static const float kfPiOver2       = kfPi * 0.5f;
     static const float kf1OverPi       = 1.0f / kfPi;
     static const float kf1Over2Pi      = 1.0f / kf2Pi;
     
     static const double klfPi          = 3.14159265358979323846264338327950238;
     static const double klf2Pi         = klfPi * 2.0;
-    static const double llfPiOver2     = klfPi / 2.0;
+    static const double llfPiOver2     = klfPi * 0.5;
     static const double klf1OverPi     = 1.0 / klfPi;
     static const double klf1Over2Pi    = 1.0 / kf2Pi;
     //==================================================================================================================

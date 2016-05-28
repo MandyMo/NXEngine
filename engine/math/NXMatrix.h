@@ -18,11 +18,15 @@ namespace NX {
     public:
         template<typename U>
         inline Matrix(const Matrix<U, Row, Col> &rhs);
+        
         inline Matrix(const Matrix &rhs);
         inline Matrix();
         inline Matrix(const T *ptr);
+        inline Matrix(const T v);
+        
         template<typename U>
         inline Matrix(const vector<U, Col> *v);
+        
         template<typename U>
         inline Matrix(const U (&ary)[Row][Col]);
         
@@ -89,6 +93,8 @@ namespace NX {
     public:
         inline T& GetElement(int row, int col);
         
+        inline T GetElement(int row, int col) const;
+        
         inline Matrix<T, Row, Col>& SwapRow(int first, int second);
         
         inline Matrix<T, Row, Col>& SwapCol(int first, int second);
@@ -96,10 +102,18 @@ namespace NX {
         template<typename U, int Scale>
         inline Matrix<T, Row, Col>& SetRow(int row, const vector<U, Scale> &rhs);
         
+        template<int Scale>
+        inline Matrix<T, Row, Col>& SetRow(int row, const vector<T, Scale> &rhs);
+        
+        inline Matrix<T, Row, Col>& SetRow(int row, const vector<T, Col> &rhs);
+        
         template<typename U>
         inline Matrix<T, Row, Col>& SetRow(int row, const U *ptr);
         
         inline Matrix<T, Row, Col>& SetRow(int row, const T value);
+        
+        template<int Scale>
+        inline Matrix<T, Row, Col>& SetRow(int row, T (&ary)[Scale]);
         
         template<typename U, int Scale>
         inline Matrix<T, Row, Col>& SetRow(int row, U (&ary)[Scale]);
@@ -136,6 +150,11 @@ namespace NX {
     template<typename T, int M, int N, typename U, typename RT = T>
     inline Matrix<RT, M, 1> operator * (const Matrix<U, M, N> &lhs, const vector<T, N> &rhs);
     
+    template<typename T, int Row, int Col, typename U, typename RT = T>
+    inline Matrix<RT, Row, Col> operator + (const Matrix<T, Row, Col> &lhs, const Matrix<U, Row, Col> &rhs);
+    
+    template<typename T, int Row, int Col, typename U, typename RT = T>
+    inline Matrix<RT, Row, Col> operator - (const Matrix<T, Row, Col> &lhs, const Matrix<U, Row, Col> &rhs);
     //==============================================end of nomember function============================================
 #include "NXMatrix.inl"
     

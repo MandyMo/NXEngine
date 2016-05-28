@@ -22,7 +22,7 @@ NX::MemoryManager& NX::MemoryManager::Instance(){
 }
 
 void* NX::MemoryManager::FixedAlloc(__in const int iMemSize, __in const int iAlignSize){
-    assert(iAlignSize > 1 && !(iAlignSize & (iAlignSize - 1)));
+    NXAssert(iAlignSize > 1 && !(iAlignSize & (iAlignSize - 1)));
     //expand memory size
     int iFinalSize       = iMemSize + iAlignSize + sizeof(void*);
     ullong  StartAddress = (ullong)malloc(iFinalSize);
@@ -35,7 +35,7 @@ void* NX::MemoryManager::FixedAlloc(__in const int iMemSize, __in const int iAli
 }
 
 void NX::MemoryManager::FixedDelloc(__in const void * const pFixedAddress){
-    assert(pFixedAddress);
+    NXAssert(pFixedAddress);
     if(!pFixedAddress){
         return;
     }

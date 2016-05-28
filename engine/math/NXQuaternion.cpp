@@ -23,6 +23,7 @@ namespace NX{
     }
 
     Quaternion::Quaternion(const float *v, int len/* = 4*/){
+        NXAssert(len == 4);
         std::memcpy(m_V, v, sizeof(m_V));
     }
 
@@ -51,16 +52,16 @@ namespace NX{
     }
 
     float& Quaternion::operator[] (const int idx){
-        assert(idx >= 0 && idx < 4);
+        NXAssert(idx >= 0 && idx < 4);
         return m_V[idx];
     }
 
     const float Quaternion::operator[] (const int idx) const{
-        assert(idx >= 0 && idx < 4);
+        NXAssert(idx >= 0 && idx < 4);
         return m_V[idx];
     }
 
-    bool Quaternion::operator == (const Quaternion &rhs){
+    bool Quaternion::operator == (const Quaternion &rhs) const{
     #define FLOAT_EQUAL(x, y) (NXAbs((x) - (y)) <= FLOAT_EPSILON)
         return FLOAT_EQUAL(w, rhs.w)  && FLOAT_EQUAL(x, rhs.x) && FLOAT_EQUAL(y, rhs.y) && FLOAT_EQUAL(z, rhs.z);
     #undef FLOAT_EQUAL
@@ -264,5 +265,44 @@ namespace NX{
         }
         return a * lhs + b * rhs;
     }
+    
+    Quaternion& Quaternion::SetRotateAboutX(const float radian){
+        const float theta = radian * 0.5f;
+        w = std::cos(theta);
+        x = std::sin(theta);
+        y = 0.0f;
+        z = 0.0f;
+        return *this;
+    }
+    
+    Quaternion& Quaternion::SetRotateAboutY(const float radian){
+        const float theta = radian * 0.5f;
+        w = std::cos(theta);
+        x = 0.0f;
+        y = std::sin(theta);
+        z = 0.0f;
+        return *this;
+    }
+    
+    Quaternion& Quaternion::SetRotateAboutZ(const float radian){
+        const float theta = radian * 0.5f;
+        w = std::cos(theta);
+        x = 0.0f;
+        y = 0.0f;
+        z = std::sin(theta);
+        return *this;
+    }
+    
+    Quaternion& Quaternion::SetRotateAboutAxis(const float radian, const vector<float, 3> &axis){
+        vector<float, 3> n(GetNormalize(axis));
+        const float theta    = radian * 0.5f;
+        const float SinValue = std::sin(theta);
+        w = std::cos(theta);
+        x = SinValue * n.x;
+        y = SinValue * n.y;
+        z = SinValue * n.z;
+        return *this;
+    }
+    
     const Quaternion kQuanternionIndentity(1.0f, 0.0f, 0.0f, 0.0f);
 }

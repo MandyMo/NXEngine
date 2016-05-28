@@ -33,11 +33,52 @@
 #define TEXT(queto) _T(queto)
 #endif
 
-#ifndef PI
-#define PI 3.1415926
+#if defined(_MSC_VER)
+#if defined(WINRT)
+#define PLATFORM_WINRT 1
+#else
+#define PLATFORM_WINDOWS 1
 #endif
 
+#if defined(_WIN64)
+#define PLATFORM_64 1
+#elif defined(_WIN32)
+#define PLATFORM_32 1
+#endif
+#elif defined(__ANDROID__)
+#define PLATFORM_ANDROID 1
+#if defined(__x86_64__) || defined(__aarch64__)
+#define PLATFORM_64 1
+#else
+#define PLATFORM_32 1
+#endif
+#elif defined(__linux__)
+#define PLATFORM_LINUX 1
+#if defined(__x86_64__)
+#define PLATFORM_64 1
+#else
+#define PLATFORM_32 1
+#endif
+#elif defined(__APPLE__)
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#define PLATFORM_IOS 1
+#else
+#define PLATFORM_OSX 1
+#endif
 
+#if defined(__x86_64__) || defined(__arm64__)
+#define PLATFORM_64 1
+#else
+#define PLATFORM_32 1
+#endif
+#endif
+
+/**
+ *  注意，在debug模式下，XCode下，默认不会定义DEBUG宏，在VS上默认会定义
+ */
+#if defined(DEBUG) || defined(_DEBUG)
+    #define DEBUG_MODE 1
+#endif
 
 
 #ifndef CLS_MEM_OFFSET
@@ -53,6 +94,19 @@
 #ifndef ARRAY_LENGTH
 #define ARRAY_LENGTH(Addr) \
     (sizeof(Addr) / sizeof(Addr[0]))
+#endif
+
+#ifndef ARRAY_ELEMENT_NAME
+#define ARRAY_ELEMENT_NAME(Ary) \
+    (typeid(Ary[0]).name())
+#endif
+
+#ifndef NX_STR_PASTE
+    #define NX_STR_PASTE(x, y)  x##y
+#endif
+
+#ifndef NX_TO_STR
+#define NX_TO_STR(expr) #expr
 #endif
 
 #include <cassert>
@@ -110,14 +164,35 @@ public:
     }
 };
 
+namespace NX{
+    extern void NXAssertFailed(const char *szFileName, const int iLine);
+}
 
-
-
-//plat form is MAC OSX, then you should deine the flowing macro and comments the nxet three macos
-#define PLATFORM_OSX     1
-//#define PLATFORM_IOS     1
-//#define PLATFORM_ANDROID 1
-//#define PLATFORM_WINDOWS 1
-
-
+#ifndef NXAssert
+#if DEBUG_MODE
+#define NXAssert(expr) \
+    if((expr)){\
+    }else{/*NXAssert failed*/\
+        NX::NXAssertFailed(__FILE__, __LINE__);\
+    }
+#else
+#define NXAssert(expr)
 #endif
+#endif
+
+
+namespace NX {
+    template<typename T, int len>
+    int ArrayLength(const T (&)[len]){
+        return len;
+    }
+    
+    template<typename T, int len>
+    std::string ArrayElementName(const T (&)[len]){
+        return typeid(T).name();
+    }
+    
+}
+
+
+#endif //!__ZX_NXENGINE_CORE_H__

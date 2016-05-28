@@ -55,10 +55,13 @@ namespace NX {
     template<typename T, typename U, typename X>
     T Clamp(T& ComparedValue, const U FloorValue, const X CeilValue);
     
-    //以mode为单位，将value变换到[0, mode)之间
-    template<typename T, typename U, typename R = int>
+    //以mode为单位，将value变换到[-mode, mode]之间，返回变换之前的value
+    template<typename T, typename U>
     T Wrap(T &value, const U mode);
     
+    //以mode为单位，将value变换到[0, mode)之间，返回变换之前的value
+    template<typename T, typename U>
+    T Mode(T &value, const U mode);
     template<typename T>
     T NXAbs(const T value);
     

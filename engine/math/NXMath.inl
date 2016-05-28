@@ -1,10 +1,15 @@
+/*
+ *  File:    NXMath.inl
+ *  author:  张雄
+ *  date:    2016_02_26
+ *  purpose: 基本的数学库函数
+ */
 
 inline int    RandInt(){
     return std::rand();
 }
 
 template<typename T>
-
 inline T DG2RD(const T angle){
     return angle * kfPi / 180.0f;
 }
@@ -25,7 +30,7 @@ inline double RD2DG<double>(const double radian){
 }
 
 inline int RandIntInRange(int left, int right){
-    assert(left <= right);
+    NXAssert(left <= right);
     return left + RandInt() % (right - left + 1);
 }
 
@@ -41,7 +46,7 @@ inline float  RandUnitFloat(){
 }
 
 inline float  RandFloatInRange(float left, float right){
-    assert(NXAbs(right - left) > FLOAT_EPSILON);
+    NXAssert(NXAbs(right - left) > FLOAT_EPSILON);
     return RandUnitFloat() * (right - left) + left;
 }
 
@@ -53,7 +58,7 @@ double QuickCosWithAngle(const int Angle){
     return std::cos(DG2RD(Angle));
 }
 
-//ComparedValue >= NewValue
+//after clamp, we have ComparedValue >= NewValue
 template<typename T, typename U>
 inline T ClampFloor(T& ComparedValue, const U NewValue){
     T OldValue(ComparedValue);
@@ -63,7 +68,7 @@ inline T ClampFloor(T& ComparedValue, const U NewValue){
     return OldValue;
 }
 
-//ComparedValue <= NewValue
+//after clamp, we have ComparedValue <= NewValue
 template<typename T, typename U>
 inline T ClampCeil(T& ComparedValue, const U NewValue){
     T OldValue(ComparedValue);
@@ -73,7 +78,7 @@ inline T ClampCeil(T& ComparedValue, const U NewValue){
     return OldValue;
 }
 
-//FloorValue <= CompraedValue <= CeilValue
+//after clamp, we have FloorValue <= CompraedValue <= CeilValue
 template<typename T, typename U, typename X>
 inline T Clamp(T& ComparedValue, const U FloorValue, const X CeilValue){
     T OldValue(ComparedValue);
@@ -99,4 +104,21 @@ T NXMin(const T l, const U r){
 template<typename T, typename U>
 T NXMax(const T l, const U r){
     return l > r ? l : r;
+}
+
+template<typename T, typename U>
+T Wrap(T &value, const U mode){
+    T OldValue = value;
+    value += mode;
+    Mode(value, mode * 2);
+    value -= mode;
+    return OldValue;
+}
+
+template<typename T, typename U>
+T Mode(T &value, const U mode){
+    T OldValue = value;
+    int v      = value / mode;
+    value     -= v * mode;
+    return OldValue;
 }

@@ -27,6 +27,7 @@ namespace NX {
         ~EulerAngle();
     public:
         EulerAngle& Normalize();
+        EulerAngle GetNormalized() const;
         
     public:
         /**

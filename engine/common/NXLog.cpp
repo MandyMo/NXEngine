@@ -29,6 +29,11 @@ va_end(VarArgList);\
 #endif
 
 NX::Log::Log(const std::string& strLogFilePath):m_strLogFilePath(strLogFilePath){
+#if defined(PLATFORM_WINDOWS)
+    AllocConsole();
+    SetConsoleTitle(_T("Debug output"));
+    freopen("CONOUT$","w",stdout);
+#endif
     if(strLogFilePath != ""){
         m_outStream.open(m_strLogFilePath);
         log("log file [%s] open.", m_strLogFilePath.c_str());
@@ -36,6 +41,9 @@ NX::Log::Log(const std::string& strLogFilePath):m_strLogFilePath(strLogFilePath)
 }
 
 NX::Log::~Log(){
+#if defined(PLATFORM_WINDOWS)
+    FreeConsole();
+#endif
     log("log file [%s] closed.", m_strLogFilePath.c_str());
     m_outStream.close();
 }
@@ -68,6 +76,7 @@ void NX::Log::logToConsole(__in const char *szFormat, ...){
     __android_log_print(ANDROID_LOG_INFO, "JoyStick", "%s", StrMsg.c_str());
 #else
     OutputDebugStringA(StrMsg.c_str());
+    std::cout << StrMsg << std::endl;
 #endif
 }
 

@@ -1,20 +1,23 @@
-
-
+/*
+ *  File:    NXVector.h
+ *  author:  张雄
+ *  date:    2016_02_22
+ *  purpose: 定义3d数学的vector，注意，此vector只适合于存储简单的内置基本类型，若存放class和struct类型，请不要使用。
+ */
 
 #ifndef __ZX_NXENGINE_VECTOR_H__
 #define __ZX_NXENGINE_VECTOR_H__
 
 #include "NXCore.h"
 #include "NXNumeric.h"
+#include "NXMath.h"
 
 namespace NX {
     template<typename T, int Scale>
     class vector{
     public:
         vector(){
-            for(int i = 0; i < Scale; ++i){
-                std::memset(v, 0, sizeof(v));
-            }
+            std::memset(v, 0, sizeof(v));
         }
         
         vector(const T* ptr){
@@ -45,21 +48,21 @@ namespace NX {
             return *this;
         }
         T& operator[] (const int index){
-            assert(index >= 0 && index < Scale);
+            NXAssert(index >= 0 && index < Scale);
             return v[index];
         }
         
         const T operator[] (const int index) const{
-            assert(index >= 0 && index < Scale);
+            NXAssert(index >= 0 && index < Scale);
             return v[index];
         }
         
         void Set(const T* ptr){
-            memcpy(v, ptr, sizeof(v));
+            std::memcpy(v, ptr, sizeof(v));
         }
         
         vector<T, Scale>& operator = (const vector<T, Scale> &rhs){
-            memcpy(v, rhs.v, sizeof(v));
+            std::memcpy(v, rhs.v, sizeof(v));
             return *this;
         }
         
@@ -73,11 +76,8 @@ namespace NX {
         
         template<typename U, int CC>
         vector<T, Scale>& operator = (const vector<U, CC> &rhs){
-            for(int i = 0; i < Scale && i < CC; ++i){
+            for(int i = 0, l = NXMin(CC, Scale); i < l; ++i){
                 v[i] = rhs.v[i];
-            }
-            for(int i = CC; i < Scale; ++i){
-                v[i] = T();
             }
             return *this;
         }
@@ -126,6 +126,7 @@ namespace NX {
             for(int i = 0; i < Scale; ++i){
                 v[i] -= value;
             }
+            return *this;
         }
         
         vector<T, Scale>& operator = (const T value){
@@ -179,12 +180,12 @@ namespace NX {
             return *this;
         }
         T& operator[] (const int index){
-            assert(index < 1 && index >= 0);
+            NXAssert(index < 1 && index >= 0);
             return v[index];
         }
         
         const T operator[] (const int index) const{
-            assert(index >= 0 && index < 1);
+            NXAssert(index >= 0 && index < 1);
             return v[index];
         }
         
@@ -209,12 +210,8 @@ namespace NX {
         
         template<typename U, int CC>
         vector<T, 1>& operator = (const vector<U, CC> &rhs){
-            for(int i = 0; i < 1 && i < CC; ++i){
-                v[i] = rhs.v[i];
-            }
-            for(int i = CC; i < 1; ++i){
-                v[i] = T();
-            }
+            NXAssert(CC >= 1);
+            v[0] = rhs.v[0];
             return *this;
         }
         
@@ -304,12 +301,12 @@ namespace NX {
             return *this;
         }
         T& operator[] (const int index){
-            assert(index < 2 && index >= 0);
+            NXAssert(index < 2 && index >= 0);
             return v[index];
         }
         
         const T operator[] (const int index) const{
-            assert(index >= 0 && index < 2);
+            NXAssert(index >= 0 && index < 2);
             return v[index];
         }
         
@@ -329,11 +326,8 @@ namespace NX {
         }
         template<typename U, int CC>
         vector<T, 2>& operator = (const vector<U, CC> &rhs){
-            for(int i = 0; i < 2 && i < CC; ++i){
+            for(int i = 0, l = NXMin(CC, 2); i < l; ++i){
                 v[i] = rhs.v[i];
-            }
-            for(int i = CC; i < 2; ++i){
-                v[i] = T();
             }
             return *this;
         }
@@ -435,12 +429,12 @@ namespace NX {
             return *this;
         }
         T& operator[] (const int index){
-            assert(index < 3 && index >= 0);
+            NXAssert(index < 3 && index >= 0);
             return v[index];
         }
         
         const T operator[] (const int index) const{
-            assert(index >= 0 && index < 3);
+            NXAssert(index >= 0 && index < 3);
             return v[index];
         }
         
@@ -462,11 +456,8 @@ namespace NX {
         }
         template<typename U, int CC>
         vector<T, 3>& operator = (const vector<U, CC> &rhs){
-            for(int i = 0; i < 3 && i < CC; ++i){
+            for(int i = 0, l = NXMin(CC, 3); i < l; ++i){
                 v[i] = rhs.v[i];
-            }
-            for(int i = CC; i < 3; ++i){
-                v[i] = T();
             }
             return *this;
         }
@@ -576,16 +567,16 @@ namespace NX {
         }
     public:
         vector<T, 4>& operator - (){
-            x = -x; y = -y; z = -z; w = -w;
+            x = -x, y = -y, z = -z, w = -w;
             return *this;
         }
         T& operator[] (const int index){
-            assert(index < 4 && index >= 0);
+            NXAssert(index < 4 && index >= 0);
             return v[index];
         }
         
         const T operator[] (const int index) const{
-            assert(index >= 0 && index < 4);
+            NXAssert(index >= 0 && index < 4);
             return v[index];
         }
         
@@ -608,11 +599,8 @@ namespace NX {
         
         template<typename U, int CC>
         vector<T, 4>& operator = (const vector<U, CC> &rhs){
-            for(int i = 0; i < 4 && i < CC; ++i){
+            for(int i = 0, l = NXMin(CC, 4); i < l; ++i){
                 v[i] = rhs.v[i];
-            }
-            for(int i = CC; i < 4; ++i){
-                v[i] = T();
             }
             return *this;
         }

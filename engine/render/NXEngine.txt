@@ -1,1 +1,3 @@
-[2016-05-14 17:55:54]  log file [./engine/render/NXEngine.txt] open.
+[2016-05-28 17:54:39]  log file [./engine/render/NXEngine.txt] open.
+[2016-05-28 17:54:39]  NXAssert failed at {[file: /git/NXEngine/main.cpp] [line: 19]}
+[2016-05-28 17:54:39]  log file [./engine/render/NXEngine.txt] closed.

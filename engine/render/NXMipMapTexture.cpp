@@ -31,6 +31,6 @@ GLuint NX::MipMapTexture::Load(__in const std::vector<std::string>& strFileSet){
 }
 
 NX::ImagePixelLoader* NX::MipMapTexture::GetImageDataByIndex(__in unsigned int index){
-    assert(index < m_strFilePathSet.size() && m_pTextureData!= NULL);
+    NXAssert(index < m_strFilePathSet.size() && m_pTextureData!= NULL);
     return m_pTextureData + index;
 }

@@ -23,11 +23,15 @@ namespace NX {
         Quaternion(const vector<float, 4> &rhs);
         Quaternion(const Quaternion &rhs);
         ~Quaternion();
-        
+    public:
+        Quaternion& SetRotateAboutX(const float radian);
+        Quaternion& SetRotateAboutY(const float radian);
+        Quaternion& SetRotateAboutZ(const float radian);
+        Quaternion& SetRotateAboutAxis(const float radian, const vector<float, 3> &axis);
     public:
         float& operator[] (const int idx);
         const float operator[] (const int idx) const;
-        bool operator == (const Quaternion &rhs);
+        bool operator == (const Quaternion &rhs) const;
         Quaternion& operator *= (const Quaternion &rhs);
         Quaternion& operator *= (const float value);
         Quaternion& operator += (const Quaternion &rhs);

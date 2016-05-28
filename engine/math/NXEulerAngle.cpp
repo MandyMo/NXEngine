@@ -40,12 +40,36 @@ namespace NX {
     }
     
     EulerAngle& EulerAngle::Normalize(){
-        pitch = Wrap(pitch, 360.0f);
-        pitch -= 180.0f;
-        if(pitch < kfPiOver2){
-            to be continue;
+        pitch    = DG2RD(pitch);
+        heading  = DG2RD(heading);
+        bank     = DG2RD(bank);
+        pitch += kfPi;
+        Wrap(pitch, kfPi);
+        if(pitch < -kfPiOver2){
+            pitch     = -kfPi - pitch;
+            heading  += kfPi;
+            bank     += kfPi;
+        }else if(pitch > kfPiOver2){
+            pitch     = kfPi - pitch;
+            heading  += kfPi;
+            bank     += kfPi;
+        }else{
+            //nothing
         }
+        if(NXAbs(pitch) > kfPiOver2 - Epsilon<float>::m_Epsilon){
+            heading += bank;
+            bank     = 0.0f;
+        }else{
+            Wrap(bank, kfPi);
+        }
+        pitch    = RD2DG(pitch);
+        heading  = RD2DG(heading);
+        bank     = RD2DG(bank);
         return *this;
+    }
+    
+    EulerAngle EulerAngle::GetNormalized() const{
+        return EulerAngle(*this).Normalize();
     }
     
     const EulerAngle kEulerAngleIndentity(0.0f, 0.0f, 0.0f);

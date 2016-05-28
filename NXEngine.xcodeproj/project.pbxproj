@@ -12,6 +12,7 @@
 		6C2E382F1CF7EA3C007A488D /* NXAlgorithm.inl in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E382D1CF7EA3C007A488D /* NXAlgorithm.inl */; };
 		6C2E38321CF820BE007A488D /* NXEulerAngle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E38301CF820BE007A488D /* NXEulerAngle.cpp */; };
 		6C2E38341CF840F4007A488D /* NXAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E38331CF840F4007A488D /* NXAlgorithm.cpp */; };
+		6C2E38361CF9928F007A488D /* NXCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E38351CF9928F007A488D /* NXCore.cpp */; };
 		6C335A191CB65F87004B32B9 /* Bricks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C335A171CB65F87004B32B9 /* Bricks.cpp */; };
 		6C335A1E1CB66EBF004B32B9 /* NXCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C335A1C1CB66EBF004B32B9 /* NXCamera.cpp */; };
 		6C335A221CB7A330004B32B9 /* BricksSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C335A201CB7A330004B32B9 /* BricksSphere.cpp */; };
@@ -560,6 +561,7 @@
 		6C2E38301CF820BE007A488D /* NXEulerAngle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXEulerAngle.cpp; sourceTree = "<group>"; };
 		6C2E38311CF820BE007A488D /* NXEulerAngle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXEulerAngle.h; sourceTree = "<group>"; };
 		6C2E38331CF840F4007A488D /* NXAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXAlgorithm.cpp; sourceTree = "<group>"; };
+		6C2E38351CF9928F007A488D /* NXCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXCore.cpp; sourceTree = "<group>"; };
 		6C335A171CB65F87004B32B9 /* Bricks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bricks.cpp; sourceTree = "<group>"; };
 		6C335A181CB65F87004B32B9 /* Bricks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bricks.h; sourceTree = "<group>"; };
 		6C335A1A1CB6609D004B32B9 /* BricksVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BricksVS.glsl; sourceTree = "<group>"; };
@@ -2230,6 +2232,7 @@
 				6CCAE3FC1C7C4F2000D090CB /* NXCore.h */,
 				6C65F9121CD0C7E3005506C0 /* NXMemory.cpp */,
 				6C65F9131CD0C7E3005506C0 /* NXMemory.h */,
+				6C2E38351CF9928F007A488D /* NXCore.cpp */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -3921,6 +3924,7 @@
 				6CD71AA21C83EA0B00910E57 /* Conversion.cpp in Sources */,
 				6CCAE4001C7C4F4400D090CB /* NXShader.cpp in Sources */,
 				6CD71BEE1C83EA0B00910E57 /* enc.config.c in Sources */,
+				6C2E38361CF9928F007A488D /* NXCore.cpp in Sources */,
 				6CD71B0D1C83EA0B00910E57 /* jdatasrc.c in Sources */,
 				6CD71C871C83EA0B00910E57 /* ImathMatrixAlgo.cpp in Sources */,
 				6CD71B4A1C83EA0B00910E57 /* image.c in Sources */,
@@ -4259,6 +4263,8 @@
 					DISABLE_PERF_MEASUREMENT,
 					__ANSI__,
 					NO_LCMS,
+					_DEBUG,
+					DEBUG,
 				);
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include/,

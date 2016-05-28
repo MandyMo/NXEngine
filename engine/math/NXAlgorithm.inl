@@ -40,7 +40,8 @@ inline RT LengthSquare(const vector<T, Scale> &lhs){
 
 template<typename T, int Scale>
 inline vector<T, Scale> GetNormalize(const vector<T, Scale> &lhs){
-    return Normalize(vector<T, Scale>(lhs));
+    vector<T, Scale> n(lhs);
+    return Normalize(n);
 }
 
 template<typename T, int Scale>
@@ -192,7 +193,7 @@ inline Matrix<T, 4, 4> Translate(const T dx, const T dy, const T dz){
 
 template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> RotateX(const T radian){
-    assert(Scale == 3 || Scale == 4);
+    NXAssert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CosValue(std::cos(radian));
     T SinValue(std::sin(radian));
@@ -205,7 +206,7 @@ inline Matrix<T, Scale, Scale> RotateX(const T radian){
 
 template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> RotateY(const T radian){
-    assert(Scale == 3 || Scale == 4);
+    NXAssert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CosValue(std::cos(radian));
     T SinValue(std::sin(radian));
@@ -217,7 +218,7 @@ inline Matrix<T, Scale, Scale> RotateY(const T radian){
 
 template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> RotateZ(const T radian){
-    assert(Scale == 3 || Scale == 4);
+    NXAssert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CosValue(std::cos(radian));
     T SinValue(std::sin(radian));
@@ -270,7 +271,7 @@ inline Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radian
 //w: z
 template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> Perspective(const T FovAngle, const T aspect, const T near, const T far){
-    assert(Scale == 4);
+    NXAssert(Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CotValue = 1 / std::tan(DG2RD(FovAngle) / 2);
     T dif = near - far;
@@ -290,7 +291,7 @@ inline Matrix<T, Scale, Scale> Perspective(const T FovAngle, const T aspect, con
 //w: 1
 template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T near, const T far){
-    assert(Scale == 4);
+    NXAssert(Scale == 4);
     Matrix<T, Scale, Scale> result;
     result.m_Element[Scale - 1][Scale - 1] = T(1);
     result.m_Element[0][0] = 2 / Width;
