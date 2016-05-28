@@ -55,11 +55,12 @@ namespace NX {
         Quaternion GetInverse() const;
         Quaternion GetNormalized() const;
         Quaternion GetPow(float e) const;
+        vector<float, 3> GetRotate(const vector<float, 3> &rhs);
         
         Quaternion& Pow(float e);
         Quaternion& Inverse();
         Quaternion& Conjugate();
-        vector<float, 3> Rotate(const vector<float, 3> &rhs);
+        vector<float, 3>& Rotate(vector<float, 3> &rhs);
         Quaternion& Normalize();
         
         /**

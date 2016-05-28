@@ -29,10 +29,11 @@ namespace NX{
 
     Quaternion::Quaternion(const float radian, const vector<float, 3> &Axis){
         //<w, (x, y, z)>  == <cos(theta / 2), Axis * sin(theta / 2)>
-        vector<float, 3> axis = Axis;
+        vector<float, 3> axis(Axis);
         NX::Normalize(axis);
-        float CosValue = std::cos(radian / 2);
-        float SinValue = std::sin(radian / 2);
+        const float theta = radian * 0.5f;
+        float CosValue = std::cos(theta);
+        float SinValue = std::sin(theta);
         w = CosValue;
         x = SinValue * axis.x;
         y = SinValue * axis.y;
@@ -145,10 +146,16 @@ namespace NX{
     Quaternion Quaternion::GetConjugate() const{
         return Quaternion(w, -x, -y, -z);
     }
+    
+    vector<float, 3> Quaternion::GetRotate(const vector<float, 3> &rhs){
+        vector<float, 3> t(rhs);
+        return Rotate(t);
+    }
 
-    vector<float, 3> Quaternion::Rotate(const vector<float, 3> &rhs){
+    vector<float, 3>& Quaternion::Rotate(vector<float, 3> &rhs){
         const Quaternion &RefObj = (*this) * Quaternion(0, rhs.x, rhs.y, rhs.z) * GetInverse();
-        return float3(RefObj.x, RefObj.y, RefObj.z);
+        rhs.x = RefObj.x, rhs.y = RefObj.y, rhs.z = RefObj.z;
+        return rhs;
     }
 
     Quaternion& Quaternion::Normalize(){
@@ -228,7 +235,7 @@ namespace NX{
     }
 
     float Dot(const Quaternion &lhs, const Quaternion &rhs){
-        return lhs.w * rhs.w + lhs.x * rhs.x + rhs.y * rhs.y + lhs.z * rhs.z;
+        return lhs.w * rhs.w + lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
     }
 
     NX::Quaternion Cross(const Quaternion &lhs, const Quaternion &rhs){
@@ -239,11 +246,16 @@ namespace NX{
         float DotValue       = Dot(lhs, rhs);
         float DotSquareValue = DotValue * DotValue;
         float LenSquare      = LengthSquare(lhs) * LengthSquare(rhs);
-        float CosValue       = NXAbs(DotSquareValue / LenSquare);
+        float CosValue       = std::sqrt((DotSquareValue / LenSquare));
         return std::acos(CosValue);
     }
 
     Quaternion Lerp(const Quaternion &lhs, const Quaternion &rhs, const float t){
+        if(t <= 0.0f){
+            return lhs;
+        }else if(t >=  1.0f){
+            return rhs;
+        }
         float a, b;
         float CosValue, sign;
         CosValue = NX::Dot(lhs, rhs);

@@ -8,14 +8,15 @@
 #include "DemoHeader.h"
 #include "../engine/common/NXMemory.h"
 #include "../engine/math/NXPrimitive.h"
+#include "../engine/math/NXQuaternion.h"
 
 using std::cout;
 using std::endl;
 using std::cin;
 
 int main(){
-    NX::vector<float, 3> a(1,2,3), b(4,5,6), c;
-    c = NX::GetNormalize(a);
+    NX::Quaternion qa(1, 1, 1, 1), qb(1, -1, -1, -1), qc(1, 2, 3, 4), qd(1, -2, -3, -4);
+    auto x = qa * qc * qd * qb;
 }
 
 
