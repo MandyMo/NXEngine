@@ -15,8 +15,23 @@ using std::endl;
 using std::cin;
 
 int main(){
-    NX::Quaternion qa(1, 1, 1, 1), qb(1, -1, -1, -1), qc(1, 2, 3, 4), qd(1, -2, -3, -4);
-    auto x = qa * qc * qd * qb;
+    {//<quaternion, matrix>
+        NX::Quaternion q(1, 3, 2, 4);
+        auto y = NX::MatrixToQuaternion(NX::QuaternionToMatrix(q));
+        y *= 1.0 / y[0];
+    }
+    
+    {//<euler angle, matrix>
+        NX::EulerAngle e(30, 80, 50);
+        auto x = NX::MatrixToEulerAngle(NX::EulerAngleToMatrix(e, NX::OBJECT_SPACE_TO_INERTIA_SPACE), NX::OBJECT_SPACE_TO_INERTIA_SPACE);
+    }
+    
+    {//<euler angle, quaternion>
+        NX::Quaternion q(1, 2, 3, 4);
+        auto y = NX::EulerAngleToQuaternion(NX::QuaternionToEulerAngle(q, NX::OBJECT_SPACE_TO_INERTIA_SPACE), NX::OBJECT_SPACE_TO_INERTIA_SPACE);
+        y *= 1.0 / y[0];
+        cout << "end" << endl;
+    }
 }
 
 

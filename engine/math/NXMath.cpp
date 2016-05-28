@@ -14,9 +14,9 @@ void NX::InitNXMath(){
 }
 
 float NX::SafeACos(const float value){
-    if(value > 1.0f){
+    if(value >= 1.0f){
         return 0;
-    }else if(value < -1.0){
+    }else if(value <= -1.0){
         return kfPi;
     }else{
         return std::acos(value);
@@ -24,12 +24,12 @@ float NX::SafeACos(const float value){
 }
 
 float NX::SafeASin(const float value){
-    if(value > 1.0f){
+    if(value >= 1.0f){
         return kfPiOver2;
-    }else if(value < -1.0f){
+    }else if(value <= -1.0f){
         return -kfPiOver2;
     }else{
-        return std::sin(value);
+        return std::asin(value);
     }
 }
 

@@ -207,7 +207,7 @@ inline Matrix<T, Scale, Scale> RotateX(const T radian){
 template<typename T, int Scale>
 inline Matrix<T, Scale, Scale> RotateY(const T radian){
     NXAssert(Scale == 3 || Scale == 4);
-    Matrix<T, Scale, Scale> result;
+    Matrix<T, Scale, Scale> result; 
     T CosValue(std::cos(radian));
     T SinValue(std::sin(radian));
     result.m_Element[Scale - 1][Scale - 1] = T(1), result.m_Element[1][1] = T(1);

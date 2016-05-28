@@ -133,7 +133,7 @@ namespace NX{
     float4X4 Quaternion::GetRotateMatrix() const{
         NX::float4X4 result;
         float xx = 2 * x * x, yy = 2 * y * y, zz = 2 * z * z;
-        float wx = 2 * w * x, wy = 2 * w * y, wz = 2 * x * w;
+        float wx = 2 * w * x, wy = 2 * w * y, wz = 2 * w * z;
         float xy = 2 * x * y, xz = 2 * x * z, yz = 2 * y * z;
         
         result[3][3] = 1.0f;
