@@ -114,6 +114,16 @@ namespace NX{
         return Quaternion(lhs) *= value;
     }
 
+    Quaternion operator * (const Quaternion &lhs, const vector<float, 3> &rhs){
+        return lhs * Quaternion(0.0f, rhs.x, rhs.y, rhs.z) * lhs.GetInverse();
+    }
+    
+    Quaternion operator * (const Quaternion &lhs, const vector<float, 4> &rhs){
+        NXAssert(NXAbs(rhs.w) > Epsilon<float>::m_Epsilon);
+        const float Mult = 1.0f / rhs.w;
+        return lhs * Quaternion(0.0f, rhs.x * Mult, rhs.y * Mult, rhs.z * Mult) * lhs.GetInverse();
+    }
+    
     Quaternion operator - (const Quaternion &lhs, const Quaternion &rhs){
         return Quaternion(lhs) -= rhs;
     }
@@ -147,7 +157,7 @@ namespace NX{
         return Quaternion(w, -x, -y, -z);
     }
     
-    vector<float, 3> Quaternion::GetRotate(const vector<float, 3> &rhs){
+    vector<float, 3> Quaternion::GetRotated(const vector<float, 3> &rhs){
         vector<float, 3> t(rhs);
         return Rotate(t);
     }
@@ -178,7 +188,7 @@ namespace NX{
     }
 
     float Quaternion::Length(){
-        return sqrt(LengthSquare());
+        return std::sqrt(LengthSquare());
     }
 
     Quaternion Quaternion::GetInverse() const{
@@ -205,7 +215,7 @@ namespace NX{
     }
 
     Quaternion& Quaternion::Inverse(){
-        return (*this) /= LengthSquare();
+        return Conjugate() /= LengthSquare();
     }
 
     Quaternion& Quaternion::Conjugate(){

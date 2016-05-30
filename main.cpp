@@ -9,6 +9,7 @@
 #include "../engine/common/NXMemory.h"
 #include "../engine/math/NXPrimitive.h"
 #include "../engine/math/NXQuaternion.h"
+#include "../engine/math/NXAlgorithm.h"
 
 using std::cout;
 using std::endl;
@@ -30,6 +31,20 @@ int main(){
         NX::Quaternion q(1, 2, 3, 4);
         auto y = NX::EulerAngleToQuaternion(NX::QuaternionToEulerAngle(q, NX::OBJECT_SPACE_TO_INERTIA_SPACE), NX::OBJECT_SPACE_TO_INERTIA_SPACE);
         y *= 1.0 / y[0];
+    }
+    
+    {
+        auto X = NX::RotateAix<float, 3>(NX::vector<float, 3>(1, 2, 3), NX::DG2RD(60));
+        auto Y = NX::Quaternion(NX::DG2RD(30), NX::vector<float, 3>(1, 2, 3));
+        NX::vector<float, 3> v(1, 1, 1);
+        //Y *= 2;
+        Y.Pow(2);
+        auto Z = X * v;
+        auto W = Y * v;
+        auto R = Y.GetRotateMatrix();
+        auto RX = R * NX::vector<float, 4>(1, 1, 1, 1);
+        auto XX = Y.GetRotateAxis();
+        float rd = Y.GetRotateAngle();
         cout << "end" << endl;
     }
 }

@@ -17,10 +17,14 @@
 namespace NX {
     void InitNXMath();
     template<typename T>
-    inline T DG2RD(const T angle);
+    inline float DG2RD(const T angle);
+    
+    inline double DG2RD(const double angle);
     
     template<typename T>
-    inline T RD2DG(const T angle);
+    inline float RD2DG(const T angle);
+    
+    inline double RD2DG(const double angle);
     /**
      *  返回acos和asin值，若value超出[-1, 1]，则返回边界上的最大值
      */

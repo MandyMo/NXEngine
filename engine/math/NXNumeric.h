@@ -47,7 +47,7 @@ namespace NX{
     
     
     //========================================constant about pi=========================================================
-    static const float kfPi            = 3.1415926f;
+    static const float kfPi            = 3.14159265358979323846264338327950238f;
     static const float kf2Pi           = kfPi * 2.0f;
     static const float kfPiOver2       = kfPi * 0.5f;
     static const float kf1OverPi       = 1.0f / kfPi;

@@ -42,6 +42,13 @@ namespace NX {
         friend  Quaternion operator * (const Quaternion &lhs, const Quaternion &rhs);
         friend  Quaternion operator * (const Quaternion &lhs, const float value);
         friend  Quaternion operator * (const float value, const Quaternion &lhs);
+        
+        /**
+         *  使用四元数对点(向量)进行变换,rhs是三维点或齐次坐标系的点(四个分量)
+         */
+        friend  Quaternion operator * (const Quaternion &lhs, const vector<float, 3> &rhs);
+        friend  Quaternion operator * (const Quaternion &lhs, const vector<float, 4> &rhs);
+        
         friend  Quaternion operator - (const Quaternion &lhs, const Quaternion &rhs);
         friend  Quaternion operator - (const Quaternion &lhs, const float value);
         friend  Quaternion operator + (const Quaternion &lhs, const Quaternion &rhs);
@@ -54,21 +61,22 @@ namespace NX {
         Quaternion GetConjugate() const;
         Quaternion GetInverse() const;
         Quaternion GetNormalized() const;
-        Quaternion GetPow(float e) const;
-        vector<float, 3> GetRotate(const vector<float, 3> &rhs);
+        vector<float, 3> GetRotated(const vector<float, 3> &rhs);
         
-        Quaternion& Pow(float e);
         Quaternion& Inverse();
         Quaternion& Conjugate();
         vector<float, 3>& Rotate(vector<float, 3> &rhs);
         Quaternion& Normalize();
         
         /**
-         *  获取四元数的旋转轴和旋转角，请保证四元数是单位四元数（可调用normalize函数将其转化为四元数)
+         *  使用以下函数之前，请保证四元数是单位四元数(可调用normalize函数将其转化为单位四元数)
          */
         vector<float, 3> GetRotateAxis();
+        Quaternion& Pow(float e);
+        Quaternion GetPow(float e) const;
         float GetRotateRadian();
         float GetRotateAngle();
+        
     private:
          float LengthSquare();
         

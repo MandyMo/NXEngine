@@ -10,23 +10,13 @@ inline int    RandInt(){
 }
 
 template<typename T>
-inline T DG2RD(const T angle){
+inline float DG2RD(const T angle){
     return angle * kfPi / 180.0f;
 }
 
 template<typename T>
-inline T RD2DG(const T radian){
+inline float RD2DG(const T radian){
     return radian * 180.0f / kfPi;
-}
-
-template<>
-inline double DG2RD<double>(const double angle){
-    return angle * klfPi / 180.0;
-}
-
-template<>
-inline double RD2DG<double>(const double radian){
-    return radian * 180.0 / klfPi;
 }
 
 inline int RandIntInRange(int left, int right){
@@ -121,4 +111,12 @@ T Mode(T &value, const U mode){
     int v      = value / mode;
     value     -= v * mode;
     return OldValue;
+}
+
+inline double DG2RD(const double angle){
+    return angle * klfPi / 180.0f;
+}
+
+inline double RD2DG(const double angle){
+    return angle * 180.0 / klfPi;
 }

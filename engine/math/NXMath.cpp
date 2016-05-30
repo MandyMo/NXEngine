@@ -42,3 +42,4 @@ void NX::GetSinAndCos(const float radian, float * const pSinvalue, float * const
     *pSinvalue = std::sin(radian);
     *pCosValue = std::cos(radian);
 }
+
