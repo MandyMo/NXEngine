@@ -62,6 +62,7 @@ namespace NX {
         }else{
             Wrap(bank, kfPi);
         }
+        Wrap(heading, kfPi);
         pitch    = RD2DG(pitch);
         heading  = RD2DG(heading);
         bank     = RD2DG(bank);

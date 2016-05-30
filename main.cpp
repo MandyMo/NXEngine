@@ -47,6 +47,13 @@ int main(){
         float rd = Y.GetRotateAngle();
         cout << "end" << endl;
     }
+    
+    {
+        NX::EulerAngle e(0, 135, 0), e2(180, 45, 180);
+        auto x = NX::EulerAngleToMatrix(e, NX::INERTIA_SPACE_TO_OBJECT_SPACE);
+        auto y = NX::EulerAngleToMatrix(e2, NX::INERTIA_SPACE_TO_OBJECT_SPACE);
+        cout << "end" << endl;
+    }
 }
 
 
