@@ -7,7 +7,7 @@
 #ifndef __ZX_NXENGINE_ALGORITHM_INL__
 #define __ZX_NXENGINE_ALGORITHM_INL__
 
-template<typename T, typename U, int Scale, typename RT>
+template<typename T, typename U, int Scale, typename RT /* = T */>
 inline RT Dot (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
     RT sum = 0;
     for(int i = 0; i < Scale; ++i){
@@ -16,7 +16,7 @@ inline RT Dot (const vector<T, Scale> &lhs, const vector<U, Scale> &rhs){
     return sum;
 }
 
-template<typename T, typename U, typename RT>
+template<typename T, typename U, typename RT /* = T */>
 inline vector<RT, 3> Cross(const vector<T, 3> &lhs, const vector<U, 3> &rhs){
     return vector<RT, 3>(lhs.v[1] * rhs.v[2] - lhs.v[2] * rhs.v[1],
                          lhs.v[2] * rhs.v[0] - lhs.v[0] * rhs.v[2],
@@ -24,14 +24,14 @@ inline vector<RT, 3> Cross(const vector<T, 3> &lhs, const vector<U, 3> &rhs){
 }
 
 
-template<typename T, int Scale, typename RT>
+template<typename T, int Scale, typename RT /* = float */>
 inline RT Length(const vector<T, Scale> &lhs){
     return std::sqrt(LengthSquare(lhs));
 }
 
-template<typename T, int Scale, typename RT>
+template<typename T, int Scale, typename RT /* = float*/>
 inline RT LengthSquare(const vector<T, Scale> &lhs){
-    RT Sum = 0.0;
+    RT Sum(0);
     for(int i = 0; i < Scale; ++i){
         Sum += (lhs.v[i] * lhs.v[i]);
     }
@@ -53,7 +53,7 @@ vector<T, Scale>& Normalize(vector<T, Scale> &lhs){
     return lhs;
 }
 
-template<typename TA, typename TB, int Scale, typename RT>
+template<typename TA, typename TB, int Scale, typename RT /* = TA */>
 inline vector<RT, Scale> Lerp(const vector<TA, Scale> &lhs, const vector<TB, Scale> &rhs, const float t){
     vector<RT, Scale> result;
     RT a = 1 - t, b = t;
@@ -65,7 +65,8 @@ inline vector<RT, Scale> Lerp(const vector<TA, Scale> &lhs, const vector<TB, Sca
 
 template<typename T, int Scale>
 inline vector<T, Scale> GetNegative(const vector<T, Scale> &lhs){
-    return Negative(vector<T, Scale>(lhs));
+    vector<T, Scale> result(lhs);
+    return Negative(result);
 }
 
 template<typename T, int Scale>
@@ -95,14 +96,16 @@ inline vector<T, 3>& Project(vector<T, 3> &lhs, const vector<U, 3> &normal){
                               );
 }
 
-template<typename  T, typename U, typename RT>
+template<typename  T, typename U, typename RT /* = T */>
 inline vector<RT, 2> GetProject(const vector<T, 2> &lhs, const vector<U, 2> &normal){
-    return Project(vector<RT, 2>(lhs), normal);
+    vector<RT, 2> result(lhs);
+    return Project(result, normal);
 }
 
-template<typename  T, typename U, typename RT>
+template<typename  T, typename U, typename RT /* = T */>
 inline vector<RT, 3> GetProject(const vector<T, 3> &lhs, const vector<U, 3> &normal){
-    return Project(vector<RT, 3>(lhs), normal);
+    vector<RT, 3> result(lhs);
+    return Project(result, normal);
 }
 
 /**
@@ -134,12 +137,14 @@ inline vector<T, 3>& Scale(vector<T, 3> &lhs, const vector<U, 3> &direction, con
 
 template<typename T, typename U, typename RT>
 inline vector<RT, 2> GetScale(const vector<T, 2> &lhs, const vector<U, 2> &direction, const float s){
-    return Scale(vector<RT, 2>(lhs), direction, s);
+    vector<RT, 2> result(lhs);
+    return Scale(result, direction, s);
 }
 
 template<typename T, typename U, typename RT>
 inline vector<RT, 3> GetScale(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s){
-    return Scale(vector<RT, 3>(lhs), direction, s);
+    vector<RT, 3> result(lhs);
+    return Scale(result, direction, s);
 }
 
 template<typename T, int M>
@@ -191,7 +196,7 @@ inline Matrix<T, 4, 4> Translate(const T dx, const T dy, const T dz){
     return result;
 }
 
-template<typename T, int Scale>
+template<typename T, int Scale /* = 4 */>
 inline Matrix<T, Scale, Scale> RotateX(const T radian){
     NXAssert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
@@ -204,7 +209,7 @@ inline Matrix<T, Scale, Scale> RotateX(const T radian){
     return result;
 }
 
-template<typename T, int Scale>
+template<typename T, int Scale /* = 4*/>
 inline Matrix<T, Scale, Scale> RotateY(const T radian){
     NXAssert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result; 
@@ -216,7 +221,7 @@ inline Matrix<T, Scale, Scale> RotateY(const T radian){
     return result;
 }
 
-template<typename T, int Scale>
+template<typename T, int Scale /* = 4*/>
 inline Matrix<T, Scale, Scale> RotateZ(const T radian){
     NXAssert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
@@ -228,7 +233,7 @@ inline Matrix<T, Scale, Scale> RotateZ(const T radian){
     return result;
 }
 
-template<typename T, int Scale>
+template<typename T, int Scale /* = 4 */>
 inline Matrix<T, Scale, Scale> Scalar(const T sx, const T sy, const T sz){
     Matrix<T, Scale, Scale> result;
     result.m_Element[Scale - 1][Scale - 1] = T(1);
@@ -304,21 +309,20 @@ inline Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T
     return result;
 }
 
-template<typename T, typename RT>
+template<typename T, typename RT /* = T */>
 inline RT Detaminate(const Matrix<T, 2, 2>& matrix){
-    RT result(matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]);
-    return result;
+    return RT(matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]);
 }
 
-template<typename T, typename RT>
+template<typename T, typename RT /* = T */>
 inline RT Detaminate(const Matrix<T, 3, 3>& matrix){
-    NX::vector<T, 3> a(matrix[0][0], matrix[0][1], matrix[0][2]);
-    NX::vector<T, 3> b(matrix[1][0], matrix[1][1], matrix[1][2]);
-    NX::vector<T, 3> c(matrix[2][0], matrix[2][1], matrix[2][2]);
-    return RT(Dot(c, Cross(a, b)));
+    NX::vector<RT, 3> a(matrix[0][0], matrix[0][1], matrix[0][2]);
+    NX::vector<RT, 3> b(matrix[1][0], matrix[1][1], matrix[1][2]);
+    NX::vector<RT, 3> c(matrix[2][0], matrix[2][1], matrix[2][2]);
+    return Dot(c, Cross(a, b));
 }
 
-template<typename T, int Scale, typename RT>
+template<typename T, int Scale, typename RT /* = T */>
 inline RT Detaminate(const Matrix<T, Scale, Scale> &matrix){
     Matrix<RT, Scale, Scale> M(matrix);
     unsigned int iSwapCount = 0;
@@ -350,7 +354,7 @@ inline RT Detaminate(const Matrix<T, Scale, Scale> &matrix){
     return iSwapCount & 1 ? -result : result;
 }
 
-template<typename T, typename RT>
+template<typename T, typename RT /* =  T */>
 inline RT Detaminate(const Matrix<T, 4, 4> &matrix){
     RT result(0);
     {//M{0, 0}
@@ -387,7 +391,7 @@ inline RT Detaminate(const Matrix<T, 4, 4> &matrix){
     return result;
 }
 
-template<typename T, typename RT>
+template<typename T, typename RT /* = float */>
 inline Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix){
     Matrix<RT, 2, 2> result = matrix;
     RT det = Detaminate<T, RT>(matrix);
@@ -397,7 +401,7 @@ inline Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix){
     return result;
 }
 
-template<typename T, typename RT>
+template<typename T, typename RT /* = float */>
 inline Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix){
     Matrix<RT, 3, 3> result;
     RT det = Detaminate(matrix);
@@ -428,7 +432,7 @@ inline Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix){
 }
 
 
-template<typename T, typename RT>
+template<typename T, typename RT /* = float */>
 inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix){
     Matrix<RT, 4, 8> m;
     {//init m = {matrix, I};
@@ -475,7 +479,7 @@ inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix){
     return result;
 }
 
-template<typename T, int Scale, typename RT>
+template<typename T, int Scale, typename RT /* = float */>
 inline Matrix<RT, Scale, Scale> Reverse(const Matrix<T, Scale, Scale> &matrix){
     Matrix<RT, Scale, (Scale << 1)> M;
     for(int i = 0; i < Scale; ++i){
@@ -513,7 +517,7 @@ inline Matrix<RT, Scale, Scale> Reverse(const Matrix<T, Scale, Scale> &matrix){
     return result;
 }
 
-template<typename T, int Scale, typename RT>
+template<typename T, int Scale, typename RT /* = float */>
 inline std::pair<bool, Matrix<RT, Scale, Scale> > ReverseSafe(const Matrix<T, Scale, Scale> &matrix){
     Matrix<RT, Scale, (Scale << 1)> M;
     for(int i = 0; i < Scale; ++i){
@@ -573,7 +577,7 @@ inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matr
 /**
  *  返回点投影到直线(2维)或平面(3维)上的投影方程（其中normal是法线，且默认直线或平面过原点)
  */
-template<typename  T, typename U, typename RT>
+template<typename  T, typename U, typename RT /* = float */>
 inline Matrix<RT, 2, 2> GetProjectMatrix(const vector<T, 2> &lhs, const vector<U, 2> &normal){
     Matrix<RT, 2, 2> result;
     vector<RT, 2> n(normal);
@@ -583,7 +587,7 @@ inline Matrix<RT, 2, 2> GetProjectMatrix(const vector<T, 2> &lhs, const vector<U
     return result;
 }
 
-template<typename  T, typename U, typename RT>
+template<typename  T, typename U, typename RT /* = float */>
 inline Matrix<RT, 3, 3> GetProjectMatrix(const vector<T, 3> &lhs, const vector<U, 3> &normal){
     Matrix<RT, 3, 3> result;
     vector<RT, 3> n(normal);
@@ -594,7 +598,7 @@ inline Matrix<RT, 3, 3> GetProjectMatrix(const vector<T, 3> &lhs, const vector<U
     return result;
 }
 
-template<typename T, typename U, typename RT>
+template<typename T, typename U, typename RT /* = float */>
 inline Matrix<RT, 2, 2> GetScaleMatrix(const vector<T, 2> &lhs, const vector<U, 2> &direction, const float s){
     Matrix<RT, 2, 2> result;
     vector<RT, 2> n(direction);
@@ -604,7 +608,7 @@ inline Matrix<RT, 2, 2> GetScaleMatrix(const vector<T, 2> &lhs, const vector<U, 
     return result;
 }
 
-template<typename T, typename U, typename RT>
+template<typename T, typename U, typename RT /* = float */>
 inline Matrix<RT, 3, 3> GetScaleMatrix(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s){
     Matrix<RT, 3, 3> result;
     vector<RT, 3> n(direction);

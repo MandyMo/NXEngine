@@ -21,10 +21,10 @@ namespace NX {
     template<typename T, typename U, typename RT = T>
     inline vector<RT, 3> Cross(const vector<T, 3> &lhs, const vector<U, 3> &rhs);
     
-    template<typename T, int Scale, typename RT = double>
+    template<typename T, int Scale, typename RT = float>
     inline RT Length(const vector<T, Scale> &lhs);
     
-    template<typename T, int Scale, typename RT = double>
+    template<typename T, int Scale, typename RT = float>
     inline RT LengthSquare(const vector<T, Scale> &lhs);
     
     template<typename T, int Scale>
@@ -131,19 +131,19 @@ namespace NX {
     template<typename T, int Scale, typename RT = T>
     inline RT Detaminate(const Matrix<T, Scale, Scale> &matrix);
     
-    template<typename T, typename RT = T>
+    template<typename T, typename RT = float>
     inline Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix);
     
-    template<typename T, typename RT = T>
+    template<typename T, typename RT = float>
     inline Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix);
     
-    template<typename T, typename RT = T>
+    template<typename T, typename RT = float>
     inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix);
     
-    template<typename T, int Scale, typename RT = T>
+    template<typename T, int Scale, typename RT = float>
     inline Matrix<RT, Scale, Scale> Reverse(const Matrix<T, Scale, Scale> &matrix);
     
-    template<typename T, int Scale, typename RT = T>
+    template<typename T, int Scale, typename RT = float>
     inline std::pair<bool, Matrix<RT, Scale, Scale> > ReverseSafe(const Matrix<T, Scale, Scale> &matrix);
     
     template<typename T, int iScale>
@@ -152,19 +152,19 @@ namespace NX {
     /**
      *  返回点投影到直线(2维)或平面(3维)上的投影方程（其中normal是法线，且默认直线或平面过原点)
      */
-    template<typename  T, typename U, typename RT = T>
+    template<typename  T, typename U, typename RT = float>
     inline Matrix<RT, 2, 2> GetProjectMatrix(const vector<T, 2> &lhs, const vector<U, 2> &normal);
     
-    template<typename  T, typename U, typename RT = T>
+    template<typename  T, typename U, typename RT = float>
     inline Matrix<RT, 3, 3> GetProjectMatrix(const vector<T, 3> &lhs, const vector<U, 3> &normal);
     
     /**
      *  返回点沿给定方向的缩放变换矩阵
      */
-    template<typename T, typename U, typename RT = T>
+    template<typename T, typename U, typename RT = float>
     inline Matrix<RT, 2, 2> GetScaleMatrix(const vector<T, 2> &lhs, const vector<U, 2> &direction, const float s);
     
-    template<typename T, typename U, typename RT = T>
+    template<typename T, typename U, typename RT = float>
     inline Matrix<RT, 3, 3> GetScaleMatrix(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s);
     //==================================end some matrix function========================================================
     

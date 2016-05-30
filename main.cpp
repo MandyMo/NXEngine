@@ -54,6 +54,12 @@ int main(){
         auto y = NX::EulerAngleToMatrix(e2, NX::INERTIA_SPACE_TO_OBJECT_SPACE);
         cout << "end" << endl;
     }
+    
+    {
+        NX::vector<float, 2> a(1, 22), ax(1, 22);
+        auto Y = NX::GetScale(a, ax, 2);
+        cout << " end" << endl;
+    }
 }
 
 
