@@ -532,6 +532,7 @@
 		6CD71C9A1C83EA0B00910E57 /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CD71A9B1C83EA0B00910E57 /* zutil.c */; };
 		6CE162BA1C8D8A530076B200 /* BufferObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE162B61C8D89F40076B200 /* BufferObject.cpp */; };
 		6CFF7C2C1CDB257900834460 /* NXQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CFF7C2A1CDB257900834460 /* NXQuaternion.cpp */; };
+		8E6690E51CFDE83D0037017C /* NXViewFrustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E6690E31CFDE83D0037017C /* NXViewFrustum.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1782,6 +1783,8 @@
 		6CFF7C2A1CDB257900834460 /* NXQuaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXQuaternion.cpp; sourceTree = "<group>"; };
 		6CFF7C2B1CDB257900834460 /* NXQuaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXQuaternion.h; sourceTree = "<group>"; };
 		8E0FCE131C7F6C8700176BB3 /* NXMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXMath.h; sourceTree = "<group>"; };
+		8E6690E31CFDE83D0037017C /* NXViewFrustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXViewFrustum.cpp; sourceTree = "<group>"; };
+		8E6690E41CFDE83D0037017C /* NXViewFrustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXViewFrustum.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2220,6 +2223,8 @@
 				6C335A1D1CB66EBF004B32B9 /* NXCamera.h */,
 				6C65F8F71CCF098C005506C0 /* NXShaderManager.cpp */,
 				6C65F8F81CCF098C005506C0 /* NXShaderManager.h */,
+				8E6690E31CFDE83D0037017C /* NXViewFrustum.cpp */,
+				8E6690E41CFDE83D0037017C /* NXViewFrustum.h */,
 			);
 			path = render;
 			sourceTree = "<group>";
@@ -3735,6 +3740,7 @@
 				6CD71AD11C83EA0B00910E57 /* PluginPNG.cpp in Sources */,
 				6CD71B9D1C83EA0B00910E57 /* tif_jpeg_12.c in Sources */,
 				6CD71AC91C83EA0B00910E57 /* PluginJPEG.cpp in Sources */,
+				8E6690E51CFDE83D0037017C /* NXViewFrustum.cpp in Sources */,
 				6CD71C831C83EA0B00910E57 /* IlmThreadWin32.cpp in Sources */,
 				6CD71BB91C83EA0B00910E57 /* dec.idec.c in Sources */,
 				6CD71BC51C83EA0B00910E57 /* dsp.argb_mips_dsp_r2.c in Sources */,

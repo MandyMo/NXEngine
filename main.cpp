@@ -60,6 +60,23 @@ int main(){
         auto Y = NX::GetScale(a, ax, 2);
         cout << " end" << endl;
     }
+    
+    {
+        NX::Line a(NX::vector<float, 3>(0, 0, 0), NX::vector<float, 3>(0, 1, 0));
+        auto c = a.GetPoint(10);
+        auto M = NX::RotateX(NX::DG2RD(90));
+        auto b = a.Transform(M);
+        cout << " end " << endl;
+    }
+    
+    {
+        NX::float2X2 x;
+        x[0][0] = 1, x[0][1] = 1;
+        x[1][0] = 2, x[1][1] = 2;
+        NX::float2 R(3, 8);
+        auto RR = NX::SolveEquation(x, R);
+        cout << " " << endl;
+    }
 }
 
 

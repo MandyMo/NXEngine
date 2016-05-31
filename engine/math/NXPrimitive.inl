@@ -31,12 +31,12 @@ template<typename T>
 inline Line& Line::Transform(const Matrix<T, 4, 4> &rhs){
     {//transfrom begin point
         const Matrix<T, 4, 1> &RefObj = rhs * NX::float4(m_BeginPosition.x, m_BeginPosition.y, m_BeginPosition.z, T(1));
-        m_BeginPosition.Set(RefObj.x / RefObj.w, RefObj.y / RefObj.w, RefObj.z / RefObj.w);
+        m_BeginPosition.Set(RefObj[0][0] / RefObj[3][0], RefObj[1][0] / RefObj[3][0], RefObj[2][0] / RefObj[3][0]);
     }
     
     {//transform direction vector
         const Matrix<T, 4, 1> &RefObj = rhs * NX::float4(m_vDirection.x, m_vDirection.y, m_vDirection.z, T(0));
-        m_vDirection.Set(RefObj.x, RefObj.y, RefObj.z);
+        m_vDirection.Set(RefObj[0][0], RefObj[1][0], RefObj[2][0] );
     }
     return *this;
 }
