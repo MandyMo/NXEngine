@@ -26,4 +26,4 @@ namespace NX {
 }
 
 
-#endif  //__ZX_NXENGINE_VIEWFRUSTUM_H__
+#endif  //!__ZX_NXENGINE_VIEWFRUSTUM_H__
