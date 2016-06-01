@@ -77,6 +77,26 @@ int main(){
         auto RR = NX::SolveEquation(x, R);
         cout << " " << endl;
     }
+    
+    {//
+        NX::Quaternion q1(NX::DG2RD(90), NX::float3(0, 1, 1));
+        NX::Quaternion q2(NX::DG2RD(70), NX::float3(1, 1, 2));
+        q1.Normalize();
+        q2.Normalize();
+        std::vector<float> v;
+        const int num = 100;
+        for(int i = 0; i < num; ++i){
+            auto Y = ( 1 - 1.0 * i / num) * q1 + 1.0 * i / num * q2;
+            Y.Normalize();
+            v.push_back(std::acos(Dot(Y, q1)));
+        }
+        
+        for(int i = 2; i < num; ++i){
+            v[i] /=v[1];
+        }
+        
+        cout << "end" << endl;
+    }
 }
 
 

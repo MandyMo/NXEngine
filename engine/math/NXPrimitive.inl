@@ -147,7 +147,9 @@ inline Plane::Plane(const Plane &rhs):m_vPlaneNormal(rhs.m_vPlaneNormal), m_fDis
 
 inline Plane::Plane(const vector<float, 3> &Normal, const vector<float, 3> &PointInPlane):m_vPlaneNormal(Normal), m_fDistFromOriginal(-Dot(PointInPlane, Normal)){/*empty*/}
 
-inline Plane::Plane(const vector<float, 3> &Normal, const float fDistFromOriginal):m_vPlaneNormal(Normal), m_fDistFromOriginal(fDistFromOriginal){}
+inline Plane::Plane(const vector<float, 3> &Normal, const float fDistFromOriginal):m_vPlaneNormal(Normal), m_fDistFromOriginal(fDistFromOriginal){
+    Normalize(m_vPlaneNormal);
+}
 
 template<typename T, typename U>
 inline Plane& Plane::Transform(const Matrix<T, 3, 3> &matrix, const vector<U, 3> &translation){
