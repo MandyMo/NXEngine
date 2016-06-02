@@ -147,6 +147,7 @@ inline Plane::Plane(const vector<float, 3> &a, const vector<float, 3> &b, const 
     vector<float, 3> v2 = a - c;
     m_vPlaneNormal      = ::NX::Cross(v1, v2);
     m_fDistFromOriginal = -::NX::Dot(m_vPlaneNormal, a);
+    Normalize();
 }
 
 inline Plane::Plane(const Plane &rhs):m_vPlaneNormal(rhs.m_vPlaneNormal), m_fDistFromOriginal(rhs.m_fDistFromOriginal){/*empty*/}
