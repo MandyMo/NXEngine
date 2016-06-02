@@ -41,6 +41,16 @@ inline Line& Line::Transform(const Matrix<T, 4, 4> &rhs){
     return *this;
 }
 
+template<typename T>
+inline Line Line::GetTransformed(const Matrix<T, 3, 3> &rhs){
+    return Line(*this).Transform(rhs);
+}
+
+template<typename T>
+inline Line Line::GetTransformed(const Matrix<T, 4, 4> &rhs){
+    return Line(*this).Transform(rhs);
+}
+
 inline vector<float, 3> Line::GetBeginPosition() const{
     return m_BeginPosition;
 }
@@ -179,6 +189,18 @@ inline Plane& Plane::Transform(const Matrix<T, 4, 4> &matrix){
     m_fDistFromOriginal = M[3][0];
     return *this;
 }
+
+
+template<typename T, typename U>
+inline Plane Plane::GetTransformed(const Matrix<T, 3, 3> &matrix, const vector<U, 3> &translation){
+    return Plane(*this).Transform(matrix, translation);
+}
+
+template<typename T>
+inline Plane Plane::GetTransformed(const Matrix<T, 4, 4> &matrix){
+    return Plane(*this).Transform(matrix);
+}
+
 
 inline std::pair<bool, Line> Plane::Intersect(const Plane &rhs) const{  //平面交线
     Matrix<float, 2, 2> M;

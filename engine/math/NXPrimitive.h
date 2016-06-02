@@ -26,6 +26,12 @@ namespace NX{
         inline Line& Transform(const Matrix<T, 3, 3> &rhs);
         template<typename T>
         inline Line& Transform(const Matrix<T, 4, 4> &rhs);
+        
+        template<typename T>
+        inline Line GetTransformed(const Matrix<T, 3, 3> &rhs);
+        
+        template<typename T>
+        inline Line GetTransformed(const Matrix<T, 4, 4> &rhs);
     public:
         inline vector<float, 3> GetBeginPosition() const;
         inline vector<float, 3> GetDirection() const;
@@ -72,8 +78,16 @@ namespace NX{
     public:
         template<typename T, typename U>
         inline Plane& Transform(const Matrix<T, 3, 3> &matrix, const vector<U, 3> &translation);
+        
         template<typename T>
         inline Plane& Transform(const Matrix<T, 4, 4> &matrix);
+        
+        template<typename T, typename U>
+        inline Plane GetTransformed(const Matrix<T, 3, 3> &matrix, const vector<U, 3> &translation);
+        
+        template<typename T>
+        inline Plane GetTransformed(const Matrix<T, 4, 4> &matrix);
+        
         
         inline Plane& Normalize();
     public:
@@ -106,6 +120,85 @@ namespace NX{
     
     inline std::pair<bool, vector<float, 3> > Intersect(const Plane &PlaneA, const Plane &PlaneB, const Plane &PlaneC);
     //==================================end plane nomember function=====================================================
+    
+    class Ellipse{
+    public:
+    public:
+        float3  m_vCenter;
+        float3  m_vNormal;
+        float   m_SemiLongAxis;    //long semiaxis of ellipse
+        float   m_SemiShortAxis;   //short semiaxis of ellipse
+    };
+    
+    class Circle{
+    public:
+        inline Circle();
+        inline explicit Circle(const Circle &rhs);
+        inline explicit Circle(const float3 &ptCenter, const float3 &normal, const float radius);
+        inline explicit Circle(const float3 &ptA, const float3 &ptB, const float3 &ptC);
+        inline ~Circle();
+    
+    public:
+        float3 GetCenter() const;
+        float3 GetNormal() const;
+        float3 GetRadius() const;
+        float  GetArea();
+    
+    public:
+        Circle  GetTransformed(const Matrix<float, 3, 3> &matrix) const;
+        Circle  GetTransformed(const Matrix<float, 4, 4> &matrix) const;
+        Circle  GetTranslated(const float3 &v) const;
+        Circle& Transform(const Matrix<float, 3, 3> &matrix);
+        Circle& Transform(const Matrix<float, 4, 4> &matrix);
+        Circle& Translate(const float3 &v);
+        
+    public:
+        float3   m_vCenter;
+        float3   m_vNormal;
+        float    m_fRadius;
+    };
+    
+    class Ellipsoid{
+    public:
+    public:
+        float3  m_vCenter;
+        float3  m_fSemiAxisX;
+        float3  m_fSemiAxisY;
+        float3  m_fSemiAxisZ;
+    };
+    
+    class Sphere{
+    public:
+        inline Sphere();
+        inline explicit Sphere(const float3 &ptCenter, const float3 &ptOnSphere);
+        inline explicit Sphere(const float3 &ptCenter, const float fRadius);
+        inline explicit Sphere(const float3 &ptA, const float3 &ptB, const float3 &ptC, const float3 &ptD);
+        inline explicit Sphere(const Sphere &rhs);
+        inline  ~Sphere();
+        
+    public:
+        float GetVolume() const;
+        float GetArea()   const;
+        float GetRadius() const;
+        float GetCenter() const;
+        
+    public:
+        Sphere  GetTransformed(const Matrix<float, 3, 3> &matrix) const;
+        Sphere  GetTransformed(const Matrix<float, 4, 4> &matrix) const;
+        Sphere  GetTranslated(const float3 &v) const;
+        Sphere& Transform(const Matrix<float, 3, 3> &matrix);
+        Sphere& Transform(const Matrix<float, 4, 4> &matrix);
+        Sphere& Translate(const float3 &v);
+        
+    public:
+        bool Intersect(const Sphere &rhs) const;
+        bool TangentWithLine(const Line &lne) const;
+        bool TangentWithPlane(const Plane &plane) const;
+        
+    public:
+        float   m_fRadius;
+        float3  m_vCenter;
+    };
     
 #include "NXPrimitive.inl"
 }

@@ -101,8 +101,8 @@ int main(){
     }
     
     {
-        NX::PerspectCamera camera(NX::float3(0, 0, 0), NX::float3(0, 0, 1), NX::float3(0, 1, 0), 90.0f, 1.0f, 1.0f, 1000.0f);
-        auto FV = camera.GetViewFrustumInCameraSpace();
+        NX::PerspectCamera camera(NX::float3(0, 0, 100), NX::float3(0, 0, 1000), NX::float3(0, 1, 0), 90.0f, 1.0f, 1.0f, 1000.0f);
+        auto FV = camera.GetViewFrustumInWorldSpace();
         cout << "end" << endl;
     }
 }
