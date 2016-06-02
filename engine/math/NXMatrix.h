@@ -123,6 +123,10 @@ namespace NX {
         
         inline Matrix<T, Row, Col>& SetCol(int col, const T value);
         
+        inline vector<T, Col> GetRow(int row);
+        
+        inline vector<T, Row> GetCol(int col);
+        
         template<typename U>
         inline Matrix<T, Row, Col>& SetCol(int col, const U *ptr);
         

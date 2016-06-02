@@ -56,23 +56,23 @@ inline vector<float, 3> Line::GetPoint(const float t) const{
 template<typename T>
 inline float Line::Distance(const vector<T, 3> &Point) const{
     const vector<T, 3> v = Point - m_BeginPosition;
-    float t = Dot(m_vDirection, v) / Dot(m_vDirection, m_vDirection);
+    float t = ::NX::Dot(m_vDirection, v) / Dot(m_vDirection, m_vDirection);
     return Length(t * m_vDirection - v);
 }
 
 inline float Line::Distance(const Line &rhs) const{//两直线距离
-    float V12   = Dot(m_vDirection, rhs.m_vDirection);
-    float Delta = V12 * V12 - LengthSquare(m_vDirection) * LengthSquare(rhs.m_vDirection);
+    float V12   = ::NX::Dot(m_vDirection, rhs.m_vDirection);
+    float Delta = V12 * V12 - ::NX::LengthSquare(m_vDirection) * ::NX::LengthSquare(rhs.m_vDirection);
     if(NX::NXAbs(Delta) < Epsilon<float>::m_Epsilon){//line parallel, so it's easy
         return Distance(rhs.m_BeginPosition);
     }else{
         vector<float, 3> v = rhs.m_BeginPosition - m_BeginPosition;
-        float a = Dot(v, m_vDirection), b = Dot(v, rhs.m_vDirection);
-        float V11 = LengthSquare(m_vDirection);
-        float V22 = LengthSquare(rhs.m_vDirection);
+        float a = ::NX::Dot(v, m_vDirection), b = Dot(v, rhs.m_vDirection);
+        float V11 = ::NX::LengthSquare(m_vDirection);
+        float V22 = ::NX::LengthSquare(rhs.m_vDirection);
         float t1 = (-V22 * a + V12 * b) / Delta;
         float t2 = (-V12 * a + V11 * b) / Delta;
-        return Length(GetPoint(t1) - rhs.GetPoint(t2));
+        return ::NX::Length(GetPoint(t1) - rhs.GetPoint(t2));
     }
 }
 
@@ -97,10 +97,10 @@ inline std::pair<bool, vector<float, 3> >  Line::Intersect(const Plane &plane) c
 inline std::pair<bool, vector<float, 3> >  Line::Intersect(const Line &rhs) const{ //两直线的交点
     Matrix<float, 2, 2> M;
     vector<float, 2>    V;
-    M[0][0] = LengthSquare(m_vDirection),  M[0][1] = -Dot(m_vDirection, rhs.m_vDirection);
+    M[0][0] = ::NX::LengthSquare(m_vDirection),  M[0][1] = -::NX::Dot(m_vDirection, rhs.m_vDirection);
     M[1][0] = -M[0][1],                    M[1][1] = LengthSquare(rhs.m_vDirection);
-    V[0] = Dot(m_vDirection, rhs.m_BeginPosition - m_BeginPosition);
-    V[1] = Dot(rhs.m_vDirection, m_BeginPosition - rhs.m_BeginPosition);
+    V[0] = ::NX::Dot(m_vDirection, rhs.m_BeginPosition - m_BeginPosition);
+    V[1] = ::NX::Dot(rhs.m_vDirection, m_BeginPosition - rhs.m_BeginPosition);
     const std::pair<bool, vector<float, 2> > &SS = SolveEquation(M, V);
     if(SS.first){
         return std::make_pair(true, GetPoint(SS.second[0]));
@@ -133,22 +133,29 @@ inline Line Transform(const Matrix<T, 4, 4> &lhs, const Line &rhs){
 
 inline Plane::Plane(){ /*empty*/}
 
+inline Plane::Plane(const float nx, const float ny, const float nz, const float distance):m_vPlaneNormal(nx, ny, nz), m_fDistFromOriginal(distance){
+    ::NX::Normalize(m_vPlaneNormal);
+}
+
 template<typename T>
-inline Plane::Plane(const vector<T, 4> &L):m_vPlaneNormal(L.x, L.y, L.z),m_fDistFromOriginal(L.w){/*empty*/}
+inline Plane::Plane(const vector<T, 4> &L):m_vPlaneNormal(L.x, L.y, L.z),m_fDistFromOriginal(L.w){
+    Normalize();
+}
 
 inline Plane::Plane(const vector<float, 3> &a, const vector<float, 3> &b, const vector<float, 3> &c){
     vector<float, 3> v1 = a - b;
     vector<float, 3> v2 = a - c;
-    m_vPlaneNormal      = Cross(v1, v2);
-    m_fDistFromOriginal = -Dot(m_vPlaneNormal, a);
+    m_vPlaneNormal      = ::NX::Cross(v1, v2);
+    m_fDistFromOriginal = -::NX::Dot(m_vPlaneNormal, a);
 }
 
 inline Plane::Plane(const Plane &rhs):m_vPlaneNormal(rhs.m_vPlaneNormal), m_fDistFromOriginal(rhs.m_fDistFromOriginal){/*empty*/}
 
-inline Plane::Plane(const vector<float, 3> &Normal, const vector<float, 3> &PointInPlane):m_vPlaneNormal(Normal), m_fDistFromOriginal(-Dot(PointInPlane, Normal)){/*empty*/}
+inline Plane::Plane(const vector<float, 3> &Normal, const vector<float, 3> &PointInPlane):m_vPlaneNormal(Normal), m_fDistFromOriginal(-Dot(PointInPlane, Normal)){
+    Normalize();
+}
 
-inline Plane::Plane(const vector<float, 3> &Normal, const float fDistFromOriginal):m_vPlaneNormal(Normal), m_fDistFromOriginal(fDistFromOriginal){
-    Normalize(m_vPlaneNormal);
+inline Plane::Plane(const vector<float, 3> &Normal, const float fDistFromOriginal):m_vPlaneNormal(GetNormalize(Normal)), m_fDistFromOriginal(fDistFromOriginal){
 }
 
 template<typename T, typename U>
@@ -270,6 +277,16 @@ inline std::pair<bool, vector<float, 3> > Intersect(const Plane &PlaneA, const P
         Result = SS.second * float3(PlaneA.m_fDistFromOriginal, PlaneB.m_fDistFromOriginal, PlaneC.m_fDistFromOriginal);
     }
     return std::make_pair(true, vector<float, 3>(-Result[0][0], -Result[1][0], -Result[2][0]));
+}
+
+inline Plane& Plane::Normalize(){
+    float len = ::NX::Length(m_vPlaneNormal);
+    float Mult = 1.0f / len;
+    m_vPlaneNormal.x *= Mult;
+    m_vPlaneNormal.y *= Mult;
+    m_vPlaneNormal.z *= Mult;
+    m_fDistFromOriginal *= Mult;
+    return *this;
 }
 
 #endif

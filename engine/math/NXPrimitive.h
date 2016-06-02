@@ -11,6 +11,8 @@
 #include <utility>
 #include "NXVector.h"
 #include "NXMatrix.h"
+#include "NXAlgorithm.h"
+
 namespace NX{
     class Line;
     class Plane;
@@ -59,17 +61,21 @@ namespace NX{
     class Plane{
     public:
         inline explicit Plane();
+        inline explicit Plane(const float nx, const float ny, const float nz, const float distance);
         template<typename T>
         inline explicit Plane(const vector<T, 4> &L);
         inline explicit Plane(const vector<float, 3> &a, const vector<float, 3> &b, const vector<float, 3> &c);
         inline explicit Plane(const Plane &rhs);
         inline explicit Plane(const vector<float, 3> &Normal, const vector<float, 3> &PointInPlane);
         inline explicit Plane(const vector<float, 3> &Normal, const float fDistFromOriginal);
+        
     public:
         template<typename T, typename U>
         inline Plane& Transform(const Matrix<T, 3, 3> &matrix, const vector<U, 3> &translation);
         template<typename T>
         inline Plane& Transform(const Matrix<T, 4, 4> &matrix);
+        
+        inline Plane& Normalize();
     public:
         inline std::pair<bool, Line>   Intersect(const Plane &rhs) const;  //平面交线
         inline std::pair<bool, float3> Intersect(const Line  &rhs) const;  //直线与平面交点

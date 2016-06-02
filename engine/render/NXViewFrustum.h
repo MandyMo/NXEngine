@@ -14,7 +14,9 @@ namespace NX {
     class ViewFrustum{
     public:
         ViewFrustum();
-        ~ViewFrustum();
+        ViewFrustum(const Plane &Front, const Plane &Back, const Plane &left, const Plane &Right, const Plane &Top, const Plane &Bottom);
+        virtual ~ViewFrustum();
+        
     private:
         Plane     m_FrontPlane;
         Plane     m_BackPlane;

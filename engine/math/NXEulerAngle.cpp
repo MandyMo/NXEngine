@@ -73,5 +73,49 @@ namespace NX {
         return EulerAngle(*this).Normalize();
     }
     
+    EulerAngle& EulerAngle::FromObjectToWorldMatrix(const Matrix<float, 3, 3> &matrix){
+        return *this = MatrixToEulerAngle(matrix, OBJECT_SPACE_TO_INERTIA_SPACE);
+    }
+    
+    EulerAngle& EulerAngle::FromObjectToWorldMatrix(const Matrix<float, 4, 4> &matrix){
+        return *this = MatrixToEulerAngle(matrix, OBJECT_SPACE_TO_INERTIA_SPACE);
+    }
+    
+    EulerAngle& EulerAngle::FromWorldToObjectMatrix(const Matrix<float, 3, 3> &matrix){
+        return *this = MatrixToEulerAngle(matrix, INERTIA_SPACE_TO_OBJECT_SPACE);
+    }
+    
+    EulerAngle& EulerAngle::FromWorldToObjectMatrix(const Matrix<float, 4, 4> &matrix){
+        return *this = MatrixToEulerAngle(matrix, INERTIA_SPACE_TO_OBJECT_SPACE);
+    }
+    
+    EulerAngle& EulerAngle::FromMatrix(const Matrix<float, 3, 3> &matrix, const EulerAngleMode mode){
+        return *this = MatrixToEulerAngle(matrix, mode);
+    }
+    
+    EulerAngle& EulerAngle::FromMatrix(const Matrix<float, 4, 4> &matrix, const EulerAngleMode mode){
+        return *this = MatrixToEulerAngle(matrix, mode);
+    }
+    
+    Matrix<float, 4, 4> EulerAngle::ToMatrix(const EulerAngleMode mode){
+        return EulerAngleToMatrix(*this, mode);
+    }
+    
+    Quaternion EulerAngle::ToQuaternion(const EulerAngleMode mode){
+        return EulerAngleToQuaternion(*this, mode);
+    }
+    
+    EulerAngle& EulerAngle::FromObjectToWorldQuaternion(const Quaternion &q){
+        return *this = QuaternionToEulerAngle(q, OBJECT_SPACE_TO_INERTIA_SPACE);
+    }
+    
+    EulerAngle& EulerAngle::FromWorldToObjectQuaternion(const Quaternion &q){
+        return *this = QuaternionToEulerAngle(q, INERTIA_SPACE_TO_OBJECT_SPACE);
+    }
+    
+    EulerAngle& EulerAngle::FromQuaternion(const Quaternion &q, const EulerAngleMode mode){
+        return *this = QuaternionToEulerAngle(q, mode);
+    }
+    
     const EulerAngle kEulerAngleIndentity(0.0f, 0.0f, 0.0f);
 }

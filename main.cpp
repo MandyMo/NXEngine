@@ -10,6 +10,8 @@
 #include "../engine/math/NXPrimitive.h"
 #include "../engine/math/NXQuaternion.h"
 #include "../engine/math/NXAlgorithm.h"
+#include "../engine/render/NXViewFrustum.h"
+
 
 using std::cout;
 using std::endl;
@@ -95,6 +97,12 @@ int main(){
             v[i] /=v[1];
         }
         
+        cout << "end" << endl;
+    }
+    
+    {
+        NX::PerspectCamera camera(NX::float3(0, 0, 0), NX::float3(0, 0, 1), NX::float3(0, 1, 0), 90.0f, 1.0f, 1.0f, 1000.0f);
+        auto FV = camera.GetViewFrustumInCameraSpace();
         cout << "end" << endl;
     }
 }

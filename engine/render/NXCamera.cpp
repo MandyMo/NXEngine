@@ -1,6 +1,15 @@
+/*
+ *  File:    NXCamera.cpp
+ *  author:  张雄
+ *  date:    2016_04_07
+ *  purpose: 实现操作摄像机的方法
+ */
 
+
+#include "NXViewFrustum.h"
 #include "NXCamera.h"
 #include "../math/NXAlgorithm.h"
+
 
 NX::MVMatrixController::MVMatrixController(const float3 &Eye, const float3 &Looked, const float3 &Up){
     m_vLooked = Looked;
@@ -16,6 +25,7 @@ void NX::MVMatrixController::CaculateAxis(){
     Normalize(m_vUp);
     Normalize(m_vFront);
     Normalize(m_vRight);
+    m_MVMatrix = NX::LookAt(m_vEye, m_vLooked, m_vUp);
 }
 
 NX::MVMatrixController::~MVMatrixController(){
@@ -49,6 +59,7 @@ void NX::MVMatrixController::MoveUp(const float PosDiff){
 void NX::MVMatrixController::MoveByVector(const float3 &vTranslate){
     m_vEye    += vTranslate;
     m_vLooked += vTranslate;
+    m_MVMatrix = NX::LookAt(m_vEye, m_vLooked, m_vUp);
 }
 
 void NX::MVMatrixController::MoveByAxis(const float3 &vDirection, const float Distance){
@@ -61,6 +72,7 @@ void NX::MVMatrixController::MoveByAxis(const float3 &vDirection, const float Di
     oo.Set(oo.x * Distance, oo.y * Distance, oo.z * Distance);
     m_vEye    += oo;
     m_vLooked += oo;
+    m_MVMatrix = NX::LookAt(m_vEye, m_vLooked, m_vUp);
 }
 
 void NX::MVMatrixController::RotateByFrontBackAxis(const float radian){
@@ -89,8 +101,20 @@ void NX::MVMatrixController::RotateByAxis(const float3 &axis, const float radian
     CaculateAxis();
 }
 
+void NX::MVMatrixController::RotateByAxisAtFixedPosition(const float3 &axis, const float3 &Position, const float radian){
+    NX::float3X3 RotateMatrix = NX::RotateAix<float, 3, float>(axis, radian);
+    Rotate(RotateMatrix, m_vUp);
+    m_vLooked -= Position;
+    m_vEye    -= Position;
+    Rotate(RotateMatrix, m_vLooked);
+    Rotate(RotateMatrix, m_vEye);
+    m_vEye    += Position;
+    m_vLooked += Position;
+    CaculateAxis();
+}
+
 NX::float4x4  NX::MVMatrixController::GetMVMatrix(){
-    return NX::LookAt<float>(m_vEye, m_vLooked, m_vUp);
+    return m_MVMatrix;
 }
 
 NX::PerspectCamera::PerspectCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
@@ -99,6 +123,7 @@ NX::PerspectCamera::PerspectCamera(const float3 &Eye, const float3 &Looked, cons
     m_fRatio        = Ratio;
     m_fNearPlane    = Near;
     m_fFarPlane     = Far;
+    m_ProjectMatrix = NX::Perspective(m_fFovByAngel, m_fRatio, m_fNearPlane, m_fFarPlane);
 }
 
 NX::PerspectCamera::~PerspectCamera(){
@@ -106,28 +131,62 @@ NX::PerspectCamera::~PerspectCamera(){
 }
 
 NX::float4x4 NX::PerspectCamera::GetWatchMatrix(){
-    return NX::Perspective(m_fFovByAngel, m_fRatio, m_fNearPlane, m_fFarPlane) * GetMVMatrix();
+    return GetProjectMatrix() * GetMVMatrix();
 }
 
 NX::float4x4 NX::PerspectCamera::GetProjectMatrix(){
-    return NX::Perspective<float, 4>(m_fFovByAngel, m_fRatio, m_fNearPlane, m_fFarPlane);
+    return m_ProjectMatrix;
+}
+
+NX::ViewFrustum NX::PerspectCamera::GetViewFrustumInCameraSpace(){
+    NX::float4x4 P = GetProjectMatrix();
+    NX::Plane Left(P.GetRow(0) + P.GetRow(3)), Right(P.GetRow(3)  - P.GetRow(0));
+    NX::Plane Top (P.GetRow(3) - P.GetRow(1)), Bottom(P.GetRow(3) + P.GetRow(1));
+    NX::Plane Front(P.GetRow(3)- P.GetRow(2)), Back(P.GetRow(2));
+    return NX::ViewFrustum(Front, Back, Left, Right, Top, Bottom);
+}
+
+NX::ViewFrustum NX::PerspectCamera::GetViewFrustumInWorldSpace(){
+    NX::float4X4 MVP = GetProjectMatrix() * GetMVMatrix();
+    NX::Plane Left(MVP.GetRow(0) + MVP.GetRow(3)), Right(MVP.GetRow(3)  - MVP.GetRow(0));
+    NX::Plane Top (MVP.GetRow(3) - MVP.GetRow(1)), Bottom(MVP.GetRow(3) + MVP.GetRow(1));
+    NX::Plane Front(MVP.GetRow(3)- MVP.GetRow(2)), Back(MVP.GetRow(2));
+    return NX::ViewFrustum(Front, Back, Left, Right, Top, Bottom);
 }
 
 NX::OrthogonalCamera::OrthogonalCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
                                        const float Width, const float Height, const float Near, const float Far):MVMatrixController(Eye, Looked, Up){
-    m_fWidth     = Width;
-    m_fHeight    = Height;
-    m_fNearPlane = Near;
-    m_fFarPlane  = Far;
+    m_fWidth        = Width;
+    m_fHeight       = Height;
+    m_fNearPlane    = Near;
+    m_fFarPlane     = Far;
+    m_ProjectMatrix = NX::Orthogonal(m_fWidth, m_fHeight, m_fNearPlane, m_fFarPlane);
 }
+
+NX::ViewFrustum NX::OrthogonalCamera::GetViewFrustumInCameraSpace(){
+    NX::float4x4 P = GetProjectMatrix();
+    NX::Plane Left(P.GetRow(0) + P.GetRow(3)), Right(P.GetRow(3)  - P.GetRow(0));
+    NX::Plane Top (P.GetRow(3) - P.GetRow(1)), Bottom(P.GetRow(3) + P.GetRow(1));
+    NX::Plane Front(P.GetRow(3)- P.GetRow(2)), Back(P.GetRow(2));
+    return NX::ViewFrustum(Front, Back, Left, Right, Top, Bottom);
+}
+
+NX::ViewFrustum NX::OrthogonalCamera::GetViewFrustumInWorldSpace(){
+    NX::float4X4 MVP = GetProjectMatrix() * GetMVMatrix();
+    NX::Plane Left(MVP.GetRow(0) + MVP.GetRow(3)), Right(MVP.GetRow(3)  - MVP.GetRow(0));
+    NX::Plane Top (MVP.GetRow(3) - MVP.GetRow(1)), Bottom(MVP.GetRow(3) + MVP.GetRow(1));
+    NX::Plane Front(MVP.GetRow(3)- MVP.GetRow(2)), Back(MVP.GetRow(2));
+    return NX::ViewFrustum(Front, Back, Left, Right, Top, Bottom);
+}
+
 NX::OrthogonalCamera::~OrthogonalCamera(){
-    
+    //empty here
 }
 
 NX::float4x4 NX::OrthogonalCamera::GetWatchMatrix(){
-    return NX::Orthogonal(m_fWidth, m_fHeight, m_fNearPlane, m_fFarPlane) * GetMVMatrix();
+    return GetProjectMatrix() * GetMVMatrix();
 }
 
 NX::float4x4 NX::OrthogonalCamera::GetProjectMatrix(){
-    return NX::Orthogonal(m_fWidth, m_fHeight, m_fNearPlane, m_fFarPlane);
+    return m_ProjectMatrix;
 }

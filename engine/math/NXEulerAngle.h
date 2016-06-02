@@ -11,7 +11,7 @@
 namespace NX {
     template<typename T, int Scale> class vector;
     template<typename T, int Row, int Col> class Matrix;
-    
+    class Quaternion;
     enum EulerAngleMode{
         INERTIA_SPACE_TO_OBJECT_SPACE,
         OBJECT_SPACE_TO_INERTIA_SPACE,
@@ -29,6 +29,18 @@ namespace NX {
         EulerAngle& Normalize();
         EulerAngle GetNormalized() const;
         
+    public:
+        EulerAngle& FromObjectToWorldMatrix(const Matrix<float, 3, 3> &matrix);
+        EulerAngle& FromObjectToWorldMatrix(const Matrix<float, 4, 4> &matrix);
+        EulerAngle& FromWorldToObjectMatrix(const Matrix<float, 3, 3> &matrix);
+        EulerAngle& FromWorldToObjectMatrix(const Matrix<float, 4, 4> &matrix);
+        EulerAngle& FromMatrix(const Matrix<float, 3, 3> &matrix, const EulerAngleMode mode);
+        EulerAngle& FromMatrix(const Matrix<float, 4, 4> &matrix, const EulerAngleMode mode);
+        Matrix<float, 4, 4> ToMatrix(const EulerAngleMode mode);
+        Quaternion          ToQuaternion(const EulerAngleMode mode);
+        EulerAngle& FromObjectToWorldQuaternion(const Quaternion &q);
+        EulerAngle& FromWorldToObjectQuaternion(const Quaternion &q);
+        EulerAngle& FromQuaternion(const Quaternion &q, const EulerAngleMode mode);
     public:
         /**
          *  (heading, pitch, bank) = (yaw, pitch, roll) = (y, x, z) rotate angles

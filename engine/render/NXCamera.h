@@ -11,6 +11,8 @@
 #include "../math/NXVector.h"
 #include "../math/NXMatrix.h"
 namespace NX {
+    class ViewFrustum;
+    
     class MVMatrixController{
     public:
         MVMatrixController(const float3 &Eye, const float3 &Looked, const float3 &Up);
@@ -31,16 +33,21 @@ namespace NX {
         virtual void RotateByLeftRightAxis(const float radian);
         virtual void RotateByUpDownAxis(const float radian);
         virtual void RotateByAxis(const float3 &axis, const float radian);
+        virtual void RotateByAxisAtFixedPosition(const float3 &axis, const float3 &Position, const float radian);
+        
     public:
         float4x4  GetMVMatrix();
+        
     private:
         void CaculateAxis();
+        
     public:
         float3                  m_vRight;
         float3                  m_vUp;
         float3                  m_vFront;
         float3                  m_vEye;
         float3                  m_vLooked;
+        float4X4                m_MVMatrix;
     };
     
     template<typename T>
@@ -51,6 +58,11 @@ namespace NX {
     public:
         virtual float4x4 GetWatchMatrix()   = 0;
         virtual float4x4 GetProjectMatrix() = 0;
+        virtual ViewFrustum GetViewFrustumInCameraSpace()  = 0;
+        virtual ViewFrustum GetViewFrustumInWorldSpace()   = 0;
+        
+    public:
+        float4X4         m_ProjectMatrix;
     };
     
     template<typename T>
@@ -68,9 +80,13 @@ namespace NX {
         PerspectCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
                        const float FovByAngel, const float Ratio, const float Near, const float Far);
         virtual ~PerspectCamera();
+        
     public:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         virtual float4x4 GetWatchMatrix();
         virtual float4x4 GetProjectMatrix();
+        virtual ViewFrustum GetViewFrustumInCameraSpace();
+        virtual ViewFrustum GetViewFrustumInWorldSpace();
+        
     private:
         float           m_fFovByAngel;
         float           m_fRatio;
@@ -83,9 +99,13 @@ namespace NX {
         OrthogonalCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
                          const float Width, const float Height, const float Near, const float Far);
         virtual ~OrthogonalCamera();
+        
     public:
         virtual float4x4 GetWatchMatrix();
         virtual float4x4 GetProjectMatrix();
+        virtual ViewFrustum GetViewFrustumInCameraSpace();
+        virtual ViewFrustum GetViewFrustumInWorldSpace();
+        
     private:
         float           m_fWidth;
         float           m_fHeight;

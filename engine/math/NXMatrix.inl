@@ -469,6 +469,23 @@ inline Matrix<RT, Row, Col> operator - (const Matrix<T, Row, Col> &lhs, const Ma
     return Matrix<RT, Row, Col>(lhs) -= rhs;
 }
 
+template<typename T, int Row, int Col>
+inline vector<T, Col> Matrix<T, Row, Col>::GetRow(int row){
+    NXAssert(row >= 0 && row < Row);
+    return vector<T, Col>(m_Element[row]);
+}
+
+template<typename T, int Row, int Col>
+inline vector<T, Row> Matrix<T, Row, Col>::GetCol(int col){
+    NXAssert(col >= 0 && col < Col);
+    vector<T, Row> result;
+    for(int i = 0; i < Row; ++i){
+        result[i] = m_Element[i][col];
+    }
+    return result;
+}
+
+
 #ifndef DECLARE_MATRIX_TYPE_ROW
 #define DECLARE_MATRIX_TYPE_ROW(type, row) \
 typedef Matrix<type, row, 1> type##row##X##1;\

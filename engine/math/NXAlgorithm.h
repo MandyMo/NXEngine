@@ -153,10 +153,10 @@ namespace NX {
      *  返回点投影到直线(2维)或平面(3维)上的投影方程（其中normal是法线，且默认直线或平面过原点)
      */
     template<typename  T, typename U, typename RT = float>
-    inline Matrix<RT, 2, 2> GetProjectMatrix(const vector<T, 2> &lhs, const vector<U, 2> &normal);
+    inline Matrix<RT, 2, 2> GetTransformMatrix(const vector<T, 2> &lhs, const vector<U, 2> &normal);
     
     template<typename  T, typename U, typename RT = float>
-    inline Matrix<RT, 3, 3> GetProjectMatrix(const vector<T, 3> &lhs, const vector<U, 3> &normal);
+    inline Matrix<RT, 3, 3> GetTransformMatrix(const vector<T, 3> &lhs, const vector<U, 3> &normal);
     
     /**
      *  返回点沿给定方向的缩放变换矩阵
