@@ -71,7 +71,7 @@ namespace NX{
         template<typename T>
         inline explicit Plane(const vector<T, 4> &L);
         inline explicit Plane(const vector<float, 3> &a, const vector<float, 3> &b, const vector<float, 3> &c);
-        inline explicit Plane(const Plane &rhs);
+        inline Plane(const Plane &rhs);
         inline explicit Plane(const vector<float, 3> &Normal, const vector<float, 3> &PointInPlane);
         inline explicit Plane(const vector<float, 3> &Normal, const float fDistFromOriginal);
         
@@ -132,25 +132,25 @@ namespace NX{
     
     class Circle{
     public:
-        inline Circle();
-        inline explicit Circle(const Circle &rhs);
+        inline explicit Circle();
+        inline Circle(const Circle &rhs);
         inline explicit Circle(const float3 &ptCenter, const float3 &normal, const float radius);
         inline explicit Circle(const float3 &ptA, const float3 &ptB, const float3 &ptC);
         inline ~Circle();
     
     public:
-        float3 GetCenter() const;
-        float3 GetNormal() const;
-        float3 GetRadius() const;
-        float  GetArea();
+        inline float3 GetCenter() const;
+        inline float3 GetNormal() const;
+        inline float3 GetRadius() const;
+        inline float  GetArea();
     
     public:
-        Circle  GetTransformed(const Matrix<float, 3, 3> &matrix) const;
-        Circle  GetTransformed(const Matrix<float, 4, 4> &matrix) const;
-        Circle  GetTranslated(const float3 &v) const;
-        Circle& Transform(const Matrix<float, 3, 3> &matrix);
-        Circle& Transform(const Matrix<float, 4, 4> &matrix);
-        Circle& Translate(const float3 &v);
+        inline Circle  GetTransformed(const Matrix<float, 3, 3> &matrix) const;
+        inline Circle  GetTransformed(const Matrix<float, 4, 4> &matrix) const;
+        inline Circle  GetTranslated(const float3 &v) const;
+        inline Circle& Transform(const Matrix<float, 3, 3> &matrix);
+        inline Circle& Transform(const Matrix<float, 4, 4> &matrix);
+        inline Circle& Translate(const float3 &v);
         
     public:
         float3   m_vCenter;

@@ -293,7 +293,7 @@ inline std::pair<bool, vector<float, 3> > Intersect(const Plane &PlaneA, const P
         M.SetRow(0, PlaneA.m_vPlaneNormal);
         M.SetRow(1, PlaneB.m_vPlaneNormal);
         M.SetRow(2, PlaneC.m_vPlaneNormal);
-        const std::pair<bool, Matrix<float, 3, 3> > &SS = ReverseSafe(M);
+        const std::pair<bool, Matrix<float, 3, 3> > &SS = GetReverseSafe(M);
         if(!SS.first){
             return std::make_pair(false, vector<float, 3>());
         }
@@ -312,4 +312,106 @@ inline Plane& Plane::Normalize(){
     return *this;
 }
 
+//==================================================circle==============================================================
+//float3   m_vCenter;
+//float3   m_vNormal;
+//float    m_fRadius;
+
+inline Circle::Circle(){
+    /*empty*/
+}
+
+inline Circle::Circle(const Circle &rhs):m_vCenter(rhs.m_vCenter), m_vNormal(rhs.m_vNormal), m_fRadius(rhs.m_fRadius){
+    /*empty*/
+}
+inline Circle::Circle(const float3 &ptCenter, const float3 &normal, const float radius):m_vCenter(ptCenter), m_vNormal(normal), m_fRadius(radius){
+    /*empty*/
+}
+
+inline Circle::Circle(const float3 &ptA, const float3 &ptB, const float3 &ptC){
+    float aa = ::NX::LengthSquare(ptB - ptC);
+    float bb = ::NX::LengthSquare(ptA - ptC);
+    float cc = ::NX::LengthSquare(ptA - ptB);
+    float a = std::sqrt(aa);
+    float b = std::sqrt(bb);
+    float c = std::sqrt(cc);
+    float p = (a + b + c) * 0.5f;
+    float s = std::sqrt(p * (p - a) * (p - b) * (p - c));
+    float Mult = 1 / (4.0 * s);
+    float CotA = (bb + cc - aa) * Mult;
+    float CotB = (aa + cc - bb) * Mult;
+    float CotC = (aa + bb - cc) * Mult;
+    
+    m_vCenter = (1 - CotA) * ptA + (1 - CotB) * ptB + (1 - CotC) * ptC;
+    m_vCenter *= 0.5;
+    
+    m_vNormal = ::NX::Cross(ptB - ptA, ptC - ptA);
+    m_fRadius = 0.25 * a * b * c / s;
+}
+
+inline Circle::~Circle(){
+    /*empty*/
+}
+
+float3 Circle::GetCenter() const{
+    return m_vCenter;
+}
+
+float3 Circle::GetNormal() const{
+    return m_vNormal;
+}
+
+float3 Circle::GetRadius() const{
+    return m_fRadius;
+}
+
+float  Circle::GetArea(){
+    return kfPi * m_fRadius * m_fRadius;
+}
+
+Circle  Circle::GetTransformed(const Matrix<float, 3, 3> &matrix) const{
+    return *this;
+}
+
+Circle  Circle::GetTransformed(const Matrix<float, 4, 4> &matrix) const{
+    Circle result(*this);
+    return result.Transform(matrix);
+}
+
+Circle  Circle::GetTranslated(const float3 &v) const{
+    return Circle(*this).Translate(v);
+}
+
+Circle& Circle::Transform(const Matrix<float, 3, 3> &matrix){
+    {
+        const Matrix<float, 3, 1> &RV = ::NX::GetTranspose(::NX::GetReverse(matrix)) * m_vNormal;
+        m_vNormal.Set(RV[0][0], RV[1][0], RV[2][0]);
+    }
+    {
+        const Matrix<float, 3, 1> &RV = matrix * m_vCenter;
+        m_vCenter.Set(RV[0][0], RV[1][0], RV[2][0]);
+    }
+    
+    return *this;
+}
+
+Circle& Circle::Transform(const Matrix<float, 4, 4> &matrix){
+    {
+        const Matrix<float, 4, 1> &RV = ::NX::GetTranspose(::NX::GetReverse(matrix)) * NX::vector<float, 4>(m_vNormal.x, m_vNormal.y, m_vNormal.z, 0.0f);
+        m_vNormal.Set(RV[0][0], RV[1][0], RV[2][0]);
+    }
+    
+    {
+        const Matrix<float, 4, 1> &RV = matrix * NX::vector<float, 4>(m_vCenter.x, m_vCenter.y, m_vCenter.z, 1.0f);
+        const float Mult = 1.0f / RV[3][0];
+        m_vCenter.Set(RV[0][0] * Mult, RV[1][0] * Mult, RV[2][0] * Mult);
+    }
+    return *this;
+}
+
+Circle& Circle::Translate(const float3 &v){
+    m_vCenter += v;
+    return *this;
+}
+//======================================================================================================================
 #endif

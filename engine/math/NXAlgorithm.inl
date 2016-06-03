@@ -154,13 +154,15 @@ inline Matrix<T, M, M>& Transpose(Matrix<T, M, M> &lhs){
             std::swap(lhs[i][j], lhs[j][i]);
         }
     }
+    return lhs;
 }
 
 template<typename T, int Row, int Col>
 inline Matrix<T, Col, Row> GetTranspose(const Matrix<T, Row, Col> &lhs){
     Matrix<T, Col, Row> result;
+    const T *ptr;
     for(int i = 0; i < Row; ++i){
-        result.SetCol(i, lhs[i]);
+        result.SetCol(i, (ptr = lhs[i]));
     }
     return result;
 }
@@ -392,7 +394,7 @@ inline RT Detaminate(const Matrix<T, 4, 4> &matrix){
 }
 
 template<typename T, typename RT /* = float */>
-inline Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix){
+inline Matrix<RT, 2, 2> GetReverse(const Matrix<T, 2, 2>& matrix){
     Matrix<RT, 2, 2> result = matrix;
     RT det = Detaminate<T, RT>(matrix);
     result[0][1] = - result[0][1];
@@ -402,7 +404,7 @@ inline Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix){
 }
 
 template<typename T, typename RT /* = float */>
-inline Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix){
+inline Matrix<RT, 3, 3> GetReverse(const Matrix<T, 3, 3>& matrix){
     Matrix<RT, 3, 3> result;
     RT det = Detaminate(matrix);
     if(NX::NXAbs(det) < Epsilon<T>::m_Epsilon){//to small
@@ -433,7 +435,7 @@ inline Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix){
 
 
 template<typename T, typename RT /* = float */>
-inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix){
+inline Matrix<RT, 4, 4> GetReverse(const Matrix<T, 4, 4> &matrix){
     Matrix<RT, 4, 8> m;
     {//init m = {matrix, I};
         m[0][4] = 1, m[1][5] = 1, m[2][6] = 1, m[3][7] = 1;
@@ -480,7 +482,7 @@ inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix){
 }
 
 template<typename T, int Scale, typename RT /* = float */>
-inline Matrix<RT, Scale, Scale> Reverse(const Matrix<T, Scale, Scale> &matrix){
+inline Matrix<RT, Scale, Scale> GetReverse(const Matrix<T, Scale, Scale> &matrix){
     Matrix<RT, Scale, (Scale << 1)> M;
     for(int i = 0; i < Scale; ++i){
         M.template SetRow<T, Scale>(i, matrix[i]);
@@ -518,7 +520,7 @@ inline Matrix<RT, Scale, Scale> Reverse(const Matrix<T, Scale, Scale> &matrix){
 }
 
 template<typename T, int Scale, typename RT /* = float */>
-inline std::pair<bool, Matrix<RT, Scale, Scale> > ReverseSafe(const Matrix<T, Scale, Scale> &matrix){
+inline std::pair<bool, Matrix<RT, Scale, Scale> > GetReverseSafe(const Matrix<T, Scale, Scale> &matrix){
     Matrix<RT, Scale, (Scale << 1)> M;
     for(int i = 0; i < Scale; ++i){
         M.template SetRow<T, Scale>(i, matrix[i]);
@@ -559,6 +561,26 @@ inline std::pair<bool, Matrix<RT, Scale, Scale> > ReverseSafe(const Matrix<T, Sc
     return result;
 }
 
+template<typename T, typename RT >
+inline Matrix<RT, 2, 2>& Reverse(Matrix<T, 2, 2>& matrix){
+    return matrix = GetReverse<T, RT>(matrix);
+}
+
+template<typename T, typename RT >
+inline Matrix<RT, 3, 3>& Reverse(Matrix<T, 3, 3>& matrix){
+    return matrix = GetReverse<T, RT>(matrix);
+}
+
+template<typename T, typename RT >
+inline Matrix<RT, 4, 4>& Reverse(Matrix<T, 4, 4> &matrix){
+    return matrix = GetReverse<T, RT>(matrix);
+}
+
+template<typename T, int Scale, typename RT >
+inline Matrix<RT, Scale, Scale>& Reverse(Matrix<T, Scale, Scale> &matrix){
+    return matrix = GetReverse<T, Scale, RT>(matrix);
+}
+
 /**
  *  zero some small elements such as 0.0000001
  */
@@ -572,6 +594,12 @@ inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matr
         }
     }
     return matrix;
+}
+
+template<typename T, int iScale>
+inline Matrix<T, iScale, iScale>& GetSimplifiedMatrix(const Matrix<T, iScale, iScale> &matrix, const T EpsilonValue){
+    Matrix<T, iScale, iScale> result(matrix);
+    return SimplifyMatrix(matrix, EpsilonValue);
 }
 
 /**

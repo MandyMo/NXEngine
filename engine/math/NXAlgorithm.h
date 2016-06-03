@@ -132,23 +132,37 @@ namespace NX {
     inline RT Detaminate(const Matrix<T, Scale, Scale> &matrix);
     
     template<typename T, typename RT = float>
-    inline Matrix<RT, 2, 2> Reverse(const Matrix<T, 2, 2>& matrix);
+    inline Matrix<RT, 2, 2> GetReverse(const Matrix<T, 2, 2>& matrix);
     
     template<typename T, typename RT = float>
-    inline Matrix<RT, 3, 3> Reverse(const Matrix<T, 3, 3>& matrix);
+    inline Matrix<RT, 3, 3> GetReverse(const Matrix<T, 3, 3>& matrix);
     
     template<typename T, typename RT = float>
-    inline Matrix<RT, 4, 4> Reverse(const Matrix<T, 4, 4> &matrix);
+    inline Matrix<RT, 4, 4> GetReverse(const Matrix<T, 4, 4> &matrix);
     
     template<typename T, int Scale, typename RT = float>
-    inline Matrix<RT, Scale, Scale> Reverse(const Matrix<T, Scale, Scale> &matrix);
+    inline Matrix<RT, Scale, Scale> GetReverse(const Matrix<T, Scale, Scale> &matrix);
+    
+    template<typename T, typename RT = float>
+    inline Matrix<RT, 2, 2>& Reverse(Matrix<T, 2, 2>& matrix);
+    
+    template<typename T, typename RT = float>
+    inline Matrix<RT, 3, 3>& Reverse(Matrix<T, 3, 3>& matrix);
+    
+    template<typename T, typename RT = float>
+    inline Matrix<RT, 4, 4>& Reverse(Matrix<T, 4, 4> &matrix);
     
     template<typename T, int Scale, typename RT = float>
-    inline std::pair<bool, Matrix<RT, Scale, Scale> > ReverseSafe(const Matrix<T, Scale, Scale> &matrix);
+    inline Matrix<RT, Scale, Scale>& Reverse(Matrix<T, Scale, Scale> &matrix);
+    
+    template<typename T, int Scale, typename RT = float>
+    inline std::pair<bool, Matrix<RT, Scale, Scale> > GetReverseSafe(const Matrix<T, Scale, Scale> &matrix);
     
     template<typename T, int iScale>
     inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matrix, const T EpsilonValue = Epsilon<T>::m_Epsilon);
     
+    template<typename T, int iScale>
+    inline Matrix<T, iScale, iScale>& GetSimplifiedMatrix(const Matrix<T, iScale, iScale> &matrix, const T EpsilonValue = Epsilon<T>::m_Epsilon);
     /**
      *  返回点投影到直线(2维)或平面(3维)上的投影方程（其中normal是法线，且默认直线或平面过原点)
      */
