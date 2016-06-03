@@ -370,12 +370,11 @@ float  Circle::GetArea(){
 }
 
 Circle  Circle::GetTransformed(const Matrix<float, 3, 3> &matrix) const{
-    return *this;
+    return Circle(*this).Transform(matrix);
 }
 
 Circle  Circle::GetTransformed(const Matrix<float, 4, 4> &matrix) const{
-    Circle result(*this);
-    return result.Transform(matrix);
+    return Circle(*this).Transform(matrix);
 }
 
 Circle  Circle::GetTranslated(const float3 &v) const{
