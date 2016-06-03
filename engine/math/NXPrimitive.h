@@ -141,7 +141,7 @@ namespace NX{
     public:
         inline float3 GetCenter() const;
         inline float3 GetNormal() const;
-        inline float3 GetRadius() const;
+        inline float  GetRadius() const;
         inline float  GetArea();
     
     public:

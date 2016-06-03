@@ -342,7 +342,7 @@ inline Circle::Circle(const float3 &ptA, const float3 &ptB, const float3 &ptC){
     float CotB = (aa + cc - bb) * Mult;
     float CotC = (aa + bb - cc) * Mult;
     
-    m_vCenter = (1 - CotA) * ptA + (1 - CotB) * ptB + (1 - CotC) * ptC;
+    m_vCenter = (1 - CotB * CotC) * ptA + (1 - CotA * CotC) * ptB + (1 - CotA * CotB) * ptC;
     m_vCenter *= 0.5;
     
     m_vNormal = ::NX::Cross(ptB - ptA, ptC - ptA);
@@ -361,7 +361,7 @@ float3 Circle::GetNormal() const{
     return m_vNormal;
 }
 
-float3 Circle::GetRadius() const{
+float Circle::GetRadius() const{
     return m_fRadius;
 }
 

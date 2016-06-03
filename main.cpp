@@ -18,6 +18,7 @@ using std::endl;
 using std::cin;
 
 int main(){
+    srand(time(NULL));
     {//<quaternion, matrix>
         NX::Quaternion q(1, 3, 2, 4);
         auto y = NX::MatrixToQuaternion(NX::QuaternionToMatrix(q));
@@ -104,6 +105,45 @@ int main(){
         NX::PerspectCamera camera(NX::float3(0, 0, 100), NX::float3(0, 0, 1000), NX::float3(0, 1, 0), 90.0f, 1.0f, 1.0f, 1000.0f);
         auto FV = camera.GetViewFrustumInWorldSpace();
         cout << "end" << endl;
+    }
+    
+    {
+        NX::float3 pA = NX::float3(1, 1, 1), pB(2, 2, 5), pC(7, 8, 9);
+        NX::Circle c(pA, pB, pC);
+        auto M = ::NX::RotateAix<float, 3, float>(NX::float3(2, 2, 4), NX::DG2RD(90.f));
+        {
+            auto X = M * pA;
+            pA.Set(X[0][0], X[1][0], X[2][0]);
+        }
+        {
+            auto X = M * pB;
+            pB.Set(X[0][0], X[1][0], X[2][0]);
+        }
+        {
+            auto X = M * pC;
+            pC.Set(X[0][0], X[1][0], X[2][0]);
+        }
+        
+        NX::Circle cc(pA, pB, pC);
+        
+        auto CT = M * c.GetCenter();
+        
+        c.Transform(M);
+        cout << "end" << endl;
+    }
+    
+    {
+#define SCALE 3
+        NX::Matrix<float, SCALE, SCALE> m;
+        for(int i = 0; i < SCALE; ++i){
+            for(int j = 0; j < SCALE; ++j){
+                m[i][j] = NX::RandFloatInRange(-100, 100);
+            }
+        }
+        auto RM = NX::GetReverse(m);
+        auto I  = RM * m;
+        NX::SimplifyMatrix(I);
+        cout << "end " << endl;
     }
 }
 

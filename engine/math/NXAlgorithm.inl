@@ -46,9 +46,9 @@ inline vector<T, Scale> GetNormalize(const vector<T, Scale> &lhs){
 
 template<typename T, int Scale>
 vector<T, Scale>& Normalize(vector<T, Scale> &lhs){
-    T v = Length(lhs);
+    T Mult = 1.0 / Length(lhs);
     for(int i = 0; i < Scale; ++i){
-        lhs.v[i] /= v;
+        lhs.v[i] *= Mult;
     }
     return lhs;
 }
@@ -150,7 +150,7 @@ inline vector<RT, 3> GetScale(const vector<T, 3> &lhs, const vector<U, 3> &direc
 template<typename T, int M>
 inline Matrix<T, M, M>& Transpose(Matrix<T, M, M> &lhs){
     for(int i = 0; i < M; ++i){
-        for(int j = 0; j < M; ++j){
+        for(int j = 0; j < i; ++j){
             std::swap(lhs[i][j], lhs[j][i]);
         }
     }
@@ -395,10 +395,10 @@ inline RT Detaminate(const Matrix<T, 4, 4> &matrix){
 
 template<typename T, typename RT /* = float */>
 inline Matrix<RT, 2, 2> GetReverse(const Matrix<T, 2, 2>& matrix){
-    Matrix<RT, 2, 2> result = matrix;
+    Matrix<RT, 2, 2> result;
     RT det = Detaminate<T, RT>(matrix);
-    result[0][1] = - result[0][1];
-    result[1][0] = - result[1][0];
+    result[0][0] =  matrix[1][1], result[0][1] = -matrix[0][1];
+    result[1][0] = -matrix[1][0], result[1][1] =  matrix[0][0];
     result /= det;
     return result;
 }
