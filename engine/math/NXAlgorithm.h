@@ -119,6 +119,13 @@ namespace NX {
     template<typename T, int Scale = 4>
     inline Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T near, const T far);
     
+    //x: [-1, 1]
+    //y: [-1, 1]
+    //z: [0, 1]
+    //w: 1
+    template<typename T, int Scale = 4>
+    inline Matrix<T, Scale, Scale> Orthogonal(const T Left, const T Right, const T Top, const T Bottom, const T near, const T far);
+    
     template<typename T, typename RT = T>
     inline RT Detaminate(const Matrix<T, 2, 2>& matrix);
     

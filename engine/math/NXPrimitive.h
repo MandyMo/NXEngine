@@ -121,15 +121,6 @@ namespace NX{
     inline std::pair<bool, vector<float, 3> > Intersect(const Plane &PlaneA, const Plane &PlaneB, const Plane &PlaneC);
     //==================================end plane nomember function=====================================================
     
-    class Ellipse{
-    public:
-    public:
-        float3  m_vCenter;
-        float3  m_vNormal;
-        float   m_SemiLongAxis;    //long semiaxis of ellipse
-        float   m_SemiShortAxis;   //short semiaxis of ellipse
-    };
-    
     class Circle{
     public:
         inline explicit Circle();
@@ -142,7 +133,8 @@ namespace NX{
         inline float3 GetCenter() const;
         inline float3 GetNormal() const;
         inline float  GetRadius() const;
-        inline float  GetArea();
+        inline float  GetArea() const;
+        inline float  GetCircumference() const;
     
     public:
         inline Circle  GetTransformed(const Matrix<float, 3, 3> &matrix) const;
@@ -158,42 +150,34 @@ namespace NX{
         float    m_fRadius;
     };
     
-    class Ellipsoid{
-    public:
-    public:
-        float3  m_vCenter;
-        float3  m_fSemiAxisX;
-        float3  m_fSemiAxisY;
-        float3  m_fSemiAxisZ;
-    };
-    
     class Sphere{
     public:
         inline Sphere();
         inline explicit Sphere(const float3 &ptCenter, const float3 &ptOnSphere);
         inline explicit Sphere(const float3 &ptCenter, const float fRadius);
         inline explicit Sphere(const float3 &ptA, const float3 &ptB, const float3 &ptC, const float3 &ptD);
-        inline explicit Sphere(const Sphere &rhs);
+        inline Sphere(const Sphere &rhs);
         inline  ~Sphere();
         
     public:
-        float GetVolume() const;
-        float GetArea()   const;
-        float GetRadius() const;
-        float GetCenter() const;
+        inline float  GetVolume() const;
+        inline float  GetArea()   const;
+        inline float  GetRadius() const;
+        inline float3 GetCenter() const;
+    
+    public:
+        inline Sphere  GetTransformed(const Matrix<float, 3, 3> &matrix) const;
+        inline Sphere  GetTransformed(const Matrix<float, 4, 4> &matrix) const;
+        inline Sphere  GetTranslated(const float3 &v) const;
+        inline Sphere& Transform(const Matrix<float, 3, 3> &matrix);
+        inline Sphere& Transform(const Matrix<float, 4, 4> &matrix);
+        inline Sphere& Translate(const float3 &v);
         
     public:
-        Sphere  GetTransformed(const Matrix<float, 3, 3> &matrix) const;
-        Sphere  GetTransformed(const Matrix<float, 4, 4> &matrix) const;
-        Sphere  GetTranslated(const float3 &v) const;
-        Sphere& Transform(const Matrix<float, 3, 3> &matrix);
-        Sphere& Transform(const Matrix<float, 4, 4> &matrix);
-        Sphere& Translate(const float3 &v);
-        
-    public:
-        bool Intersect(const Sphere &rhs) const;
-        bool TangentWithLine(const Line &lne) const;
-        bool TangentWithPlane(const Plane &plane) const;
+        inline bool Intersect(const Sphere &rhs) const;
+        inline bool TangentWithLine(const Line &lne) const;
+        inline bool TangentWithPlane(const Plane &plane) const;
+        inline bool TangentWithSphere(const Sphere &rhs) const;
         
     public:
         float   m_fRadius;

@@ -311,6 +311,22 @@ inline Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T
     return result;
 }
 
+//x: [-1, 1]
+//y: [-1, 1]
+//z: [0, 1]
+//w: 1
+template<typename T, int Scale>
+inline Matrix<T, Scale, Scale> Orthogonal(const T Left, const T Right, const T Top, const T Bottom, const T near, const T far){
+    NXAssert(Scale == 4);
+    Matrix<T, Scale, Scale> result;
+    result[Scale - 1][Scale - 1] = T(1);
+    result[0][0] = 2.0f / (Right - Left), result[0][3] = -(Right + Left) / (Right - Left);
+    result[1][1] = 2.0f / (Top - Bottom), result[1][3] = -(Top + Bottom) / (Top - Bottom);
+    result[2][2] = 1.0f / (far - near),   result[2][3] = -near / (far - near);
+    return result;
+}
+
+
 template<typename T, typename RT /* = T */>
 inline RT Detaminate(const Matrix<T, 2, 2>& matrix){
     return RT(matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]);

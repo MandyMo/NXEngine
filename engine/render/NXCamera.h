@@ -98,6 +98,9 @@ namespace NX {
     public:
         OrthogonalCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
                          const float Width, const float Height, const float Near, const float Far);
+        OrthogonalCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
+                         const float Left, const float Right, const float Top, const float Bottom,
+                         const float Near, const float Far);
         virtual ~OrthogonalCamera();
         
     public:
@@ -107,8 +110,10 @@ namespace NX {
         virtual ViewFrustum GetViewFrustumInWorldSpace();
         
     private:
-        float           m_fWidth;
-        float           m_fHeight;
+        float           m_fLeft;
+        float           m_fRight;
+        float           m_fTop;
+        float           m_fBottom;
         float           m_fNearPlane;
         float           m_fFarPlane;
     };

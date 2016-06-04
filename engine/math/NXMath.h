@@ -12,8 +12,6 @@
 #include "NXNumeric.h"
 #include "../common/NXCore.h"
 
-
-
 namespace NX {
     void InitNXMath();
     template<typename T>

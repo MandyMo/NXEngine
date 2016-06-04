@@ -156,11 +156,20 @@ NX::ViewFrustum NX::PerspectCamera::GetViewFrustumInWorldSpace(){
 
 NX::OrthogonalCamera::OrthogonalCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
                                        const float Width, const float Height, const float Near, const float Far):MVMatrixController(Eye, Looked, Up){
-    m_fWidth        = Width;
-    m_fHeight       = Height;
+    m_fLeft    = -Width * 0.5f;
+    m_fRight   = -m_fLeft;
+    m_fTop     = Height * 0.5f;
+    m_fBottom  = -m_fTop;
     m_fNearPlane    = Near;
     m_fFarPlane     = Far;
-    m_ProjectMatrix = NX::Orthogonal(m_fWidth, m_fHeight, m_fNearPlane, m_fFarPlane);
+    m_ProjectMatrix = NX::Orthogonal(m_fLeft, m_fRight, m_fTop, m_fBottom, m_fNearPlane, m_fFarPlane);
+}
+
+NX::OrthogonalCamera::OrthogonalCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
+                                       const float Left, const float Right, const float Top, const float Bottom,
+                                       const float Near, const float Far):NX::MVMatrixController(Eye, Looked, Up){
+    m_fLeft = Left, m_fRight = Right, m_fTop = Top, m_fBottom = Bottom, m_fNearPlane = Near, m_fFarPlane = Far;
+    m_ProjectMatrix = NX::Orthogonal(m_fLeft, m_fRight, m_fTop, m_fBottom, m_fNearPlane, m_fFarPlane);
 }
 
 NX::ViewFrustum NX::OrthogonalCamera::GetViewFrustumInCameraSpace(){

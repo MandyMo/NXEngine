@@ -110,23 +110,21 @@ int main(){
     {
         NX::float3 pA = NX::float3(1, 1, 1), pB(2, 2, 5), pC(7, 8, 9);
         NX::Circle c(pA, pB, pC);
-        auto M = ::NX::RotateAix<float, 3, float>(NX::float3(2, 2, 4), NX::DG2RD(90.f));
+        auto M = ::NX::RotateAix<float, 4, float>(NX::float3(2, 2, 4), NX::DG2RD(90.f));
         {
-            auto X = M * pA;
+            auto X = M * NX::float4(1, 1, 1, 1);
             pA.Set(X[0][0], X[1][0], X[2][0]);
         }
         {
-            auto X = M * pB;
+            auto X = M * NX::float4(2, 2, 5, 1);
             pB.Set(X[0][0], X[1][0], X[2][0]);
         }
         {
-            auto X = M * pC;
+            auto X = M * NX::float4(7, 8, 9, 1);
             pC.Set(X[0][0], X[1][0], X[2][0]);
         }
         
         NX::Circle cc(pA, pB, pC);
-        
-        auto CT = M * c.GetCenter();
         
         c.Transform(M);
         cout << "end" << endl;
@@ -144,6 +142,29 @@ int main(){
         auto I  = RM * m;
         NX::SimplifyMatrix(I);
         cout << "end " << endl;
+    }
+    
+    {
+        NX::Plane p(NX::float3(1, 2, 0), NX::float3(2, 0, -1), NX::float3(3, -2, -1));
+        cout << "end" << endl;
+    }
+    
+    {
+        NX::OrthogonalCamera camera(NX::float3(0, 0, 1), NX::float3(0, 0, 1000), NX::float3(0, 1, 0), -500, 500, -500, 500, 1, 1000);
+        auto fv = camera.GetViewFrustumInCameraSpace();
+        cout << "end" << endl;
+        cout << "hello" << endl;
+    }
+    
+    {
+        NX::float3 v[4];
+        for(int i = 0; i < 4; ++i){
+            for(int j = 0; j < 3; ++j){
+                v[i][j] = NX::RandFloatInRange(-100, 100);
+            }
+        }
+        NX::Sphere s(v[0], v[1], v[2], v[3]);
+        cout << "end" << endl;
     }
 }
 
