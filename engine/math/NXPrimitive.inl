@@ -416,7 +416,7 @@ Circle& Circle::Translate(const float3 &v){
 
 
 
-//==================================================begin Sphere circle=================================================
+//====================================================begin Sphere======================================================
 inline Sphere::Sphere(){
     
 }
@@ -513,6 +513,6 @@ inline bool Sphere::TangentWithSphere(const Sphere &rhs) const{
     return NX::NXAbs(NX::LengthSquare(rhs.m_vCenter - m_vCenter) - (m_fRadius + rhs.m_fRadius) * (m_fRadius + rhs.m_fRadius)) <= NX::Epsilon<float>::m_Epsilon;
 }
 
-//==================================================begin Sphere circle=================================================
+//====================================================end Sphere =======================================================
 
 #endif
