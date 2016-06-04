@@ -11,7 +11,7 @@
 #include "../engine/math/NXQuaternion.h"
 #include "../engine/math/NXAlgorithm.h"
 #include "../engine/render/NXViewFrustum.h"
-
+#include "../engine/math/NXComplex.h"
 
 using std::cout;
 using std::endl;
@@ -165,6 +165,26 @@ int main(){
         }
         NX::Sphere s(v[0], v[1], v[2], v[3]);
         cout << "end" << endl;
+    }
+    
+    {
+        NX::Complex ca(1, 1), cb(3, 4);
+        auto t = ca * cb;
+        auto a = ca / cb;
+        auto b = ca + cb;
+        auto c = ca - cb;
+        auto e = ca.GetReverse();
+        auto f = ca.GetConjugate();
+        auto g = ca + 2;
+        auto h = ca - 2;
+        auto i = ca * 2;
+        auto j = ca / 2;
+        auto k = 2 + ca;
+        auto l = 2 - ca;
+        auto m = 2 * ca;
+        auto n = 2 / ca;
+        
+        cout << " end " << endl;
     }
 }
 

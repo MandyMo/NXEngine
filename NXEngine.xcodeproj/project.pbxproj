@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6C1607171C9BF0EF00932D61 /* MRTDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C1607151C9BF0EF00932D61 /* MRTDemo.cpp */; };
 		6C16071E1C9C007B00932D61 /* AppChap1_4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C16071A1C9C007B00932D61 /* AppChap1_4.cpp */; };
+		6C21F78E1D02F8D900A62970 /* NXComplex.h in Sources */ = {isa = PBXBuildFile; fileRef = 6C21F78D1D02F8D900A62970 /* NXComplex.h */; };
 		6C2E382F1CF7EA3C007A488D /* NXAlgorithm.inl in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E382D1CF7EA3C007A488D /* NXAlgorithm.inl */; };
 		6C2E38321CF820BE007A488D /* NXEulerAngle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E38301CF820BE007A488D /* NXEulerAngle.cpp */; };
 		6C2E38341CF840F4007A488D /* NXAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E38331CF840F4007A488D /* NXAlgorithm.cpp */; };
@@ -557,6 +558,7 @@
 		6C16071B1C9C007B00932D61 /* AppChap1_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppChap1_4.h; sourceTree = "<group>"; };
 		6C16071C1C9C007B00932D61 /* FS1_4.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FS1_4.glsl; sourceTree = "<group>"; };
 		6C16071D1C9C007B00932D61 /* VS1_4.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VS1_4.glsl; sourceTree = "<group>"; };
+		6C21F78D1D02F8D900A62970 /* NXComplex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXComplex.h; sourceTree = "<group>"; };
 		6C2E382D1CF7EA3C007A488D /* NXAlgorithm.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NXAlgorithm.inl; sourceTree = "<group>"; };
 		6C2E382E1CF7EA3C007A488D /* NXAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXAlgorithm.h; sourceTree = "<group>"; };
 		6C2E38301CF820BE007A488D /* NXEulerAngle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXEulerAngle.cpp; sourceTree = "<group>"; };
@@ -2188,17 +2190,18 @@
 				6CCAE3EE1C7C4EC400D090CB /* NXVector.h */,
 				6CCAE3EF1C7C4EC400D090CB /* NXVector.inl */,
 				8E0FCE131C7F6C8700176BB3 /* NXMath.h */,
-				6CF79BC01C7FF06F0037F256 /* NXMath.cpp */,
 				6CF79BC11C7FF1EB0037F256 /* NXMath.inl */,
+				6CF79BC01C7FF06F0037F256 /* NXMath.cpp */,
 				6CFF7C2A1CDB257900834460 /* NXQuaternion.cpp */,
 				6CFF7C2B1CDB257900834460 /* NXQuaternion.h */,
 				6C738C6C1CE5798F0053D9D5 /* NXPrimitive.inl */,
 				6C738C6D1CE5798F0053D9D5 /* NXPrimitive.h */,
-				6C2E382D1CF7EA3C007A488D /* NXAlgorithm.inl */,
 				6C2E382E1CF7EA3C007A488D /* NXAlgorithm.h */,
-				6C2E38301CF820BE007A488D /* NXEulerAngle.cpp */,
-				6C2E38311CF820BE007A488D /* NXEulerAngle.h */,
+				6C2E382D1CF7EA3C007A488D /* NXAlgorithm.inl */,
 				6C2E38331CF840F4007A488D /* NXAlgorithm.cpp */,
+				6C2E38311CF820BE007A488D /* NXEulerAngle.h */,
+				6C2E38301CF820BE007A488D /* NXEulerAngle.cpp */,
+				6C21F78D1D02F8D900A62970 /* NXComplex.h */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -3847,6 +3850,7 @@
 				6CD71BAC1C83EA0B00910E57 /* tif_thunder.c in Sources */,
 				6CD71C6F1C83EA0B00910E57 /* ImfTiledOutputPart.cpp in Sources */,
 				6CD71BE61C83EA0B00910E57 /* dsp.upsampling_sse2.c in Sources */,
+				6C21F78E1D02F8D900A62970 /* NXComplex.h in Sources */,
 				6CD71ABD1C83EA0B00910E57 /* PluginBMP.cpp in Sources */,
 				6CD71B681C83EA0B00910E57 /* tcd.c in Sources */,
 				6C65F8551CC47ACD005506C0 /* TSDemo.cpp in Sources */,

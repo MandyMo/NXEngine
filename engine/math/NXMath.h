@@ -72,6 +72,29 @@ namespace NX {
     
     template<typename T, typename U>
     T NXMax(const T l, const U r);
+    
+#ifndef DECLARE_EQUAL_TYPE
+#define DECLARE_EQUAL_TYPE(type) \
+    inline bool Equal##type(const type va, const type vb){\
+         return (va == vb) || (NX::NXAbs(va - vb) <= NX::Epsilon<type>::m_Epsilon);\
+    }
+#endif
+    DECLARE_EQUAL_TYPE(float)
+    DECLARE_EQUAL_TYPE(double)
+#undef DECLARE_EQUAL_TYPE
+    
+#ifndef DECLARE_EQUAL_TYPE_WITH_TOLERANCE
+#define DECLARE_EQUAL_TYPE_WITH_TOLERANCE(type) \
+    inline bool Equal##type##WithDelta(const type va, const type vb, const type delta = NX::Epsilon<type>::m_Epsilon){\
+        return NX::NXAbs(va - vb) <= delta;\
+    }
+#endif
+    DECLARE_EQUAL_TYPE_WITH_TOLERANCE(float)
+    DECLARE_EQUAL_TYPE_WITH_TOLERANCE(double)
+#undef DECLARE_EQUAL_TYPE_WITH_TOLERANCE
+    
+    
+    
 #include "NXMath.inl"
 }
 
