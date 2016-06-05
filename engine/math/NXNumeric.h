@@ -23,18 +23,6 @@ namespace NX{
     };
     #endif
     
-    template<int numerator, int denominator>
-    class RationalEvaluationFloat{
-    public:
-        constexpr static float m_Value = 1.0f * numerator / denominator;
-    };
-    
-    template<int numerator, int denominator>
-    class RationalEvaluationDouble{
-    public:
-        constexpr static double m_Value = 1.0 * numerator / denominator;
-    };
-    
     /**
      *  template speciallize
      */
@@ -56,6 +44,21 @@ namespace NX{
     static const double DOUBLE_EPSILON   = Epsilon<double>::m_Epsilon;
     //==============================================end of epsilon value================================================
     
+    
+    
+    //============================================begin of evaluation at compile time===================================
+    template<int numerator, int denominator>
+    class RationalEvaluationFloat{
+    public:
+        constexpr static float m_Value = 1.0f * numerator / denominator;
+    };
+    
+    template<int numerator, int denominator>
+    class RationalEvaluationDouble{
+    public:
+        constexpr static double m_Value = 1.0 * numerator / denominator;
+    };
+    //=============================================end of evaluation at compile time====================================
     
     
     //========================================constant about pi=========================================================
