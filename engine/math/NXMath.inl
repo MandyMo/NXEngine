@@ -96,6 +96,18 @@ T NXMax(const T l, const U r){
     return l > r ? l : r;
 }
 
+template<typename T>
+T NXSign(const T v){
+    if(v > Epsilon<T>::m_Epsilon){
+        return T(1);
+    }else if(v < -Epsilon<T>::m_Epsilon){
+        return T(-1);
+    }else{
+        return T(0);
+    }
+}
+
+
 template<typename T, typename U>
 T Wrap(T &value, const U mode){
     T OldValue = value;
@@ -119,4 +131,16 @@ inline double DG2RD(const double angle){
 
 inline double RD2DG(const double angle){
     return angle * 180.0 / klfPi;
+}
+
+template<typename T>
+T NXQuickPow(const T base, const int exp){
+    if(exp == 0){
+        return T(1);
+    }else if(exp == 1){
+        return base;
+    }else{
+        const T v = NXQuickPow(base, exp >> 1);
+        return exp & 1 ? v * v * base : v * v;
+    }
 }

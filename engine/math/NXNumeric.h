@@ -23,6 +23,18 @@ namespace NX{
     };
     #endif
     
+    template<int numerator, int denominator>
+    class RationalEvaluationFloat{
+    public:
+        constexpr static float m_Value = 1.0f * numerator / denominator;
+    };
+    
+    template<int numerator, int denominator>
+    class RationalEvaluationDouble{
+    public:
+        constexpr static double m_Value = 1.0 * numerator / denominator;
+    };
+    
     /**
      *  template speciallize
      */

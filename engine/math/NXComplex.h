@@ -139,6 +139,13 @@ namespace NX{
             return m_fImage;
         }
         
+        bool IsRealNumber() const{
+            return NX::NXAbs(m_fImage) < Epsilon<float>::m_Epsilon;
+        }
+        
+        bool IsPureImage() const{
+            return NX::NXAbs(m_fReal) < Epsilon<float>::m_Epsilon;
+        }
     public:
         friend inline bool operator == (const Complex &lhs, const Complex &rhs);
         friend inline bool operator == (const Complex &lhs, const float v);

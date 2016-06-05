@@ -12,7 +12,6 @@
 #include "NXVector.h"
 #include "NXQuaternion.h"
 #include "NXEulerAngle.h"
-#include <vector>
 
 namespace NX {
     //===============================begin some vector function=========================================================
@@ -202,28 +201,7 @@ namespace NX {
     Quaternion EulerAngleToQuaternion(const EulerAngle &lhs, const EulerAngleMode mode);
     //==================================================================================================================
     
-    //===================================================解方程==========================================================
-    class Complex;
-    /**
-     *  ax + b = 0
-     */
-    std::vector<NX::Complex> SolveEquation(const float a, const float b);
-    
-    /**
-     * axx + bx + c = 0
-     */
-    std::vector<NX::Complex> SolveEquation(const float a, const float b, const float c);
-    
-    /**
-     *  axxx + bxx + cx + d = 0
-     */
-    std::vector<NX::Complex> SolveEquation(const float a, const float b, const float c, const float d);
-    
-    /**
-     *  axxxx + bxxx + cxx + dx + e = 0
-     */
-    std::vector<NX::Complex> SolveEquation(const float a, const float b, const float c, const float d, const float e);
-    //==================================================================================================================
+
 #include "NXAlgorithm.inl"
 }
 

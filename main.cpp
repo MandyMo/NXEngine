@@ -18,6 +18,13 @@ using std::endl;
 using std::cin;
 
 int main(){
+    {
+        const float w = std::sqrt(0.0370370485f);
+        cout << w << endl;;
+        auto Solv = NX::SolveEquation(1, -3, 3, -1);
+        
+        cout << "emd" << endl;
+    }
     srand(time(NULL));
     {//<quaternion, matrix>
         NX::Quaternion q(1, 3, 2, 4);
@@ -185,6 +192,23 @@ int main(){
         auto n = 2 / ca;
         
         cout << " end " << endl;
+    }
+    
+    {
+        float x = NX::NXQuickKSquare(-0.001, 100000000000001, 0.0000000001);
+        float y = std::pow(0.001, 1.0 / 100000000000000);
+        cout << "end" << endl;
+    }
+    
+    {
+        auto Solv = NX::SolveEquation(2, -2, 2);
+        cout <<"end" << endl;
+    }
+    
+    {
+        auto Solv = NX::SolveEquation(1, -1, -2, -2, 4);
+        
+        cout <<"end" << endl;
     }
 }
 

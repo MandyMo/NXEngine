@@ -73,11 +73,21 @@ namespace NX {
     template<typename T, typename U>
     T NXMax(const T l, const U r);
     
+    template<typename T>
+    T NXSign(const T v);
+    
+    template<typename T>
+    T NXQuickPow(const T base, const int exp);
+    
+    double  NXQuickKSquare(const double base, const int k, const double Delta = NX::Epsilon<double>::m_Epsilon);
+    double  NXKSquare(const double base, const int k);
+    
+    //============================================begin float comparsion macro==========================================
 #ifndef DECLARE_EQUAL_TYPE
 #define DECLARE_EQUAL_TYPE(type) \
-    inline bool Equal##type(const type va, const type vb){\
-         return (va == vb) || (NX::NXAbs(va - vb) <= NX::Epsilon<type>::m_Epsilon);\
-    }
+inline bool Equal##type(const type va, const type vb){\
+return (va == vb) || (NX::NXAbs(va - vb) <= NX::Epsilon<type>::m_Epsilon);\
+}
 #endif
     DECLARE_EQUAL_TYPE(float)
     DECLARE_EQUAL_TYPE(double)
@@ -85,15 +95,38 @@ namespace NX {
     
 #ifndef DECLARE_EQUAL_TYPE_WITH_TOLERANCE
 #define DECLARE_EQUAL_TYPE_WITH_TOLERANCE(type) \
-    inline bool Equal##type##WithDelta(const type va, const type vb, const type delta = NX::Epsilon<type>::m_Epsilon){\
-        return NX::NXAbs(va - vb) <= delta;\
-    }
+inline bool Equal##type##WithDelta(const type va, const type vb, const type delta = NX::Epsilon<type>::m_Epsilon){\
+return NX::NXAbs(va - vb) <= delta;\
+}
 #endif
     DECLARE_EQUAL_TYPE_WITH_TOLERANCE(float)
     DECLARE_EQUAL_TYPE_WITH_TOLERANCE(double)
 #undef DECLARE_EQUAL_TYPE_WITH_TOLERANCE
+    //=================================================end float comparsion macro=======================================
     
     
+    //===================================================解方程==========================================================
+    class Complex;
+    /**
+     *  ax + b = 0
+     */
+    std::vector<NX::Complex> SolveEquation(const float a, const float b);
+    
+    /**
+     * axx + bx + c = 0
+     */
+    std::vector<NX::Complex> SolveEquation(const float a, const float b, const float c);
+    
+    /**
+     *  axxx + bxx + cx + d = 0
+     */
+    std::vector<NX::Complex> SolveEquation(const float a, const float b, const float c, const float d);
+    
+    /**
+     *  axxxx + bxxx + cxx + dx + e = 0
+     */
+    std::vector<NX::Complex> SolveEquation(const float a, const float b, const float c, const float d, const float e);
+    //==================================================================================================================
     
 #include "NXMath.inl"
 }
