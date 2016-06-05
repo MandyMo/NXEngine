@@ -12,6 +12,10 @@
 #include "../engine/math/NXAlgorithm.h"
 #include "../engine/render/NXViewFrustum.h"
 #include "../engine/math/NXComplex.h"
+#include "../engine/math/NXLine.h"
+#include "../engine/math/NXPlane.h"
+#include "../engine/math/NXSphere.h"
+#include "../engine/math/NXCircle.h"
 
 using std::cout;
 using std::endl;

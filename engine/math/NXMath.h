@@ -13,6 +13,12 @@
 #include "../common/NXCore.h"
 
 namespace NX {
+    template<typename T, int Scale>
+    class vector;
+    
+    template<typename T, int Row, int Col>
+    class Matrix;
+    
     void InitNXMath();
     template<typename T>
     inline float DG2RD(const T angle);
@@ -126,6 +132,8 @@ return NX::NXAbs(va - vb) <= delta;\
      *  axxxx + bxxx + cxx + dx + e = 0
      */
     std::vector<NX::Complex> SolveEquation(const float a, const float b, const float c, const float d, const float e);
+    
+    std::pair<bool, NX::vector<float, 2> > SolveEquation(const NX::Matrix<float, 2, 2> &M, const NX::vector<float, 2> &V);
     //==================================================================================================================
     
 #include "NXMath.inl"

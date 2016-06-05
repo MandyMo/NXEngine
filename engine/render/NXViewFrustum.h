@@ -8,7 +8,7 @@
 #ifndef __ZX_NXENGINE_VIEWFRUSTUM_H__
 #define __ZX_NXENGINE_VIEWFRUSTUM_H__
 
-#include "../math/NXPrimitive.h"
+#include "../math/NXPlane.h"
 
 namespace NX {
     class ViewFrustum{

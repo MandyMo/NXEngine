@@ -9,6 +9,8 @@
 #include <utility>
 #include "NXMath.h"
 #include "NXComplex.h"
+#include "NXVector.h"
+#include "NXMatrix.h"
 
 void NX::InitNXMath(){
     std::srand((unsigned int)std::time(NULL));
@@ -205,3 +207,16 @@ std::vector<NX::Complex> NX::SolveEquation(const float a, const float b, const f
     return result;
 }
 
+std::pair<bool, NX::vector<float, 2> > NX::SolveEquation(const NX::Matrix<float, 2, 2> &M, const NX::vector<float, 2> &V){
+    std::pair<bool, NX::vector<float, 2> > result;
+    float Delta = M[0][0] * M[1][1] - M[0][1] * M[1][0];
+    if(NXAbs(Delta) < Epsilon<float>::m_Epsilon){
+        result.first = false;
+        return result;
+    }
+    result.first = true;
+    result.second[0] = M[1][1] * V[0] - M[0][1] * V[1];
+    result.second[1] = M[0][0] * V[1] - M[1][0] * V[0];
+    result.second /= Delta;
+    return result;
+}

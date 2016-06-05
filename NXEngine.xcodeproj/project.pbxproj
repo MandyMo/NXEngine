@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6C1607171C9BF0EF00932D61 /* MRTDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C1607151C9BF0EF00932D61 /* MRTDemo.cpp */; };
 		6C16071E1C9C007B00932D61 /* AppChap1_4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C16071A1C9C007B00932D61 /* AppChap1_4.cpp */; };
+		6C1CA5C41D041C590085C5DB /* NXRayTrace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C1CA5C21D041C590085C5DB /* NXRayTrace.cpp */; };
 		6C21F78E1D02F8D900A62970 /* NXComplex.h in Sources */ = {isa = PBXBuildFile; fileRef = 6C21F78D1D02F8D900A62970 /* NXComplex.h */; };
 		6C2E382F1CF7EA3C007A488D /* NXAlgorithm.inl in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E382D1CF7EA3C007A488D /* NXAlgorithm.inl */; };
 		6C2E38321CF820BE007A488D /* NXEulerAngle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E38301CF820BE007A488D /* NXEulerAngle.cpp */; };
@@ -47,6 +48,11 @@
 		6C65F90C1CD0B8C6005506C0 /* MultiViewRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F90A1CD0B8C6005506C0 /* MultiViewRender.cpp */; };
 		6C65F9141CD0C7E3005506C0 /* NXMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C65F9121CD0C7E3005506C0 /* NXMemory.cpp */; };
 		6C738C6E1CE5798F0053D9D5 /* NXPrimitive.inl in Sources */ = {isa = PBXBuildFile; fileRef = 6C738C6C1CE5798F0053D9D5 /* NXPrimitive.inl */; };
+		6C8BBF2E1D0455040052C31A /* NXLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BBF2C1D0455040052C31A /* NXLine.cpp */; };
+		6C8BBF311D0456E20052C31A /* NXPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BBF2F1D0456E20052C31A /* NXPlane.cpp */; };
+		6C8BBF341D045A610052C31A /* NXCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BBF321D045A610052C31A /* NXCircle.cpp */; };
+		6C8BBF371D045B670052C31A /* NXSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BBF351D045B670052C31A /* NXSphere.cpp */; };
+		6C8BBF3A1D045C1D0052C31A /* NXAABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BBF381D045C1D0052C31A /* NXAABB.cpp */; };
 		6C8BD5A41C96B3E700BBD775 /* PointSize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */; };
 		6C966F661CA9524400E4A9BC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C966F641CA9524400E4A9BC /* SkyBox.cpp */; };
 		6CB884621C97BC760022CB52 /* DrawInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB884601C97BC760022CB52 /* DrawInstance.cpp */; };
@@ -558,6 +564,8 @@
 		6C16071B1C9C007B00932D61 /* AppChap1_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppChap1_4.h; sourceTree = "<group>"; };
 		6C16071C1C9C007B00932D61 /* FS1_4.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FS1_4.glsl; sourceTree = "<group>"; };
 		6C16071D1C9C007B00932D61 /* VS1_4.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VS1_4.glsl; sourceTree = "<group>"; };
+		6C1CA5C21D041C590085C5DB /* NXRayTrace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXRayTrace.cpp; sourceTree = "<group>"; };
+		6C1CA5C31D041C590085C5DB /* NXRayTrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXRayTrace.h; sourceTree = "<group>"; };
 		6C21F78D1D02F8D900A62970 /* NXComplex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXComplex.h; sourceTree = "<group>"; };
 		6C2E382D1CF7EA3C007A488D /* NXAlgorithm.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NXAlgorithm.inl; sourceTree = "<group>"; };
 		6C2E382E1CF7EA3C007A488D /* NXAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXAlgorithm.h; sourceTree = "<group>"; };
@@ -781,6 +789,16 @@
 		6C738C6D1CE5798F0053D9D5 /* NXPrimitive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXPrimitive.h; sourceTree = "<group>"; };
 		6C738C711CE5B8060053D9D5 /* NXNumeric.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXNumeric.h; sourceTree = "<group>"; };
 		6C7A68401C86FA90005BC4C7 /* skybox2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox2.png; path = image/skybox2.png; sourceTree = SOURCE_ROOT; };
+		6C8BBF2C1D0455040052C31A /* NXLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXLine.cpp; sourceTree = "<group>"; };
+		6C8BBF2D1D0455040052C31A /* NXLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXLine.h; sourceTree = "<group>"; };
+		6C8BBF2F1D0456E20052C31A /* NXPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXPlane.cpp; sourceTree = "<group>"; };
+		6C8BBF301D0456E20052C31A /* NXPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXPlane.h; sourceTree = "<group>"; };
+		6C8BBF321D045A610052C31A /* NXCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXCircle.cpp; sourceTree = "<group>"; };
+		6C8BBF331D045A610052C31A /* NXCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXCircle.h; sourceTree = "<group>"; };
+		6C8BBF351D045B670052C31A /* NXSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXSphere.cpp; sourceTree = "<group>"; };
+		6C8BBF361D045B670052C31A /* NXSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXSphere.h; sourceTree = "<group>"; };
+		6C8BBF381D045C1D0052C31A /* NXAABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXAABB.cpp; sourceTree = "<group>"; };
+		6C8BBF391D045C1D0052C31A /* NXAABB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXAABB.h; sourceTree = "<group>"; };
 		6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointSize.cpp; sourceTree = "<group>"; };
 		6C8BD5A31C96B3E700BBD775 /* PointSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointSize.h; sourceTree = "<group>"; };
 		6C8BD5A51C96B7E300BBD775 /* PointSizeFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PointSizeFS.glsl; sourceTree = "<group>"; };
@@ -2202,6 +2220,18 @@
 				6C2E38311CF820BE007A488D /* NXEulerAngle.h */,
 				6C2E38301CF820BE007A488D /* NXEulerAngle.cpp */,
 				6C21F78D1D02F8D900A62970 /* NXComplex.h */,
+				6C1CA5C21D041C590085C5DB /* NXRayTrace.cpp */,
+				6C1CA5C31D041C590085C5DB /* NXRayTrace.h */,
+				6C8BBF2C1D0455040052C31A /* NXLine.cpp */,
+				6C8BBF2D1D0455040052C31A /* NXLine.h */,
+				6C8BBF2F1D0456E20052C31A /* NXPlane.cpp */,
+				6C8BBF301D0456E20052C31A /* NXPlane.h */,
+				6C8BBF321D045A610052C31A /* NXCircle.cpp */,
+				6C8BBF331D045A610052C31A /* NXCircle.h */,
+				6C8BBF351D045B670052C31A /* NXSphere.cpp */,
+				6C8BBF361D045B670052C31A /* NXSphere.h */,
+				6C8BBF381D045C1D0052C31A /* NXAABB.cpp */,
+				6C8BBF391D045C1D0052C31A /* NXAABB.h */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -3878,6 +3908,7 @@
 				6CD71C791C83EA0B00910E57 /* IlmThread.cpp in Sources */,
 				6CD71BDD1C83EA0B00910E57 /* dsp.lossless_mips_dsp_r2.c in Sources */,
 				6CD71B781C83EA0B00910E57 /* pngtrans.c in Sources */,
+				6C8BBF311D0456E20052C31A /* NXPlane.cpp in Sources */,
 				6CD71BFF1C83EA0B00910E57 /* enc.webpenc.c in Sources */,
 				6CD71C5C1C83EA0B00910E57 /* ImfRational.cpp in Sources */,
 				6CD71B421C83EA0B00910E57 /* strPredQuantDec.c in Sources */,
@@ -3944,6 +3975,7 @@
 				6C65F8601CC78D6B005506C0 /* TCSphere.cpp in Sources */,
 				6CD71AE81C83EA0B00910E57 /* Channels.cpp in Sources */,
 				6CD71B911C83EA0B00910E57 /* tif_dirinfo.c in Sources */,
+				6C8BBF3A1D045C1D0052C31A /* NXAABB.cpp in Sources */,
 				6C4BB6701CB5395000ABC075 /* BrickShader.cpp in Sources */,
 				6CD71B411C83EA0B00910E57 /* strInvTransform.c in Sources */,
 				6CD71AB11C83EA0B00910E57 /* FreeImageC.c in Sources */,
@@ -4004,6 +4036,7 @@
 				6CD71BFC1C83EA0B00910E57 /* enc.token.c in Sources */,
 				6CD71BDC1C83EA0B00910E57 /* dsp.lossless_mips32.c in Sources */,
 				6CD71C991C83EA0B00910E57 /* uncompr.c in Sources */,
+				6C8BBF341D045A610052C31A /* NXCircle.cpp in Sources */,
 				6CD71AC61C83EA0B00910E57 /* PluginJ2K.cpp in Sources */,
 				6CD71C511C83EA0B00910E57 /* ImfMultiPartOutputFile.cpp in Sources */,
 				6CD71AC01C83EA0B00910E57 /* PluginEXR.cpp in Sources */,
@@ -4045,6 +4078,7 @@
 				6CD71BA01C83EA0B00910E57 /* tif_lzw.c in Sources */,
 				6CD71BD91C83EA0B00910E57 /* dsp.filters_mips_dsp_r2.c in Sources */,
 				6CD71BFE1C83EA0B00910E57 /* enc.vp8l.c in Sources */,
+				6C1CA5C41D041C590085C5DB /* NXRayTrace.cpp in Sources */,
 				6CD71C771C83EA0B00910E57 /* ImfZip.cpp in Sources */,
 				6CD71BA11C83EA0B00910E57 /* tif_next.c in Sources */,
 				6CD71AB31C83EA0B00910E57 /* GetType.cpp in Sources */,
@@ -4107,6 +4141,7 @@
 				6CD71C601C83EA0B00910E57 /* ImfRle.cpp in Sources */,
 				6CD71C901C83EA0B00910E57 /* gzlib.c in Sources */,
 				6CD71B9C1C83EA0B00910E57 /* tif_jpeg.c in Sources */,
+				6C8BBF371D045B670052C31A /* NXSphere.cpp in Sources */,
 				6CD71AEE1C83EA0B00910E57 /* JPEGTransform.cpp in Sources */,
 				6CD71BCF1C83EA0B00910E57 /* dsp.dec_mips_dsp_r2.c in Sources */,
 				6CD71C021C83EA0B00910E57 /* mux.muxinternal.c in Sources */,
@@ -4138,6 +4173,7 @@
 				6CD71C0C1C83EA0B00910E57 /* utils.random.c in Sources */,
 				6CD71C381C83EA0B00910E57 /* ImfDoubleAttribute.cpp in Sources */,
 				6CD71C3B1C83EA0B00910E57 /* ImfEnvmapAttribute.cpp in Sources */,
+				6C8BBF2E1D0455040052C31A /* NXLine.cpp in Sources */,
 				6CD71C8F1C83EA0B00910E57 /* gzclose.c in Sources */,
 				6CD71ACA1C83EA0B00910E57 /* PluginJXR.cpp in Sources */,
 				6CD71BDE1C83EA0B00910E57 /* dsp.lossless_neon.c in Sources */,
