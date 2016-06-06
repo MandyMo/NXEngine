@@ -25,7 +25,7 @@ void NX::MVMatrixController::CaculateAxis(){
     Normalize(m_vUp);
     Normalize(m_vFront);
     Normalize(m_vRight);
-    m_MVMatrix = NX::LookAt(m_vEye, m_vLooked, m_vUp);
+    m_MVMatrix = NX::GetLookAtMatrix(m_vEye, m_vLooked, m_vUp);
 }
 
 NX::MVMatrixController::~MVMatrixController(){
@@ -59,7 +59,7 @@ void NX::MVMatrixController::MoveUp(const float PosDiff){
 void NX::MVMatrixController::MoveByVector(const float3 &vTranslate){
     m_vEye    += vTranslate;
     m_vLooked += vTranslate;
-    m_MVMatrix = NX::LookAt(m_vEye, m_vLooked, m_vUp);
+    m_MVMatrix = NX::GetLookAtMatrix(m_vEye, m_vLooked, m_vUp);
 }
 
 void NX::MVMatrixController::MoveByAxis(const float3 &vDirection, const float Distance){
@@ -72,7 +72,7 @@ void NX::MVMatrixController::MoveByAxis(const float3 &vDirection, const float Di
     oo.Set(oo.x * Distance, oo.y * Distance, oo.z * Distance);
     m_vEye    += oo;
     m_vLooked += oo;
-    m_MVMatrix = NX::LookAt(m_vEye, m_vLooked, m_vUp);
+    m_MVMatrix = NX::GetLookAtMatrix(m_vEye, m_vLooked, m_vUp);
 }
 
 void NX::MVMatrixController::RotateByFrontBackAxis(const float radian){
@@ -93,7 +93,7 @@ static inline void Rotate(const NX::float3x3 &TranslateMatrix, NX::float3 &Rotat
 }
 
 void NX::MVMatrixController::RotateByAxis(const float3 &axis, const float radian){
-    NX::float3x3 RotateMatrix = NX::RotateAix<float, 3, float>(axis, radian);
+    NX::float3x3 RotateMatrix = NX::GetMatrixRotateByAix<float, 3, float>(axis, radian);
     Rotate(RotateMatrix, m_vUp);
     m_vLooked -= m_vEye;
     Rotate(RotateMatrix, m_vLooked);
@@ -102,7 +102,7 @@ void NX::MVMatrixController::RotateByAxis(const float3 &axis, const float radian
 }
 
 void NX::MVMatrixController::RotateByAxisAtFixedPosition(const float3 &axis, const float3 &Position, const float radian){
-    NX::float3X3 RotateMatrix = NX::RotateAix<float, 3, float>(axis, radian);
+    NX::float3X3 RotateMatrix = NX::GetMatrixRotateByAix<float, 3, float>(axis, radian);
     Rotate(RotateMatrix, m_vUp);
     m_vLooked -= Position;
     m_vEye    -= Position;
@@ -123,7 +123,7 @@ NX::PerspectCamera::PerspectCamera(const float3 &Eye, const float3 &Looked, cons
     m_fRatio        = Ratio;
     m_fNearPlane    = Near;
     m_fFarPlane     = Far;
-    m_ProjectMatrix = NX::Perspective(m_fFovByAngel, m_fRatio, m_fNearPlane, m_fFarPlane);
+    m_ProjectMatrix = NX::GetPerspectiveMatrix(m_fFovByAngel, m_fRatio, m_fNearPlane, m_fFarPlane);
 }
 
 NX::PerspectCamera::~PerspectCamera(){
@@ -162,14 +162,14 @@ NX::OrthogonalCamera::OrthogonalCamera(const float3 &Eye, const float3 &Looked, 
     m_fBottom  = -m_fTop;
     m_fNearPlane    = Near;
     m_fFarPlane     = Far;
-    m_ProjectMatrix = NX::Orthogonal(m_fLeft, m_fRight, m_fTop, m_fBottom, m_fNearPlane, m_fFarPlane);
+    m_ProjectMatrix = NX::GetOrthogonalMatrix(m_fLeft, m_fRight, m_fTop, m_fBottom, m_fNearPlane, m_fFarPlane);
 }
 
 NX::OrthogonalCamera::OrthogonalCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
                                        const float Left, const float Right, const float Top, const float Bottom,
                                        const float Near, const float Far):NX::MVMatrixController(Eye, Looked, Up){
     m_fLeft = Left, m_fRight = Right, m_fTop = Top, m_fBottom = Bottom, m_fNearPlane = Near, m_fFarPlane = Far;
-    m_ProjectMatrix = NX::Orthogonal(m_fLeft, m_fRight, m_fTop, m_fBottom, m_fNearPlane, m_fFarPlane);
+    m_ProjectMatrix = NX::GetOrthogonalMatrix(m_fLeft, m_fRight, m_fTop, m_fBottom, m_fNearPlane, m_fFarPlane);
 }
 
 NX::ViewFrustum NX::OrthogonalCamera::GetViewFrustumInCameraSpace(){

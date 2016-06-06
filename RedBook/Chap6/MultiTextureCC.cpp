@@ -85,9 +85,9 @@ void MultiTextureCC::Render(){
     
     
     {
-        auto P = NX::Perspective<float>(90, 1, 1, 1000);
-        auto V = NX::LookAt(NX::float3(300, 300, 0), NX::float3(300, 300, 1), NX::float3(0, 1, 0));
-        auto R = NX::RotateZ(Radius);
+        auto P = NX::GetPerspectiveMatrix<float>(90, 1, 1, 1000);
+        auto V = NX::GetLookAtMatrix(NX::float3(300, 300, 0), NX::float3(300, 300, 1), NX::float3(0, 1, 0));
+        auto R = NX::GetMatrixRotateByZ(Radius);
         auto MVP = P * R * V;
         glUniformMatrix4fv(MVPLocaiton, 1, GL_TRUE, &MVP[0][0]);
     }

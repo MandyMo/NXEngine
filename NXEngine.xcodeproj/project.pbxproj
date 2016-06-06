@@ -53,6 +53,7 @@
 		6C8BBF341D045A610052C31A /* NXCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BBF321D045A610052C31A /* NXCircle.cpp */; };
 		6C8BBF371D045B670052C31A /* NXSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BBF351D045B670052C31A /* NXSphere.cpp */; };
 		6C8BBF3A1D045C1D0052C31A /* NXAABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BBF381D045C1D0052C31A /* NXAABB.cpp */; };
+		6C8BBF3D1D059C270052C31A /* NXTriangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BBF3B1D059C270052C31A /* NXTriangle.cpp */; };
 		6C8BD5A41C96B3E700BBD775 /* PointSize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */; };
 		6C966F661CA9524400E4A9BC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C966F641CA9524400E4A9BC /* SkyBox.cpp */; };
 		6CB884621C97BC760022CB52 /* DrawInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB884601C97BC760022CB52 /* DrawInstance.cpp */; };
@@ -799,6 +800,8 @@
 		6C8BBF361D045B670052C31A /* NXSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXSphere.h; sourceTree = "<group>"; };
 		6C8BBF381D045C1D0052C31A /* NXAABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXAABB.cpp; sourceTree = "<group>"; };
 		6C8BBF391D045C1D0052C31A /* NXAABB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXAABB.h; sourceTree = "<group>"; };
+		6C8BBF3B1D059C270052C31A /* NXTriangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXTriangle.cpp; sourceTree = "<group>"; };
+		6C8BBF3C1D059C270052C31A /* NXTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXTriangle.h; sourceTree = "<group>"; };
 		6C8BD5A21C96B3E700BBD775 /* PointSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointSize.cpp; sourceTree = "<group>"; };
 		6C8BD5A31C96B3E700BBD775 /* PointSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointSize.h; sourceTree = "<group>"; };
 		6C8BD5A51C96B7E300BBD775 /* PointSizeFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PointSizeFS.glsl; sourceTree = "<group>"; };
@@ -2232,6 +2235,8 @@
 				6C8BBF361D045B670052C31A /* NXSphere.h */,
 				6C8BBF381D045C1D0052C31A /* NXAABB.cpp */,
 				6C8BBF391D045C1D0052C31A /* NXAABB.h */,
+				6C8BBF3B1D059C270052C31A /* NXTriangle.cpp */,
+				6C8BBF3C1D059C270052C31A /* NXTriangle.h */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -4110,6 +4115,7 @@
 				6CD71B761C83EA0B00910E57 /* pngset.c in Sources */,
 				6C65F8F11CCE269A005506C0 /* GSDemo.cpp in Sources */,
 				6CD71B651C83EA0B00910E57 /* t1.c in Sources */,
+				6C8BBF3D1D059C270052C31A /* NXTriangle.cpp in Sources */,
 				6CD71B1E1C83EA0B00910E57 /* jidctflt.c in Sources */,
 				6CD71AD81C83EA0B00910E57 /* PluginTIFF.cpp in Sources */,
 				6CD71B381C83EA0B00910E57 /* wrppm.c in Sources */,

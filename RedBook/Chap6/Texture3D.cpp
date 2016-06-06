@@ -73,7 +73,7 @@ bool Texture3D::Init(__in const char* vCmdLine[], __in const int iCmdCount,
     }
     
     {//MVP
-        NX::float4X4 MVP = NX::Perspective<float>(90, 1, 1, 1000) * NX::LookAt(NX::float3(0, 0, -500), NX::float3(0, 0, 1), NX::float3(0, 1, 0));
+        NX::float4X4 MVP = NX::GetPerspectiveMatrix<float>(90, 1, 1, 1000) * NX::GetLookAtMatrix(NX::float3(0, 0, -500), NX::float3(0, 0, 1), NX::float3(0, 1, 0));
         glUniformMatrix4fv(m_MVPLocation, 1, GL_TRUE, &MVP[0][0]);
     }
     return true;

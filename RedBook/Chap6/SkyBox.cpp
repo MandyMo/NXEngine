@@ -16,7 +16,7 @@ bool SkyBox::Init(__in const char* vCmdLine[], __in const int iCmdCount, __in co
         m_CubeTexLocation = glGetUniformLocation(m_pg->GetId(), "CubeTex");
     }
     {//cubte texture
-        NX::float4X4 MVP = NX::Perspective(90.f, 1.0f, 1.f, 1000.f) * NX::LookAt(NX::float3(0, 0, 0), NX::float3(0, 0, 1), NX::float3(0, 1, 0));
+        NX::float4X4 MVP = NX::GetPerspectiveMatrix(90.f, 1.0f, 1.f, 1000.f) * NX::GetLookAtMatrix(NX::float3(0, 0, 0), NX::float3(0, 0, 1), NX::float3(0, 1, 0));
         glUniformMatrix4fv(m_MVPLocation, 1, GL_TRUE, &MVP[0][0]);
         
         glActiveTexture(GL_TEXTURE0);
@@ -134,8 +134,8 @@ static void FlipImage(NX::ImagePixelLoader * loader){
 void SkyBox::Tick(const double DeltaTime){
     static float Sum = 0;
     Sum += DeltaTime / 10;
-    NX::float4X4 MV = NX::LookAt(NX::float3(0, 0, 0), NX::float3(0, 0, 1), NX::float3(0, 1, 0)) * NX::Translate(0.0f, 0.0f, 0.f) * NX::RotateY(Sum);
-    NX::float4X4 P  = NX::Perspective(120.f, 1.0f, 1.f, 2000.f) ;
+    NX::float4X4 MV = NX::GetLookAtMatrix(NX::float3(0, 0, 0), NX::float3(0, 0, 1), NX::float3(0, 1, 0)) * NX::GetTranslated(0.0f, 0.0f, 0.f) * NX::GetMatrixRotateByY(Sum);
+    NX::float4X4 P  = NX::GetPerspectiveMatrix(120.f, 1.0f, 1.f, 2000.f) ;
     NX::float4X4 MVP = P * MV;
     glUniformMatrix4fv(m_MVPLocation, 1, GL_TRUE, &MVP[0][0]);
     return;

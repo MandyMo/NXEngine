@@ -39,7 +39,7 @@ inline RT LengthSquare(const vector<T, Scale> &lhs){
 }
 
 template<typename T, int Scale>
-inline vector<T, Scale> GetNormalize(const vector<T, Scale> &lhs){
+inline vector<T, Scale> GetNormalized(const vector<T, Scale> &lhs){
     vector<T, Scale> n(lhs);
     return Normalize(n);
 }
@@ -158,7 +158,7 @@ inline Matrix<T, M, M>& Transpose(Matrix<T, M, M> &lhs){
 }
 
 template<typename T, int Row, int Col>
-inline Matrix<T, Col, Row> GetTranspose(const Matrix<T, Row, Col> &lhs){
+inline Matrix<T, Col, Row> GetTransposed(const Matrix<T, Row, Col> &lhs){
     Matrix<T, Col, Row> result;
     const T *ptr;
     for(int i = 0; i < Row; ++i){
@@ -168,7 +168,7 @@ inline Matrix<T, Col, Row> GetTranspose(const Matrix<T, Row, Col> &lhs){
 }
 
 template<typename U, typename T>
-inline Matrix<T, 4, 4> LookAt(const vector<U, 3> &eye, const vector<U, 3> &look, const vector<U, 3> &up){
+inline Matrix<T, 4, 4> GetLookAtMatrix(const vector<U, 3> &eye, const vector<U, 3> &look, const vector<U, 3> &up){
     vector<T, 3> oz = look - eye;
     Normalize(oz);
     vector<T, 3> ox = Cross(up, oz);
@@ -189,7 +189,7 @@ inline Matrix<T, 4, 4> LookAt(const vector<U, 3> &eye, const vector<U, 3> &look,
 }
 
 template<typename T>
-inline Matrix<T, 4, 4> Translate(const T dx, const T dy, const T dz){
+inline Matrix<T, 4, 4> GetTranslated(const T dx, const T dy, const T dz){
     Matrix<T, 4, 4> result;
     result[0][0] = result[1][1] = result[2][2] = result[3][3] = T(1);
     result[0][3] = dx;
@@ -199,7 +199,7 @@ inline Matrix<T, 4, 4> Translate(const T dx, const T dy, const T dz){
 }
 
 template<typename T, int Scale /* = 4 */>
-inline Matrix<T, Scale, Scale> RotateX(const T radian){
+inline Matrix<T, Scale, Scale> GetMatrixRotateByX(const T radian){
     NXAssert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CosValue(std::cos(radian));
@@ -212,7 +212,7 @@ inline Matrix<T, Scale, Scale> RotateX(const T radian){
 }
 
 template<typename T, int Scale /* = 4*/>
-inline Matrix<T, Scale, Scale> RotateY(const T radian){
+inline Matrix<T, Scale, Scale> GetMatrixRotateByY(const T radian){
     NXAssert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result; 
     T CosValue(std::cos(radian));
@@ -224,7 +224,7 @@ inline Matrix<T, Scale, Scale> RotateY(const T radian){
 }
 
 template<typename T, int Scale /* = 4*/>
-inline Matrix<T, Scale, Scale> RotateZ(const T radian){
+inline Matrix<T, Scale, Scale> GetMatrixRotateByZ(const T radian){
     NXAssert(Scale == 3 || Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CosValue(std::cos(radian));
@@ -236,7 +236,7 @@ inline Matrix<T, Scale, Scale> RotateZ(const T radian){
 }
 
 template<typename T, int Scale /* = 4 */>
-inline Matrix<T, Scale, Scale> Scalar(const T sx, const T sy, const T sz){
+inline Matrix<T, Scale, Scale> GetScalarMatrix(const T sx, const T sy, const T sz){
     Matrix<T, Scale, Scale> result;
     result.m_Element[Scale - 1][Scale - 1] = T(1);
     result.m_Element[0][0] = sx;
@@ -246,7 +246,7 @@ inline Matrix<T, Scale, Scale> Scalar(const T sx, const T sy, const T sz){
 }
 
 template<typename T, int Scale, typename U>
-inline Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radian){
+inline Matrix<T, Scale, Scale> GetMatrixRotateByAix(const vector<U, 3> &Aix, const T radian){
     vector<T, 3> ax(Aix);
     Normalize(ax);
     T nxx = ax.x * ax.x;
@@ -277,7 +277,7 @@ inline Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radian
 //z/w: [0, 1]
 //w: z
 template<typename T, int Scale>
-inline Matrix<T, Scale, Scale> Perspective(const T FovAngle, const T aspect, const T near, const T far){
+inline Matrix<T, Scale, Scale> GetPerspectiveMatrix(const T FovAngle, const T aspect, const T near, const T far){
     NXAssert(Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CotValue = 1 / std::tan(DG2RD(FovAngle) / 2);
@@ -297,7 +297,7 @@ inline Matrix<T, Scale, Scale> Perspective(const T FovAngle, const T aspect, con
 //z: [0, 1]
 //w: 1
 template<typename T, int Scale>
-inline Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T near, const T far){
+inline Matrix<T, Scale, Scale> GetOrthogonalMatrix(const T Width, const T Height, const T near, const T far){
     NXAssert(Scale == 4);
     Matrix<T, Scale, Scale> result;
     result.m_Element[Scale - 1][Scale - 1] = T(1);
@@ -316,7 +316,7 @@ inline Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T
 //z: [0, 1]
 //w: 1
 template<typename T, int Scale>
-inline Matrix<T, Scale, Scale> Orthogonal(const T Left, const T Right, const T Top, const T Bottom, const T near, const T far){
+inline Matrix<T, Scale, Scale> GetOrthogonalMatrix(const T Left, const T Right, const T Top, const T Bottom, const T near, const T far){
     NXAssert(Scale == 4);
     Matrix<T, Scale, Scale> result;
     result[Scale - 1][Scale - 1] = T(1);
@@ -616,6 +616,46 @@ template<typename T, int iScale>
 inline Matrix<T, iScale, iScale>& GetSimplifiedMatrix(const Matrix<T, iScale, iScale> &matrix, const T EpsilonValue){
     Matrix<T, iScale, iScale> result(matrix);
     return SimplifyMatrix(matrix, EpsilonValue);
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3>& TransformNormalVector(NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m){
+    return TransformNormalVector(v, NX::Matrix<U, 3, 3>(m));
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3> TransformNormalVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
+    const Matrix<T, 3, 1> &RV = NX::GetTransposed(NX::GetReverse(m)) * v;
+    v.Set(RV[0][0], RV[1][0], RV[2][0]);
+    return v;
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3>& TransformVector(NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m){
+    return TransformVector(v, NX::Matrix<U, 3, 3>(m));
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3>  TransformVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
+    const Matrix<T, 3, 1> &RV = m * v;
+    v.Set(RV[0][0], RV[1][0], RV[2][0]);
+    return v;
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3>& TransformPoint(NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m){
+    const NX::Matrix<T, 4, 1> &RV = m * NX::vector<T, 4>(v.x, v.y, v.z, T(1));
+    const T Mult = 1.0f / RV[3][0];
+    v.Set(RV[0][0] * Mult, RV[1][0] * Mult, RV[2][0] * Mult);
+    return v;
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3>  TransformPoint(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
+    NX::Matrix<U, 4, 4> matrix(m);
+    matrix[0][3] = matrix[1][3] = matrix[2][3] = matrix[3][0] = matrix[3][1] = matrix[3][2] = U(0);
+    matrix[3][3] = U(1);
+    return TransformPoint(v, matrix);
 }
 
 /**

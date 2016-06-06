@@ -28,7 +28,7 @@ namespace NX {
     inline RT LengthSquare(const vector<T, Scale> &lhs);
     
     template<typename T, int Scale>
-    inline vector<T, Scale> GetNormalize(const vector<T, Scale> &lhs);
+    inline vector<T, Scale> GetNormalized(const vector<T, Scale> &lhs);
     
     template<typename T, int Scale>
     inline vector<T, Scale>& Normalize(vector<T, Scale> &lhs);
@@ -79,52 +79,52 @@ namespace NX {
     
     //================================begin some matrix function========================================================
     template<typename U, typename T = float>
-    inline Matrix<T, 4, 4> LookAt(const vector<U, 3> &eye, const vector<U, 3> &look, const vector<U, 3> &up);
+    inline Matrix<T, 4, 4> GetLookAtMatrix(const vector<U, 3> &eye, const vector<U, 3> &look, const vector<U, 3> &up);
     
     template<typename T, int M>
     inline Matrix<T, M, M>& Transpose(Matrix<T, M, M> &lhs);
     
     template<typename T, int Row, int Col>
-    inline Matrix<T, Col, Row> GetTranspose(const Matrix<T, Row, Col> &lhs);
+    inline Matrix<T, Col, Row> GetTransposed(const Matrix<T, Row, Col> &lhs);
     
     template<typename T>
-    inline Matrix<T, 4, 4> Translate(const T dx, const T dy, const T dz);
+    inline Matrix<T, 4, 4> GetTranslated(const T dx, const T dy, const T dz);
     
     template<typename T, int Scale = 4>
-    inline Matrix<T, Scale, Scale> RotateX(const T radian);
+    inline Matrix<T, Scale, Scale> GetMatrixRotateByX(const T radian);
     
     template<typename T, int Scale = 4>
-    inline Matrix<T, Scale, Scale> RotateY(const T radian);
+    inline Matrix<T, Scale, Scale> GetMatrixRotateByY(const T radian);
     
     template<typename T, int Scale = 4>
-    inline Matrix<T, Scale, Scale> RotateZ(const T radian);
+    inline Matrix<T, Scale, Scale> GetMatrixRotateByZ(const T radian);
     
     template<typename T, int Scale = 4>
-    inline Matrix<T, Scale, Scale> Scalar(const T sx, const T sy, const T sz);
+    inline Matrix<T, Scale, Scale> GetScalarMatrix(const T sx, const T sy, const T sz);
     
     template<typename T, int Scale = 4, typename U>
-    inline Matrix<T, Scale, Scale> RotateAix(const vector<U, 3> &Aix, const T radian);
+    inline Matrix<T, Scale, Scale> GetMatrixRotateByAix(const vector<U, 3> &Aix, const T radian);
     
     //x/w: [-1, 1]
     //y/w: [-1, 1]
     //z/w: [0, 1]
     //w: z
     template<typename T, int Scale = 4>
-    inline Matrix<T, Scale, Scale> Perspective(const T FovAngle, const T aspect, const T near, const T far);
+    inline Matrix<T, Scale, Scale> GetPerspectiveMatrix(const T FovAngle, const T aspect, const T near, const T far);
     
     //x: [-1, 1]
     //y: [-1, 1]
     //z: [0, 1]
     //w: 1
     template<typename T, int Scale = 4>
-    inline Matrix<T, Scale, Scale> Orthogonal(const T Width, const T Height, const T near, const T far);
+    inline Matrix<T, Scale, Scale> GetOrthogonalMatrix(const T Width, const T Height, const T near, const T far);
     
     //x: [-1, 1]
     //y: [-1, 1]
     //z: [0, 1]
     //w: 1
     template<typename T, int Scale = 4>
-    inline Matrix<T, Scale, Scale> Orthogonal(const T Left, const T Right, const T Top, const T Bottom, const T near, const T far);
+    inline Matrix<T, Scale, Scale> GetOrthogonalMatrix(const T Left, const T Right, const T Top, const T Bottom, const T near, const T far);
     
     template<typename T, typename RT = T>
     inline RT Detaminate(const Matrix<T, 2, 2>& matrix);
@@ -170,6 +170,26 @@ namespace NX {
     
     template<typename T, int iScale>
     inline Matrix<T, iScale, iScale>& GetSimplifiedMatrix(const Matrix<T, iScale, iScale> &matrix, const T EpsilonValue = Epsilon<T>::m_Epsilon);
+    
+    template<typename T, typename U>
+    inline NX::vector<T, 3>& TransformNormalVector(NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m);
+    
+    template<typename T, typename U>
+    inline NX::vector<T, 3>  TransformNormalVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
+    
+    template<typename T, typename U>
+    inline NX::vector<T, 3>& TransformVector(NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m);
+    
+    template<typename T, typename U>
+    inline NX::vector<T, 3>  TransformVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
+    
+    template<typename T, typename U>
+    inline NX::vector<T, 3>& TransformPoint(NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m);
+    
+    template<typename T, typename U>
+    inline NX::vector<T, 3>  TransformPoint(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
+    
+    
     /**
      *  返回点投影到直线(2维)或平面(3维)上的投影方程（其中normal是法线，且默认直线或平面过原点)
      */

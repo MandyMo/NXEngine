@@ -316,7 +316,7 @@ namespace NX{
     }
     
     Quaternion& Quaternion::SetRotateAboutAxis(const float radian, const vector<float, 3> &axis){
-        vector<float, 3> n(GetNormalize(axis));
+        vector<float, 3> n(NX::GetNormalized(axis));
         const float theta    = radian * 0.5f;
         const float SinValue = std::sin(theta);
         w = std::cos(theta);

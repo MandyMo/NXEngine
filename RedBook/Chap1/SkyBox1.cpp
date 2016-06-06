@@ -117,10 +117,10 @@ void SkyBox1::Render(){
     glClearDepth(2.0f);
     glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    auto MVP = NX::Perspective<float>(75, 1.0, 1.0, 20000.0) * NX::LookAt<float>(NX::float3(0, 0, 0), NX::float3(1, 0, 0), NX::float3(0, 1, 0));
+    auto MVP = NX::GetPerspectiveMatrix<float>(75, 1.0, 1.0, 20000.0) * NX::GetLookAtMatrix<float>(NX::float3(0, 0, 0), NX::float3(1, 0, 0), NX::float3(0, 1, 0));
     static float radius = 0;
     radius += 0.003;
-    auto R = NX::RotateY(radius);
+    auto R = NX::GetMatrixRotateByY(radius);
     MVP = MVP * R;
     glUniformMatrix4fv(m_MVP, 1, GL_TRUE, &MVP[0][0]);
     glBindVertexArray(m_vao);

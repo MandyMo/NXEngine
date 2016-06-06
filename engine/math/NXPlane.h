@@ -37,11 +37,11 @@ namespace NX {
 
         Plane(const Plane &rhs):m_vPlaneNormal(rhs.m_vPlaneNormal), m_fDistFromOriginal(rhs.m_fDistFromOriginal){}
         
-        explicit Plane(const vector<float, 3> &Normal, const vector<float, 3> &PointInPlane):m_vPlaneNormal(Normal), m_fDistFromOriginal(-Dot(PointInPlane, Normal)){
+        explicit Plane(const vector<float, 3> &Normal, const vector<float, 3> &PointInPlane):m_vPlaneNormal(Normal), m_fDistFromOriginal(-NX::Dot(PointInPlane, Normal)){
             Normalize();
         }
 
-        explicit Plane(const vector<float, 3> &Normal, const float fDistFromOriginal):m_vPlaneNormal(NX::GetNormalize(Normal)), m_fDistFromOriginal(fDistFromOriginal){
+        explicit Plane(const vector<float, 3> &Normal, const float fDistFromOriginal):m_vPlaneNormal(NX::GetNormalized(Normal)), m_fDistFromOriginal(fDistFromOriginal){
         }
 
     public:

@@ -16,6 +16,7 @@
 #include "../engine/math/NXPlane.h"
 #include "../engine/math/NXSphere.h"
 #include "../engine/math/NXCircle.h"
+#include "../engine/math/NXTriangle.h"
 
 using std::cout;
 using std::endl;
@@ -48,7 +49,7 @@ int main(){
     }
     
     {
-        auto X = NX::RotateAix<float, 3>(NX::vector<float, 3>(1, 2, 3), NX::DG2RD(60));
+        auto X = NX::GetMatrixRotateByAix<float, 3>(NX::vector<float, 3>(1, 2, 3), NX::DG2RD(60));
         auto Y = NX::Quaternion(NX::DG2RD(30), NX::vector<float, 3>(1, 2, 3));
         NX::vector<float, 3> v(1, 1, 1);
         //Y *= 2;
@@ -78,7 +79,7 @@ int main(){
     {
         NX::Line a(NX::vector<float, 3>(0, 0, 0), NX::vector<float, 3>(0, 1, 0));
         auto c = a.GetPoint(10);
-        auto M = NX::RotateX(NX::DG2RD(90));
+        auto M = NX::GetMatrixRotateByX(NX::DG2RD(90));
         auto b = a.Transform(M);
         cout << " end " << endl;
     }
@@ -121,7 +122,7 @@ int main(){
     {
         NX::float3 pA = NX::float3(1, 1, 1), pB(2, 2, 5), pC(7, 8, 9);
         NX::Circle c(pA, pB, pC);
-        auto M = ::NX::RotateAix<float, 4, float>(NX::float3(2, 2, 4), NX::DG2RD(90.f));
+        auto M = ::NX::GetMatrixRotateByAix<float, 4, float>(NX::float3(2, 2, 4), NX::DG2RD(90.f));
         {
             auto X = M * NX::float4(1, 1, 1, 1);
             pA.Set(X[0][0], X[1][0], X[2][0]);
@@ -213,6 +214,25 @@ int main(){
         auto Solv = NX::SolveEquation(1, -1, -2, -2, 4);
         
         cout <<"end" << endl;
+    }
+    
+    {
+        NX::float3 a(1, 1, 1), b(200, 3, 4), c(4, 5, 6);
+        NX::Circle cc(a, b, c);
+        auto n = NX::GetNormalized(NX::Cross(b - a, c - a));
+        auto ll = cc.GetRadius() * cc.GetRadius();
+        auto aa = NX::Length(a - cc.GetCenter());
+        auto bb = NX::Length(b - cc.GetCenter());
+        auto dd = NX::Length(c - cc.GetCenter());
+        
+        auto ti = NX::Triangle(a, b, c);
+        
+        auto oc = ti.GetGetCircumCircle();
+        auto ic = ti.GetInscribedCircle();
+        
+        auto bar = a * 0.3 + b * 0.7 + c * 0.0;
+        auto sov = ti.GetBaryCentricCoord(bar);
+        cout << "end" << endl;
     }
 }
 

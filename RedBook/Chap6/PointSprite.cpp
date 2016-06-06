@@ -57,7 +57,7 @@ bool PointSprite::Init(__in const char* vCmdLine[], __in const int iCmdCount, __
     }
     
     {//MVP
-        NX::float4X4 MVP = NX::Orthogonal<float>(800, 800, 1, 3000);
+        NX::float4X4 MVP = NX::GetOrthogonalMatrix<float>(800, 800, 1, 3000);
         //NX::float4X4 MVP = NX::Perspective(90.f, 1.f, 1.f, 1000.f);
         glUniformMatrix4fv(m_MVPLocation, 1, GL_TRUE, &MVP[0][0]);
     }
@@ -81,6 +81,6 @@ void PointSprite::Tick(const double DeltaTime){
     NX::Application::Tick(DeltaTime);
     static float Sum = 0;
     Sum += DeltaTime / 5;
-    NX::float4X4 MVP = NX::Orthogonal<float>(800, 800, 1, 3000) * NX::RotateY(Sum);
+    NX::float4X4 MVP = NX::GetOrthogonalMatrix<float>(800, 800, 1, 3000) * NX::GetMatrixRotateByY(Sum);
     glUniformMatrix4fv(m_MVPLocation, 1, GL_TRUE,  &MVP[0][0]);
 }

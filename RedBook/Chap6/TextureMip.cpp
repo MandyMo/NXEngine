@@ -48,7 +48,7 @@ bool TextureMip::Init(__in const char* vCmdLine[], __in const int iCmdCount, __i
     }
     
     {//mvp
-        NX::float4X4 MVP = NX::Perspective(75.f, 1.f, 1.f, 1000.f) * NX::LookAt(NX::float3(0, -600, 0), NX::float3(0, 100, 1), NX::float3(0, 1, 0));
+        NX::float4X4 MVP = NX::GetPerspectiveMatrix(75.f, 1.f, 1.f, 1000.f) * NX::GetLookAtMatrix(NX::float3(0, -600, 0), NX::float3(0, 100, 1), NX::float3(0, 1, 0));
         glUniformMatrix4fv(m_MVPLocation, 1, GL_TRUE, &MVP[0][0]);
     }
     

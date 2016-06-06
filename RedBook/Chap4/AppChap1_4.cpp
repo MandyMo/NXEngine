@@ -58,9 +58,9 @@ bool AppChap1_4::Init(const char* vCmdLine[], const int iCmdCount, const int iWi
         m_pg->UseProgram();
     }
     {
-        auto P = NX::Perspective<float>(90, 1, 1, 10000);
-        auto V = NX::LookAt(NX::float3(0, 0, -300), NX::float3(0, 0, 0), NX::float3(0,1,0));
-        auto M = NX::Translate<float>(-400, -400, 0);
+        auto P = NX::GetPerspectiveMatrix<float>(90, 1, 1, 10000);
+        auto V = NX::GetLookAtMatrix(NX::float3(0, 0, -300), NX::float3(0, 0, 0), NX::float3(0,1,0));
+        auto M = NX::GetTranslated<float>(-400, -400, 0);
         MVP = P * V * M;
     }
     {//translate matrix location

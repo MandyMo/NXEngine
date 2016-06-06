@@ -63,9 +63,9 @@ namespace NX{
         Matrix<float, 4, 4> result;
         result[3][3] = 1.0f;
         if(mode == OBJECT_SPACE_TO_INERTIA_SPACE){
-            result = RotateY(DG2RD(lhs.heading)) * RotateX(DG2RD(lhs.pitch)) * RotateZ(DG2RD(lhs.bank));
+            result = GetMatrixRotateByY(DG2RD(lhs.heading)) * GetMatrixRotateByX(DG2RD(lhs.pitch)) * GetMatrixRotateByZ(DG2RD(lhs.bank));
         }else if(mode == INERTIA_SPACE_TO_OBJECT_SPACE){
-            result = RotateZ(-DG2RD(lhs.bank)) * RotateX(-DG2RD(lhs.pitch)) * RotateY(-DG2RD(lhs.heading));
+            result = GetMatrixRotateByZ(-DG2RD(lhs.bank)) * GetMatrixRotateByX(-DG2RD(lhs.pitch)) * GetMatrixRotateByY(-DG2RD(lhs.heading));
         }
         return result;
     }
