@@ -97,13 +97,13 @@ inline vector<T, 3>& Project(vector<T, 3> &lhs, const vector<U, 3> &normal){
 }
 
 template<typename  T, typename U, typename RT /* = T */>
-inline vector<RT, 2> GetProject(const vector<T, 2> &lhs, const vector<U, 2> &normal){
+inline vector<RT, 2> GetProjected(const vector<T, 2> &lhs, const vector<U, 2> &normal){
     vector<RT, 2> result(lhs);
     return Project(result, normal);
 }
 
 template<typename  T, typename U, typename RT /* = T */>
-inline vector<RT, 3> GetProject(const vector<T, 3> &lhs, const vector<U, 3> &normal){
+inline vector<RT, 3> GetProjected(const vector<T, 3> &lhs, const vector<U, 3> &normal){
     vector<RT, 3> result(lhs);
     return Project(result, normal);
 }
@@ -112,7 +112,7 @@ inline vector<RT, 3> GetProject(const vector<T, 3> &lhs, const vector<U, 3> &nor
  *   求点位于沿直线方向上的缩放(其中direction是方向向量，且默认直线或平面过原点）
  */
 template<typename T, typename U>
-inline vector<T, 2>& Scale(vector<T, 2> &lhs, const vector<U, 2> &direction, const float s){
+inline vector<T, 2>& ScaleByDirection(vector<T, 2> &lhs, const vector<U, 2> &direction, const float s){
     vector<T, 2> n(direction);
     Normalize(n);
     T nxx = 1 + (s - 1) * n.x * n.x, nxy = (s - 1) * n.x * n.y, nyy = 1 + (s - 1) * n.y * n.y;
@@ -123,7 +123,7 @@ inline vector<T, 2>& Scale(vector<T, 2> &lhs, const vector<U, 2> &direction, con
 }
 
 template<typename T, typename U>
-inline vector<T, 3>& Scale(vector<T, 3> &lhs, const vector<U, 3> &direction, const float s){
+inline vector<T, 3>& ScaleByDirection(vector<T, 3> &lhs, const vector<U, 3> &direction, const float s){
     vector<T, 3> n(direction);
     Normalize(n);
     T nxx = 1 + (s - 1) * n.x * n.x,  nyy = 1 + (s - 1) * n.y * n.y, nzz = 1 + (s - 1) * n.z * n.z;
@@ -136,15 +136,15 @@ inline vector<T, 3>& Scale(vector<T, 3> &lhs, const vector<U, 3> &direction, con
 }
 
 template<typename T, typename U, typename RT>
-inline vector<RT, 2> GetScale(const vector<T, 2> &lhs, const vector<U, 2> &direction, const float s){
+inline vector<RT, 2> GetScaledByDirection(const vector<T, 2> &lhs, const vector<U, 2> &direction, const float s){
     vector<RT, 2> result(lhs);
-    return Scale(result, direction, s);
+    return ScaleByDirection(result, direction, s);
 }
 
 template<typename T, typename U, typename RT>
-inline vector<RT, 3> GetScale(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s){
+inline vector<RT, 3> GetScaledByDirection(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s){
     vector<RT, 3> result(lhs);
-    return Scale(result, direction, s);
+    return ScaleByDirection(result, direction, s);
 }
 
 template<typename T, int M>
@@ -236,7 +236,7 @@ inline Matrix<T, Scale, Scale> GetMatrixRotateByZ(const T radian){
 }
 
 template<typename T, int Scale /* = 4 */>
-inline Matrix<T, Scale, Scale> GetScalarMatrix(const T sx, const T sy, const T sz){
+inline Matrix<T, Scale, Scale> GetScaleMatrix(const T sx, const T sy, const T sz){
     Matrix<T, Scale, Scale> result;
     result.m_Element[Scale - 1][Scale - 1] = T(1);
     result.m_Element[0][0] = sx;
@@ -698,7 +698,7 @@ inline NX::vector<T, 3> GetTransformedPoint(const NX::vector<T, 3> &v, const NX:
  *  返回点投影到直线(2维)或平面(3维)上的投影方程（其中normal是法线，且默认直线或平面过原点)
  */
 template<typename  T, typename U, typename RT /* = float */>
-inline Matrix<RT, 2, 2> GetTransformMatrix(const vector<T, 2> &lhs, const vector<U, 2> &normal){
+inline Matrix<RT, 2, 2> GetProjectMatrix(const vector<T, 2> &lhs, const vector<U, 2> &normal){
     Matrix<RT, 2, 2> result;
     vector<RT, 2> n(normal);
     Normalize(n);
@@ -708,7 +708,7 @@ inline Matrix<RT, 2, 2> GetTransformMatrix(const vector<T, 2> &lhs, const vector
 }
 
 template<typename  T, typename U, typename RT /* = float */>
-inline Matrix<RT, 3, 3> GetTransformMatrix(const vector<T, 3> &lhs, const vector<U, 3> &normal){
+inline Matrix<RT, 3, 3> GetProjectMatrix(const vector<T, 3> &lhs, const vector<U, 3> &normal){
     Matrix<RT, 3, 3> result;
     vector<RT, 3> n(normal);
     Normalize(n);
@@ -719,7 +719,7 @@ inline Matrix<RT, 3, 3> GetTransformMatrix(const vector<T, 3> &lhs, const vector
 }
 
 template<typename T, typename U, typename RT /* = float */>
-inline Matrix<RT, 2, 2> GetScaleMatrix(const vector<T, 2> &lhs, const vector<U, 2> &direction, const float s){
+inline Matrix<RT, 2, 2> GetMatrixScaleByDirection(const vector<T, 2> &lhs, const vector<U, 2> &direction, const float s){
     Matrix<RT, 2, 2> result;
     vector<RT, 2> n(direction);
     Normalize(n);
@@ -729,7 +729,7 @@ inline Matrix<RT, 2, 2> GetScaleMatrix(const vector<T, 2> &lhs, const vector<U, 
 }
 
 template<typename T, typename U, typename RT /* = float */>
-inline Matrix<RT, 3, 3> GetScaleMatrix(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s){
+inline Matrix<RT, 3, 3> GetMatrixScaleByDirection(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s){
     Matrix<RT, 3, 3> result;
     vector<RT, 3> n(direction);
     Normalize(n);

@@ -72,7 +72,7 @@ int main(){
     
     {
         NX::vector<float, 2> a(1, 22), ax(1, 22);
-        auto Y = NX::GetScale(a, ax, 2);
+        auto Y = NX::GetScaledByDirection(a, ax, 2);
         cout << " end" << endl;
     }
     

@@ -52,25 +52,25 @@ namespace NX {
     inline vector<T, 3>& Project(vector<T, 3> &lhs, const vector<U, 3> &normal);
     
     template<typename  T, typename U, typename RT = T>
-    inline vector<RT, 2> GetProject(const vector<T, 2> &lhs, const vector<U, 2> &normal);
+    inline vector<RT, 2> GetProjected(const vector<T, 2> &lhs, const vector<U, 2> &normal);
     
     template<typename  T, typename U, typename RT = T>
-    inline vector<RT, 3> GetProject(const vector<T, 3> &lhs, const vector<U, 3> &normal);
+    inline vector<RT, 3> GetProjected(const vector<T, 3> &lhs, const vector<U, 3> &normal);
     
     /**
      *   求点位于沿直线方向上的缩放(其中direction是方向向量，且默认直线或平面过原点）
      */
     template<typename T, typename U>
-    inline vector<T, 2>& Scale(vector<T, 2> &lhs, const vector<U, 2> &direction, const float s);
+    inline vector<T, 2>& ScaleByDirection(vector<T, 2> &lhs, const vector<U, 2> &direction, const float s);
     
     template<typename T, typename U>
-    inline vector<T, 3>& Scale(vector<T, 3> &lhs, const vector<U, 3> &direction, const float s);
+    inline vector<T, 3>& ScaleByDirection(vector<T, 3> &lhs, const vector<U, 3> &direction, const float s);
     
     template<typename T, typename U, typename RT = T>
-    inline vector<RT, 2> GetScale(const vector<T, 2> &lhs, const vector<U, 2> &direction, const float s);
+    inline vector<RT, 2> GetScaledByDirection(const vector<T, 2> &lhs, const vector<U, 2> &direction, const float s);
     
     template<typename T, typename U, typename RT = T>
-    inline vector<RT, 3> GetScale(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s);
+    inline vector<RT, 3> GetScaledByDirection(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s);
     
     //=================================end some vector function=========================================================
     
@@ -100,7 +100,7 @@ namespace NX {
     inline Matrix<T, Scale, Scale> GetMatrixRotateByZ(const T radian);
     
     template<typename T, int Scale = 4>
-    inline Matrix<T, Scale, Scale> GetScalarMatrix(const T sx, const T sy, const T sz);
+    inline Matrix<T, Scale, Scale> GetScaleMatrix(const T sx, const T sy, const T sz);
     
     template<typename T, int Scale = 4, typename U>
     inline Matrix<T, Scale, Scale> GetMatrixRotateByAix(const vector<U, 3> &Aix, const T radian);
@@ -211,19 +211,19 @@ namespace NX {
      *  返回点投影到直线(2维)或平面(3维)上的投影方程（其中normal是法线，且默认直线或平面过原点)
      */
     template<typename  T, typename U, typename RT = float>
-    inline Matrix<RT, 2, 2> GetTransformMatrix(const vector<T, 2> &lhs, const vector<U, 2> &normal);
+    inline Matrix<RT, 2, 2> GetProjectMatrix(const vector<T, 2> &lhs, const vector<U, 2> &normal);
     
     template<typename  T, typename U, typename RT = float>
-    inline Matrix<RT, 3, 3> GetTransformMatrix(const vector<T, 3> &lhs, const vector<U, 3> &normal);
+    inline Matrix<RT, 3, 3> GetProjectMatrix(const vector<T, 3> &lhs, const vector<U, 3> &normal);
     
     /**
      *  返回点沿给定方向的缩放变换矩阵
      */
     template<typename T, typename U, typename RT = float>
-    inline Matrix<RT, 2, 2> GetScaleMatrix(const vector<T, 2> &lhs, const vector<U, 2> &direction, const float s);
+    inline Matrix<RT, 2, 2> GetMatrixScaleByDirection(const vector<T, 2> &lhs, const vector<U, 2> &direction, const float s);
     
     template<typename T, typename U, typename RT = float>
-    inline Matrix<RT, 3, 3> GetScaleMatrix(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s);
+    inline Matrix<RT, 3, 3> GetMatrixScaleByDirection(const vector<T, 3> &lhs, const vector<U, 3> &direction, const float s);
     //==================================end some matrix function========================================================
     
     
