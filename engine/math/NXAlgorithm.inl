@@ -683,7 +683,7 @@ inline NX::vector<T, 3>  GetTransformedVector(const NX::vector<T, 3> &v, const N
 }
 
 template<typename T, typename U>
-inline NX::vector<T, 3> TransformedPoint(const NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m){
+inline NX::vector<T, 3> GetTransformedPoint(const NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m){
     NX::vector<T, 3> result(v);
     return TransformPoint(result, m);
 }

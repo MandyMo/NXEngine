@@ -202,7 +202,7 @@ namespace NX {
     inline NX::vector<T, 3> GetTransformedVector(const NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
     
     template<typename T, typename U>
-    inline NX::vector<T, 3> TransformedPoint(const NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m);
+    inline NX::vector<T, 3> GetTransformedPoint(const NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m);
     
     template<typename T, typename U>
     inline NX::vector<T, 3> GetTransformedPoint(const NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
@@ -227,7 +227,7 @@ namespace NX {
     //==================================end some matrix function========================================================
     
     
-    //================================================几种旋转模型转换函数=====================================================
+    //================================================几种旋转模型转换函数================================================
     EulerAngle MatrixToEulerAngle(const Matrix<float, 3, 3> &rhs, const EulerAngleMode mode);
     EulerAngle MatrixToEulerAngle(const Matrix<float, 4, 4> &rhs, const EulerAngleMode mode);
     Matrix<float, 4, 4> EulerAngleToMatrix(const EulerAngle &lhs, const EulerAngleMode mode);
