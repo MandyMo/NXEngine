@@ -87,6 +87,10 @@ namespace NX{
             return Length(t * m_vDirection - v);
         }
 
+        inline bool OnLine(const NX::vector<float, 3> &point){
+            return NX::EqualZero(Distance(point));
+        }
+        
         std::pair<bool, vector<float, 3> >  Intersect(const Line &rhs) const;   //两直线的交点
         std::pair<bool, vector<float, 3> >  Intersect(const Plane &plane) const;//直线与平面交点
         

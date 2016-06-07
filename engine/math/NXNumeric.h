@@ -7,6 +7,7 @@
 
 #ifndef __ZX_NXENGINE_NUMERIC_H__
 #define __ZX_NXENGINE_NUMERIC_H__
+#include <cmath>
 
 namespace NX{
     //==============================================begin epsilon value=================================================
@@ -73,6 +74,45 @@ namespace NX{
     static const double llfPiOver2     = klfPi * 0.5;
     static const double klf1OverPi     = 1.0 / klfPi;
     static const double klf1Over2Pi    = 1.0 / kf2Pi;
+    //==================================================================================================================
+    
+    //==========================================constant number=========================================================
+    static const float kf0             = 0.0f;
+    static const float kf1             = 1.0f;
+    static const float kf2             = 2.0f;
+    static const float kf3             = 3.0f;
+    static const float kf1Over2        = kf1 / kf2;
+    static const float kf1Over3        = kf1 / kf3;
+    static const float kf2Over3        = kf2 / kf3;
+    static const float kf3Over2        = kf3 / kf2;
+    static const float kfSqrt2         = std::sqrt(kf2);
+    static const float kfSqrt3         = std::sqrt(kf3);
+    static const float kf1OverSqrt3    = kf1 / kfSqrt3;
+    static const float kf1OverSqrt2    = kf1 / kfSqrt2;
+    static const float kf2OverSqrt3    = kf2 * kf1Over3;
+    
+    static const float klf0            = 0.0;
+    static const float klf1            = 1.0;
+    static const float klf2            = 2.0;
+    static const float klf3            = 3.0;
+    static const float klf1Over2       = klf1 / klf2;
+    static const float klf1Over3       = klf1 / klf3;
+    static const float klf2Over3       = klf2 / klf3;
+    static const float klf3Over2       = klf3 / klf2;
+    static const float klfSqrt2        = std::sqrt(klf2);
+    static const float klfSqrt3        = std::sqrt(klf3);
+    static const float klf1OverSqrt3   = klf1 / klfSqrt3;
+    static const float klf1OverSqrt2   = klf1 / klfSqrt2;
+    static const float klf2OverSqrt3   = klf2 * klf1Over3;
+    //==================================================================================================================
+    
+    
+    //==================================================nature constant=================================================
+    static const float kfe             = 2.71828182845904523536028747135266249775724709369995f;
+    static const float kf1Overe        = kf1 / kfe;
+    
+    static const double klfe           = 2.71828182845904523536028747135266249775724709369995;
+    static const double klf1Overe      = klf1 / klfe;
     //==================================================================================================================
 }
 

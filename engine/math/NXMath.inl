@@ -16,7 +16,7 @@ inline float DG2RD(const T angle){
 
 template<typename T>
 inline float RD2DG(const T radian){
-    return radian * 180.0f / kfPi;
+    return radian * 180.0f * kf1OverPi;
 }
 
 inline int RandIntInRange(int left, int right){

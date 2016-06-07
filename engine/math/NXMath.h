@@ -88,6 +88,14 @@ namespace NX {
     double  NXQuickKSquare(const double base, const int k, const double Delta = NX::Epsilon<double>::m_Epsilon);
     double  NXKSquare(const double base, const int k);
     
+    inline bool EqualZero(const float v,  const float Delta = Epsilon<float>::m_Epsilon){
+        return v >= -Delta && v <= Delta;
+    }
+    
+    inline bool EqualZero(const double v, const double Delta = Epsilon<double>::m_Epsilon){
+        return v >= -Delta && v <= Delta;
+    }
+    
     //============================================begin float comparsion macro==========================================
 #ifndef DECLARE_EQUAL_TYPE
 #define DECLARE_EQUAL_TYPE(type) \

@@ -59,6 +59,14 @@ namespace NX {
             return m_vCenter;
         }
         
+        inline bool InSphere(const NX::vector<float, 3> &point) const{
+            return NX::LengthSquare(point - GetCenter()) <= GetRadius() * GetRadius();
+        }
+        
+        inline bool OnSphere(const NX::vector<float, 3> &point) const{
+            return NX::Equalfloat(NX::Length(point - GetCenter()), GetRadius());
+        }
+        
     public:
         inline Sphere  GetTransformed(const Matrix<float, 3, 3> &matrix) const{
             return Sphere(*this).Transform(matrix);

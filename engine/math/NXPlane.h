@@ -85,7 +85,16 @@ namespace NX {
             m_fDistFromOriginal *= Mult;
             return *this;
         }
-
+        
+    public:
+        NX::vector<float, 3> GetNormal() const{
+            return m_vPlaneNormal;
+        }
+        
+        float GetDistFromOriginal() const{
+            return m_fDistFromOriginal;
+        }
+        
     public:
         std::pair<bool, Line>   Intersect(const Plane &rhs) const;  //平面交线
         std::pair<bool, float3> Intersect(const Line  &rhs) const;  //直线与平面交点

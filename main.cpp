@@ -17,6 +17,10 @@
 #include "../engine/math/NXSphere.h"
 #include "../engine/math/NXCircle.h"
 #include "../engine/math/NXTriangle.h"
+#include "../engine/math/NXRayTrace.h"
+#include "../engine/math/NXAABB.h"
+#include "../engine/math/NXNumeric.h"
+
 
 using std::cout;
 using std::endl;
@@ -232,6 +236,65 @@ int main(){
         
         auto bar = a * 0.3 + b * 0.7 + c * 0.0;
         auto sov = ti.GetBaryCentricCoord(bar);
+        cout << "end" << endl;
+    }
+    
+    {//ray aabb
+        NX::RayTrace &RT = NX::RayTrace::Instance();
+        NX::AABB aabb(NX::float3(1, 1, 1), NX::float3(10, 100, 100));
+        NX::Line ray(NX::float3(-1, -3, -5), NX::float3(1, 1, 0.5));
+        auto t = RT.RTAABB(ray, aabb);
+        
+        cout <<"end" << endl;
+    }
+    
+    {//ray circlr
+        NX::RayTrace &RT = NX::RayTrace::Instance();
+        NX::float3 a(1, 1, 1);
+        NX::float3 b(2, 3, 4);
+        NX::float3 c(7, 8, 9);
+        NX::Circle cc(a, b, c);
+        NX::Line ray(NX::float3(0, 1, 1), (a + b + c) / NX::kf2);
+
+        float t = RT.RTCircle(ray, cc);
+        NX::float3 pt = ray.GetPoint(t);
+        auto sov = NX::Triangle(a, b, c).GetBaryCentricCoord(pt);
+        auto np = sov.x * a + sov.y * b + sov.z * c;
+        cout <<"end" << endl;
+    }
+    
+    {//ray plane
+        NX::RayTrace &RT = NX::RayTrace::Instance();
+        NX::float3 a(1, 1, 1);
+        NX::float3 b(2, 3, 4);
+        NX::float3 c(7, 8, 9);
+        NX::Plane cc(a, b, c);
+        NX::Line ray(NX::float3(0, 1, 1), (a + b + c) / NX::kf2);
+        
+        float t = RT.RTPlane(ray, cc);
+        NX::float3 pt = ray.GetPoint(t);
+        auto sov = NX::Triangle(a, b, c).GetBaryCentricCoord(pt);
+        auto np = sov.x * a + sov.y * b + sov.z * c;
+        cout <<"end" << endl;
+    }
+    
+    {//ray sphere
+        NX::RayTrace &RT = NX::RayTrace::Instance();
+        NX::float3 a(1, 1, 1);
+        NX::float3 b(2, 3, 4);
+        NX::float3 c(7, 8, 9);
+        NX::Plane cc(a, b, c);
+        NX::Line ray(NX::float3(0, 1, 1), (a + b + c) / NX::kf2);
+        NX::Sphere sphere(NX::float3(0, 0, 0), 0.770080023);
+        
+        float l = ray.Distance(sphere.GetCenter());
+        
+        float t = RT.RTSphere(ray, sphere);
+        
+        auto pt = ray.GetPoint(-0.12790697813034058);
+        
+        auto ss = NX::Length(pt - sphere.GetCenter());
+        
         cout << "end" << endl;
     }
 }
