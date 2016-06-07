@@ -175,20 +175,37 @@ namespace NX {
     inline NX::vector<T, 3>& TransformNormalVector(NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m);
     
     template<typename T, typename U>
-    inline NX::vector<T, 3>  TransformNormalVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
+    inline NX::vector<T, 3>& TransformNormalVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
     
     template<typename T, typename U>
     inline NX::vector<T, 3>& TransformVector(NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m);
     
     template<typename T, typename U>
-    inline NX::vector<T, 3>  TransformVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
+    inline NX::vector<T, 3>& TransformVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
     
     template<typename T, typename U>
     inline NX::vector<T, 3>& TransformPoint(NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m);
     
     template<typename T, typename U>
-    inline NX::vector<T, 3>  TransformPoint(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
+    inline NX::vector<T, 3>& TransformPoint(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
     
+    template<typename T, typename U>
+    inline NX::vector<T, 3> GetTransformedNormalVector(const NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m);
+    
+    template<typename T, typename U>
+    inline NX::vector<T, 3> GetTransformedNormalVector(const NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
+    
+    template<typename T, typename U>
+    inline NX::vector<T, 3> GetTransformedVector(const NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m);
+    
+    template<typename T, typename U>
+    inline NX::vector<T, 3> GetTransformedVector(const NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
+    
+    template<typename T, typename U>
+    inline NX::vector<T, 3> TransformedPoint(const NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m);
+    
+    template<typename T, typename U>
+    inline NX::vector<T, 3> GetTransformedPoint(const NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m);
     
     /**
      *  返回点投影到直线(2维)或平面(3维)上的投影方程（其中normal是法线，且默认直线或平面过原点)

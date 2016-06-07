@@ -624,7 +624,7 @@ inline NX::vector<T, 3>& TransformNormalVector(NX::vector<T, 3> &v, const NX::Ma
 }
 
 template<typename T, typename U>
-inline NX::vector<T, 3> TransformNormalVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
+inline NX::vector<T, 3>& TransformNormalVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
     const Matrix<T, 3, 1> &RV = NX::GetTransposed(NX::GetReverse(m)) * v;
     v.Set(RV[0][0], RV[1][0], RV[2][0]);
     return v;
@@ -636,7 +636,7 @@ inline NX::vector<T, 3>& TransformVector(NX::vector<T, 3> &v, const NX::Matrix<U
 }
 
 template<typename T, typename U>
-inline NX::vector<T, 3>  TransformVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
+inline NX::vector<T, 3>& TransformVector(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
     const Matrix<T, 3, 1> &RV = m * v;
     v.Set(RV[0][0], RV[1][0], RV[2][0]);
     return v;
@@ -651,11 +651,47 @@ inline NX::vector<T, 3>& TransformPoint(NX::vector<T, 3> &v, const NX::Matrix<U,
 }
 
 template<typename T, typename U>
-inline NX::vector<T, 3>  TransformPoint(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
+inline NX::vector<T, 3>& TransformPoint(NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
     NX::Matrix<U, 4, 4> matrix(m);
     matrix[0][3] = matrix[1][3] = matrix[2][3] = matrix[3][0] = matrix[3][1] = matrix[3][2] = U(0);
     matrix[3][3] = U(1);
     return TransformPoint(v, matrix);
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3> GetTransformedNormalVector(const NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m){
+    NX::vector<T, 3> result(v);
+    return TransformNormalVector(result, m);
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3> GetTransformedNormalVector(const NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
+    NX::vector<T, 3> result(v);
+    return TransformNormalVector(result, m);
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3> GetTransformedVector(const NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m){
+    NX::vector<T, 3> result(v);
+    return TransformVector(result, m);
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3>  GetTransformedVector(const NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
+    NX::vector<T, 3> result(v);
+    return TransformVector(result, m);
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3> TransformedPoint(const NX::vector<T, 3> &v, const NX::Matrix<U, 4, 4> &m){
+    NX::vector<T, 3> result(v);
+    return TransformPoint(result, m);
+}
+
+template<typename T, typename U>
+inline NX::vector<T, 3> GetTransformedPoint(const NX::vector<T, 3> &v, const NX::Matrix<U, 3, 3> &m){
+    NX::vector<T, 3> result(v);
+    return TransformPoint(result, m);
 }
 
 /**
