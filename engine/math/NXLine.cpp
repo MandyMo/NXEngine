@@ -9,6 +9,7 @@
 #include "NXAlgorithm.h"
 #include "NXMath.h"
 #include "NXPlane.h"
+#include "NXMath.h"
 
 namespace NX{
     float Line::Distance(const Line &rhs) const{//两直线距离
@@ -35,13 +36,16 @@ namespace NX{
         Matrix<float, 2, 2> M;
         vector<float, 2>    V;
         M[0][0] = ::NX::LengthSquare(m_vDirection),  M[0][1] = -::NX::Dot(m_vDirection, rhs.m_vDirection);
-        M[1][0] = -M[0][1],                    M[1][1] = LengthSquare(rhs.m_vDirection);
+        M[1][0] = -M[0][1],                          M[1][1] = LengthSquare(rhs.m_vDirection);
         V[0] = ::NX::Dot(m_vDirection, rhs.m_BeginPosition - m_BeginPosition);
         V[1] = ::NX::Dot(rhs.m_vDirection, m_BeginPosition - rhs.m_BeginPosition);
         const std::pair<bool, vector<float, 2> > &SS = SolveEquation(M, V);
         if(SS.first){
-            return std::make_pair(true, GetPoint(SS.second[0]));
+            const float t1 = SS.second[0], t2 = SS.second[1];
+            if(NX::Length(GetPoint(t1) - rhs.GetPoint(t2)) <= Epsilon<float>::m_Epsilon){
+                return std::make_pair(true, GetPoint(t1));
+            }
         }
-        return std::make_pair(false, vector<float, 2>());
+        return std::make_pair(false, vector<float, 3>());
     }
 }

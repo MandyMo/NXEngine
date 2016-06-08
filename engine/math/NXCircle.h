@@ -58,11 +58,11 @@ namespace NX {
     
     public:
         inline bool InCircle(const NX::vector<float, 3> &point) const{
-            return NX::LengthSquare(point - m_vCenter) <= m_fRadius * m_fRadius;
+            return NX::EqualZero(NX::Dot(point - GetCenter(), GetNormal())) && NX::LengthSquare(point - m_vCenter) <= m_fRadius * m_fRadius;
         }
         
         inline bool OnCircle(const NX::vector<float, 3> &point, const float Delta = NX::Epsilon<float>::m_Epsilon) const{
-            return NX::Equalfloat(NX::Length(point - m_vCenter), Delta);
+            return NX::EqualZero(NX::Dot(point - GetCenter(), GetNormal())) && NX::Equalfloat(NX::Length(point - m_vCenter), Delta);
         }
         
     public:

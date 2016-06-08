@@ -58,6 +58,7 @@
 		6C966F661CA9524400E4A9BC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C966F641CA9524400E4A9BC /* SkyBox.cpp */; };
 		6CB884621C97BC760022CB52 /* DrawInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB884601C97BC760022CB52 /* DrawInstance.cpp */; };
 		6CB884651C97EA320022CB52 /* NXMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF79BC01C7FF06F0037F256 /* NXMath.cpp */; };
+		6CB9AC8C1D0823FC00E3E6B8 /* NXEllipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB9AC8A1D0823FC00E3E6B8 /* NXEllipse.cpp */; };
 		6CC3ED971C846F0300B00CB0 /* NXTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CC3ED951C846F0300B00CB0 /* NXTexture.cpp */; };
 		6CCAE3FD1C7C4F3200D090CB /* NXApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CCAE3F11C7C4EC800D090CB /* NXApplication.cpp */; };
 		6CCAE3FF1C7C4F3D00D090CB /* NXProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CCAE3F71C7C4EC800D090CB /* NXProgram.cpp */; };
@@ -814,6 +815,8 @@
 		6CB884611C97BC760022CB52 /* DrawInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawInstance.h; sourceTree = "<group>"; };
 		6CB884631C97E4AE0022CB52 /* DrawInstanceVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DrawInstanceVS.glsl; sourceTree = "<group>"; };
 		6CB884641C97E4B80022CB52 /* DrawInstanceFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DrawInstanceFS.glsl; sourceTree = "<group>"; };
+		6CB9AC8A1D0823FC00E3E6B8 /* NXEllipse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXEllipse.cpp; sourceTree = "<group>"; };
+		6CB9AC8B1D0823FC00E3E6B8 /* NXEllipse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXEllipse.h; sourceTree = "<group>"; };
 		6CC3ED951C846F0300B00CB0 /* NXTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXTexture.cpp; sourceTree = "<group>"; };
 		6CC3ED961C846F0300B00CB0 /* NXTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXTexture.h; sourceTree = "<group>"; };
 		6CC3ED991C8475A800B00CB0 /* texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = texture.jpg; path = image/texture.jpg; sourceTree = SOURCE_ROOT; };
@@ -2237,6 +2240,8 @@
 				6C8BBF391D045C1D0052C31A /* NXAABB.h */,
 				6C8BBF3B1D059C270052C31A /* NXTriangle.cpp */,
 				6C8BBF3C1D059C270052C31A /* NXTriangle.h */,
+				6CB9AC8A1D0823FC00E3E6B8 /* NXEllipse.cpp */,
+				6CB9AC8B1D0823FC00E3E6B8 /* NXEllipse.h */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -3737,6 +3742,7 @@
 				6CD71C391C83EA0B00910E57 /* ImfDwaCompressor.cpp in Sources */,
 				6CD71AFC1C83EA0B00910E57 /* jccoefct.c in Sources */,
 				6CD71BA91C83EA0B00910E57 /* tif_stream.cxx in Sources */,
+				6CB9AC8C1D0823FC00E3E6B8 /* NXEllipse.cpp in Sources */,
 				6CD71B5C1C83EA0B00910E57 /* jp2.c in Sources */,
 				6CD71B921C83EA0B00910E57 /* tif_dirread.c in Sources */,
 				6CD71C0E1C83EA0B00910E57 /* utils.thread.c in Sources */,

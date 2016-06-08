@@ -115,6 +115,22 @@ float NX::RayTrace::RTCircle(const NX::Line &ray,   const NX::Circle &circle){
 }
 
 float NX::RayTrace::RTLine(const NX::Line &ray, const NX::Line &line){
+    float V12   = NX::Dot(ray.GetDirection(), line.GetDirection());
+    float Delta = V12 * V12 - ::NX::LengthSquare(ray.GetDirection()) * ::NX::LengthSquare(line.GetDirection());
+    if(NX::NXAbs(Delta) < Epsilon<float>::m_Epsilon){//line parallel, so it's easy
+        return -kf1;
+    }else{
+        vector<float, 3> v = line.GetBeginPosition() - ray.GetBeginPosition();
+        float a = NX::Dot(v, ray.GetDirection()), b = Dot(v, line.GetDirection());
+        float V11 = NX::LengthSquare(ray.GetDirection());
+        float V22 = NX::LengthSquare(line.GetDirection());
+        float t1 = (-V22 * a + V12 * b) / Delta;
+        float t2 = (-V12 * a + V11 * b) / Delta;
+        if(NX::Length(ray.GetPoint(t1) - line.GetPoint(t2)) > Epsilon<float>::m_Epsilon){
+            return -kf1;
+        }
+        return t1;
+    }
     return 0;
 }
 
@@ -147,5 +163,38 @@ float NX::RayTrace::RTSphere(const NX::Line &ray,   const NX::Sphere &sphere){
 }
 
 float NX::RayTrace::RTTriangle(const NX::Line &ray, const NX::Triangle &triangle){
-    return 0;
+    NXAssert(0 && "float NX::RayTrace::RTTriangle(const NX::Line &ray, const NX::Triangle &triangle)");
+    const NX::vector<float, 3> e1 = triangle.GetPointB() - triangle.GetPointA();
+    const NX::vector<float, 3> e2 = triangle.GetPointC() - triangle.GetPointA();
+    const NX::vector<float, 3> d  = NX::GetNegative(ray.GetDirection());
+    const NX::vector<float, 3> s  = ray.GetBeginPosition() - triangle.GetPointA();
+    const NX::vector<float, 3> n  = NX::Cross(e1, e2);
+    float Mult = NX::Dot(d, n);
+    float result;
+    do{
+        if(EqualZero(Mult)){
+            result = -kf1;
+            break;
+        }
+        Mult = kf1 / Mult;
+        float u, v, t;
+        t = Mult * NX::Dot(s, n);
+        if(t < kf0){
+            result = -kf1;
+            break;
+        }
+        result = t;
+        const NX::vector<float, 3> q  = NX::Cross(d, s);
+        u = Mult * NX::Dot(q, e2);
+        if(u > kf1 || u < kf0){
+            result =  -kf1;
+            break;
+        }
+        
+        v = -Mult * NX::Dot(q, e1);
+        if(v > kf1 || v < kf0 || u + v > kf1){
+            result = -kf1;
+        }
+    }while(0);
+    return result;
 }

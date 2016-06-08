@@ -297,6 +297,28 @@ int main(){
         
         cout << "end" << endl;
     }
+    
+    {//ray triangle
+        NX::RayTrace &RT = NX::RayTrace::Instance();
+        NX::float3 a(1, 1, 1);
+        NX::float3 b(2, 3, 4);
+        NX::float3 c(7, 8, 9);
+        NX::Triangle cc (a, b, c);
+        
+        NX::Line ray(NX::float3(0, 1, 1), (a + b + c) / NX::kf2);
+        
+        auto t = RT.RTTriangle(ray, cc);
+        
+        auto p = ray.GetPoint(t);
+        
+        auto np =  0.4 * b  + 0.6 * c;
+        auto npp = cc.GetPointByBaryCentricCoord(0, 0.4, 0.6);
+        cout << "end" << endl;
+    }
+    
+    {//ray line
+        
+    }
 }
 
 

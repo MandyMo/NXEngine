@@ -694,6 +694,15 @@ inline NX::vector<T, 3> GetTransformedPoint(const NX::vector<T, 3> &v, const NX:
     return TransformPoint(result, m);
 }
 
+template<typename A, typename B, typename RT>
+inline NX::Matrix<RT, 4, 4> CreateTransformMatrixByRotateAndTranslation(const NX::Matrix<A, 3, 3> &R, const NX::vector<B, 3> &T){
+    NX::Matrix<RT, 4, 4> result(R);
+    result[3][0] = result[3][1] = result[3][2] = RT(0);
+    result.SetCol(3, T);
+    result[3][3] = RT(1);
+    return result;
+}
+
 /**
  *  返回点投影到直线(2维)或平面(3维)上的投影方程（其中normal是法线，且默认直线或平面过原点)
  */
