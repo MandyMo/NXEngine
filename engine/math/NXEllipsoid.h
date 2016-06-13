@@ -11,7 +11,7 @@
 #include "NXVector.h"
 
 namespace NX{
-    tempalte<typename T, int Row, int Col>
+    template<typename T, int Row, int Col>
     class Matrix;
     
     class Ellipsoid{
@@ -28,13 +28,57 @@ namespace NX{
             /*empty*/
         }
         
-        inline Ellipsoid(const float fSemiAxisX, const float fSemiAxisY, const float fSemiAxisZ, const NX::vector<float, 3> &T,    const NX::Matrix<float, 3, 3> &R);
+        Ellipsoid(const float fSemiAxisX, const float fSemiAxisY, const float fSemiAxisZ, const NX::vector<float, 3> &T,    const NX::Matrix<float, 3, 3> &R);
         
-        inline Ellipsoid(const float fSemiAxisX, const float fSemiAxisY, const float fSemiAxisZ, const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T);
+        Ellipsoid(const float fSemiAxisX, const float fSemiAxisY, const float fSemiAxisZ, const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T);
         
-        inline Ellipsoid(const float fSemiAxisX, const float fSemiAxisY, const float fSemiAxisZ, const NX::Matrix<float, 3, 3> &R);
+        Ellipsoid(const float fSemiAxisX, const float fSemiAxisY, const float fSemiAxisZ, const NX::Matrix<float, 3, 3> &R);
         
-        inline Ellipsoid(const float fSemiAxisX, const float fSemiAxisY, const float fSemiAxisZ, const NX::Matrix<float, 4, 4> &M);
+        Ellipsoid(const float fSemiAxisX, const float fSemiAxisY, const float fSemiAxisZ, const NX::Matrix<float, 4, 4> &M);
+        
+    public:
+        Ellipsoid& Transform(const NX::Matrix<float, 3, 3> &R);
+        Ellipsoid& Transform(const NX::Matrix<float, 4, 4> &M);
+        Ellipsoid& Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T);
+        Ellipsoid& Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R);
+        
+        Ellipsoid GetTransformed(const NX::Matrix<float, 3, 3> &R) const
+        Ellipsoid GetTransformed(const NX::Matrix<float, 4, 4> &M) const;
+        Ellipsoid GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T) const;
+        Ellipsoid GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const;
+    
+    public:
+        inline NX::vector<float, 3> GetCenter() const{
+            return m_vCenter;
+        }
+        
+        inline NX::vector<float, 3> GetAxisX() const{
+            return m_vSemiAxisX;
+        }
+        
+        inline NX::vector<float, 3> GetAxisY() const{
+            return m_vSemiAxisY;
+        }
+        
+        inline NX::vector<float, 3> GetAxisZ() const{
+            return m_vSemiAxisZ;
+        }
+        
+        inline float GetAxisXLength() const{
+            return m_fSemiAxisX;
+        }
+        
+        inline float GetAxisYLength() const{
+            return m_fSemiAxisY;
+        }
+        
+        inline float GetAxisZLength() const{
+            return m_fSemiAxisZ;
+        }
+        
+    public:
+        bool InEllipsoid(const NX::vector<float, 3> &point) const;
+        bool OnEllipsoid(const NX::vector<float, 3> &point) const;
         
     public:
         NX::vector<float, 3>     m_vCenter;

@@ -713,6 +713,20 @@ inline NX::Matrix<RT, 4, 4> CreateTransformMatrixByTranslationAndRotate(const NX
     result[3][3] = RT(1);
     return result;
 }
+
+template<typename A, typename B, typename RT>
+inline NX::Matrix<float, 4, 4> GetTRMatrix(const NX::vector<A, 3> &T, const NX::Matrix<B, 3, 3> &R){
+    return NX::CreateTransformMatrixByTranslationAndRotate<A, B, RT>(T, R);
+}
+
+/**
+ *  first rotate then translation
+ */
+template<typename A, typename B, typename RT>
+inline NX::Matrix<float, 4, 4> GetRTMatrix(const NX::Matrix<A, 3, 3> &R, const NX::vector<B, 3> &T){
+    return NX::CreateTransformMatrixByRotateAndTranslation<A, B, RT>(R, T);
+}
+
 /**
  *  返回点投影到直线(2维)或平面(3维)上的投影方程（其中normal是法线，且默认直线或平面过原点)
  */
