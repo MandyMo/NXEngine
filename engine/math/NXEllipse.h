@@ -10,6 +10,7 @@
 #define __ZX_NXENGINE_ELLIPSE_H__
 
 #include "NXVector.h"
+#include "NXAlgorithm.h"
 
 namespace NX {
     template<typename T, int Row, int Col>
@@ -18,17 +19,26 @@ namespace NX {
     class Ellipse{
     public:
         inline Ellipse(){
-                /*empty*/
-        }
-        
-        inline Ellipse(const NX::vector<float, 3> &center, const NX::vector<float, 3> &normal, const NX::vector<float, 3> &vShortAxis,
-                       const NX::vector<float, 3> &vLongAxis, const float fLongAxis, const float fShortAxis):
-        m_vCenter(center), m_vNormal(normal),m_vLongSemiAxis(vLongAxis), m_vShortSemiAxis(vShortAxis),m_fLongSemiAxis(fLongAxis),m_fShortSemiAxis(fShortAxis){
             /*empty*/
         }
         
-        Ellipse(const float fLongAxis, const float fShortAxis, const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3> &T);
+        /**
+         *  becareful that m_vNormal, m_vShortAxis, m_vLongAxis must be unit vector(length is 1)
+         */
+        inline Ellipse(const NX::vector<float, 3> &center, const NX::vector<float, 3> &normal, const NX::vector<float, 3> &vShortAxis,
+                       const NX::vector<float, 3> &vLongAxis, const float fLongAxis, const float fShortAxis):
+        m_vCenter(center), m_vNormal(normal),m_vLongSemiAxis(vLongAxis), m_vShortSemiAxis(vShortAxis),m_fLongSemiAxis(fLongAxis),m_fShortSemiAxis(fShortAxis){
+            NXAssert(NX::Equalfloat(NX::Length(m_vNormal),        kf1));
+            NXAssert(NX::Equalfloat(NX::Length(m_vShortSemiAxis), kf1));
+            NXAssert(NX::Equalfloat(NX::Length(m_vLongSemiAxis),  kf1));
+            /*empty*/
+        }
+        
+        Ellipse(const float fLongAxis, const float fShortAxis, const NX::vector<float, 3> &T,    const NX::Matrix<float, 3, 3> &R);
+        Ellipse(const float fLongAxis, const float fShortAxis, const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T);
+        Ellipse(const float fLongAxis, const float fShortAxis, const NX::Matrix<float, 3, 3> &M);
         Ellipse(const float fLongAxis, const float fShortAxis, const NX::Matrix<float, 4, 4> &M);
+        Ellipse(const float fLongAxis, const float fShortAxis);
         
     public:
         NX::vector<float, 3> GetCenter() const{
@@ -60,10 +70,12 @@ namespace NX {
         bool OnEllipse(const NX::vector<float, 3> &point) const;
         
     public:
+        Ellipse& Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R);
         Ellipse& Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3> &T);
         Ellipse& Transform(const NX::Matrix<float, 3, 3> &R);
         Ellipse& Transform(const NX::Matrix<float, 4, 4> &M);
         
+        Ellipse GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R);
         Ellipse GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3> &T);
         Ellipse GetTransformed(const NX::Matrix<float, 3, 3> &R);
         Ellipse GetTransformed(const NX::Matrix<float, 4, 4> &M);

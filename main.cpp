@@ -20,13 +20,23 @@
 #include "../engine/math/NXRayTrace.h"
 #include "../engine/math/NXAABB.h"
 #include "../engine/math/NXNumeric.h"
-
+#include "../engine/math/NXEllipse.h"
 
 using std::cout;
 using std::endl;
 using std::cin;
 
+
 int main(){
+    {//TR & RT
+        auto T = NX::GetTranslated(1, 2, 3);
+        auto R = NX::GetMatrixRotateByX(NX::DG2RD(30));
+        auto X = T * R;
+        auto Y = R * T;
+        
+        cout << "end" << endl;
+    }
+    
     {
         const float w = std::sqrt(0.0370370485f);
         cout << w << endl;;
@@ -318,6 +328,16 @@ int main(){
     
     {//ray line
         
+    }
+    
+    {//ellipse
+        NX::Ellipse ec(2, 1);
+        auto M = NX::GetTranslated<float>(1, 2, 3) * NX::GetMatrixRotateByY(NX::DG2RD(45)) * NX::GetTranslated(100.f, 200.f, 300.f);
+        NX::vector<float, 3> pt(std::sqrt(3), 0.4, 0);
+        ec.Transform(M);
+        NX::TransformPoint(pt, M);
+        bool b = ec.InEllipse(pt);
+        cout << "end" << endl;
     }
 }
 

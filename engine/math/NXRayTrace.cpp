@@ -163,11 +163,14 @@ float NX::RayTrace::RTSphere(const NX::Line &ray,   const NX::Sphere &sphere){
 }
 
 float NX::RayTrace::RTTriangle(const NX::Line &ray, const NX::Triangle &triangle){
-    NXAssert(0 && "float NX::RayTrace::RTTriangle(const NX::Line &ray, const NX::Triangle &triangle)");
-    const NX::vector<float, 3> e1 = triangle.GetPointB() - triangle.GetPointA();
-    const NX::vector<float, 3> e2 = triangle.GetPointC() - triangle.GetPointA();
+    return RTTriangle(ray, triangle.GetPointA(), triangle.GetPointB(), triangle.GetPointC());
+}
+
+float NX::RayTrace::RTTriangle(const NX::Line &ray, const NX::vector<float, 3> &ptA, const NX::vector<float, 3> &ptB, const NX::vector<float, 3> &ptC){
+    const NX::vector<float, 3> e1 = ptB - ptA;
+    const NX::vector<float, 3> e2 = ptC - ptA;
     const NX::vector<float, 3> d  = NX::GetNegative(ray.GetDirection());
-    const NX::vector<float, 3> s  = ray.GetBeginPosition() - triangle.GetPointA();
+    const NX::vector<float, 3> s  = ray.GetBeginPosition() - ptA;
     const NX::vector<float, 3> n  = NX::Cross(e1, e2);
     float Mult = NX::Dot(d, n);
     float result;

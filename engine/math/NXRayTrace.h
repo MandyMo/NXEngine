@@ -29,6 +29,7 @@ namespace NX {
         float RTPlane(const NX::Line &ray,    const NX::Plane &plane);
         float RTSphere(const NX::Line &ray,   const NX::Sphere &sphere);
         float RTTriangle(const NX::Line &ray, const NX::Triangle &triangle);
+        float RTTriangle(const NX::Line &ray, const NX::vector<float, 3> &ptA, const NX::vector<float, 3> &ptB, const NX::vector<float, 3> &ptC);
     };
 }
 
