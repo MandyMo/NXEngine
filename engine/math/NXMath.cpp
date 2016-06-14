@@ -93,6 +93,13 @@ std::vector<NX::Complex> NX::SolveEquation(const float a, const float b){
     return result;
 }
 
+std::vector<float> NX::SolveEquationWithOnlyRealResult(const float a, const float b){
+    NXAssert(!NX::EqualZero(a));
+    std::vector<float> result;
+    result.push_back(-b / a);
+    return result;
+}
+
 /**
  * axx + bx + c = 0
  */
@@ -112,6 +119,23 @@ std::vector<NX::Complex> NX::SolveEquation(const float a, const float b, const f
         float d = std::sqrt(-delta);
         result.push_back(NX::Complex(-b,  d) * Mult);
         result.push_back(NX::Complex(-b, -d) * Mult);
+    }
+    return result;
+}
+
+std::vector<float> NX::SolveEquationWithOnlyRealResult(const float a, const float b, const float c){
+    NXAssert(!NX::Equalfloat(a, 0.0f));
+    const float delta = b * b - 4 * a * c;
+    std::vector<float> result;
+    const float Mult = 0.5f / a;
+    if(NX::Equalfloat(delta, 0.0f)){
+        result.push_back(-b * Mult);
+    }else if(delta > 0){
+        float d = std::sqrt(delta);
+        result.push_back((-b + d) * Mult);
+        result.push_back((-b - d) * Mult);
+    }else{//unreal solution
+        /*not real solution, we don't need it*/
     }
     return result;
 }
@@ -153,6 +177,40 @@ std::vector<NX::Complex> NX::SolveEquation(const float a, const float b, const f
     }
     const float w = x / 3.0f;
     for(int i = 0; i < 3; ++i){
+        result[i] -= w;
+    }
+    return result;
+}
+
+std::vector<float> NX::SolveEquationWithOnlyRealResult(const float a, const float b, const float c, const float d){
+    NXAssert(!NX::Equalfloat(a, 0.0f));
+    const float Mult = 1.0f / a;
+    const float x = b * Mult;
+    const float y = c * Mult;
+    const float z = d * Mult;
+    const float p = -x * x / 9.0f + y / 3.0f;
+    const float q =  x * x * x / 27.0f - x * y / 6.0f + 0.5f * z;
+    const float D = -(p * p * p + q * q);
+    const float Exp = 1.0f / 3.0f;
+    std::vector<float> result;
+    if(NX::Equalfloat(D, 0.0f)){//two real solution
+        const float r = std::pow(NX::NXAbs(-q), Exp) * NX::NXSign(-q);
+        result.push_back(2 * r);
+        result.push_back(-r);
+    }else if(D < 0.0f){//only one real solution
+        const float w = std::sqrt(-D);
+        const float r = std::pow(NX::NXAbs(-q + w), Exp) * NX::NXSign(-q + w);
+        const float s = std::pow(NX::NXAbs(-q - w), Exp) * NX::NXSign(-q - w);
+        result.push_back(r + s);
+    }else{//three real solution
+        const float w = std::sqrt(-p);
+        float Theta = std::acos(q / (w * p)) * Exp;
+        result.push_back(2 * w * std::cos(Theta));
+        result.push_back(2 * w * std::cos(Theta + 2.0f * Exp * kfPi));
+        result.push_back(2 * w * std::cos(Theta - 2.0f * Exp * kfPi));
+    }
+    const float w = x / 3.0f;
+    for(int i = 0; i < result.size(); ++i){
         result[i] -= w;
     }
     return result;
@@ -206,6 +264,51 @@ std::vector<NX::Complex> NX::SolveEquation(const float a, const float b, const f
     }
     return result;
 }
+
+std::vector<float> NX::SolveEquationWithOnlyRealResult(const float a, const float b, const float c, const float d, const float e){
+    NXAssert(!NX::Equalfloat(a, 0.0f));
+    const float Mult = 1.0f / a;
+    const float x = b * Mult;
+    const float y = c * Mult;
+    const float z = d * Mult;
+    const float w = e * Mult;
+    const float p = -3.0f / 8.0f * x * x + y;
+    const float q = 1.0f / 8 * x * x * x - 0.5f * x * y + z;
+    const float r = -3.0f / 256.f * x * x * x * x + x * x * y / 16.f - 0.25f * x * z + w;
+    const std::vector<float> &TS = NX::SolveEquationWithOnlyRealResult(1.0f, -p * 0.5f, -r, (4.0f * r * p - q * q) / 8.0f);
+    const float solv = TS[0];
+    std::vector<float> result;
+    float CofA, CofB, CofC, CofD;
+    if(q >= 0.0f){
+        CofA = std::sqrt(2.0 * solv - p);
+        CofB = -std::sqrt(solv * solv - r);
+        CofC = -CofA;
+        CofD = -CofB;
+        CofB += solv;
+        CofD += solv;
+    }else{
+        CofA = std::sqrt(2.0 * solv - p);
+        CofB = std::sqrt(solv * solv - r);
+        CofC = -CofA;
+        CofD = -CofB;
+        CofB += solv;
+        CofD += solv;
+    }
+    const std::vector<float> &SA = NX::SolveEquationWithOnlyRealResult(1.0f, CofA, CofB);
+    const std::vector<float> &SB = NX::SolveEquationWithOnlyRealResult(1.0f, CofC, CofD);
+    for(int i = 0; i < SA.size(); ++i){
+        result.push_back(SA[i]);
+    }
+    for(int i = 0; i < SB.size(); ++i){
+        result.push_back(SB[i]);
+    }
+    const float delta = x / 4.0f;
+    for(int i = 0; i < result.size(); ++i){
+        result[i] -= delta;
+    }
+    return result;
+}
+
 
 std::pair<bool, NX::vector<float, 2> > NX::SolveEquation(const NX::Matrix<float, 2, 2> &M, const NX::vector<float, 2> &V){
     std::pair<bool, NX::vector<float, 2> > result;

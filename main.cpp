@@ -254,7 +254,7 @@ int main(){
         NX::RayTrace &RT = NX::RayTrace::Instance();
         NX::AABB aabb(NX::float3(1, 1, 1), NX::float3(10, 100, 100));
         NX::Line ray(NX::float3(-1, -3, -5), NX::float3(1, 1, 0.5));
-        auto t = RT.RTAABB(ray, aabb);
+        auto t = RT.RayIntersect(ray, aabb);
         
         cout <<"end" << endl;
     }
@@ -267,7 +267,7 @@ int main(){
         NX::Circle cc(a, b, c);
         NX::Line ray(NX::float3(0, 1, 1), (a + b + c) / NX::kf2);
 
-        float t = RT.RTCircle(ray, cc);
+        float t = RT.RayIntersect(ray, cc);
         NX::float3 pt = ray.GetPoint(t);
         auto sov = NX::Triangle(a, b, c).GetBaryCentricCoord(pt);
         auto np = sov.x * a + sov.y * b + sov.z * c;
@@ -282,7 +282,7 @@ int main(){
         NX::Plane cc(a, b, c);
         NX::Line ray(NX::float3(0, 1, 1), (a + b + c) / NX::kf2);
         
-        float t = RT.RTPlane(ray, cc);
+        float t = RT.RayIntersect(ray, cc);
         NX::float3 pt = ray.GetPoint(t);
         auto sov = NX::Triangle(a, b, c).GetBaryCentricCoord(pt);
         auto np = sov.x * a + sov.y * b + sov.z * c;
@@ -300,7 +300,7 @@ int main(){
         
         float l = ray.Distance(sphere.GetCenter());
         
-        float t = RT.RTSphere(ray, sphere);
+        float t = RT.RayIntersect(ray, sphere);
         
         auto pt = ray.GetPoint(-0.12790697813034058);
         
@@ -318,7 +318,7 @@ int main(){
         
         NX::Line ray(NX::float3(0, 1, 1), (a + b + c) / NX::kf2);
         
-        auto t = RT.RTTriangle(ray, cc);
+        auto t = RT.RayIntersect(ray, cc);
         
         auto p = ray.GetPoint(t);
         

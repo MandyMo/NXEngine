@@ -125,21 +125,25 @@ return NX::NXAbs(va - vb) <= delta;\
      *  ax + b = 0
      */
     std::vector<NX::Complex> SolveEquation(const float a, const float b);
+    std::vector<float>  SolveEquationWithOnlyRealResult(const float a, const float b);
     
     /**
      * axx + bx + c = 0
      */
     std::vector<NX::Complex> SolveEquation(const float a, const float b, const float c);
+    std::vector<float>  SolveEquationWithOnlyRealResult(const float a, const float b, const float c);
     
     /**
      *  axxx + bxx + cx + d = 0
      */
     std::vector<NX::Complex> SolveEquation(const float a, const float b, const float c, const float d);
+    std::vector<float>  SolveEquationWithOnlyRealResult(const float a, const float b, const float c, const float d);
     
     /**
      *  axxxx + bxxx + cxx + dx + e = 0
      */
     std::vector<NX::Complex> SolveEquation(const float a, const float b, const float c, const float d, const float e);
+    std::vector<float>  SolveEquationWithOnlyRealResult(const float a, const float b, const float c, const float d, const float e);
     
     std::pair<bool, NX::vector<float, 2> > SolveEquation(const NX::Matrix<float, 2, 2> &M, const NX::vector<float, 2> &V);
     //==================================================================================================================

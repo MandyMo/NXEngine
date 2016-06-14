@@ -11,11 +11,16 @@
 #include "NXPlane.h"
 #include "NXSphere.h"
 #include "NXTriangle.h"
+#include "NXEllipse.h"
+#include "NXEllipsoid.h"
+#include "NXCone.h"
+#include "NXCylinder.h"
 #include "NXRayTrace.h"
 #include "NXMath.h"
 #include "NXComplex.h"
 
-float NX::RayTrace::RTAABB(const NX::Line &ray,     const NX::AABB &aabb){
+
+float NX::RayTrace::RayIntersect(const NX::Line &ray,     const NX::AABB &aabb){
     const NX::vector<float, 3> V  = ray.GetDirection();
     const NX::vector<float, 3> S  = ray.GetBeginPosition();
     const NX::vector<float, 3> LB = aabb.GetMinPoint();
@@ -101,7 +106,7 @@ float NX::RayTrace::RTAABB(const NX::Line &ray,     const NX::AABB &aabb){
     return T;
 }
 
-float NX::RayTrace::RTCircle(const NX::Line &ray,   const NX::Circle &circle){
+float NX::RayTrace::RayIntersect(const NX::Line &ray,   const NX::Circle &circle){
     const float nv = NX::Dot(circle.GetNormal(), ray.GetDirection());
     if(EqualZero(nv)){
         return -kf1;
@@ -114,7 +119,7 @@ float NX::RayTrace::RTCircle(const NX::Line &ray,   const NX::Circle &circle){
     return -kf1;
 }
 
-float NX::RayTrace::RTLine(const NX::Line &ray, const NX::Line &line){
+float NX::RayTrace::RayIntersect(const NX::Line &ray, const NX::Line &line){
     float V12   = NX::Dot(ray.GetDirection(), line.GetDirection());
     float Delta = V12 * V12 - ::NX::LengthSquare(ray.GetDirection()) * ::NX::LengthSquare(line.GetDirection());
     if(NX::NXAbs(Delta) < Epsilon<float>::m_Epsilon){//line parallel, so it's easy
@@ -134,7 +139,7 @@ float NX::RayTrace::RTLine(const NX::Line &ray, const NX::Line &line){
     return 0;
 }
 
-float NX::RayTrace::RTPlane(const NX::Line &ray,    const NX::Plane &plane){
+float NX::RayTrace::RayIntersect(const NX::Line &ray,    const NX::Plane &plane){
     const float nv = NX::Dot(plane.GetNormal(), ray.GetDirection());
     if(EqualZero(nv)){
         return -kf1;
@@ -142,7 +147,7 @@ float NX::RayTrace::RTPlane(const NX::Line &ray,    const NX::Plane &plane){
     return -(plane.GetDistFromOriginal() + NX::Dot(plane.GetNormal(), ray.GetBeginPosition())) / nv;
 }
 
-float NX::RayTrace::RTSphere(const NX::Line &ray,   const NX::Sphere &sphere){
+float NX::RayTrace::RayIntersect(const NX::Line &ray,   const NX::Sphere &sphere){
     const vector<float, 3> sc = ray.GetBeginPosition() - sphere.GetCenter();
     const vector<float, 3> v  = ray.GetDirection();
     const float r = sphere.GetRadius();
@@ -162,11 +167,11 @@ float NX::RayTrace::RTSphere(const NX::Line &ray,   const NX::Sphere &sphere){
     }
 }
 
-float NX::RayTrace::RTTriangle(const NX::Line &ray, const NX::Triangle &triangle){
-    return RTTriangle(ray, triangle.GetPointA(), triangle.GetPointB(), triangle.GetPointC());
+float NX::RayTrace::RayIntersect(const NX::Line &ray, const NX::Triangle &triangle){
+    return RayIntersect(ray, triangle.GetPointA(), triangle.GetPointB(), triangle.GetPointC());
 }
 
-float NX::RayTrace::RTTriangle(const NX::Line &ray, const NX::vector<float, 3> &ptA, const NX::vector<float, 3> &ptB, const NX::vector<float, 3> &ptC){
+float NX::RayTrace::RayIntersect(const NX::Line &ray, const NX::vector<float, 3> &ptA, const NX::vector<float, 3> &ptB, const NX::vector<float, 3> &ptC){
     const NX::vector<float, 3> e1 = ptB - ptA;
     const NX::vector<float, 3> e2 = ptC - ptA;
     const NX::vector<float, 3> d  = NX::GetNegative(ray.GetDirection());
@@ -200,4 +205,89 @@ float NX::RayTrace::RTTriangle(const NX::Line &ray, const NX::vector<float, 3> &
         }
     }while(0);
     return result;
+}
+
+float NX::RayTrace::RayIntersect(const NX::Line &ray,     const NX::Ellipse     &ellipse){
+    const float a = NX::Dot(ray.GetDirection(), ellipse.GetNormal());
+    const float b = NX::Dot(ellipse.GetNormal(), ellipse.GetCenter() - ray.GetBeginPosition());
+    if(NX::EqualZero(a)){
+        return -kf1;
+    }
+    const float t = b / a;
+    if(t > kf0  && ellipse.InEllipse(ray.GetPoint(t))){
+        return t;
+    }
+    return -kf1;
+}
+
+float NX::RayTrace::RayIntersect(const NX::Line &ray,     const NX::Ellipsoid   &ellipsoid){
+    const NX::vector<float, 3> v   = ray.GetDirection();
+    const NX::vector<float, 3> cs  = ray.GetBeginPosition() - ellipsoid.GetCenter();
+    const float rpx = kf1 / (ellipsoid.GetAxisXLength() * ellipsoid.GetAxisXLength());
+    const float rpy = kf1 / (ellipsoid.GetAxisYLength() * ellipsoid.GetAxisYLength());
+    const float rpz = kf1 / (ellipsoid.GetAxisZLength() * ellipsoid.GetAxisZLength());
+    
+    const float vx  = NX::Dot(v,  ellipsoid.GetAxisX());
+    const float vy  = NX::Dot(v,  ellipsoid.GetAxisY());
+    const float vz  = NX::Dot(v,  ellipsoid.GetAxisZ());
+    const float csx = NX::Dot(cs, ellipsoid.GetAxisX());
+    const float csy = NX::Dot(cs, ellipsoid.GetAxisY());
+    const float csz = NX::Dot(cs, ellipsoid.GetAxisZ());
+    
+    const float a = vx * vx * rpx + vy * vy * rpy * vz * vz * rpz;
+    const float b = vx * csx * kf2 * rpx + vy * csy * kf2 * rpy + vz * csz * kf2 * rpz;
+    const float c = csx * csx * rpx + csy * csy * rpy + csz * csz * rpz - kf1;
+    
+    if(NX::EqualZero(a)){
+        return -kf1;
+    }
+    const std::vector<float> SOV = NX::SolveEquationWithOnlyRealResult(a, b, c);
+    if(SOV.empty()){
+        return -kf1;
+    }
+    int idx = 0;
+    for(int i = 1; i < SOV.size(); ++i){
+        if(SOV[i] > kf0 && SOV[i] < SOV[idx]){
+            idx = i;
+        }
+    }
+    
+    return SOV[idx] > kf0 ? SOV[idx] : -kf1;
+}
+
+float NX::RayTrace::RayIntersect(const NX::Line &ray,     const NX::Cone        &cone){
+    return -kf1;
+}
+
+float NX::RayTrace::RayIntersect(const NX::Line &ray,     const NX::Cylinder    &cylinder){
+    //to be continue
+    //    const NX::vector<float, 3> v  = ray.GetDirection();
+    //    const NX::vector<float, 3> cs = ray.GetBeginPosition() - ellipse.GetCenter();
+    //    const float rpl  = kf1 / (ellipse.GetLongSemiAxisLength()  * ellipse.GetLongSemiAxisLength());
+    //    const float rps  = kf1 / (ellipse.GetShortSemiAxisLength() * ellipse.GetShortSemiAxisLength());
+    //    const float vl   = NX::Dot(v,  ellipse.GetLongSemiAxis());
+    //    const float vs   = NX::Dot(v,  ellipse.GetShortSemiAxis());
+    //    const float csl  = NX::Dot(cs, ellipse.GetLongSemiAxis());
+    //    const float css  = NX::Dot(cs, ellipse.GetShortSemiAxis());
+    //    const float a = vl * vl * rpl + vs * vs * rps;
+    //    const float b = vl * csl * kf2 * rpl + vs * css * kf2 * rps;
+    //    const float c = csl * csl * rpl + css * css * rps - kf1;
+    //    if(NX::EqualZero(a)){
+    //        return -kf1;
+    //    }
+    //    const std::vector<float> SOV = NX::SolveEquationWithOnlyRealResult(a, b, c);
+    //    if(SOV.empty()){
+    //        return -kf1;
+    //    }
+    //    int idx = 0;
+    //    for(int i = 1; i < SOV.size(); ++i){
+    //        if(SOV[i] > kf0 && SOV[i] < SOV[idx]){
+    //            idx = i;
+    //        }
+    //    }
+    //
+    //    return SOV[idx] > kf0 ? SOV[idx] : -kf1;
+    return -kf1;
+
+    return -kf1;
 }
