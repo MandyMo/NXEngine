@@ -191,8 +191,6 @@ namespace NX {
     std::string ArrayElementName(const T (&)[len]){
         return typeid(T).name();
     }
-    
 }
-
 
 #endif //!__ZX_NXENGINE_CORE_H__

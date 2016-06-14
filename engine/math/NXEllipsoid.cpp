@@ -1,5 +1,5 @@
 /*
- *  File:    NXEllipsoid.h
+ *  File:    NXEllipsoid.cpp
  *  author:  张雄
  *  date:    2016_06_013
  *  purpose: define ellipsoid
@@ -40,10 +40,10 @@ namespace NX {
     }
 
     Ellipsoid& Ellipsoid::Transform(const NX::Matrix<float, 3, 3> &R){
-        TransformPoint (m_vCenter,    R);
-        TransformVector(m_vSemiAxisX, R);
-        TransformVector(m_vSemiAxisY, R);
-        TransformVector(m_vSemiAxisZ, R);
+        NX::TransformPoint (m_vCenter,    R);
+        NX::TransformVector(m_vSemiAxisX, R);
+        NX::TransformVector(m_vSemiAxisY, R);
+        NX::TransformVector(m_vSemiAxisZ, R);
         return *this;
     }
     
@@ -56,10 +56,10 @@ namespace NX {
     }
     
     Ellipsoid& Ellipsoid::Transform(const NX::Matrix<float, 4, 4> &M){
-        TransformPoint (m_vCenter,    M);
-        TransformVector(m_vSemiAxisX, M);
-        TransformVector(m_vSemiAxisY, M);
-        TransformVector(m_vSemiAxisZ, M);
+        NX::TransformPoint (m_vCenter,    M);
+        NX::TransformVector(m_vSemiAxisX, M);
+        NX::TransformVector(m_vSemiAxisY, M);
+        NX::TransformVector(m_vSemiAxisZ, M);
         return *this;
     }
 

@@ -13,6 +13,9 @@
 #include "NXLine.h"
 #include "NXSphere.h"
 #include "NXAABB.h"
+#include "NXTriangle.h"
+#include "NXEllipse.h"
+#include "NXEllipsoid.h"
 
 namespace NX{
     //==================================begin line nomember function====================================================

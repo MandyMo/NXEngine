@@ -48,6 +48,7 @@ namespace NX{
         Ellipsoid GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T) const;
         Ellipsoid GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const;
         Ellipsoid GetTranslated(const NX::vector<float, 3> &T) const;
+        
     public:
         inline NX::vector<float, 3> GetCenter() const{
             return m_vCenter;

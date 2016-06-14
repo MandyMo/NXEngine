@@ -21,7 +21,8 @@
 #include "../engine/math/NXAABB.h"
 #include "../engine/math/NXNumeric.h"
 #include "../engine/math/NXEllipse.h"
-
+#include "../engine/math/NXCone.h"
+#include "../engine/common/NXUtility.h"
 using std::cout;
 using std::endl;
 using std::cin;
@@ -332,11 +333,37 @@ int main(){
     
     {//ellipse
         NX::Ellipse ec(2, 1);
-        auto M = NX::GetTranslated<float>(1, 2, 3) * NX::GetMatrixRotateByY(NX::DG2RD(45)) * NX::GetTranslated(100.f, 200.f, 300.f);
-        NX::vector<float, 3> pt(std::sqrt(3), 0.4, 0);
+        auto M = NX::GetTranslated<float>(1, 2, 3) * NX::GetMatrixRotateByY(NX::DG2RD(45)) * NX::GetTranslated(100.f, 200.f, 300.f) * NX::GetMatrixRotateByX(NX::DG2RD(25));
+        NX::vector<float, 3> pt(std::sqrt(3), 0, 0.5);
         ec.Transform(M);
         NX::TransformPoint(pt, M);
         bool b = ec.InEllipse(pt);
+        cout << "end" << endl;
+    }
+    
+    {
+        auto x = NX::MakePair(1, 2), y = NX::MakePair(1, 2);
+        
+        cout << (x == y) << endl;
+        
+        auto xt = NX::MakePair(1, 2, 3), yt = NX::MakePair(1, 2, 3);
+        
+        cout << (xt == yt) << endl;
+        
+        auto xq = NX::MakePair(1, 2, 3, 4), yq = NX::MakePair(0, 2, 3, 4);
+        
+        cout << (xq == yq) << endl;
+        
+        cout << "end" << endl;
+    }
+    
+    {//test cone
+        NX::Cone c(2, 1, 4);
+        auto M = NX::GetTranslated<float>(100, 200, 300) * NX::GetMatrixRotateByX(NX::DG2RD(20)) * NX::GetMatrixRotateByY(NX::DG2RD(15)) * NX::GetMatrixRotateByZ(NX::DG2RD(40));
+        auto pt = NX::float3(std::sqrt(3) / 2, 2.000005,  0.5 / 2);
+        c.Transform(M);
+        NX::TransformPoint(pt, M);
+        bool b = c.OnCone(pt);
         cout << "end" << endl;
     }
 }

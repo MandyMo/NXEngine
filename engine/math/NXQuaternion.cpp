@@ -27,7 +27,7 @@ namespace NX{
         std::memcpy(m_V, v, sizeof(m_V));
     }
 
-    Quaternion::Quaternion(const float radian, const vector<float, 3> &Axis){
+    Quaternion::Quaternion(const float radian, const NX::vector<float, 3> &Axis){
         //<w, (x, y, z)>  == <cos(theta / 2), Axis * sin(theta / 2)>
         vector<float, 3> axis(Axis);
         NX::Normalize(axis);
@@ -44,7 +44,7 @@ namespace NX{
         std::memcpy(m_V, rhs.m_V, sizeof(m_V));
     }
 
-    Quaternion::Quaternion(const vector<float, 4> &rhs){
+    Quaternion::Quaternion(const NX::vector<float, 4> &rhs){
         std::memcpy(m_V, &rhs.x, sizeof(m_V));
     }
 
@@ -114,11 +114,11 @@ namespace NX{
         return Quaternion(lhs) *= value;
     }
 
-    Quaternion operator * (const Quaternion &lhs, const vector<float, 3> &rhs){
+    Quaternion operator * (const Quaternion &lhs, const NX::vector<float, 3> &rhs){
         return lhs * Quaternion(0.0f, rhs.x, rhs.y, rhs.z) * lhs.GetInverse();
     }
     
-    Quaternion operator * (const Quaternion &lhs, const vector<float, 4> &rhs){
+    Quaternion operator * (const Quaternion &lhs, const NX::vector<float, 4> &rhs){
         NXAssert(NXAbs(rhs.w) > Epsilon<float>::m_Epsilon);
         const float Mult = 1.0f / rhs.w;
         return lhs * Quaternion(0.0f, rhs.x * Mult, rhs.y * Mult, rhs.z * Mult) * lhs.GetInverse();
@@ -140,7 +140,7 @@ namespace NX{
         return Quaternion(lhs) += value;
     }
 
-    float4X4 Quaternion::GetRotateMatrix() const{
+    NX::float4X4 Quaternion::GetRotateMatrix() const{
         NX::float4X4 result;
         float xx = 2 * x * x, yy = 2 * y * y, zz = 2 * z * z;
         float wx = 2 * w * x, wy = 2 * w * y, wz = 2 * w * z;
@@ -157,12 +157,12 @@ namespace NX{
         return Quaternion(w, -x, -y, -z);
     }
     
-    vector<float, 3> Quaternion::GetRotated(const vector<float, 3> &rhs){
+   NX:: vector<float, 3> Quaternion::GetRotated(const NX::vector<float, 3> &rhs){
         vector<float, 3> t(rhs);
         return Rotate(t);
     }
 
-    vector<float, 3>& Quaternion::Rotate(vector<float, 3> &rhs){
+    NX::vector<float, 3>& Quaternion::Rotate(NX::vector<float, 3> &rhs){
         const Quaternion &RefObj = (*this) * Quaternion(0, rhs.x, rhs.y, rhs.z) * GetInverse();
         rhs.x = RefObj.x, rhs.y = RefObj.y, rhs.z = RefObj.z;
         return rhs;
@@ -315,7 +315,7 @@ namespace NX{
         return *this;
     }
     
-    Quaternion& Quaternion::SetRotateAboutAxis(const float radian, const vector<float, 3> &axis){
+    Quaternion& Quaternion::SetRotateAboutAxis(const float radian, const NX::vector<float, 3> &axis){
         vector<float, 3> n(NX::GetNormalized(axis));
         const float theta    = radian * 0.5f;
         const float SinValue = std::sin(theta);

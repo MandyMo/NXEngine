@@ -18,7 +18,7 @@ namespace NX {
     }
     
     
-    Ellipse::Ellipse(const float fLongAxis, const float fShortAxis, const NX::vector<float, 3> &T, const NX::Matrix<float, 3, 3> &R):m_vShortSemiAxis(0.0f, 0.0f, 1.0f), m_vNormal(0.0f, 1.0f, 0.0f), m_vCenter(0.0f, 0.0f, 0.0f){
+    Ellipse::Ellipse(const float fLongAxis, const float fShortAxis, const NX::vector<float, 3> &T, const NX::Matrix<float, 3, 3> &R):m_vLongSemiAxis(1.0f, 0.0f, 0.0f), m_vShortSemiAxis(0.0f, 0.0f, 1.0f), m_vNormal(0.0f, 1.0f, 0.0f), m_vCenter(0.0f, 0.0f, 0.0f){
         m_fLongSemiAxis   = fLongAxis;
         m_fShortSemiAxis  = fShortAxis;
         Transform(T, R);
@@ -36,7 +36,7 @@ namespace NX {
         Transform(M);
     }
 
-    Ellipse::Ellipse(const float fLongAxis, const float fShortAxis):m_fLongSemiAxis(fLongAxis), m_fShortSemiAxis(fShortAxis), m_vLongSemiAxis(1.0f, 0.0f, 0.0f), m_vShortSemiAxis(0.0f, 1.0f, 0.0f), m_vCenter(0.0f, 0.0f, 0.0f), m_vNormal(0.0f, 0.0f, 1.0f){
+    Ellipse::Ellipse(const float fLongAxis, const float fShortAxis):m_fLongSemiAxis(fLongAxis), m_fShortSemiAxis(fShortAxis), m_vLongSemiAxis(1.0f, 0.0f, 0.0f), m_vShortSemiAxis(0.0f, 0.0f, 1.0f), m_vCenter(0.0f, 0.0f, 0.0f), m_vNormal(0.0f, 1.0f, 0.0f){
         /*empty*/
     }
     
@@ -99,7 +99,7 @@ namespace NX {
         const float ly = NX::Dot(v, GetShortSemiAxis());
         const float dx = lx / GetLongSemiAxisLength();
         const float dy = ly / GetShortSemiAxisLength();
-        return dx * dx + dy * dy <= kf1;
+        return NX::EqualZero(NX::Dot(v, GetNormal())) && dx * dx + dy * dy <= kf1;
     }
     
     bool Ellipse::OnEllipse(const NX::vector<float, 3> &point) const{
@@ -108,6 +108,6 @@ namespace NX {
         const float ly = NX::Dot(v, GetShortSemiAxis());
         const float dx = lx / GetLongSemiAxisLength();
         const float dy = ly / GetShortSemiAxisLength();
-        return NX::Equalfloat(dx * dx + dy * dy , kf1);
+        return NX::EqualZero(NX::Dot(v, GetNormal())) && NX::Equalfloat(dx * dx + dy * dy , kf1);
     }
 }

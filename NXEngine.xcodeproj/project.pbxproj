@@ -58,6 +58,9 @@
 		6C966F661CA9524400E4A9BC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C966F641CA9524400E4A9BC /* SkyBox.cpp */; };
 		6CB884621C97BC760022CB52 /* DrawInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB884601C97BC760022CB52 /* DrawInstance.cpp */; };
 		6CB884651C97EA320022CB52 /* NXMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF79BC01C7FF06F0037F256 /* NXMath.cpp */; };
+		6CB8E5E31D10087E00F32675 /* NXCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB8E5E11D10087E00F32675 /* NXCone.cpp */; };
+		6CB8E5E51D10147B00F32675 /* NXUtility.h in Sources */ = {isa = PBXBuildFile; fileRef = 6CB8E5E41D10147B00F32675 /* NXUtility.h */; };
+		6CB8E5E81D1025F600F32675 /* NXCylinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB8E5E61D1025F600F32675 /* NXCylinder.cpp */; };
 		6CB9AC8C1D0823FC00E3E6B8 /* NXEllipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CB9AC8A1D0823FC00E3E6B8 /* NXEllipse.cpp */; };
 		6CC3ED971C846F0300B00CB0 /* NXTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CC3ED951C846F0300B00CB0 /* NXTexture.cpp */; };
 		6CCAE3FD1C7C4F3200D090CB /* NXApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CCAE3F11C7C4EC800D090CB /* NXApplication.cpp */; };
@@ -816,6 +819,11 @@
 		6CB884611C97BC760022CB52 /* DrawInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawInstance.h; sourceTree = "<group>"; };
 		6CB884631C97E4AE0022CB52 /* DrawInstanceVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DrawInstanceVS.glsl; sourceTree = "<group>"; };
 		6CB884641C97E4B80022CB52 /* DrawInstanceFS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DrawInstanceFS.glsl; sourceTree = "<group>"; };
+		6CB8E5E11D10087E00F32675 /* NXCone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXCone.cpp; sourceTree = "<group>"; };
+		6CB8E5E21D10087E00F32675 /* NXCone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXCone.h; sourceTree = "<group>"; };
+		6CB8E5E41D10147B00F32675 /* NXUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXUtility.h; sourceTree = "<group>"; };
+		6CB8E5E61D1025F600F32675 /* NXCylinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXCylinder.cpp; sourceTree = "<group>"; };
+		6CB8E5E71D1025F600F32675 /* NXCylinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXCylinder.h; sourceTree = "<group>"; };
 		6CB9AC8A1D0823FC00E3E6B8 /* NXEllipse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXEllipse.cpp; sourceTree = "<group>"; };
 		6CB9AC8B1D0823FC00E3E6B8 /* NXEllipse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXEllipse.h; sourceTree = "<group>"; };
 		6CC3ED951C846F0300B00CB0 /* NXTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXTexture.cpp; sourceTree = "<group>"; };
@@ -2247,6 +2255,10 @@
 				6CB9AC8B1D0823FC00E3E6B8 /* NXEllipse.h */,
 				6CEED85F1D0ED42600ED830D /* NXEllipsoid.cpp */,
 				6CEED8601D0ED42600ED830D /* NXEllipsoid.h */,
+				6CB8E5E11D10087E00F32675 /* NXCone.cpp */,
+				6CB8E5E21D10087E00F32675 /* NXCone.h */,
+				6CB8E5E61D1025F600F32675 /* NXCylinder.cpp */,
+				6CB8E5E71D1025F600F32675 /* NXCylinder.h */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -2286,6 +2298,7 @@
 				6C65F9121CD0C7E3005506C0 /* NXMemory.cpp */,
 				6C65F9131CD0C7E3005506C0 /* NXMemory.h */,
 				6C2E38351CF9928F007A488D /* NXCore.cpp */,
+				6CB8E5E41D10147B00F32675 /* NXUtility.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -3736,6 +3749,7 @@
 				6CD71BC71C83EA0B00910E57 /* dsp.cost.c in Sources */,
 				6CD71C5E1C83EA0B00910E57 /* ImfRgbaFile.cpp in Sources */,
 				6CD71BBF1C83EA0B00910E57 /* dec.webp.c in Sources */,
+				6CB8E5E81D1025F600F32675 /* NXCylinder.cpp in Sources */,
 				6CD71AAF1C83EA0B00910E57 /* ConversionUINT16.cpp in Sources */,
 				6CD71B401C83EA0B00910E57 /* strdec_x86.c in Sources */,
 				6CD71AAB1C83EA0B00910E57 /* ConversionRGBA16.cpp in Sources */,
@@ -3746,6 +3760,7 @@
 				6CD71B5E1C83EA0B00910E57 /* mqc.c in Sources */,
 				6CD71C391C83EA0B00910E57 /* ImfDwaCompressor.cpp in Sources */,
 				6CD71AFC1C83EA0B00910E57 /* jccoefct.c in Sources */,
+				6CB8E5E51D10147B00F32675 /* NXUtility.h in Sources */,
 				6CD71BA91C83EA0B00910E57 /* tif_stream.cxx in Sources */,
 				6CB9AC8C1D0823FC00E3E6B8 /* NXEllipse.cpp in Sources */,
 				6CD71B5C1C83EA0B00910E57 /* jp2.c in Sources */,
@@ -3925,6 +3940,7 @@
 				6CD71C791C83EA0B00910E57 /* IlmThread.cpp in Sources */,
 				6CD71BDD1C83EA0B00910E57 /* dsp.lossless_mips_dsp_r2.c in Sources */,
 				6CD71B781C83EA0B00910E57 /* pngtrans.c in Sources */,
+				6CB8E5E31D10087E00F32675 /* NXCone.cpp in Sources */,
 				6C8BBF311D0456E20052C31A /* NXPlane.cpp in Sources */,
 				6CD71BFF1C83EA0B00910E57 /* enc.webpenc.c in Sources */,
 				6CD71C5C1C83EA0B00910E57 /* ImfRational.cpp in Sources */,
