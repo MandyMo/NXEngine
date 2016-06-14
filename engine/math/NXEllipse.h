@@ -74,11 +74,13 @@ namespace NX {
         Ellipse& Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3> &T);
         Ellipse& Transform(const NX::Matrix<float, 3, 3> &R);
         Ellipse& Transform(const NX::Matrix<float, 4, 4> &M);
+        Ellipse& Translate(const NX::vector<float, 3> &T);
         
-        Ellipse GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R);
-        Ellipse GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3> &T);
-        Ellipse GetTransformed(const NX::Matrix<float, 3, 3> &R);
-        Ellipse GetTransformed(const NX::Matrix<float, 4, 4> &M);
+        Ellipse GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const;
+        Ellipse GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3> &T) const;
+        Ellipse GetTransformed(const NX::Matrix<float, 3, 3> &R) const;
+        Ellipse GetTransformed(const NX::Matrix<float, 4, 4> &M) const;
+        Ellipse GetTranslated(const NX::vector<float, 3> &T) const;
         
     public:
         NX::vector<float, 3> m_vCenter;

@@ -60,20 +60,38 @@ namespace NX {
 
         template<typename T>
         inline Plane& Transform(const NX::Matrix<T, 4, 4> &matrix){
-            const Matrix<T, 4, 1> &M = Transpose(Reverse(matrix)) * float4(m_vPlaneNormal.x, m_vPlaneNormal.y, m_vPlaneNormal.z, m_fDistFromOriginal);
+            const Matrix<T, 4, 1> &M = NX::GetTransposed(NX::GetReverse(matrix)) * float4(m_vPlaneNormal.x, m_vPlaneNormal.y, m_vPlaneNormal.z, m_fDistFromOriginal);
             m_vPlaneNormal.Set(M[0][0], M[1][0], M[2][0]);
             m_fDistFromOriginal = M[3][0];
             return *this;
         }
 
+        Plane& Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T);
+        
+        Plane& Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R);
+        
+        Plane& Translate(const NX::vector<float, 3> &T);
+        
         template<typename T, typename U>
-        inline Plane GetTransformed(const NX::Matrix<T, 3, 3> &matrix, const NX::vector<U, 3> &translation){
+        inline Plane GetTransformed(const NX::Matrix<T, 3, 3> &matrix, const NX::vector<U, 3> &translation) const{
             return Plane(*this).Transform(matrix, translation);
         }
 
         template<typename T>
-        inline Plane GetTransformed(const NX::Matrix<T, 4, 4> &matrix){
+        inline Plane GetTransformed(const NX::Matrix<T, 4, 4> &matrix) const{
             return Plane(*this).Transform(matrix);
+        }
+        
+        inline Plane GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T) const{
+            return Plane(*this).Transform(R, T);
+        }
+        
+        inline Plane GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const{
+            return Plane(*this).Transform(T, R);
+        }
+        
+        inline Plane& GetTranslated(const NX::vector<float, 3> &T) const{
+            return Plane(*this).Translate(T);
         }
         
         inline Plane& Normalize(){
@@ -100,7 +118,7 @@ namespace NX {
         std::pair<bool, float3> Intersect(const Line  &rhs) const;  //直线与平面交点
         float  Distance(const vector<float, 3> &rhs) const;         //点到平面距离
     public:
-        vector<float, 3> m_vPlaneNormal;
+        NX::vector<float, 3> m_vPlaneNormal;
         float            m_fDistFromOriginal;
     };
 }

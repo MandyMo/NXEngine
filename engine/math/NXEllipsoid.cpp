@@ -63,6 +63,11 @@ namespace NX {
         return *this;
     }
 
+    Ellipsoid& Ellipsoid::Translate(const NX::vector<float, 3> &T){
+        m_vCenter += T;
+        return *this;
+    }
+    
     Ellipsoid Ellipsoid::GetTransformed(const NX::Matrix<float, 3, 3> &R) const{
         return Ellipsoid(*this).Transform(R);
     }
@@ -79,6 +84,9 @@ namespace NX {
         return Ellipsoid(*this).Transform(M);
     }
     
+    Ellipsoid Ellipsoid::GetTranslated(const NX::vector<float, 3> &T) const{
+        return Ellipsoid(*this).Translate(T);
+    }
     bool Ellipsoid::InEllipsoid(const NX::vector<float, 3> &point) const{
         const NX::vector<float, 3> v = point - GetCenter();
         const float lx = NX::Dot(v, GetAxisX());

@@ -44,7 +44,7 @@ inline Matrix<T, Row, Col>::Matrix(const T *ptr){
 
 template<typename T, int Row, int Col>
 template<typename U>
-inline Matrix<T, Row, Col>::Matrix(const vector<U, Col> *v){
+inline Matrix<T, Row, Col>::Matrix(const NX::vector<U, Col> *v){
     for(int r = 0; r < Row; ++r){
         for(int c = 0; c < Col; ++c){
             m_Element[r][c] = v[r][c];
@@ -162,7 +162,7 @@ inline T Matrix<T, Row, Col>::GetElement(int row, int col) const{
 
 template<typename T, int Row, int Col>
 template<typename U, int Scale>
-inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const vector<U, Scale> &rhs){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const NX::vector<U, Scale> &rhs){
     NXAssert(row < Row && row >=0);
     for(int i = 0, l = std::min(Scale, Col); i < l; ++i){
         m_Element[row][i] = rhs.v[i];
@@ -172,13 +172,13 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const vector<U,
 
 template<typename T, int Row, int Col>
 template<int Scale>
-inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const vector<T, Scale> &rhs){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const NX::vector<T, Scale> &rhs){
     std::memcpy(&m_Element[row][0], rhs.v, NXMin(Col, Scale) * sizeof(T));
     return *this;
 }
 
 template<typename T, int Row, int Col>
-inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const vector<T, Col> &rhs){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const NX::vector<T, Col> &rhs){
     std::memcpy(&m_Element[row][0], rhs.v, sizeof(T) * Col);
     return *this;
 }
@@ -224,7 +224,7 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, T (&ary)[Scale]
 
 template<typename T, int Row, int Col>
 template<typename U, int Scale>
-inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const vector<U, Scale> &rhs){
+inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const NX::vector<U, Scale> &rhs){
     NXAssert(col < Col && col >=0);
     for(int i = 0, l = std::min(Scale, Row); i < l; ++i){
         m_Element[i][col] = rhs.v[i];
@@ -298,7 +298,7 @@ inline vector<RT, N> operator * (const vector<T, M> &lhs, const Matrix<U, M, N> 
 }
 
 template<typename T, int M, int N, typename U, typename RT>
-inline Matrix<RT, M, 1> operator * (const Matrix<U, M, N> &lhs, const vector<T, N> &rhs){
+inline Matrix<RT, M, 1> operator * (const Matrix<U, M, N> &lhs, const NX::vector<T, N> &rhs){
     Matrix<RT, M, 1> result;
     for(int i = 0; i < M; ++i){
         for(int j = 0; j < N; ++j){
@@ -460,23 +460,23 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SwapCol(int first, int second){
 
 
 template<typename T, int Row, int Col, typename U, typename RT>
-inline Matrix<RT, Row, Col> operator + (const Matrix<T, Row, Col> &lhs, const Matrix<U, Row, Col> &rhs){
+inline NX::Matrix<RT, Row, Col> operator + (const NX::Matrix<T, Row, Col> &lhs, const NX::Matrix<U, Row, Col> &rhs){
     return Matrix<RT, Row, Col>(lhs) += rhs;
 }
 
 template<typename T, int Row, int Col, typename U, typename RT>
-inline Matrix<RT, Row, Col> operator - (const Matrix<T, Row, Col> &lhs, const Matrix<U, Row, Col> &rhs){
+inline NX::Matrix<RT, Row, Col> operator - (const NX::Matrix<T, Row, Col> &lhs, const NX::Matrix<U, Row, Col> &rhs){
     return Matrix<RT, Row, Col>(lhs) -= rhs;
 }
 
 template<typename T, int Row, int Col>
-inline vector<T, Col> Matrix<T, Row, Col>::GetRow(int row){
+inline NX::vector<T, Col> Matrix<T, Row, Col>::GetRow(int row){
     NXAssert(row >= 0 && row < Row);
     return vector<T, Col>(m_Element[row]);
 }
 
 template<typename T, int Row, int Col>
-inline vector<T, Row> Matrix<T, Row, Col>::GetCol(int col){
+inline NX::vector<T, Row> Matrix<T, Row, Col>::GetCol(int col){
     NXAssert(col >= 0 && col < Col);
     vector<T, Row> result;
     for(int i = 0; i < Row; ++i){

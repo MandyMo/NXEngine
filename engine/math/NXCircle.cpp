@@ -54,4 +54,14 @@ namespace NX {
         }
         return *this;
     }
+    
+    Circle& Circle::Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T){
+        NX::Matrix<float, 4, 4> M = NX::GetRTMatrix(R, T);
+        return Transform(M);
+    }
+    
+    Circle& Circle::Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R){
+        NX::Matrix<float, 4, 4> M = NX::GetTRMatrix(T, R);
+        return Transform(M);
+    }
 }

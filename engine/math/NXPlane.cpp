@@ -11,6 +11,16 @@
 #include "NXMath.h"
 
 namespace NX {
+    Plane& Plane::Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T){
+        const NX::Matrix<float, 4, 4> M = NX::GetRTMatrix(R, T);
+        return Transform(M);
+    }
+    
+    Plane& Plane::Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R){
+        const NX::Matrix<float, 4, 4> M = NX::GetTRMatrix(T, R);
+        return Transform(M);
+    }
+    
     std::pair<bool, Line> Plane::Intersect(const Plane &rhs) const{  //平面交线
         Matrix<float, 2, 2> M;
         vector<float, 2>    V;
@@ -37,6 +47,11 @@ namespace NX {
             }
         }
         return std::make_pair(false, Line());
+    }
+    
+    Plane& Plane::Translate(const NX::vector<float, 3> &T){
+        m_fDistFromOriginal -= NX::Dot(T, GetNormal());
+        return *this;
     }
 
     float  Plane::Distance(const vector<float, 3> &rhs) const{      //点到平面距离

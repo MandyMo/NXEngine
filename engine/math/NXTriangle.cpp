@@ -114,11 +114,40 @@ namespace NX{
         return *this;
     }
     
-    Triangle  Triangle::GetTransformed(const NX::Matrix<float, 3, 3> &matrix){
+    Triangle& Triangle::Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T){
+        NX::Matrix<float, 4, 4> M = NX::GetRTMatrix(R, T);
+        return Transform(M);
+    }
+    
+    Triangle& Triangle::Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R){
+        NX::Matrix<float, 4, 4> M = NX::GetTRMatrix(T, R);
+        return Transform(M);
+    }
+    
+    Triangle& Triangle::Translate(const NX::vector<float, 3> &T){
+        m_vPtA += T;
+        m_vPtB += T;
+        m_vPtC += T;
+        return *this;
+    }
+    
+    Triangle  Triangle::GetTransformed(const NX::Matrix<float, 3, 3> &matrix) const{
         return Triangle(*this).Transform(matrix);
     }
     
-    Triangle  Triangle::GetTransformed(const NX::Matrix<float, 4, 4> &matrix){
+    Triangle  Triangle::GetTransformed(const NX::Matrix<float, 4, 4> &matrix) const{
         return Triangle(*this).Transform(matrix);
+    }
+    
+    Triangle Triangle::GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T) const{
+        return Triangle(*this).Transform(R, T);
+    }
+    
+    Triangle Triangle::GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const{
+        return Triangle(*this).Transform(T, R);
+    }
+    
+    Triangle Triangle::GetTranslated(const NX::vector<float, 3> &T) const{
+        return Triangle(*this).Translate(T);
     }
 }

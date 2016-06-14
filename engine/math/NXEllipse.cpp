@@ -68,20 +68,29 @@ namespace NX {
         return *this;
     }
     
-    Ellipse Ellipse::GetTransformed(const NX::vector<float, 3> &T, const NX::Matrix<float, 3, 3> &R){
+    Ellipse& Ellipse::Translate(const NX::vector<float, 3> &T){
+        m_vCenter += T;
+        return *this;
+    }
+    
+    Ellipse Ellipse::GetTransformed(const NX::vector<float, 3> &T, const NX::Matrix<float, 3, 3> &R) const{
         return Ellipse(*this).Transform(T, R);
     }
     
-    Ellipse Ellipse::GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3> &T){
+    Ellipse Ellipse::GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3> &T) const{
         return Ellipse(*this).Transform(R, T);
     }
     
-    Ellipse Ellipse::GetTransformed(const NX::Matrix<float, 3, 3> &R){
+    Ellipse Ellipse::GetTransformed(const NX::Matrix<float, 3, 3> &R) const{
         return Ellipse(*this).Transform(R);
     }
     
-    Ellipse Ellipse::GetTransformed(const NX::Matrix<float, 4, 4> &M){
+    Ellipse Ellipse::GetTransformed(const NX::Matrix<float, 4, 4> &M) const{
         return Ellipse(*this).Transform(M);
+    }
+    
+    Ellipse Ellipse::GetTranslated(const NX::vector<float, 3> &T) const{
+        return Ellipse(*this).Translate(T);
     }
     
     bool Ellipse::InEllipse(const NX::vector<float, 3> &point) const{

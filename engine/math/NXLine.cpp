@@ -12,6 +12,33 @@
 #include "NXMath.h"
 
 namespace NX{
+    Line& Line::Transform(const NX::Matrix<float, 3, 3> &rhs){
+        NX::TransformPoint (m_BeginPosition, rhs);
+        NX::TransformVector(m_vDirection,    rhs);
+        return *this;
+    }
+    
+    Line& Line::Transform(const NX::Matrix<float, 4, 4> &rhs){
+        NX::TransformPoint (m_BeginPosition, rhs);
+        NX::TransformVector(m_vDirection,    rhs);
+        return *this;
+    }
+    
+    Line& Line::Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T){
+        const NX::Matrix<float, 4, 4> M = NX::GetRTMatrix(R, T);
+        return Transform(M);
+    }
+    
+    Line& Line::Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R){
+        const NX::Matrix<float, 4, 4> M = NX::GetTRMatrix(T, R);
+        return Transform(M);
+    }
+    
+    Line& Line::Translate(const NX::vector<float, 3> &T){
+        m_BeginPosition += T;
+        return *this;
+    }
+    
     float Line::Distance(const Line &rhs) const{//两直线距离
         float V12   = NX::Dot(m_vDirection, rhs.m_vDirection);
         float Delta = V12 * V12 - ::NX::LengthSquare(m_vDirection) * ::NX::LengthSquare(rhs.m_vDirection);

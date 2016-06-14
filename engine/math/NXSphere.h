@@ -68,21 +68,31 @@ namespace NX {
         }
         
     public:
-        inline Sphere  GetTransformed(const Matrix<float, 3, 3> &matrix) const{
+        inline Sphere  GetTransformed(const NX::Matrix<float, 3, 3> &matrix) const{
             return Sphere(*this).Transform(matrix);
         }
         
-        inline Sphere  GetTransformed(const Matrix<float, 4, 4> &matrix) const{
+        inline Sphere  GetTransformed(const NX::Matrix<float, 4, 4> &matrix) const{
             return Sphere(*this).Transform(matrix);
         }
         
-        inline Sphere  GetTranslated(const float3 &v) const{
+        inline Sphere  GetTranslated(const NX::float3 &v) const{
             return Sphere(*this).Translate(v);
         }
         
-        Sphere& Transform(const Matrix<float, 3, 3> &matrix);
-        Sphere& Transform(const Matrix<float, 4, 4> &matrix);
-        Sphere& Translate(const float3 &v);
+        inline Sphere GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T) const{
+            return Sphere(*this).Transform(R, T);
+        }
+        
+        inline Sphere GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const{
+            return Sphere(*this).Transform(T, R);
+        }
+        
+        Sphere& Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T);
+        Sphere& Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R);
+        Sphere& Transform(const NX::Matrix<float, 3, 3> &matrix);
+        Sphere& Transform(const NX::Matrix<float, 4, 4> &matrix);
+        Sphere& Translate(const NX::float3 &v);
         
     public:
         bool Intersect(const Sphere &rhs) const;

@@ -84,9 +84,15 @@ namespace NX {
     public:
         Triangle& Transform(const NX::Matrix<float, 3, 3> &matrix);
         Triangle& Transform(const NX::Matrix<float, 4, 4> &matrix);
-        Triangle  GetTransformed(const NX::Matrix<float, 3, 3> &matrix);
-        Triangle  GetTransformed(const NX::Matrix<float, 4, 4> &matrix);
+        Triangle& Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T);
+        Triangle& Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R);
+        Triangle& Translate(const NX::vector<float, 3> &T);
         
+        Triangle  GetTransformed(const NX::Matrix<float, 3, 3> &matrix) const;
+        Triangle  GetTransformed(const NX::Matrix<float, 4, 4> &matrix) const;
+        Triangle  GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T) const;
+        Triangle  GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const;
+        Triangle  GetTranslated(const NX::vector<float, 3> &T) const;
     private:
         NX::vector<float, 3>   m_vPtA;
         NX::vector<float, 3>   m_vPtB;

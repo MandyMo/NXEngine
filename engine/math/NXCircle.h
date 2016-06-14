@@ -74,12 +74,22 @@ namespace NX {
             return Circle(*this).Transform(matrix);
         }
         
+        inline Circle  GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3> &T) const{
+            return Circle(*this).Transform(R, T);
+        }
+        
+        inline Circle  GetTransformed(const NX::vector<float, 3> &T, const NX::Matrix<float, 4, 4> &R) const{
+            return Circle(*this).Transform(T, R);
+        }
+        
         inline Circle  GetTranslated(const NX::float3 &v) const{
             return Circle(*this).Translate(v);
         }
         
         Circle& Transform(const NX::Matrix<float, 3, 3> &matrix);
         Circle& Transform(const NX::Matrix<float, 4, 4> &matrix);
+        Circle& Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T);
+        Circle& Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R);
         
         Circle& Translate(const NX::float3 &v){
             m_vCenter += v;

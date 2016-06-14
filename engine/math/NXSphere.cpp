@@ -39,6 +39,16 @@ namespace NX {
         return *this;
     }
     
+    Sphere& Sphere::Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T){
+        NX::Matrix<float, 4, 4> M = NX::GetRTMatrix(R, T);
+        return Transform(M);
+    }
+    
+    Sphere& Sphere::Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R){
+        NX::Matrix<float, 4, 4> M = NX::GetTRMatrix(T, R);
+        return Transform(M);
+    }
+    
     Sphere& Sphere::Translate(const float3 &v){
         m_vCenter += v;
         return *this;

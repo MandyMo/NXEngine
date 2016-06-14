@@ -19,52 +19,37 @@ namespace NX{
     class Line{
     public:
         inline explicit Line(){/*empty*/}
-        Line(const vector<float, 3> &begin, const vector<float, 3> &end):m_BeginPosition(begin), m_vDirection(end - begin){
+        Line(const NX::vector<float, 3> &begin, const NX::vector<float, 3> &end):m_BeginPosition(begin), m_vDirection(end - begin){
             /*empty*/
         }
 
     public:
-        template<typename T>
-        inline Line& Transform(const Matrix<T, 3, 3> &rhs){
-            {
-                {//transform begin point
-                    const Matrix<T, 3, 1> &RefObj = rhs * m_BeginPosition;
-                    m_BeginPosition.Set(RefObj.m_Element[0][0], RefObj.m_Element[1][0], RefObj.m_Element[2][0]);
-                }
-                
-                {//transform direction vector
-                    const Matrix<T, 3, 1> &RefObj = rhs * m_vDirection;
-                    m_vDirection.Set(RefObj.m_Element[0][0], RefObj.m_Element[1][0], RefObj.m_Element[2][0]);
-                }
-                
-                return *this;
-            }
-        }
+        Line& Transform(const NX::Matrix<float, 3, 3> &rhs);
+        Line& Transform(const NX::Matrix<float, 4, 4> &rhs);
+        Line& Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T);
+        Line& Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R);
+        Line& Translate(const NX::vector<float, 3> &T);
         
-        template<typename T>
-        inline Line& Transform(const Matrix<T, 4, 4> &rhs){
-            {//transfrom begin point
-                const Matrix<T, 4, 1> &RefObj = rhs * NX::float4(m_BeginPosition.x, m_BeginPosition.y, m_BeginPosition.z, T(1));
-                m_BeginPosition.Set(RefObj[0][0] / RefObj[3][0], RefObj[1][0] / RefObj[3][0], RefObj[2][0] / RefObj[3][0]);
-            }
-            
-            {//transform direction vector
-                const Matrix<T, 4, 1> &RefObj = rhs * NX::float4(m_vDirection.x, m_vDirection.y, m_vDirection.z, T(0));
-                m_vDirection.Set(RefObj[0][0], RefObj[1][0], RefObj[2][0] );
-            }
-            return *this;
-        }
-
-        template<typename T>
-        inline Line GetTransformed(const Matrix<T, 3, 3> &rhs){
+        inline Line GetTransformed(const NX::Matrix<float, 3, 3> &rhs) const{
             return Line(*this).Transform(rhs);
         }
         
-        template<typename T>
-        inline Line GetTransformed(const Matrix<T, 4, 4> &rhs){
+        inline Line GetTransformed(const NX::Matrix<float, 4, 4> &rhs) const{
             return Line(*this).Transform(rhs);
         }
 
+        inline Line GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T) const{
+            return Line(*this).Transform(R, T);
+        }
+        
+        inline Line GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const{
+            return Line(*this).Transform(T, R);
+        }
+        
+        inline Line GetTranslated(const NX::vector<float, 3> &T) const{
+            return Line(*this).Translate(T);
+        }
+        
     public:
         inline vector<float, 3> GetBeginPosition() const{
             return m_BeginPosition;
@@ -91,12 +76,12 @@ namespace NX{
             return NX::EqualZero(Distance(point));
         }
         
-        std::pair<bool, vector<float, 3> >  Intersect(const Line &rhs) const;   //两直线的交点
-        std::pair<bool, vector<float, 3> >  Intersect(const Plane &plane) const;//直线与平面交点
+        std::pair<bool, NX::vector<float, 3> >  Intersect(const Line &rhs) const;   //两直线的交点
+        std::pair<bool, NX::vector<float, 3> >  Intersect(const Plane &plane) const;//直线与平面交点
         
     public:
-        vector<float, 3> m_BeginPosition;
-        vector<float, 3> m_vDirection;
+        NX::vector<float, 3> m_BeginPosition;
+        NX::vector<float, 3> m_vDirection;
     };
 }
 

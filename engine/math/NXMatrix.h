@@ -25,7 +25,7 @@ namespace NX {
         inline Matrix(const T v);
         
         template<typename U>
-        inline Matrix(const vector<U, Col> *v);
+        inline Matrix(const NX::vector<U, Col> *v);
         
         template<typename U>
         inline Matrix(const U (&ary)[Row][Col]);
@@ -100,12 +100,12 @@ namespace NX {
         inline Matrix<T, Row, Col>& SwapCol(int first, int second);
         
         template<typename U, int Scale>
-        inline Matrix<T, Row, Col>& SetRow(int row, const vector<U, Scale> &rhs);
+        inline Matrix<T, Row, Col>& SetRow(int row, const NX::vector<U, Scale> &rhs);
         
         template<int Scale>
-        inline Matrix<T, Row, Col>& SetRow(int row, const vector<T, Scale> &rhs);
+        inline Matrix<T, Row, Col>& SetRow(int row, const NX::vector<T, Scale> &rhs);
         
-        inline Matrix<T, Row, Col>& SetRow(int row, const vector<T, Col> &rhs);
+        inline Matrix<T, Row, Col>& SetRow(int row, const NX::vector<T, Col> &rhs);
         
         template<typename U>
         inline Matrix<T, Row, Col>& SetRow(int row, const U *ptr);
@@ -119,7 +119,7 @@ namespace NX {
         inline Matrix<T, Row, Col>& SetRow(int row, U (&ary)[Scale]);
         
         template<typename U, int Scale>
-        inline Matrix<T, Row, Col>& SetCol(int col, const vector<U, Scale> &rhs);
+        inline Matrix<T, Row, Col>& SetCol(int col, const NX::vector<U, Scale> &rhs);
         
         inline Matrix<T, Row, Col>& SetCol(int col, const T value);
         
@@ -146,19 +146,19 @@ namespace NX {
     //==============================================begin nomember function=============================================
     
     template<typename T, int M, int N, typename U, int K, typename RT = T>
-    inline Matrix<RT, M, K> operator * (const Matrix<T, M, N> &lhs, const Matrix<U, N, K> &rhs);
+    inline NX::Matrix<RT, M, K> operator * (const NX::Matrix<T, M, N> &lhs, const NX::Matrix<U, N, K> &rhs);
     
     template<typename T, int M, int N, typename U, typename RT = T>
-    inline vector<RT, N> operator * (const vector<T, M> &lhs, const Matrix<U, M, N> &rhs);
+    inline NX::vector<RT, N> operator * (const NX::vector<T, M> &lhs, const NX::Matrix<U, M, N> &rhs);
     
     template<typename T, int M, int N, typename U, typename RT = T>
-    inline Matrix<RT, M, 1> operator * (const Matrix<U, M, N> &lhs, const vector<T, N> &rhs);
+    inline NX::Matrix<RT, M, 1> operator * (const NX::Matrix<U, M, N> &lhs, const NX::vector<T, N> &rhs);
     
     template<typename T, int Row, int Col, typename U, typename RT = T>
-    inline Matrix<RT, Row, Col> operator + (const Matrix<T, Row, Col> &lhs, const Matrix<U, Row, Col> &rhs);
+    inline NX::Matrix<RT, Row, Col> operator + (const NX::Matrix<T, Row, Col> &lhs, const NX::Matrix<U, Row, Col> &rhs);
     
     template<typename T, int Row, int Col, typename U, typename RT = T>
-    inline Matrix<RT, Row, Col> operator - (const Matrix<T, Row, Col> &lhs, const Matrix<U, Row, Col> &rhs);
+    inline NX::Matrix<RT, Row, Col> operator - (const NX::Matrix<T, Row, Col> &lhs, const NX::Matrix<U, Row, Col> &rhs);
     //==============================================end of nomember function============================================
 #include "NXMatrix.inl"
     
