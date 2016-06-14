@@ -48,7 +48,7 @@ namespace NX {
     }
     
     Ellipsoid& Ellipsoid::Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T){
-        return Transform(NX::CreateTransformMatrixByRotateAndTranslation(R, T););
+        return Transform(NX::CreateTransformMatrixByRotateAndTranslation(R, T));
     }
     
     Ellipsoid& Ellipsoid::Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R){
@@ -56,10 +56,10 @@ namespace NX {
     }
     
     Ellipsoid& Ellipsoid::Transform(const NX::Matrix<float, 4, 4> &M){
-        TransformPoint (m_vCenter,    R);
-        TransformVector(m_vSemiAxisX, R);
-        TransformVector(m_vSemiAxisY, R);
-        TransformVector(m_vSemiAxisZ, R);
+        TransformPoint (m_vCenter,    M);
+        TransformVector(m_vSemiAxisX, M);
+        TransformVector(m_vSemiAxisY, M);
+        TransformVector(m_vSemiAxisZ, M);
         return *this;
     }
 

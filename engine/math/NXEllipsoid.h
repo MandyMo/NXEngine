@@ -8,7 +8,7 @@
 #ifndef __ZX_NXENGINE_ELLIPSOID_H__
 #define __ZX_NXENGINE_ELLIPSOID_H__
 
-#include "NXVector.h"
+#include "NXVector.h"
 
 namespace NX{
     template<typename T, int Row, int Col>
@@ -42,7 +42,7 @@ namespace NX{
         Ellipsoid& Transform(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T);
         Ellipsoid& Transform(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R);
         
-        Ellipsoid GetTransformed(const NX::Matrix<float, 3, 3> &R) const
+        Ellipsoid GetTransformed(const NX::Matrix<float, 3, 3> &R) const;
         Ellipsoid GetTransformed(const NX::Matrix<float, 4, 4> &M) const;
         Ellipsoid GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T) const;
         Ellipsoid GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const;
