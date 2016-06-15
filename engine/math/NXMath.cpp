@@ -11,6 +11,8 @@
 #include "NXComplex.h"
 #include "NXVector.h"
 #include "NXMatrix.h"
+#include <vector>
+#include <functional>
 
 void NX::InitNXMath(){
     std::srand((unsigned int)std::time(NULL));
@@ -309,7 +311,6 @@ std::vector<float> NX::SolveEquationWithOnlyRealResult(const float a, const floa
     return result;
 }
 
-
 std::pair<bool, NX::vector<float, 2> > NX::SolveEquation(const NX::Matrix<float, 2, 2> &M, const NX::vector<float, 2> &V){
     std::pair<bool, NX::vector<float, 2> > result;
     float Delta = M[0][0] * M[1][1] - M[0][1] * M[1][0];
@@ -322,4 +323,27 @@ std::pair<bool, NX::vector<float, 2> > NX::SolveEquation(const NX::Matrix<float,
     result.second[1] = M[0][0] * V[1] - M[1][0] * V[0];
     result.second /= Delta;
     return result;
+}
+
+std::vector<float> NX::GetEigenValueOfSymmetricMatrix(const NX::Matrix<float, 3, 3> &M){
+    const float a = M[0][0];
+    const float b = M[0][1];
+    const float c = M[0][2];
+    const float d = M[1][1];
+    const float e = M[1][2];
+    const float f = M[2][2];
+    const float x = -kf1;
+    const float y = (a + d + f);
+    const float z = (-a * (d + f) - d * f + b * b + c * c + e * e);
+    const float w = (a * d * f + kf2 * b * c * e - a * e * e - f * b * b - d * c * c);
+    /**
+     *  have three real solution, which can be proved
+     */
+    std::vector<float> vEigenValue = NX::SolveEquationWithOnlyRealResult(x, y, z, w);
+    std::sort(vEigenValue.begin(), vEigenValue.end(), std::greater<float>());
+    return vEigenValue;
+}
+
+std::vector<NX::vector<float, 3> > NX::GetEigenVectorOfSymmetricMatrix(const NX::Matrix<float, 3, 3> &M){
+    return std::vector<NX::vector<float, 3> > ();
 }

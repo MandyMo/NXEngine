@@ -148,6 +148,12 @@ return NX::NXAbs(va - vb) <= delta;\
     std::pair<bool, NX::vector<float, 2> > SolveEquation(const NX::Matrix<float, 2, 2> &M, const NX::vector<float, 2> &V);
     //==================================================================================================================
     
+    
+    //==================================================begin of get eigenvalue=========================================
+    std::vector<float> GetEigenValueOfSymmetricMatrix(const NX::Matrix<float, 3, 3> &M);
+    std::vector<NX::vector<float, 3> > GetEigenVectorOfSymmetricMatrix(const NX::Matrix<float, 3, 3> &M);
+    //==================================================end of get eigenvalue===========================================
+    
 #include "NXMath.inl"
 }
 

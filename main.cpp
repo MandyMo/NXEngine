@@ -31,6 +31,23 @@ using std::cin;
 
 
 int main(){
+    {//cartan formula
+        auto X = NX::SolveEquation(-NX::kf1, 2.5f, -7.0 / 8, 1.0 / 16);
+        
+        cout << "end" << endl;
+    }
+    
+    {//std::vector<float> GetEigenvalueOfSymmetricMatrix(const NX::Matrix<float, 3, 3> &M);
+        NX::Matrix<float, 3, 3> M;
+        M[0][0] = 1.5;
+        M[0][1] = M[1][0] = 0.5;
+        M[0][2] = M[2][0] = 0.75;
+        M[1][1] = 0.5;
+        M[1][2] = M[2][1] = 0.25;
+        M[2][2] = 0.5;
+        auto X = NX::GetEigenValueOfSymmetricMatrix(M);
+        cout << "end" << endl;
+    }
     {//TR & RT
         auto T = NX::GetTranslated(1, 2, 3);
         auto R = NX::GetMatrixRotateByX(NX::DG2RD(30));
