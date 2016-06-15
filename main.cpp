@@ -21,8 +21,10 @@
 #include "../engine/math/NXAABB.h"
 #include "../engine/math/NXNumeric.h"
 #include "../engine/math/NXEllipse.h"
+#include "../engine/math/NXCylinder.h"
 #include "../engine/math/NXCone.h"
 #include "../engine/common/NXUtility.h"
+#include "../engine/math/NXEllipsoid.h"
 using std::cout;
 using std::endl;
 using std::cin;
@@ -45,6 +47,8 @@ int main(){
         
         cout << "emd" << endl;
     }
+    NX::RayTrace &RT = NX::RayTrace::Instance();
+    
     srand(time(NULL));
     {//<quaternion, matrix>
         NX::Quaternion q(1, 3, 2, 4);
@@ -364,6 +368,82 @@ int main(){
         c.Transform(M);
         NX::TransformPoint(pt, M);
         bool b = c.OnCone(pt);
+        cout << "end" << endl;
+    }
+    
+    {//ray ellipse
+        NX::Ellipse ec(4, 2);
+        NX::Line ray(NX::float3(1, 1, 1), NX::float3(1, -3, 2));
+        const float t = RT.RayIntersect(ray, ec);
+        const NX::float3 pt = ray.GetPoint(t);
+        
+        auto M = NX::GetTranslated<float>(100, 200, 300) * NX::GetMatrixRotateByX(NX::DG2RD(20)) * NX::GetMatrixRotateByY(NX::DG2RD(15)) * NX::GetMatrixRotateByZ(NX::DG2RD(40)) *NX::GetTranslated<float>(80, 60, 310);
+        
+        ec.Transform(M);
+        ray.Transform(M);
+        
+        const float at = RT.RayIntersect(ray, ec);
+        
+        bool ai = ec.InEllipse(ray.GetPoint(at));
+        
+        cout << "end" << endl;
+    }
+    
+    {//ray ellipsoid
+        NX::Ellipsoid ec(5, 4, 3);
+        NX::Line ray(NX::float3(0, 100, 0), NX::float3(1, -10, 1));
+        const float t = RT.RayIntersect(ray, ec);
+        const NX::float3 pt = ray.GetPoint(t);
+        bool ai = ec.OnEllipsoid(pt);
+        
+        auto M = NX::GetTranslated<float>(100, 200, 300) * NX::GetMatrixRotateByX(NX::DG2RD(20)) * NX::GetMatrixRotateByY(NX::DG2RD(15)) * NX::GetMatrixRotateByZ(NX::DG2RD(40)) *NX::GetTranslated<float>(80, 60, 310);
+        
+        ec.Transform(M);
+        ray.Transform(M);
+        
+        const float at = RT.RayIntersect(ray, ec);
+        
+        ai = ec.OnEllipsoid(ray.GetPoint(at));
+        
+        cout << "end" << endl;
+
+    }
+    
+    {//ray cylinder
+        NX::Cylinder ec(5, 4, 10);
+        NX::Line ray(NX::float3(10, 3, 10), NX::float3(1, 5, 1));
+        const float t = RT.RayIntersect(ray, ec);
+        const NX::float3 pt = ray.GetPoint(t);
+        bool ai = ec.OnCylinder(pt);
+        
+        auto M = NX::GetTranslated<float>(100, 200, 300) * NX::GetMatrixRotateByX(NX::DG2RD(20)) * NX::GetMatrixRotateByY(NX::DG2RD(15)) * NX::GetMatrixRotateByZ(NX::DG2RD(40)) *NX::GetTranslated<float>(80, 60, 310);
+        
+        ec.Transform(M);
+        ray.Transform(M);
+        
+        const float at = RT.RayIntersect(ray, ec);
+        
+        ai = ec.OnCylinder(ray.GetPoint(at));
+        
+        cout << "end" << endl;
+    }
+    
+    {//ray cone
+        NX::Cone ec(5, 4, 10);
+        NX::Line ray(NX::float3(3, 1, 3), NX::float3(3, 5, 3));
+        const float t = RT.RayIntersect(ray, ec);
+        const NX::float3 pt = ray.GetPoint(t);
+        bool ai = ec.OnCone(pt);
+        
+        auto M = NX::GetTranslated<float>(100, 200, 300) * NX::GetMatrixRotateByX(NX::DG2RD(20)) * NX::GetMatrixRotateByY(NX::DG2RD(15)) * NX::GetMatrixRotateByZ(NX::DG2RD(40)) *NX::GetTranslated<float>(80, 60, 310);
+        
+        ec.Transform(M);
+        ray.Transform(M);
+        
+        const float at = RT.RayIntersect(ray, ec);
+        
+        ai = ec.OnCone(ray.GetPoint(at));
+        
         cout << "end" << endl;
     }
 }

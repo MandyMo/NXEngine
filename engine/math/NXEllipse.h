@@ -27,10 +27,10 @@ namespace NX {
          */
         inline Ellipse(const NX::vector<float, 3> &center, const NX::vector<float, 3> &normal, const NX::vector<float, 3> &vShortAxis,
                        const NX::vector<float, 3> &vLongAxis, const float fLongAxis, const float fShortAxis):
-        m_vCenter(center), m_vNormal(normal),m_vLongSemiAxis(vLongAxis), m_vShortSemiAxis(vShortAxis),m_fLongSemiAxis(fLongAxis),m_fShortSemiAxis(fShortAxis){
-            NXAssert(NX::Equalfloat(NX::Length(m_vNormal),        kf1));
-            NXAssert(NX::Equalfloat(NX::Length(m_vShortSemiAxis), kf1));
-            NXAssert(NX::Equalfloat(NX::Length(m_vLongSemiAxis),  kf1));
+        m_vCenter(center), m_vNormal(normal),m_vLongAxis(vLongAxis), m_vShortAxis(vShortAxis),m_fLongAxis(fLongAxis),m_fShortAxis(fShortAxis){
+            NXAssert(NX::Equalfloat(NX::Length(m_vNormal),    kf1));
+            NXAssert(NX::Equalfloat(NX::Length(m_vShortAxis), kf1));
+            NXAssert(NX::Equalfloat(NX::Length(m_vLongAxis),  kf1));
             /*empty*/
         }
         
@@ -49,20 +49,20 @@ namespace NX {
             return m_vNormal;
         }
         
-        NX::vector<float, 3> GetLongSemiAxis() const{
-            return m_vLongSemiAxis;
+        NX::vector<float, 3> GetLongAxis() const{
+            return m_vLongAxis;
         }
         
-        NX::vector<float, 3> GetShortSemiAxis() const{
-            return m_vShortSemiAxis;
+        NX::vector<float, 3> GetShortAxis() const{
+            return m_vShortAxis;
         }
         
-        float GetLongSemiAxisLength() const{
-            return m_fLongSemiAxis;
+        float GetLongAxisLength() const{
+            return m_fLongAxis;
         }
         
-        float GetShortSemiAxisLength() const{
-            return m_fShortSemiAxis;
+        float GetShortAxisLength() const{
+            return m_fShortAxis;
         }
     
     public:
@@ -85,10 +85,10 @@ namespace NX {
     public:
         NX::vector<float, 3> m_vCenter;
         NX::vector<float, 3> m_vNormal;
-        NX::vector<float, 3> m_vLongSemiAxis;
-        NX::vector<float, 3> m_vShortSemiAxis;
-        float                m_fLongSemiAxis;
-        float                m_fShortSemiAxis;
+        NX::vector<float, 3> m_vLongAxis;
+        NX::vector<float, 3> m_vShortAxis;
+        float                m_fLongAxis;
+        float                m_fShortAxis;
     };
 }
 

@@ -20,7 +20,7 @@ namespace NX{
             /*empty*/
         }
         
-        inline Ellipsoid(const float fSemiAxisX, const float fSemiAxisY, const float fSemiAxisZ):m_vCenter(0.0f, 0.0f, 0.0f), m_vSemiAxisX(1.0f, 0.0f, 0.0f),m_vSemiAxisY(0.0f, 1.0f, 0.0f), m_vSemiAxisZ(0.0f, 0.0f, 1.0f), m_fSemiAxisX(fSemiAxisX), m_fSemiAxisY(fSemiAxisX), m_fSemiAxisZ(fSemiAxisZ){
+        inline Ellipsoid(const float fSemiAxisX, const float fSemiAxisY, const float fSemiAxisZ):m_vCenter(0.0f, 0.0f, 0.0f), m_vSemiAxisX(1.0f, 0.0f, 0.0f),m_vSemiAxisY(0.0f, 1.0f, 0.0f), m_vSemiAxisZ(0.0f, 0.0f, 1.0f), m_fSemiAxisX(fSemiAxisX), m_fSemiAxisY(fSemiAxisY), m_fSemiAxisZ(fSemiAxisZ){
             /*empty*/
         }
         

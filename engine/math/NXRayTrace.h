@@ -33,11 +33,11 @@ namespace NX {
         float RayIntersect(const NX::Line &ray,     const NX::Plane       &plane);
         float RayIntersect(const NX::Line &ray,     const NX::Sphere      &sphere);
         float RayIntersect(const NX::Line &ray,     const NX::Triangle    &triangle);
-        float RayIntersect(const NX::Line &ray,     const NX::vector<float, 3> &ptA, const NX::vector<float, 3> &ptB, const NX::vector<float, 3> &ptC);
         float RayIntersect(const NX::Line &ray,     const NX::Ellipse     &ellipse);
         float RayIntersect(const NX::Line &ray,     const NX::Ellipsoid   &ellipsoid);
         float RayIntersect(const NX::Line &ray,     const NX::Cone        &cone);
         float RayIntersect(const NX::Line &ray,     const NX::Cylinder    &cylinder);
+        float RayIntersect(const NX::Line &ray,     const NX::vector<float, 3> &ptA, const NX::vector<float, 3> &ptB, const NX::vector<float, 3> &ptC);
     };
 }
 

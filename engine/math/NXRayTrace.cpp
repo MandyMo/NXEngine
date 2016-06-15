@@ -5,6 +5,7 @@
  *  purpose: basic ray trace function
  */
 
+#include <algorithm>
 #include "NXAABB.h"
 #include "NXCircle.h"
 #include "NXLine.h"
@@ -18,7 +19,6 @@
 #include "NXRayTrace.h"
 #include "NXMath.h"
 #include "NXComplex.h"
-
 
 float NX::RayTrace::RayIntersect(const NX::Line &ray,     const NX::AABB &aabb){
     const NX::vector<float, 3> V  = ray.GetDirection();
@@ -234,7 +234,7 @@ float NX::RayTrace::RayIntersect(const NX::Line &ray,     const NX::Ellipsoid   
     const float csy = NX::Dot(cs, ellipsoid.GetAxisY());
     const float csz = NX::Dot(cs, ellipsoid.GetAxisZ());
     
-    const float a = vx * vx * rpx + vy * vy * rpy * vz * vz * rpz;
+    const float a = vx * vx * rpx + vy * vy * rpy + vz * vz * rpz;
     const float b = vx * csx * kf2 * rpx + vy * csy * kf2 * rpy + vz * csz * kf2 * rpz;
     const float c = csx * csx * rpx + csy * csy * rpy + csz * csz * rpz - kf1;
     
@@ -256,38 +256,82 @@ float NX::RayTrace::RayIntersect(const NX::Line &ray,     const NX::Ellipsoid   
 }
 
 float NX::RayTrace::RayIntersect(const NX::Line &ray,     const NX::Cone        &cone){
-    return -kf1;
+    const NX::vector<float, 3> v  = ray.GetDirection();
+    const NX::vector<float, 3> cs = ray.GetBeginPosition() - cone.GetCenter();
+    const float rpx = kf1 / (cone.GetLongAxisLength()  * cone.GetLongAxisLength());
+    const float rpz = kf1 / (cone.GetShortAxisLength() * cone.GetShortAxisLength());
+    const float rpy = kf1 / cone.GetHeight();
+    const float vx  = NX::Dot(v,  cone.GetLongAxis());
+    const float vz  = NX::Dot(v,  cone.GetShortAxis());
+    const float vy  = NX::Dot(v,  cone.GetNormal());
+    const float csy = NX::Dot(cs, cone.GetNormal());
+    const float csx = NX::Dot(cs, cone.GetLongAxis());
+    const float csz = NX::Dot(cs, cone.GetShortAxis());
+    
+    const float aa = vy * vy * rpy * rpy;
+    const float ab = kf2 * vy * rpy * (csy * rpy - kf1);
+    const float ac = (csy * rpy - kf1) * (csy * rpy - kf1);
+    
+    const float ba = vx * vx * rpx + vz * vz * rpz;
+    const float bb = kf2 * vx * csx * rpx + kf2 * vz * csz * rpz;
+    const float bc = csx * csx * rpx + csz * csz * rpz;
+    
+    const float a = aa - ba;
+    const float b = ab - bb;
+    const float c = ac - bc;
+    
+    const std::vector<float> SOV = NX::SolveEquationWithOnlyRealResult(a, b, c);
+
+    std::vector<float> OK;
+    for(int i = 0, l = (int)SOV.size(); i < l; ++i){
+        if(SOV[i] <= kf0){
+            continue;
+        }
+        if(cone.OnCone(ray.GetPoint(SOV[i]))){
+            OK.push_back(SOV[i]);
+        }
+    }
+    
+    if(OK.empty()){
+        return -kf1;
+    }else if(OK.size() == 1){
+        return OK[0];
+    }else{
+        return NX::NXMin(OK[0], OK[1]);
+    }
 }
 
 float NX::RayTrace::RayIntersect(const NX::Line &ray,     const NX::Cylinder    &cylinder){
-    //to be continue
-    //    const NX::vector<float, 3> v  = ray.GetDirection();
-    //    const NX::vector<float, 3> cs = ray.GetBeginPosition() - ellipse.GetCenter();
-    //    const float rpl  = kf1 / (ellipse.GetLongSemiAxisLength()  * ellipse.GetLongSemiAxisLength());
-    //    const float rps  = kf1 / (ellipse.GetShortSemiAxisLength() * ellipse.GetShortSemiAxisLength());
-    //    const float vl   = NX::Dot(v,  ellipse.GetLongSemiAxis());
-    //    const float vs   = NX::Dot(v,  ellipse.GetShortSemiAxis());
-    //    const float csl  = NX::Dot(cs, ellipse.GetLongSemiAxis());
-    //    const float css  = NX::Dot(cs, ellipse.GetShortSemiAxis());
-    //    const float a = vl * vl * rpl + vs * vs * rps;
-    //    const float b = vl * csl * kf2 * rpl + vs * css * kf2 * rps;
-    //    const float c = csl * csl * rpl + css * css * rps - kf1;
-    //    if(NX::EqualZero(a)){
-    //        return -kf1;
-    //    }
-    //    const std::vector<float> SOV = NX::SolveEquationWithOnlyRealResult(a, b, c);
-    //    if(SOV.empty()){
-    //        return -kf1;
-    //    }
-    //    int idx = 0;
-    //    for(int i = 1; i < SOV.size(); ++i){
-    //        if(SOV[i] > kf0 && SOV[i] < SOV[idx]){
-    //            idx = i;
-    //        }
-    //    }
-    //
-    //    return SOV[idx] > kf0 ? SOV[idx] : -kf1;
-    return -kf1;
+    const NX::vector<float, 3> v  = ray.GetDirection();
+    const NX::vector<float, 3> cs = ray.GetBeginPosition() - cylinder.GetCenter();
+    const float rpl  = kf1 / (cylinder.GetLongAxisLength()  * cylinder.GetLongAxisLength());
+    const float rps  = kf1 / (cylinder.GetShortAxisLength() * cylinder.GetShortAxisLength());
+    const float vl   = NX::Dot(v,  cylinder.GetLongAxis());
+    const float vs   = NX::Dot(v,  cylinder.GetShortAxis());
+    const float csl  = NX::Dot(cs, cylinder.GetLongAxis());
+    const float css  = NX::Dot(cs, cylinder.GetShortAxis());
+    const float a = vl * vl * rpl + vs * vs * rps;
+    const float b = vl * csl * kf2 * rpl + vs * css * kf2 * rps;
+    const float c = csl * csl * rpl + css * css * rps - kf1;
+    if(NX::EqualZero(a)){
+        return -kf1;
+    }
+    const std::vector<float> SOV = NX::SolveEquationWithOnlyRealResult(a, b, c);
+    if(SOV.empty()){
+        return -kf1;
+    }
+    int idx = 0;
+    for(int i = 1; i < SOV.size(); ++i){
+        if(SOV[i] > kf0 && SOV[i] < SOV[idx]){
+            idx = i;
+        }
+    }
 
-    return -kf1;
+    const float t = SOV[idx];
+    if(t <= kf0){
+        return -kf1;
+    }
+    const NX::vector<float, 3> pt = ray.GetPoint(t);
+    const float dy = NX::Dot(cylinder.GetNormal(), pt - cylinder.GetCenter());
+    return dy >= 0 && dy <= cylinder.GetHeight() ? t : -kf1;
 }
