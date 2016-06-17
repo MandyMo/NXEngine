@@ -345,5 +345,6 @@ std::vector<float> NX::GetEigenValueOfSymmetricMatrix(const NX::Matrix<float, 3,
 }
 
 std::vector<NX::vector<float, 3> > NX::GetEigenVectorOfSymmetricMatrix(const NX::Matrix<float, 3, 3> &M){
+    //to be continue
     return std::vector<NX::vector<float, 3> > ();
 }

@@ -29,11 +29,12 @@ using std::cout;
 using std::endl;
 using std::cin;
 
-
 int main(){
+    {
+        NXAssert(0);
+    }
     {//cartan formula
         auto X = NX::SolveEquation(-NX::kf1, 2.5f, -7.0 / 8, 1.0 / 16);
-        
         cout << "end" << endl;
     }
     

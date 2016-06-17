@@ -60,7 +60,7 @@
 #define PLATFORM_32 1
 #endif
 #elif defined(__APPLE__)
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IOS)
 #define PLATFORM_IOS 1
 #else
 #define PLATFORM_OSX 1
@@ -165,7 +165,7 @@ public:
 };
 
 namespace NX{
-    extern void NXAssertFailed(const char *szFileName, const int iLine);
+    extern void NXAssertFailed(const char *szFileName, const char *szFuncName, const int iLine);
 }
 
 #ifndef NXAssert
@@ -173,7 +173,7 @@ namespace NX{
 #define NXAssert(expr) \
     if((expr)){\
     }else{/*NXAssert failed*/\
-        NX::NXAssertFailed(__FILE__, __LINE__);\
+        NX::NXAssertFailed(__FILE__, __func__, __LINE__);\
     }
 #else
 #define NXAssert(expr)

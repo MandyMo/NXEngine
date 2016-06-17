@@ -4347,21 +4347,18 @@
 					DEBUG,
 				);
 				HEADER_SEARCH_PATHS = (
-					/opt/local/include/,
+					/opt/local/include,
 					engine_header,
-					"3rd_Lib/**",
+					3rd_Lib,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					/opt/local/lib/,
+					"/opt/local/lib/**",
 					"$(PROJECT_DIR)/engine_lib",
-					/opt/local/lib,
 					"$(PROJECT_DIR)",
+					/opt/local/lib,
 				);
 				MACH_O_TYPE = mh_execute;
-				OTHER_LDFLAGS = (
-					"-lglew",
-					"-lglfw",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.11;
 				SUPPORTED_PLATFORMS = macosx;
@@ -4380,21 +4377,18 @@
 					NO_LCMS,
 				);
 				HEADER_SEARCH_PATHS = (
-					/opt/local/include/,
+					/opt/local/include,
 					engine_header,
-					"3rd_Lib/**",
+					3rd_Lib,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					/opt/local/lib/,
+					"/opt/local/lib/**",
 					"$(PROJECT_DIR)/engine_lib",
-					/opt/local/lib,
 					"$(PROJECT_DIR)",
+					/opt/local/lib,
 				);
 				MACH_O_TYPE = mh_execute;
-				OTHER_LDFLAGS = (
-					"-lglew",
-					"-lglfw",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.11;
 				SUPPORTED_PLATFORMS = macosx;
