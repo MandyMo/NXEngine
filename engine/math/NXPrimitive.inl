@@ -81,5 +81,14 @@ template<typename T>
 inline Plane Transform(const Matrix<T, 4, 4> &matrix, const Plane &plane){
     return Plane(plane).Transform(matrix);
 }
+
+inline Plane& Normalize(Plane &rhs){
+    return rhs.Normalize();
+}
+
+inline Plane GetNormalized(Plane &rhs){
+    Plane result(rhs);
+    return Normalize(result);
+}
 //==========================================end plane nomember function=================================================
 #endif

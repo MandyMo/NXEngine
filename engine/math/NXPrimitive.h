@@ -48,6 +48,10 @@ namespace NX{
     template<typename T>
     inline Plane Transform(const Matrix<T, 4, 4> &matrix, const Plane &plane);
     
+    inline Plane& Normalize(Plane &rhs);
+    
+    inline Plane GetNormalized(Plane &rhs);
+    
     inline std::pair<bool, Line>   Intersect(const Plane &lhs, const Plane &rhs);
     
     inline std::pair<bool, float3> Intersect(const Line  &line,  const Plane &plane);

@@ -9,7 +9,7 @@
 #include "NXViewFrustum.h"
 #include "NXCamera.h"
 #include "../math/NXAlgorithm.h"
-
+#include "../math/NXPrimitive.h"
 
 NX::MVMatrixController::MVMatrixController(const float3 &Eye, const float3 &Looked, const float3 &Up){
     m_vLooked = Looked;
@@ -140,18 +140,18 @@ NX::float4x4 NX::PerspectCamera::GetProjectMatrix(){
 
 NX::ViewFrustum NX::PerspectCamera::GetViewFrustumInCameraSpace(){
     NX::float4x4 P = GetProjectMatrix();
-    NX::Plane Left(P.GetRow(0) + P.GetRow(3)), Right(P.GetRow(3)  - P.GetRow(0));
-    NX::Plane Top (P.GetRow(3) - P.GetRow(1)), Bottom(P.GetRow(3) + P.GetRow(1));
-    NX::Plane Front(P.GetRow(3)- P.GetRow(2)), Back(P.GetRow(2));
-    return NX::ViewFrustum(Front, Back, Left, Right, Top, Bottom);
+    NX::Plane Left (P.GetRow(0) + P.GetRow(3)), Right(P.GetRow(3)  - P.GetRow(0));
+    NX::Plane Top  (P.GetRow(3) - P.GetRow(1)), Bottom(P.GetRow(3) + P.GetRow(1));
+    NX::Plane Front(P.GetRow(3) - P.GetRow(2)), Back(P.GetRow(2));
+    return NX::ViewFrustum(NX::Normalize(Front), NX::Normalize(Back), NX::Normalize(Left), NX::Normalize(Right), NX::Normalize(Top), NX::Normalize(Bottom));
 }
 
 NX::ViewFrustum NX::PerspectCamera::GetViewFrustumInWorldSpace(){
     NX::float4X4 MVP = GetProjectMatrix() * GetMVMatrix();
-    NX::Plane Left(MVP.GetRow(0) + MVP.GetRow(3)), Right(MVP.GetRow(3)  - MVP.GetRow(0));
-    NX::Plane Top (MVP.GetRow(3) - MVP.GetRow(1)), Bottom(MVP.GetRow(3) + MVP.GetRow(1));
-    NX::Plane Front(MVP.GetRow(3)- MVP.GetRow(2)), Back(MVP.GetRow(2));
-    return NX::ViewFrustum(Front, Back, Left, Right, Top, Bottom);
+    NX::Plane Left (MVP.GetRow(0) + MVP.GetRow(3)), Right(MVP.GetRow(3)  - MVP.GetRow(0));
+    NX::Plane Top  (MVP.GetRow(3) - MVP.GetRow(1)), Bottom(MVP.GetRow(3) + MVP.GetRow(1));
+    NX::Plane Front(MVP.GetRow(3) - MVP.GetRow(2)), Back(MVP.GetRow(2));
+    return NX::ViewFrustum(NX::Normalize(Front), NX::Normalize(Back), NX::Normalize(Left), NX::Normalize(Right), NX::Normalize(Top), NX::Normalize(Bottom));
 }
 
 NX::OrthogonalCamera::OrthogonalCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
