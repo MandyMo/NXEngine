@@ -13,6 +13,7 @@
 namespace NX {
     class Sphere;
     class Ellipsoid;
+    class Cylinder;
     
     enum FRUSTUM_VISIBLE_TEST_BIT_MASK{
         VF_VT_FRONT     = 1 << 0,
@@ -40,9 +41,9 @@ namespace NX {
     
     public:
         /**几何体关于视堆的可视性测试*/
-        bool Visible(const Sphere &sphere,              const FRUSTUM_VISIBLE_TEST_BIT_MASK mask = VF_VT_ALL);
-        bool Visible(const Ellipsoid &ellipsoid,        const FRUSTUM_VISIBLE_TEST_BIT_MASK mask = VF_VT_ALL );
-        
+        bool Visible(const NX::Sphere &sphere,              const NX::FRUSTUM_VISIBLE_TEST_BIT_MASK mask = VF_VT_ALL);
+        bool Visible(const NX::Ellipsoid &ellipsoid,        const NX::FRUSTUM_VISIBLE_TEST_BIT_MASK mask = VF_VT_ALL);
+        bool Visible(const NX::Cylinder &cylinder,          const NX::FRUSTUM_VISIBLE_TEST_BIT_MASK mask = VF_VT_ALL);
     private:
         NX::Plane     m_FrontPlane;
         NX::Plane     m_BackPlane;
