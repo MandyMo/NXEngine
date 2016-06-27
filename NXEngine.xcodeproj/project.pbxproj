@@ -72,6 +72,7 @@
 		6CF322781D13F64700AAA83F /* DemoHeader.h in Sources */ = {isa = PBXBuildFile; fileRef = 6CF322371D13F64700AAA83F /* DemoHeader.h */; };
 		6CF322791D13F64700AAA83F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF322381D13F64700AAA83F /* main.cpp */; };
 		6CF3227B1D13FA3400AAA83F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CF3227A1D13FA3400AAA83F /* OpenGL.framework */; };
+		6CFEF93B1D1D34E900F29F41 /* NXOOBB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF9391D1D34E900F29F41 /* NXOOBB.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -308,6 +309,8 @@
 		6CF3227A1D13FA3400AAA83F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		6CF3227D1D13FE1D00AAA83F /* libglfw.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.dylib; path = ../../../opt/local/lib/libglfw.dylib; sourceTree = "<group>"; };
 		6CF3227F1D13FF3100AAA83F /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../opt/local/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
+		6CFEF9391D1D34E900F29F41 /* NXOOBB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXOOBB.cpp; sourceTree = "<group>"; };
+		6CFEF93A1D1D34E900F29F41 /* NXOOBB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXOOBB.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +373,8 @@
 			children = (
 				6CF3215B1D13F64700AAA83F /* NXAABB.cpp */,
 				6CF3215C1D13F64700AAA83F /* NXAABB.h */,
+				6CFEF9391D1D34E900F29F41 /* NXOOBB.cpp */,
+				6CFEF93A1D1D34E900F29F41 /* NXOOBB.h */,
 				6CF3215D1D13F64700AAA83F /* NXAlgorithm.cpp */,
 				6CF3215E1D13F64700AAA83F /* NXAlgorithm.h */,
 				6CF3215F1D13F64700AAA83F /* NXAlgorithm.inl */,
@@ -779,6 +784,7 @@
 				6CF3226A1D13F64700AAA83F /* ProxyTexture.cpp in Sources */,
 				6CF3225A1D13F64700AAA83F /* AppChap1_5.cpp in Sources */,
 				6CF322631D13F64700AAA83F /* PointSize.cpp in Sources */,
+				6CFEF93B1D1D34E900F29F41 /* NXOOBB.cpp in Sources */,
 				6CF322711D13F64700AAA83F /* Bricks.cpp in Sources */,
 				6CF322701D13F64700AAA83F /* DoubeFaceShading.cpp in Sources */,
 				6CF3223C1D13F64700AAA83F /* NXAABB.cpp in Sources */,

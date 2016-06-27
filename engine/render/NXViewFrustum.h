@@ -11,7 +11,9 @@
 #include "../math/NXPlane.h"
 
 namespace NX {
+    class Circle;
     class Sphere;
+    class Ellipse;
     class Ellipsoid;
     class Cylinder;
     
@@ -41,9 +43,11 @@ namespace NX {
     
     public:
         /**几何体关于视堆的可视性测试*/
-        bool Visible(const NX::Sphere &sphere,              const NX::FRUSTUM_VISIBLE_TEST_BIT_MASK mask = VF_VT_ALL);
-        bool Visible(const NX::Ellipsoid &ellipsoid,        const NX::FRUSTUM_VISIBLE_TEST_BIT_MASK mask = VF_VT_ALL);
-        bool Visible(const NX::Cylinder &cylinder,          const NX::FRUSTUM_VISIBLE_TEST_BIT_MASK mask = VF_VT_ALL);
+        bool Visible(const NX::Circle &circle,              const unsigned int mask = NX::VF_VT_ALL);
+        bool Visible(const NX::Sphere &sphere,              const unsigned int mask = NX::VF_VT_ALL);
+        bool Visible(const NX::Ellipse &ellipse,            const unsigned int mask = NX::VF_VT_ALL);
+        bool Visible(const NX::Ellipsoid &ellipsoid,        const unsigned int mask = NX::VF_VT_ALL);
+        bool Visible(const NX::Cylinder &cylinder,          const unsigned int mask = NX::VF_VT_ALL);
     private:
         NX::Plane     m_FrontPlane;
         NX::Plane     m_BackPlane;

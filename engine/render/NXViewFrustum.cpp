@@ -7,8 +7,9 @@
 
 #include "NXViewFrustum.h"
 #include "../math/NXSphere.h"
+#include "../math/NXEllipse.h"
 #include "../math/NXEllipsoid.h"
-
+#include "../math/NXCircle.h"
 
 NX::ViewFrustum::ViewFrustum(){
     /*empty*/
@@ -23,7 +24,39 @@ NX::ViewFrustum::~ViewFrustum(){
     /*empty*/
 }
 
-bool NX::ViewFrustum::Visible(const NX::Sphere &sphere, const NX::FRUSTUM_VISIBLE_TEST_BIT_MASK mask){
+bool NX::ViewFrustum::Visible(const NX::Circle &circle,              const unsigned int mask){
+    const NX::vector<float, 3> normal = circle.GetNormal();
+    const float r = circle.GetRadius();
+#undef NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST
+#define NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(plane) \
+    const float RRef = r * NX::NXAbs(NX::Dot(plane.GetNormal(), normal));\
+    if(NX::Dot(plane.GetNormal(), circle.GetCenter()) + plane.GetDistFromOriginal() < - RRef)\
+        return false;
+    
+    if(mask & NX::VF_VT_LEFT){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetLeftPlane());
+    }
+    if(mask & NX::VF_VT_RIGHT){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetRightPlane());
+    }
+    if(mask & NX::VF_VT_TOP){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetTopPlane());
+    }
+    if(mask & NX::VF_VT_BOTTOM){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetBottomPlane());
+    }
+    if(mask & NX::VF_VT_FRONT){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetFrontPlane());
+    }
+    if(mask & NX::VF_VT_BACK){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetBackPlane());
+    }
+    return true;
+    
+#undef NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST
+}
+
+bool NX::ViewFrustum::Visible(const NX::Sphere &sphere, const unsigned int mask){
     const NX::vector<float, 3> center = sphere.GetCenter();
     const float r = sphere.GetRadius();
     if(mask & NX::VF_VT_LEFT){
@@ -59,10 +92,53 @@ bool NX::ViewFrustum::Visible(const NX::Sphere &sphere, const NX::FRUSTUM_VISIBL
     return true;
 }
 
-bool NX::ViewFrustum::Visible(const NX::Ellipsoid &ellipsoid,        const NX::FRUSTUM_VISIBLE_TEST_BIT_MASK mask){
+bool NX::ViewFrustum::Visible(const NX::Ellipse &ellipse,            const unsigned int mask){
+    const NX::vector<float, 3> R = ellipse.GetLongAxis()  * ellipse.GetLongAxisLength();
+    const NX::vector<float, 3> S = ellipse.GetShortAxis() * ellipse.GetShortAxisLength();
+    const NX::vector<float, 3> C = ellipse.GetCenter();
+#undef NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST
+#define NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(plane) \
+    const NX::vector<float, 3> N = plane.GetNormal();\
+    const float rn = NX::Dot(R, N);\
+    const float rs = NX::Dot(S, N);\
+    const float RRef = std::sqrt(rn * rn + rs * rs);\
+    if(NX::Dot(N, C) + plane.GetDistFromOriginal() < -RRef){\
+        return false;\
+    }
+    
+    if(mask & NX::VF_VT_LEFT){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetLeftPlane());
+    }
+    
+    if(mask & NX::VF_VT_RIGHT){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetRightPlane());
+    }
+    
+    if(mask & NX::VF_VT_FRONT){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetFrontPlane());
+    }
+    
+    if(mask & NX::VF_VT_BACK){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetBackPlane());
+    }
+    
+    if(mask & NX::VF_VT_TOP){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetTopPlane());
+    }
+    
+    if(mask & NX::VF_VT_BOTTOM){
+        NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetBottomPlane());
+    }
+    return true;
+    
+#undef NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST
+}
+
+bool NX::ViewFrustum::Visible(const NX::Ellipsoid &ellipsoid,        const unsigned int mask){
     const NX::vector<float, 3> R = ellipsoid.GetAxisX() * ellipsoid.GetAxisXLength();
     const NX::vector<float, 3> S = ellipsoid.GetAxisY() * ellipsoid.GetAxisYLength();
     const NX::vector<float, 3> T = ellipsoid.GetAxisZ() * ellipsoid.GetAxisZLength();
+#undef NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST
 #define NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(plane) \
     const NX::vector<float, 3> N = plane.GetNormal();\
     const float r = NX::Dot(R, N);\
@@ -73,27 +149,27 @@ bool NX::ViewFrustum::Visible(const NX::Ellipsoid &ellipsoid,        const NX::F
         return false;\
     }
     
-    if(mask & VF_VT_LEFT){
+    if(mask & NX::VF_VT_LEFT){
         NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetLeftPlane());
     }
     
-    if(mask & VF_VT_RIGHT){
+    if(mask & NX::VF_VT_RIGHT){
         NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetRightPlane());
     }
     
-    if(mask & VF_VT_FRONT){
+    if(mask & NX::VF_VT_FRONT){
         NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetFrontPlane());
     }
     
-    if(mask & VF_VT_BACK){
+    if(mask & NX::VF_VT_BACK){
         NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetBackPlane());
     }
     
-    if(mask & VF_VT_TOP){
+    if(mask & NX::VF_VT_TOP){
         NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetTopPlane());
     }
     
-    if(mask & VF_VT_BOTTOM){
+    if(mask & NX::VF_VT_BOTTOM){
         NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST(GetBottomPlane());
     }
     
@@ -102,7 +178,7 @@ bool NX::ViewFrustum::Visible(const NX::Ellipsoid &ellipsoid,        const NX::F
 #undef NX_VIEWFRUSTUM_POSITIVE_SIDE_TEST
 }
 
-bool NX::ViewFrustum::Visible(const NX::Cylinder &cylinder,          const NX::FRUSTUM_VISIBLE_TEST_BIT_MASK mask){
+bool NX::ViewFrustum::Visible(const NX::Cylinder &cylinder,          const unsigned int mask){
     NXAssert(0 && "not implemented");
     return false;
 }
