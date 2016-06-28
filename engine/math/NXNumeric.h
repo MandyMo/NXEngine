@@ -106,13 +106,18 @@ namespace NX{
     static const float klf2OverSqrt3   = klf2 * klf1Over3;
     //==================================================================================================================
     
-    
     //==================================================nature constant=================================================
     static const float kfe             = 2.71828182845904523536028747135266249775724709369995f;
     static const float kf1Overe        = kf1 / kfe;
+    static const float kf2e            = kf2 * kfe;
+    static const float kf2Overe        = kf2 / kfe;
+    static const float kfeOver2        = kfe * kf1Over2;
     
     static const double klfe           = 2.71828182845904523536028747135266249775724709369995;
     static const double klf1Overe      = klf1 / klfe;
+    static const double klf2e          = klf2 * klfe;
+    static const double klf2Overe      = klf2 / klfe;
+    static const double klfeOver2      = klfe * klf1Over2;
     //==================================================================================================================
 }
 
