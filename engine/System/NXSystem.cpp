@@ -15,8 +15,15 @@ NX::System::~System(){
     //empty here
 }
 
+bool NX::System::CreateDirectory(__in const std::string strDirPath){
+    NXAssert(0 && "bool NX::System::CreateDirectory(__in const std::string strDirPath)");
+    return false;
+}
+
+
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+
 namespace NX {
     class WinSystem: public NX::System{
     public:
@@ -24,6 +31,7 @@ namespace NX {
         virtual ~WinSystem();
     public:
         virtual void Sleep(__in const unsigned int iMilliSeconds);
+        virtual bool CreateDirectory(__in const std::string strDirPath);
     };
     
     WinSystem::WinSystem(){
@@ -36,6 +44,10 @@ namespace NX {
     
     void WinSystem::Sleep(__in const unsigned int iMilliSeconds){
         ::Sleep(iMilliSeconds);
+    }
+    
+    bool WinSystem::CreateDirectory(__in const std::string strDirPath){
+        return NX::System::CreateDirectory(strDirPath);
     }
     
     NX::System& NX::System::Instance(){
@@ -57,6 +69,7 @@ namespace NX{
         virtual ~PosixSystem();
     public:
         virtual void Sleep(__in const unsigned int iMilliSeconds);
+        virtual bool CreateDirectory(__in const std::string strDirPath);
     };
     
     PosixSystem::PosixSystem(){
@@ -69,6 +82,10 @@ namespace NX{
     
     void PosixSystem::Sleep(__in const unsigned int iMilliSeconds){
         usleep(iMilliSeconds * 1000);
+    }
+    
+    bool PosixSystem::CreateDirectory(__in const std::string strDirPath){
+        return NX::System::CreateDirectory(strDirPath);
     }
 }
 #endif

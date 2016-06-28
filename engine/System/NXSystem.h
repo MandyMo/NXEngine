@@ -14,5 +14,6 @@ namespace NX {
         static System& Instance();
     public:
         virtual void Sleep(__in const unsigned int iMilliSeconds) = 0;
+        virtual bool CreateDirectory(__in const std::string strDirPath) = 0;
     };
 }
