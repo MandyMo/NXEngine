@@ -81,7 +81,7 @@ namespace NX {
                        const float FovByAngel, const float Ratio, const float Near, const float Far);
         virtual ~PerspectCamera();
         
-    public:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    public:
         virtual float4x4 GetWatchMatrix();
         virtual float4x4 GetProjectMatrix();
         virtual ViewFrustum GetViewFrustumInCameraSpace();
