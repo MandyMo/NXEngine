@@ -94,7 +94,7 @@ std::string NX::Log::GetTimeDescription(){
 
 namespace NX {
     Log& glb_GetLog(){
-        static Log log("./engine/render/NXEngine.txt");
+        static Log log("../render/NXEngine.txt");
         return log;
     }
 }

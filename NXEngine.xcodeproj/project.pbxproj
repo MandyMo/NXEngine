@@ -140,7 +140,6 @@
 		6CF321851D13F64700AAA83F /* NXApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXApplication.h; sourceTree = "<group>"; };
 		6CF321861D13F64700AAA83F /* NXCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXCamera.cpp; sourceTree = "<group>"; };
 		6CF321871D13F64700AAA83F /* NXCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXCamera.h; sourceTree = "<group>"; };
-		6CF321881D13F64700AAA83F /* NXEngine.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NXEngine.txt; sourceTree = "<group>"; };
 		6CF321891D13F64700AAA83F /* NXImagePixelLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXImagePixelLoader.cpp; sourceTree = "<group>"; };
 		6CF3218A1D13F64700AAA83F /* NXImagePixelLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXImagePixelLoader.h; sourceTree = "<group>"; };
 		6CF3218B1D13F64700AAA83F /* NXMipMapTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXMipMapTexture.cpp; sourceTree = "<group>"; };
@@ -424,7 +423,6 @@
 				6CF321851D13F64700AAA83F /* NXApplication.h */,
 				6CF321861D13F64700AAA83F /* NXCamera.cpp */,
 				6CF321871D13F64700AAA83F /* NXCamera.h */,
-				6CF321881D13F64700AAA83F /* NXEngine.txt */,
 				6CF321891D13F64700AAA83F /* NXImagePixelLoader.cpp */,
 				6CF3218A1D13F64700AAA83F /* NXImagePixelLoader.h */,
 				6CF3218B1D13F64700AAA83F /* NXMipMapTexture.cpp */,
