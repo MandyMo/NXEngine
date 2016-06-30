@@ -88,6 +88,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6C107B031D24C030006DF447 /* NXEngine.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NXEngine.txt; sourceTree = "<group>"; };
 		6CF3205E1D13F43500AAA83F /* NXEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NXEngine; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CF321531D13F64700AAA83F /* NXCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXCore.cpp; sourceTree = "<group>"; };
 		6CF321541D13F64700AAA83F /* NXCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXCore.h; sourceTree = "<group>"; };
@@ -437,6 +438,7 @@
 				6CF321941D13F64700AAA83F /* NXTexture.h */,
 				6CF321951D13F64700AAA83F /* NXViewFrustum.cpp */,
 				6CF321961D13F64700AAA83F /* NXViewFrustum.h */,
+				6C107B031D24C030006DF447 /* NXEngine.txt */,
 			);
 			path = render;
 			sourceTree = "<group>";

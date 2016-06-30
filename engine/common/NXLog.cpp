@@ -36,6 +36,9 @@ NX::Log::Log(const std::string& strLogFilePath):m_strLogFilePath(strLogFilePath)
 #endif
     if(strLogFilePath != ""){
         m_outStream.open(m_strLogFilePath);
+        if(!m_outStream){
+            logToConsole("open log file [%s] failed", strLogFilePath.c_str());
+        }
         log("log file [%s] open.", m_strLogFilePath.c_str());
     }
 }
@@ -94,7 +97,7 @@ std::string NX::Log::GetTimeDescription(){
 
 namespace NX {
     Log& glb_GetLog(){
-        static Log log("../render/NXEngine.txt");
+        static Log log("./engine/render/NXEngine.txt");
         return log;
     }
 }

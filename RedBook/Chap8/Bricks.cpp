@@ -69,10 +69,6 @@ void Bricks::Render(){
     
     auto MVP = camera.GetWatchMatrix();
     auto xx = camera.m_vLooked - camera.m_vEye;
-    for(int i = 0; i < 3; ++i){
-        cout << " " << xx.v[i];
-    }
-    cout << endl;
     glUniformMatrix4fv(MVPLocation, 1, GL_TRUE, &MVP[0][0]);
     
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, BUFFER_OFFSET(0));

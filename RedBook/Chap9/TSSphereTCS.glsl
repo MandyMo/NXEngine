@@ -1,4 +1,4 @@
-#version 400 compatibility
+#version 400
 
 layout (vertices = 1) out;
 
