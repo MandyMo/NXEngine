@@ -73,26 +73,14 @@ namespace NX {
         Plane& Translate(const NX::vector<float, 3> &T);
         
         template<typename T, typename U>
-        inline Plane GetTransformed(const NX::Matrix<T, 3, 3> &matrix, const NX::vector<U, 3> &translation) const{
-            return Plane(*this).Transform(matrix, translation);
-        }
-
+        inline Plane GetTransformed(const NX::Matrix<T, 3, 3> &matrix, const NX::vector<U, 3> &translation) const;
+        
         template<typename T>
-        inline Plane GetTransformed(const NX::Matrix<T, 4, 4> &matrix) const{
-            return Plane(*this).Transform(matrix);
-        }
+        inline Plane GetTransformed(const NX::Matrix<T, 4, 4> &matrix) const;
         
-        inline Plane GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T) const{
-            return Plane(*this).Transform(R, T);
-        }
-        
-        inline Plane GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const{
-            return Plane(*this).Transform(T, R);
-        }
-        
-        inline Plane& GetTranslated(const NX::vector<float, 3> &T) const{
-            return Plane(*this).Translate(T);
-        }
+        inline Plane GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T) const;
+        inline Plane GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const;
+        inline Plane& GetTranslated(const NX::vector<float, 3> &T) const;
         
         inline Plane& Normalize(){
             float len = ::NX::Length(m_vPlaneNormal);
@@ -121,6 +109,27 @@ namespace NX {
         NX::vector<float, 3> m_vPlaneNormal;
         float            m_fDistFromOriginal;
     };
+    template<typename T, typename U>
+    inline Plane Plane::GetTransformed(const NX::Matrix<T, 3, 3> &matrix, const NX::vector<U, 3> &translation) const{
+        return Plane(*this).Transform(matrix, translation);
+    }
+    
+    template<typename T>
+    inline Plane Plane::GetTransformed(const NX::Matrix<T, 4, 4> &matrix) const{
+        return Plane(*this).Transform(matrix);
+    }
+    
+    inline Plane Plane::GetTransformed(const NX::Matrix<float, 3, 3> &R, const NX::vector<float, 3>    &T) const{
+        return Plane(*this).Transform(R, T);
+    }
+    
+    inline Plane Plane::GetTransformed(const NX::vector<float, 3>    &T, const NX::Matrix<float, 3, 3> &R) const{
+        return Plane(*this).Transform(T, R);
+    }
+    
+    inline Plane& Plane::GetTranslated(const NX::vector<float, 3> &T) const{
+        return Plane(*this).Translate(T);
+    }
 }
 
 #endif  //!__ZX_NXENGINE_PLANE_H__
