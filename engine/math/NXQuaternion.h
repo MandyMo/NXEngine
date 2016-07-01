@@ -39,6 +39,7 @@ namespace NX {
         Quaternion& operator -= (const Quaternion &rhs);
         Quaternion& operator -= (const float value);
         Quaternion& operator /= (const float value);
+        Quaternion& operator /= (const Quaternion &rhs);
         friend  Quaternion operator * (const Quaternion &lhs, const Quaternion &rhs);
         friend  Quaternion operator * (const Quaternion &lhs, const float value);
         friend  Quaternion operator * (const float value, const Quaternion &lhs);
@@ -55,30 +56,30 @@ namespace NX {
         friend  Quaternion operator + (const Quaternion &lhs, const float value);
         friend  Quaternion operator / (const Quaternion &lhs, const float value);
     public:
-        float Length();
+        float Length() const;
 
         NX::Matrix<float, 4, 4> GetRotateMatrix() const;
         Quaternion GetConjugate() const;
         Quaternion GetInverse() const;
         Quaternion GetNormalized() const;
-        NX::vector<float, 3> GetRotated(const NX::vector<float, 3> &rhs);
+        NX::vector<float, 3> GetRotated(const NX::vector<float, 3> &rhs) const;
         
         Quaternion& Inverse();
         Quaternion& Conjugate();
-        NX::vector<float, 3>& Rotate(NX::vector<float, 3> &rhs);
+        NX::vector<float, 3>& Rotate(NX::vector<float, 3> &rhs) const;
         Quaternion& Normalize();
         
         /**
          *  使用以下函数之前，请保证四元数是单位四元数(可调用normalize函数将其转化为单位四元数)
          */
-        NX::vector<float, 3> GetRotateAxis();
+        NX::vector<float, 3> GetRotateAxis() const;
         Quaternion& Pow(float e);
         Quaternion GetPow(float e) const;
-        float GetRotateRadian();
-        float GetRotateAngle();
+        float GetRotateRadian() const;
+        float GetRotateAngle() const;
         
     private:
-         float LengthSquare();
+         float LengthSquare() const;
         
     public:
         friend  float Dot(const Quaternion &lhs, const Quaternion &rhs);

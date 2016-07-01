@@ -157,12 +157,12 @@ namespace NX{
         return Quaternion(w, -x, -y, -z);
     }
     
-   NX:: vector<float, 3> Quaternion::GetRotated(const NX::vector<float, 3> &rhs){
+   NX:: vector<float, 3> Quaternion::GetRotated(const NX::vector<float, 3> &rhs) const{
         vector<float, 3> t(rhs);
         return Rotate(t);
     }
 
-    NX::vector<float, 3>& Quaternion::Rotate(NX::vector<float, 3> &rhs){
+    NX::vector<float, 3>& Quaternion::Rotate(NX::vector<float, 3> &rhs) const{
         const Quaternion &RefObj = (*this) * Quaternion(0, rhs.x, rhs.y, rhs.z) * GetInverse();
         rhs.x = RefObj.x, rhs.y = RefObj.y, rhs.z = RefObj.z;
         return rhs;
@@ -174,7 +174,7 @@ namespace NX{
         return *this;
     }
 
-    float Quaternion::LengthSquare(){
+    float Quaternion::LengthSquare() const{
         return w * w + x * x + y * y + z * z;
     }
 
@@ -182,12 +182,16 @@ namespace NX{
         w /= value, x /= value, y /= value, z /= value;
         return *this;
     }
+    
+    Quaternion& Quaternion::operator /= (const Quaternion &rhs){
+        return *this *= rhs.GetInverse();
+    }
 
     Quaternion operator / (const Quaternion &lhs, const float value){
         return Quaternion(lhs) /= value;
     }
 
-    float Quaternion::Length(){
+    float Quaternion::Length() const{
         return std::sqrt(LengthSquare());
     }
 
@@ -223,7 +227,7 @@ namespace NX{
         return *this;
     }
 
-    vector<float, 3> Quaternion::GetRotateAxis(){
+    vector<float, 3> Quaternion::GetRotateAxis() const{
         float SinValue = 1.0f - w * w;
         if(SinValue < 0.0f){
             return vector<float, 3>(1.0f, 0, 0);
@@ -232,11 +236,11 @@ namespace NX{
         return vector<float, 3>(factor * x, factor * y, factor * z);
     }
 
-    float Quaternion::GetRotateRadian(){
+    float Quaternion::GetRotateRadian() const{
         return SafeACos(w) * 2.0f;
     }
     
-    float Quaternion::GetRotateAngle(){
+    float Quaternion::GetRotateAngle() const{
         return RD2DG(GetRotateRadian());
     }
     
