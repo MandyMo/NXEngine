@@ -54,7 +54,7 @@ void NX::QuickGetSinAndCos(const double radian, double * const pSinValue, double
     double a             = (radian < 0.0 ? -radian : radian) * 40.743665431525;
     double i             = std::floor(a);
     double b             = (a - i) * 0.02454369260617;
-    const int idx        = ((long) i) & 255;
+    const int idx        = ((int) i) & 255;
     const double CosBeta = CosTab[idx];
     const double SinBeta = SinTab[idx];
     double b2            = b * b;
@@ -84,7 +84,7 @@ double NX::QuickCosWithRadian(const double radian){
     double a             = (radian < 0.0 ? -radian : radian) * 40.743665431525;
     double i             = std::floor(a);
     double b             = (a - i) * 0.02454369260617;
-    const int idx        = ((long) i) & 255;
+    const int idx        = ((int) i) & 255;
     const double CosBeta = CosTab[idx];
     const double SinBeta = SinTab[idx];
     double b2            = b * b;
@@ -98,7 +98,7 @@ double NX::QuickSinWithRadian(const double radian){
     double a             = (radian < 0.0 ? -radian : radian) * 40.743665431525;
     double i             = std::floor(a);
     double b             = (a - i) * 0.02454369260617;
-    const int idx        = ((long) i) & 255;
+    const int idx        = ((int) i) & 255;
     const double CosBeta = CosTab[idx];
     const double SinBeta = SinTab[idx];
     double b2            = b * b;
@@ -121,7 +121,7 @@ float NX::QuickCosWithRadian(const float radian){
     float a             = (radian < 0.0 ? -radian : radian) * 40.743665431525f;
     float i             = std::floor(a);
     float b             = (a - i) * 0.02454369260617f;
-    const int idx       = ((long) i) & 255;
+    const int idx       = ((int) i) & 255;
     const float CosBeta = CosTab[idx];
     const float SinBeta = SinTab[idx];
     float b2            = b * b;
@@ -135,7 +135,7 @@ float NX::QuickSinWithRadian(const float radian){
     float a             = (radian < 0.0 ? -radian : radian) * 40.743665431525f;
     float i             = std::floor(a);
     float b             = (a - i) * 0.02454369260617f;
-    const int idx       = ((long) i) & 255;
+    const int idx       = ((int) i) & 255;
     const float CosBeta = CosTab[idx];
     const float SinBeta = SinTab[idx];
     float b2            = b * b;
