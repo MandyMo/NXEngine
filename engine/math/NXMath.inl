@@ -40,14 +40,6 @@ inline float  RandFloatInRange(float left, float right){
     return RandUnitFloat() * (right - left) + left;
 }
 
-double QuickSinWithAngle(const int Angle){
-    return std::sin(DG2RD(Angle));
-}
-
-double QuickCosWithAngle(const int Angle){
-    return std::cos(DG2RD(Angle));
-}
-
 //after clamp, we have ComparedValue >= NewValue
 template<typename T, typename U>
 inline T ClampFloor(T& ComparedValue, const U NewValue){
@@ -122,6 +114,9 @@ T Mode(T &value, const U mode){
     T OldValue = value;
     int v      = value / mode;
     value     -= v * mode;
+    if(value < 0){
+        value += mode;
+    }
     return OldValue;
 }
 

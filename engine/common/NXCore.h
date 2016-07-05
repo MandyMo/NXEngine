@@ -166,7 +166,7 @@ public:
 };
 
 namespace NX{
-    extern void NXAssertFailed(const char *szFileName, const char *szFuncName, const int iLine);
+    extern void NXAssertFailed(const char *szFileName, const char *szFuncName, const int iLine, const char * expr);
 }
 
 #ifndef NXAssert
@@ -174,7 +174,7 @@ namespace NX{
 #define NXAssert(expr) \
     if((expr)){\
     }else{/*NXAssert failed*/\
-        NX::NXAssertFailed(__FILE__, __func__, __LINE__);\
+        NX::NXAssertFailed(__FILE__, __func__, __LINE__, #expr);\
     }
 #else
 #define NXAssert(expr)

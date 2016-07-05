@@ -20,6 +20,7 @@ namespace NX {
     class Matrix;
     
     void InitNXMath();
+    
     template<typename T>
     inline float DG2RD(const T angle);
     
@@ -35,19 +36,17 @@ namespace NX {
     float SafeACos(const float value);
     float SafeASin(const float value);
     
-    std::pair<float, float> GetSinAndCos(const float radian);
-    void GetSinAndCos(const float radian, float * const pSinvalue, float * const pCosValue);
+    std::pair<double, double> GetSinAndCos(const double radian);
+    void GetSinAndCos(const double radian, double * const pSinvalue, double * const pCosValue);
     
-    inline double QuickCosWithAngle(const double Angle);
-    inline double QuickSinWithAngle(const double Angle);
-    inline double QuickCosWithRadian(const double Radian);
-    inline double QuickSinWithRadian(const double Radian);
-    inline float  QuickCosWithAngle(const float Angle);
-    inline float  QuickSinWithAngle(const float Angle);
-    inline double QuickCosWithRadian(const float Radian);
-    inline double QuickSinWithRadian(const float Radian);
-    inline double QuickSinWithAngle(const int Angle);
-    inline double QuickCosWithAngle(const int Angle);
+    void QuickGetSinAndCos(const double radian, double * const pSinValue, double * const pCosValue);
+    std::pair<double, double> QuickGetSinAndCos(const double radian);
+    
+    double QuickCosWithAngle(const double Angle);
+    double QuickSinWithAngle(const double Angle);
+    double QuickCosWithRadian(const double Radian);
+    double QuickSinWithRadian(const double Radian);
+
     inline int    RandInt();
     inline int    RandIntInRange(int left, int right);
     inline float  RandUnitFloat();//rand float with (0,1)
@@ -63,11 +62,11 @@ namespace NX {
     template<typename T, typename U, typename X>
     T Clamp(T& ComparedValue, const U FloorValue, const X CeilValue);
     
-    //以mode为单位，将value变换到[-mode, mode]之间，返回变换之前的value
+    //以mode为单位，将value变换到[-mode, mode]之间，返回变换之前的value, mode > 0 is required
     template<typename T, typename U>
     T Wrap(T &value, const U mode);
     
-    //以mode为单位，将value变换到[0, mode)之间，返回变换之前的value
+    //以mode为单位，将value变换到[0, mode)之间，返回变换之前的value, mode > 0 is required
     template<typename T, typename U>
     T Mode(T &value, const U mode);
     template<typename T>

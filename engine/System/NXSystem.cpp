@@ -20,6 +20,10 @@ bool NX::System::CreateDirectory(__in const std::string strDirPath){
     return false;
 }
 
+unsigned long NX::System::GetMillSeconds(){
+    NXAssert("not implementation" && 0);
+    return 0;
+}
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
@@ -32,6 +36,7 @@ namespace NX {
     public:
         virtual void Sleep(__in const unsigned int iMilliSeconds);
         virtual bool CreateDirectory(__in const std::string strDirPath);
+        virtual unsigned long GetMillSeconds();
     };
     
     WinSystem::WinSystem(){
@@ -50,6 +55,10 @@ namespace NX {
         return NX::System::CreateDirectory(strDirPath);
     }
     
+    unsigned long WinSysteM::GetMillSeconds(){
+        return NX::System::GetMillSeconds();
+    }
+    
     NX::System& NX::System::Instance(){
         static WinSystem SharedObject;
         return SharedObject;
@@ -62,6 +71,7 @@ namespace NX {
  */
 #if defined(PLATFORM_IOS) || defined(PLATFORM_ANDROID) || defined(PLATFORM_OSX)
 #include <unistd.h>
+#include <time.h>
 namespace NX{
     class PosixSystem: public NX::System{
     public:
@@ -70,6 +80,7 @@ namespace NX{
     public:
         virtual void Sleep(__in const unsigned int iMilliSeconds);
         virtual bool CreateDirectory(__in const std::string strDirPath);
+        virtual unsigned long GetMillSeconds();
     };
     
     PosixSystem::PosixSystem(){
@@ -86,6 +97,9 @@ namespace NX{
     
     bool PosixSystem::CreateDirectory(__in const std::string strDirPath){
         return NX::System::CreateDirectory(strDirPath);
+    }
+    unsigned long PosixSystem::GetMillSeconds(){
+        return NX::System::GetMillSeconds();
     }
 }
 #endif

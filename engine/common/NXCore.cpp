@@ -9,9 +9,9 @@
 #include "NXCore.h"
 
 
-void NX::NXAssertFailed(const char *szFileName, const char *szFuncName, const int iLine){
+void NX::NXAssertFailed(const char *szFileName, const char *szFuncName, const int iLine, const char * expr){
     char MsgBuf[1024];
-    std::sprintf(MsgBuf, "NXAssert failed at {[file: %s] [func: %s] [line: %d]}", szFileName, szFuncName, iLine);
+    std::sprintf(MsgBuf, "NXAssert failed at {[expr: %s] [file: %s] [func: %s] [line: %d]}", expr, szFileName, szFuncName, iLine);
     NX::glb_GetLog().logToConsole(MsgBuf);
     NX::glb_GetLog().log(MsgBuf);
 }

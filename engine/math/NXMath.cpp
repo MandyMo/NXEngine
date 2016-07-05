@@ -11,11 +11,109 @@
 #include "NXComplex.h"
 #include "NXVector.h"
 #include "NXMatrix.h"
+#include "NXUtility.h"
 #include <vector>
 #include <functional>
 
+
+static bool bMathLibInited = false;
+
+
+/**
+ *  CosTab[i] = std::cos(2pi * i / 256);
+ *  SinTab[i] = std::sin(spi * i / 256);
+ */
+static double CosTab[256];
+static double SinTab[256];
+
 void NX::InitNXMath(){
+    /*
+     *  we just need to init once
+     */
+    if(bMathLibInited){
+        return;
+    }
     std::srand((unsigned int)std::time(NULL));
+    /**
+     *  init sin & cos tab
+     */
+    std::memset(CosTab, 0, sizeof(CosTab));
+    std::memset(SinTab, 0, sizeof(SinTab));
+    const double Delta = NX::klf2Pi / NX::ArrayLength(CosTab);
+    double radian     = 0;
+    for(int i = 0, l = NX::ArrayLength(CosTab); i < l; ++i){
+        CosTab[i] = std::cos(radian);
+        SinTab[i] = std::sin(radian);
+        radian += Delta;
+    }
+    bMathLibInited = true;
+}
+
+/**
+ *  caculate it with Maclaurin series
+ */
+static NX::NXPair<double, double> GetCosAndSinValueWithSmallRadian(const double radian);
+static double GetCosValueWithSmallRadian(const double raidan);
+static double GetSinValueWithSmallRadian(const double Raidna);
+
+void NX::QuickGetSinAndCos(const double radian, double * const pSinValue, double * const pCosValue){
+    NXAssert("Please init call InitNXMath to init math lib" && bMathLibInited);
+    double r = radian;
+    NX::Mode(r, NX::klf2Pi);
+    static double Delta = NX::klf2Pi / NX::ArrayLength(CosTab);
+    const int    alphaidx = r / Delta;
+    const double belta    = r - alphaidx * Delta;
+    NX::NXPair<double, double> CSBeta = GetCosAndSinValueWithSmallRadian(belta);
+    const double CosAlpha = CosTab[alphaidx];
+    const double SinAlpha = SinTab[alphaidx];
+    const double CosBeta  = CSBeta.First();
+    const double SinBeta  = CSBeta.Second();
+    *pSinValue = SinAlpha * CosBeta + CosAlpha * SinBeta;
+    *pCosValue = CosAlpha * CosBeta - SinAlpha * SinBeta;
+}
+
+std::pair<double, double> NX::QuickGetSinAndCos(const double radian){
+    double SinValue, CosValue;
+    NX::QuickGetSinAndCos(radian, &SinValue, &CosValue);
+    return std::make_pair(SinValue, CosValue);
+}
+
+double NX::QuickCosWithAngle(const double Angle){
+    return NX::QuickCosWithRadian(NX::DG2RD(Angle));
+}
+
+double NX::QuickSinWithAngle(const double Angle){
+    return NX::QuickSinWithRadian(NX::DG2RD(Angle));
+}
+
+double NX::QuickCosWithRadian(const double radian){
+    NXAssert("Please init call InitNXMath to init math lib" && bMathLibInited);
+    double r = radian;
+    NX::Mode(r, NX::klf2Pi);
+    static double Delta = NX::klf2Pi / NX::ArrayLength(CosTab);
+    const int    alphaidx = r / Delta;
+    const double belta    = r - alphaidx * Delta;
+    NX::NXPair<double, double> CSBeta = GetCosAndSinValueWithSmallRadian(belta);
+    const double CosAlpha = CosTab[alphaidx];
+    const double SinAlpha = SinTab[alphaidx];
+    const double CosBeta  = CSBeta.First();
+    const double SinBeta  = CSBeta.Second();
+    return CosAlpha * CosBeta - SinAlpha * SinBeta;
+}
+
+double NX::QuickSinWithRadian(const double radian){
+    NXAssert("Please init call InitNXMath to init math lib" && bMathLibInited);
+    double r = radian;
+    NX::Mode(r, NX::klf2Pi);
+    static double Delta = NX::klf2Pi / NX::ArrayLength(CosTab);
+    const int    alphaidx = r / Delta;
+    const double belta    = r - alphaidx * Delta;
+    NX::NXPair<double, double> CSBeta = GetCosAndSinValueWithSmallRadian(belta);
+    const double CosAlpha = CosTab[alphaidx];
+    const double SinAlpha = SinTab[alphaidx];
+    const double CosBeta  = CSBeta.First();
+    const double SinBeta  = CSBeta.Second();
+    return SinAlpha * CosBeta + CosAlpha * SinBeta;
 }
 
 float NX::SafeACos(const float value){
@@ -38,11 +136,11 @@ float NX::SafeASin(const float value){
     }
 }
 
-std::pair<float, float> NX::GetSinAndCos(const float radian){
+std::pair<double, double> NX::GetSinAndCos(const double radian){
     return std::make_pair<float, float>(std::sin(radian), std::cos(radian));
 }
 
-void NX::GetSinAndCos(const float radian, float * const pSinvalue, float * const pCosValue){
+void NX::GetSinAndCos(const double radian, double * const pSinvalue, double * const pCosValue){
     NXAssert(pSinvalue != NULL && pCosValue != NULL);
     *pSinvalue = std::sin(radian);
     *pCosValue = std::cos(radian);
@@ -347,4 +445,40 @@ std::vector<float> NX::GetEigenValueOfSymmetricMatrix(const NX::Matrix<float, 3,
 std::vector<NX::vector<float, 3> > NX::GetEigenVectorOfSymmetricMatrix(const NX::Matrix<float, 3, 3> &M){
     //to be continue
     return std::vector<NX::vector<float, 3> > ();
+}
+
+
+static NX::NXPair<double, double> GetCosAndSinValueWithSmallRadian(const double radian){
+    double SV = 0.0, CV = 0.0;
+    double S = 1.0;
+    CV += S;
+    S *= radian;
+    SV += S;
+    S *= (radian * NX::klf1Over2);
+    CV -= S;
+    S *= (radian * NX::klf1Over3);
+    SV -= S;
+    S *= (radian * 0.25);
+    CV += S;
+    S *= (radian * 0.20);
+    SV += S;
+    return NX::MakePair(CV, SV);
+}
+
+static double GetCosValueWithSmallRadian(const double radian){
+    double SV = 1.0;
+    double S = radian * radian * NX::klf1Over2;
+    SV -= S;
+    S *= (radian * radian * NX::klf1Over3 * 0.25);
+    SV += S;
+    return SV;
+}
+
+static double GetSinValueWithSmallRadian(const double radian){
+    double SV = radian;
+    double S = radian *radian * radian * NX::klf1Over3 * NX::klf1Over2;
+    SV -= S;
+    S *= (radian * radian * 0.25 * 0.20);
+    SV += S;
+    return SV;
 }

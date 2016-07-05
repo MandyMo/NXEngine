@@ -25,6 +25,7 @@
 #include "../engine/math/NXCone.h"
 #include "../engine/common/NXUtility.h"
 #include "../engine/math/NXEllipsoid.h"
+#include "../engine/System/NXSystem.h"
 using std::cout;
 using std::endl;
 using std::cin;
@@ -469,7 +470,36 @@ int xxxmain(){
 
 
 int main(int argc, const char* argv[]){
-
+    
+    NX::InitNXMath();
+    {
+        unsigned long b = NX::System::Instance().GetMillSeconds();
+        unsigned long e;
+        double rad ;
+        double res;
+        b = NX::System::Instance().GetMillSeconds();
+        for(int i = 0; i < 1000; ++i){
+            for(int j = 0; j < 10000; ++j){
+                rad = NX::RandFloatInRange(-10000, 10000);
+                res = NX::QuickCosWithRadian(rad);
+            }
+        }
+        e = NX::System::Instance().GetMillSeconds();
+        cout << e - b << endl;
+        
+        b = NX::System::Instance().GetMillSeconds();
+        for(int i = 0; i < 1000; ++i){
+            for(int j = 0; j < 10000; ++j){
+                rad = NX::RandFloatInRange(-10000, 10000);
+                res = std::cos(rad);
+            }
+        }
+        e = NX::System::Instance().GetMillSeconds();
+        cout << e - b << endl;
+    }
+    
+    
+    
     std::auto_ptr<NX::Application> app(new Bricks());
     if(!app->Init(argv, argc, 800, 800)){
         std::cout << "failed init application..." << std::endl;
