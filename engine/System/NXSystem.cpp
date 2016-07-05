@@ -21,8 +21,8 @@ bool NX::System::CreateDirectory(__in const std::string strDirPath){
 }
 
 unsigned long NX::System::GetMillSeconds(){
-    NXAssert("not implementation" && 0);
-    return 0;
+    NXAssert("not implementation" && 1);
+    return clock();
 }
 
 #ifdef PLATFORM_WINDOWS

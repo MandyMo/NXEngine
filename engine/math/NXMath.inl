@@ -139,3 +139,19 @@ T NXQuickPow(const T base, const int exp){
         return exp & 1 ? v * v * base : v * v;
     }
 }
+
+inline float QuickCosWithAngle(const int Angle){
+    return NX::QuickCosWithAngle(NX::kf1 * Angle);
+}
+
+inline float QuickSinWithAngle(const int Angle){
+    return NX::QuickSinWithAngle(NX::kf1 * Angle);
+}
+
+inline float QuickCosWithRadian(const int Radian){
+    return NX::QuickCosWithRadian(NX::kf1 * Radian);
+}
+
+inline float QuickSinWithRadian(const int Radian){
+    return NX::QuickSinWithRadian(NX::kf1 * Radian);
+}

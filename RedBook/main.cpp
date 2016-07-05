@@ -472,11 +472,21 @@ int xxxmain(){
 int main(int argc, const char* argv[]){
     
     NX::InitNXMath();
+    double a = NX::QuickSinWithAngle(90.f);
+    cout << a << endl;
+    for(int i = 0; i < 1000; ++i){
+        float ang = NX::RandFloatInRange(-1000, 1000);
+        //NXAssert(NX::Equaldouble(NX::QuickCosWithRadian(ang), std::cos(ang)));
+        float a = NX::QuickCosWithRadian(ang);
+        float b = std::cos(ang);
+        NXAssert(NX::Equalfloat(a, b));
+    }
+    
     {
         unsigned long b = NX::System::Instance().GetMillSeconds();
         unsigned long e;
-        double rad ;
-        double res;
+        float rad ;
+        float res;
         b = NX::System::Instance().GetMillSeconds();
         for(int i = 0; i < 1000; ++i){
             for(int j = 0; j < 10000; ++j){

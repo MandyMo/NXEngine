@@ -27,7 +27,7 @@ bool BricksSphere::Init(const char* vCmdLine[], const int iCmdCount, const int i
     {//vertex
         v[0] = {NX::float3(0, 0, 500)};
         for(int i = 0; i <= 360; ++i){
-            v[i] = {NX::float3(400 * NX::QuickCosWithAngle(i), 400 * NX::QuickSinWithAngle(i), 500)};
+            v[i] = {NX::float3(400 * NX::QuickCosWithAngle(i * 1.0f), 400 * NX::QuickSinWithAngle(i * 1.0f), 500)};
         }
     }
     

@@ -46,11 +46,18 @@ namespace NX {
     double QuickSinWithAngle(const double Angle);
     double QuickCosWithRadian(const double Radian);
     double QuickSinWithRadian(const double Radian);
-
-    inline int    RandInt();
-    inline int    RandIntInRange(int left, int right);
-    inline float  RandUnitFloat();//rand float with (0,1)
-    inline float  RandFloatInRange(float left, float right);
+    float QuickCosWithAngle(const float Angle);
+    float QuickSinWithAngle(const float Angle);
+    float QuickCosWithRadian(const float Radian);
+    float QuickSinWithRadian(const float Radian);
+    inline float QuickCosWithAngle(const int Angle);
+    inline float QuickSinWithAngle(const int Angle);
+    inline float QuickCosWithRadian(const int Radian);
+    inline float QuickSinWithRadian(const int Radian);
+    inline int   RandInt();
+    inline int   RandIntInRange(int left, int right);
+    inline float RandUnitFloat();//rand float with (0,1)
+    inline float RandFloatInRange(float left, float right);
     
     //ComparedValue >= NewValue
     template<typename T, typename U>
