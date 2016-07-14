@@ -468,46 +468,24 @@ int xxxmain(){
     return 1;
 }
 
-
 int main(int argc, const char* argv[]){
     
     NX::InitNXMath();
-    double a = NX::QuickSinWithAngle(90.f);
-    cout << a << endl;
-    for(int i = 0; i < 1000; ++i){
-        float ang = NX::RandFloatInRange(-1000, 1000);
-        //NXAssert(NX::Equaldouble(NX::QuickCosWithRadian(ang), std::cos(ang)));
-        float a = NX::QuickCosWithRadian(ang);
-        float b = std::cos(ang);
-        NXAssert(NX::Equalfloat(a, b));
-    }
     
     {
-        unsigned long b = NX::System::Instance().GetMillSeconds();
-        unsigned long e;
-        float rad ;
-        float res;
-        b = NX::System::Instance().GetMillSeconds();
-        for(int i = 0; i < 1000; ++i){
-            for(int j = 0; j < 10000; ++j){
-                rad = NX::RandFloatInRange(-10000, 10000);
-                res = NX::QuickCosWithRadian(rad);
+#define N 3
+        NX::Matrix<double, N, N> m;
+        for(int i = 0; i < N; ++i){
+            for(int j = 0; j < N; ++j){
+                m[i][j] = NX::RandFloatInRange(-100, 100);
             }
         }
-        e = NX::System::Instance().GetMillSeconds();
-        cout << e - b << endl;
-        
-        b = NX::System::Instance().GetMillSeconds();
-        for(int i = 0; i < 1000; ++i){
-            for(int j = 0; j < 10000; ++j){
-                rad = NX::RandFloatInRange(-10000, 10000);
-                res = std::cos(rad);
-            }
-        }
-        e = NX::System::Instance().GetMillSeconds();
-        cout << e - b << endl;
+        auto x = NX::GetLUDecomposed(m);
+        auto R = x.first * x.second;
+        auto Dif = R - m;
+        NX::SimplifyMatrix(Dif);
+        cout << "end" << endl;
     }
-    
     
     
     std::auto_ptr<NX::Application> app(new Bricks());

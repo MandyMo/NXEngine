@@ -12,6 +12,7 @@
 #include "NXVector.h"
 #include "NXQuaternion.h"
 #include "NXEulerAngle.h"
+#include "../common/NXUtility.h"
 
 namespace NX {
     //===============================begin some vector function=========================================================
@@ -264,6 +265,17 @@ namespace NX {
     //==================================================================================================================
     
 
+    //==========================================begin LUP decompose=====================================================
+    //compose M to M = L * U
+    template<int iScale>
+    NX::NXPair<NX::Matrix<float, iScale, iScale>, NX::Matrix<float, iScale, iScale> > GetLUDecomposed(const NX::Matrix<float, iScale, iScale> &matrix);
+    
+    template<int iScale>
+    NX::NXPair<NX::Matrix<double, iScale, iScale>, NX::Matrix<double, iScale, iScale> > GetLUDecomposed(const NX::Matrix<double, iScale, iScale> &matrix);
+    
+    template<typename T, int iScale>
+    NX::NXPair<NX::Matrix<float, iScale, iScale>, NX::Matrix<float, iScale, iScale> > GetLUDecomposed(const NX::Matrix<T, iScale, iScale> &matrix);
+    //============================================end LUP decompose=====================================================
 #include "NXAlgorithm.inl"
 }
 

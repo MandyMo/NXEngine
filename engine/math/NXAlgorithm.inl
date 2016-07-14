@@ -771,4 +771,74 @@ inline Matrix<RT, 3, 3> GetMatrixScaleByDirection(const vector<T, 3> &lhs, const
     result[2][0] =     (s - 1) * n.z * n.x, result[2][1] =     (s - 1) * n.z * n.y, result[2][2] = 1 + (s - 1) * n.z * n.z;
     return result;
 }
+
+
+
+template<int iScale>
+NX::NXPair<NX::Matrix<float, iScale, iScale>, NX::Matrix<float, iScale, iScale> > GetLUDecomposed(const NX::Matrix<float, iScale, iScale> &matrix){
+    NX::Matrix<float, iScale, iScale> L;
+    NX::Matrix<float, iScale, iScale> U;
+    for(int i = 0; i < iScale; ++i){
+        U[0][i] = matrix[0][i];
+        L[i][0] = matrix[i][0] / U[0][0];
+    }
+
+    for(int r = 1; r < iScale; ++r){
+        for(int c = 1; c < iScale; ++c){
+            if(r == c){
+                L[r][c] = NX::kf1;
+            }
+            if(r > c){
+                L[r][c] = matrix[r][c];
+                for(int k = 0; k < c; ++k){
+                    L[r][c] -= L[r][k] * U[k][c];
+                }
+                L[r][c] /= U[c][c];
+            }else{
+                U[r][c] = matrix[r][c];
+                for(int k = 0; k < r; ++k){
+                    U[r][c] -= L[r][k] * U[k][c];
+                }
+            }
+        }
+    }
+    return NX::MakePair(L, U);
+}
+
+template<int iScale>
+NX::NXPair<NX::Matrix<double, iScale, iScale>, NX::Matrix<double, iScale, iScale> > GetLUDecomposed(const NX::Matrix<double, iScale, iScale> &matrix){
+    NX::Matrix<double, iScale, iScale> L;
+    NX::Matrix<double, iScale, iScale> U;
+    for(int i = 0; i < iScale; ++i){
+        U[0][i] = matrix[0][i];
+        L[i][0] = matrix[i][0] / U[0][0];
+    }
+    
+    for(int r = 1; r < iScale; ++r){
+        for(int c = 1; c < iScale; ++c){
+            if(r == c){
+                L[r][c] = NX::klf1;
+            }
+            if(r > c){
+                L[r][c] = matrix[r][c];
+                for(int k = 0; k < c; ++k){
+                    L[r][c] -= L[r][k] * U[k][c];
+                }
+                L[r][c] /= U[c][c];
+            }else{
+                U[r][c] = matrix[r][c];
+                for(int k = 0; k < r; ++k){
+                    U[r][c] -= L[r][k] * U[k][c];
+                }
+            }
+        }
+    }
+    return NX::MakePair(L, U);
+}
+
+template<typename T, int iScale>
+NX::NXPair<NX::Matrix<float, iScale, iScale>, NX::Matrix<float, iScale, iScale> > GetLUDecomposed(const NX::Matrix<T, iScale, iScale> &matrix){
+    return GetLUDecomposed(NX::Matrix<float, iScale, iScale>(matrix));
+}
+
 #endif //!__ZX_NXENGINE_ALGORITHM_INL__
