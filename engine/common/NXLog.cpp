@@ -75,7 +75,7 @@ void NX::Log::logToConsole(__in const char *szFormat, ...){
     std::string StrMsg = GetTimeDescription() + std::string(" ") + MsgBuf;
 #if defined(PLATFORM_OSX) || defined(PLATFORM_IOS)
     std::cout << StrMsg << std::endl;
-#elif defined(A_PLATFORM_ANDROID)
+#elif defined(PLATFORM_ANDROID)
     __android_log_print(ANDROID_LOG_INFO, "JoyStick", "%s", StrMsg.c_str());
 #else
     OutputDebugStringA(StrMsg.c_str());
