@@ -841,4 +841,58 @@ NX::NXPair<NX::Matrix<float, iScale, iScale>, NX::Matrix<float, iScale, iScale> 
     return GetLUDecomposed(NX::Matrix<float, iScale, iScale>(matrix));
 }
 
+
+template<int iScale>
+NX::NXTriple<NX::vector<int, iScale>, NX::Matrix<float, iScale, iScale>, NX::Matrix<float, iScale, iScale> > GetLUPDecomposed(const NX::Matrix<float, iScale, iScale> &matrix){
+    NX::Matrix<float, iScale, iScale> L(matrix);
+    NX::Matrix<float, iScale, iScale> U;
+    NX::vector<float, iScale> VDsp;
+    VDsp =  LUPDecompose(L);
+    for(int r = 0; r < iScale; ++r){
+        for(int c = r; c < iScale; ++c){
+            U[r][c] = L[r][c];
+            L[r][c] = NX::kf0;
+        }
+        L[r][r] = NX::kf1;
+    }
+    return NX::MakePair(VDsp, L, U);
+}
+
+template<int iScale>
+NX::vector<int, iScale> LUPDecompose(NX::Matrix<float, iScale, iScale> &matrix){
+    NX::vector<int, iScale> VDsp;//displacement matrix
+    for(int i = 0; i < iScale; ++i){
+        VDsp[i] = i;
+    }
+    
+    int iPivot;
+    
+    for(int i = 0; i < iScale; ++i){
+        //choose pivot value
+        iPivot = i;
+        for(int c = i + 1; c < iScale; ++c){
+            if(NX::NXAbs(matrix[c][i]) > NX::NXAbs(matrix[iPivot][i])){
+                iPivot = c;
+            }
+        }
+        //the parameter matrix is a sigular matrix
+        if(NX::EqualZero(matrix[iPivot][i])){
+            return VDsp;
+        }
+        const float Mult = NX::kf1 / matrix[iPivot][i];
+        if(iPivot != i){
+            NX::NXSwap(VDsp[i], VDsp[iPivot]);
+            matrix.SwapRow(iPivot, i);
+        }
+        for(int r = i + 1; r < iScale; ++r){
+            matrix[r][i] *= Mult;
+            for(int c = i + 1; c < iScale; ++c){
+                matrix[r][c] -= matrix[r][i] * matrix[i][c];
+            }
+        }
+    }
+
+    return VDsp;
+}
+
 #endif //!__ZX_NXENGINE_ALGORITHM_INL__

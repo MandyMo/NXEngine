@@ -468,21 +468,30 @@ int xxxmain(){
     return 1;
 }
 
+template<int iScale>
+NX::Matrix<float, iScale, iScale> GetDSPMatrix(const NX::vector<int, iScale> &vdsp);
+
 int main(int argc, const char* argv[]){
     
     NX::InitNXMath();
     
     {
-#define N 3
-        NX::Matrix<double, N, N> m;
+#define N 10
+        NX::Matrix<float, N, N> m;
         for(int i = 0; i < N; ++i){
             for(int j = 0; j < N; ++j){
                 m[i][j] = NX::RandFloatInRange(-100, 100);
             }
         }
-        auto x = NX::GetLUDecomposed(m);
-        auto R = x.first * x.second;
-        auto Dif = R - m;
+
+        auto Pre = m;
+        auto x = NX::GetLUPDecomposed(m);
+        auto P = GetDSPMatrix(x.first);
+        auto L = x.second;
+        auto U = x.third;
+        auto Now = P * Pre;
+        auto LU = L * U;
+        auto Dif = Now - LU;
         NX::SimplifyMatrix(Dif);
         cout << "end" << endl;
     }
@@ -502,3 +511,16 @@ int main(int argc, const char* argv[]){
     NX::glb_GetLog().logToConsole("end main");
     return 0;
 }
+
+
+template<int iScale>
+NX::Matrix<float, iScale, iScale> GetDSPMatrix(const NX::vector<int, iScale> &vdsp){
+    NX::Matrix<float, iScale, iScale> dsp;
+    for(int i = 0; i < iScale; ++i){
+        dsp[i][vdsp[i]] = NX::kf1;
+    }
+    return dsp;
+}
+
+
+

@@ -273,8 +273,16 @@ namespace NX {
     template<int iScale>
     NX::NXPair<NX::Matrix<double, iScale, iScale>, NX::Matrix<double, iScale, iScale> > GetLUDecomposed(const NX::Matrix<double, iScale, iScale> &matrix);
     
+    
     template<typename T, int iScale>
     NX::NXPair<NX::Matrix<float, iScale, iScale>, NX::Matrix<float, iScale, iScale> > GetLUDecomposed(const NX::Matrix<T, iScale, iScale> &matrix);
+    
+    //compose M to PM = L * U
+    template<int iScale>
+    NX::NXTriple<NX::vector<int, iScale>, NX::Matrix<float, iScale, iScale>, NX::Matrix<float, iScale, iScale> > GetLUPDecomposed(const NX::Matrix<float, iScale, iScale> &matrix);
+    
+    template<int iScale>
+    NX::vector<int, iScale> LUPDecompose(NX::Matrix<float, iScale, iScale> &matrix);
     //============================================end LUP decompose=====================================================
 #include "NXAlgorithm.inl"
 }

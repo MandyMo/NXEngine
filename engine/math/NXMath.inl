@@ -83,6 +83,13 @@ T NXMin(const T l, const U r){
     return l < r ? l : r;
 }
 
+template<typename T>
+void NXSwap(T& lhs, T &rhs){
+    T tmp(lhs);
+    lhs = rhs;
+    rhs = tmp;
+}
+
 template<typename T, typename U>
 T NXMax(const T l, const U r){
     return l > r ? l : r;

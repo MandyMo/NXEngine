@@ -86,6 +86,9 @@ namespace NX {
     T NXMax(const T l, const U r);
     
     template<typename T>
+    void NXSwap(T& lhs, T &rhs);
+    
+    template<typename T>
     T NXSign(const T v);
     
     template<typename T>
