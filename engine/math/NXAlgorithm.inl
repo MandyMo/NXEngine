@@ -245,6 +245,43 @@ inline Matrix<T, Scale, Scale> GetScaleMatrix(const T sx, const T sy, const T sz
     return result;
 }
 
+template<typename T, int Scale, typename RT /* = T */>
+inline RT TraceMatrix(const NX::Matrix<T, Scale, Scale> &m){
+    RT sum = RT(0);
+    for(int i = 0; i < Scale; ++i){
+        sum += m[i][i];
+    }
+    return sum;
+}
+
+template<typename T, int Scale /* = 4 */>
+inline Matrix<T, Scale, Scale> GetMatrixByScaleAtAxis(const T sx, const T sy, const T sz, const NX::vector<T, 3> &vx, const NX::vector<T, 3> &vy, const NX::vector<T, 3> &vz){
+    const Matrix<T, Scale, Scale>& S = GetScaleMatrix<T, Scale>(sx, sy, sz);
+    Matrix<T, Scale, Scale> F;
+    F[Scale - 1][Scale - 1] = T(1);
+    F.SetRow(0, NX::GetNormalized(vx));
+    F.SetRow(1, NX::GetNormalized(vy));
+    F.SetRow(2, NX::GetNormalized(vz));
+    const Matrix<T, Scale, Scale> &FT = GetTransposed(F);
+    return FT * S * F;
+}
+
+template<typename T, int Scale>
+inline Matrix<T, Scale, Scale> GetIdentityMatrix(){
+    Matrix<T, Scale, Scale> result;
+    for(int i = 0; i < Scale; ++i){
+        result[i][i] = T(1);
+    }
+    return result;
+}
+
+template<typename T, int Scale /* = 4 */>
+inline Matrix<T, Scale, Scale> GetShearMatrix(const int iSheared, const int iShearfrom, const T s){
+    Matrix<T, Scale, Scale> result = GetIdentityMatrix<T, Scale>();
+    result[iSheared][iShearfrom] = s;
+    return result;
+}
+
 template<typename T, int Scale, typename U>
 inline Matrix<T, Scale, Scale> GetMatrixRotateByAix(const vector<U, 3> &Aix, const T radian){
     vector<T, 3> ax(Aix);
