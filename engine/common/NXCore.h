@@ -118,6 +118,7 @@
 #include <vector>
 #include <cstdlib>
 #include <cstring>
+#incldue <typeinfo>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 

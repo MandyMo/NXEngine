@@ -35,7 +35,7 @@ NX::Log::Log(const std::string& strLogFilePath):m_strLogFilePath(strLogFilePath)
     freopen("CONOUT$","w",stdout);
 #endif
     if(strLogFilePath != ""){
-        m_outStream.open(m_strLogFilePath);
+        m_outStream.open(m_strLogFilePath.c_str());
         if(!m_outStream){
             logToConsole("open log file [%s] failed", strLogFilePath.c_str());
         }
@@ -55,7 +55,7 @@ void NX::Log::RedirectLogFile(const std::string& strNewLogFilePath){
     log("log file [%s] closed and switched to log file [%s].", m_strLogFilePath.c_str(), strNewLogFilePath.c_str());
     m_outStream.close();
     m_strLogFilePath = strNewLogFilePath;
-    m_outStream.open(m_strLogFilePath);
+    m_outStream.open(m_strLogFilePath.c_str());
 }
 
 void NX::Log::log(const char* szFormat, ...){
