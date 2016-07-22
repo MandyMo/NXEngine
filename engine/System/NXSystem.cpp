@@ -84,7 +84,6 @@ namespace NX{
     public:
         PosixSystem();
         virtual ~PosixSystem();
-		
     public:
         virtual void Sleep(__in const unsigned int iMilliSeconds);
         virtual bool CreateDirectory(__in const std::string strDirPath);
@@ -151,7 +150,6 @@ namespace NX{
     public:
         AndroidSystem();
         virtual ~AndroidSystem();
-		
     public:
         virtual NXInt64 GetMillSecondsFromSystemStart();
     };
@@ -172,7 +170,7 @@ namespace NX{
     NXInt64 AndroidSystem::GetMillSecondsFromSystemStart(){
 		timespec now;
 		int err = clock_gettime(CLOCK_MONOTONIC, &now);
-		return now.tv_sec*1000000LL + now.tv_nsec / 1000;
+		return now.tv_sec* 1000LL + now.tv_nsec / 1000000;
     }
 }
 #endif
