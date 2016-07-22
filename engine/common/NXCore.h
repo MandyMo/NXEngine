@@ -155,6 +155,8 @@ typedef signed long long    sllong;
 typedef unsigned long long  ullong;
 typedef long long           llong;
 
+typedef long long NXInt64;
+
 template<GLenum Type>
 class NXEnable{
 public:

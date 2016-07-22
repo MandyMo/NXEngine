@@ -15,6 +15,6 @@ namespace NX {
     public:
         virtual void Sleep(__in const unsigned int iMilliSeconds) = 0;
         virtual bool CreateDirectory(__in const std::string strDirPath) = 0;
-        virtual unsigned long GetMillSeconds() = 0;
+        virtual NXInt64 GetMillSecondsFromSystemStart() = 0;
     };
 }

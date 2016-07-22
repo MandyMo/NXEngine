@@ -20,11 +20,6 @@ bool NX::System::CreateDirectory(__in const std::string strDirPath){
     return false;
 }
 
-unsigned long NX::System::GetMillSeconds(){
-    NXAssert("not implementation" && 1);
-    return clock();
-}
-
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 
@@ -36,7 +31,7 @@ namespace NX {
     public:
         virtual void Sleep(__in const unsigned int iMilliSeconds);
         virtual bool CreateDirectory(__in const std::string strDirPath);
-        virtual unsigned long GetMillSeconds();
+        virtual NXInt64 GetMillSecondsFromSystemStart();
     };
     
     WinSystem::WinSystem(){
@@ -55,8 +50,20 @@ namespace NX {
         return NX::System::CreateDirectory(strDirPath);
     }
     
-    unsigned long WinSysteM::GetMillSeconds(){
-        return NX::System::GetMillSeconds();
+    virtual NXInt64 GetMillSecondsFromSystemStart(){
+    	static LARGE_INTEGER TicksPerSecond = {0};
+    	LARGE_INTEGER Tick;
+
+    	if(!TicksPerSecond.QuadPart){
+    		::QueryPerformanceFrequency(&TicksPerSecond);
+    	}
+
+    	::QueryPerformanceCounter(&Tick);
+    	__int64 Seconds     = Tick.QuadPart/TicksPerSecond.QuadPart;
+    	__int64 LeftPart    = Tick.QuadPart - (TicksPerSecond.QuadPart*Seconds);
+    	__int64 MillSeconds = LeftPart*1000/TicksPerSecond.QuadPart;
+    	__int64 Ret         = Seconds*1000+MillSeconds;
+    	return Ret;
     }
     
     NX::System& NX::System::Instance(){
@@ -77,10 +84,10 @@ namespace NX{
     public:
         PosixSystem();
         virtual ~PosixSystem();
+		
     public:
         virtual void Sleep(__in const unsigned int iMilliSeconds);
         virtual bool CreateDirectory(__in const std::string strDirPath);
-        virtual unsigned long GetMillSeconds();
     };
     
     PosixSystem::PosixSystem(){
@@ -98,9 +105,6 @@ namespace NX{
     bool PosixSystem::CreateDirectory(__in const std::string strDirPath){
         return NX::System::CreateDirectory(strDirPath);
     }
-    unsigned long PosixSystem::GetMillSeconds(){
-        return NX::System::GetMillSeconds();
-    }
 }
 #endif
 
@@ -113,6 +117,9 @@ namespace NX{
     public:
         IOSSystem();
         virtual ~IOSSystem();
+
+    public:
+        virtual NXInt64 GetMillSecondsFromSystemStart();
     };
     
     IOSSystem::IOSSystem(){
@@ -122,10 +129,15 @@ namespace NX{
     IOSSystem::~IOSSystem(){
         //empty here
     }
-    
+
     System& System::Instance(){
         static IOSSystem SharedObject;
         return SharedObject;
+    }
+
+    NXInt64 IOSSystem::GetMillSecondsFromSystemStart(){
+    	NXAssert(0 && "ios::not implemented");
+    	return 0;
     }
 }
 #endif
@@ -139,6 +151,9 @@ namespace NX{
     public:
         AndroidSystem();
         virtual ~AndroidSystem();
+		
+    public:
+        virtual NXInt64 GetMillSecondsFromSystemStart();
     };
     
     AndroidSystem::AndroidSystem(){
@@ -148,10 +163,16 @@ namespace NX{
     AndroidSystem::~AndroidSystem(){
         //empty here
     }
-    
+
     System& System::Instance(){
         static AndroidSystem SharedObject;
         return SharedObject;
+    }
+
+    NXInt64 AndroidSystem::GetMillSecondsFromSystemStart(){
+		timespec now;
+		int err = clock_gettime(CLOCK_MONOTONIC, &now);
+		return now.tv_sec*1000000LL + now.tv_nsec / 1000;
     }
 }
 #endif
@@ -165,6 +186,9 @@ namespace NX{
     public:
         OSXSystem();
         virtual ~OSXSystem();
+
+    public:
+        virtual NXInt64 GetMillSecondsFromSystemStart();
     };
     
     OSXSystem::OSXSystem(){
@@ -174,10 +198,15 @@ namespace NX{
     OSXSystem::~OSXSystem(){
         //empty here
     }
-    
+
     System& System::Instance(){
         static OSXSystem SharedObject;
         return SharedObject;
+    }
+
+    virtual OSXSystem::NXInt64 GetMillSecondsFromSystemStart(){
+    	NXAssert(0 && "not implemented");
+    	return 0;
     }
 }
 #endif
