@@ -119,6 +119,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <typeinfo>
+#include <cstdarg.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
