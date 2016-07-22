@@ -103,6 +103,18 @@ namespace NX {
     template<typename T, int Scale = 4>
     inline Matrix<T, Scale, Scale> GetScaleMatrix(const T sx, const T sy, const T sz);
     
+    template<typename T, int Scale, typename RT = T>
+    inline RT TraceMatrix(const NX::Matrix<T, Scale, Scale> &m);
+    
+    template<typename T, int Scale = 4>
+    inline Matrix<T, Scale, Scale> GetMatrixByScaleAtAxis(const T sx, const T sy, const T sz, const NX::vector<T, 3> &vx, const NX::vector<T, 3> &vy, const NX::vector<T, 3> &vz);
+    
+    template<typename T, int Scale = 4>
+    inline Matrix<T, Scale, Scale> GetShearMatrix(const int iSheared, const int iShearfrom, const T s);
+    
+    template<typename T, int Scale>
+    inline Matrix<T, Scale, Scale> GetIdentityMatrix();
+    
     template<typename T, int Scale = 4, typename U>
     inline Matrix<T, Scale, Scale> GetMatrixRotateByAix(const vector<U, 3> &Aix, const T radian);
     
