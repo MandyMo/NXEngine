@@ -475,3 +475,33 @@ std::vector<NX::vector<float, 3> > NX::GetEigenVectorOfSymmetricMatrix(const NX:
     //to be continue
     return std::vector<NX::vector<float, 3> > ();
 }
+
+unsigned int NX::NXBKDRHash(const char *str){
+    unsigned int seed = 131; // 31 131 1313 13131 131313 .....
+    unsigned int hash = 0;
+
+    while (*str){
+        hash = hash * seed + (*str++);
+    }
+    return (hash & 0x7FFFFFFF);
+}
+
+unsigned int NX::NXBKDRHash(const std::string &str){
+    unsigned int seed = 131; // 31 131 1313 13131 131313 .....
+    unsigned int hash = 0;
+    const char * p = &str[0];
+    while (*p){
+        hash = hash * seed + (*p++);
+    }
+    return (hash & 0x7FFFFFFF);
+}
+
+unsigned int NX::NXUpperPow2(unsigned int v){
+	--v;
+	v |= v >> 1;
+	v |= v >> 2;
+	v |= v >> 4;
+	v |= v >> 8;
+	v |= v >> 16;
+	return ++v;
+}

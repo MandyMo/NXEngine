@@ -163,6 +163,14 @@ return NX::NXAbs(va - vb) <= delta;\
     std::vector<NX::vector<float, 3> > GetEigenVectorOfSymmetricMatrix(const NX::Matrix<float, 3, 3> &M);
     //==================================================end of get eigenvalue===========================================
     
+    //===============================================begin string hash==================================================
+    unsigned int NXBKDRHash(const char *str);
+
+    unsigned int NXBKDRHash(const std::string &str);
+    //=================================================end string hash==================================================
+
+    unsigned int NXUpperPow2(unsigned int x);
+
 #include "NXMath.inl"
 }
 
