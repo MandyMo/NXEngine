@@ -31,6 +31,9 @@ using std::endl;
 using std::cin;
 
 int xxxmain(){
+    {//delete directory
+        NX::System::Instance().DeleteDirectory("/zhangxiong/tmp");
+    }
     {
         NXAssert(0);
     }
@@ -472,7 +475,21 @@ template<int iScale>
 NX::Matrix<float, iScale, iScale> GetDSPMatrix(const NX::vector<int, iScale> &vdsp);
 
 int main(int argc, const char* argv[]){
+    NX::System::Instance().DeleteDirectory("/zhangxiong/tmp");
+    NX::System::Instance().CreateDirectory("/zhangxiong/a/b");
+    NX::System::Instance().CreateDirectory("/zhangxiong/a/b/c");
+    NX::System::Instance().CreateDirectory("/zhangxiong/a/b/c/d");
+    NX::System::Instance().CreateDirectory("/zhangxiong/a/b/c/d/e");
+    NX::System::Instance().CreateDirectory("/zhangxiong/a/b/c/d/e/f");
+    if(NX::System::Instance().FileExist("/zhangxiong/a/b/e")){
+        cout << "file exist" << endl;
+    }else{
+        cout << "file not exist" << endl;
+    }
     
+    cout << "begin time" << NX::System::Instance().GetMillSecondsFromSystemStart() << endl;
+    NX::System::Instance().Sleep(3000);
+    cout << "end time" << NX::System::Instance().GetMillSecondsFromSystemStart()<<endl;
     NX::InitNXMath();
     
     {

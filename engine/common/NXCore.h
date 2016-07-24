@@ -119,7 +119,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <typeinfo>
-#include <cstdarg.h>
+#include <cstdarg>
+#include <cstdio>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -195,6 +196,15 @@ namespace NX {
     template<typename T, int len>
     std::string ArrayElementName(const T (&)[len]){
         return typeid(T).name();
+    }
+    
+    template<typename T>
+    inline void NXZeroMemory(T * ptr){
+        std::memset(ptr, 0, sizeof(T));
+    }
+    
+    inline void NXZeroMemory(void * ptr, int _n){
+        std::memset(ptr, 0, _n);
     }
 }
 

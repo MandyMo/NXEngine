@@ -1,5 +1,6 @@
 /*
  *  File:    NXMutex.h
+ *
  *  author:  张雄
  *  date:    2016_04_26
  *  purpose: define a general mutex interface

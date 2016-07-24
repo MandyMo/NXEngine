@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C4FFEC01D44E680002AAB92 /* NXWinSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FFEBF1D44E680002AAB92 /* NXWinSystem.cpp */; };
+		6C4FFEC21D44E734002AAB92 /* NXPosixSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FFEC11D44E734002AAB92 /* NXPosixSystem.cpp */; };
+		6C4FFEC41D44E781002AAB92 /* NXOSXSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FFEC31D44E781002AAB92 /* NXOSXSystem.mm */; };
+		6C4FFEC71D44E8FD002AAB92 /* NXAndroidSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FFEC61D44E8FD002AAB92 /* NXAndroidSystem.cpp */; };
+		6C4FFEC91D44E94F002AAB92 /* NXiOSSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FFEC81D44E94F002AAB92 /* NXiOSSystem.mm */; };
 		6CF322391D13F64700AAA83F /* NXCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF321531D13F64700AAA83F /* NXCore.cpp */; };
 		6CF3223A1D13F64700AAA83F /* NXLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF321551D13F64700AAA83F /* NXLog.cpp */; };
 		6CF3223B1D13F64700AAA83F /* NXMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF321571D13F64700AAA83F /* NXMemory.cpp */; };
@@ -89,6 +94,12 @@
 
 /* Begin PBXFileReference section */
 		6C107B031D24C030006DF447 /* NXEngine.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NXEngine.txt; sourceTree = "<group>"; };
+		6C4FFEBF1D44E680002AAB92 /* NXWinSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXWinSystem.cpp; sourceTree = "<group>"; };
+		6C4FFEC11D44E734002AAB92 /* NXPosixSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXPosixSystem.cpp; sourceTree = "<group>"; };
+		6C4FFEC31D44E781002AAB92 /* NXOSXSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NXOSXSystem.mm; sourceTree = "<group>"; };
+		6C4FFEC51D44E805002AAB92 /* NXPosixSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXPosixSystem.h; sourceTree = "<group>"; };
+		6C4FFEC61D44E8FD002AAB92 /* NXAndroidSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXAndroidSystem.cpp; sourceTree = "<group>"; };
+		6C4FFEC81D44E94F002AAB92 /* NXiOSSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NXiOSSystem.mm; sourceTree = "<group>"; };
 		6CF3205E1D13F43500AAA83F /* NXEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NXEngine; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CF321531D13F64700AAA83F /* NXCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXCore.cpp; sourceTree = "<group>"; };
 		6CF321541D13F64700AAA83F /* NXCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXCore.h; sourceTree = "<group>"; };
@@ -448,8 +459,14 @@
 			children = (
 				6CF321981D13F64700AAA83F /* NXMutex.cpp */,
 				6CF321991D13F64700AAA83F /* NXMutex.h */,
-				6CF3219A1D13F64700AAA83F /* NXSystem.cpp */,
 				6CF3219B1D13F64700AAA83F /* NXSystem.h */,
+				6CF3219A1D13F64700AAA83F /* NXSystem.cpp */,
+				6C4FFEC51D44E805002AAB92 /* NXPosixSystem.h */,
+				6C4FFEC11D44E734002AAB92 /* NXPosixSystem.cpp */,
+				6C4FFEBF1D44E680002AAB92 /* NXWinSystem.cpp */,
+				6C4FFEC31D44E781002AAB92 /* NXOSXSystem.mm */,
+				6C4FFEC61D44E8FD002AAB92 /* NXAndroidSystem.cpp */,
+				6C4FFEC81D44E94F002AAB92 /* NXiOSSystem.mm */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -754,6 +771,7 @@
 				6CF322721D13F64700AAA83F /* BrickShader.cpp in Sources */,
 				6CF3223D1D13F64700AAA83F /* NXAlgorithm.cpp in Sources */,
 				6CF322461D13F64700AAA83F /* NXPlane.cpp in Sources */,
+				6C4FFEC91D44E94F002AAB92 /* NXiOSSystem.mm in Sources */,
 				6CF3224C1D13F64700AAA83F /* NXCamera.cpp in Sources */,
 				6CF3223A1D13F64700AAA83F /* NXLog.cpp in Sources */,
 				6CF3226D1D13F64700AAA83F /* SwizzleDemo.cpp in Sources */,
@@ -777,6 +795,7 @@
 				6CF322551D13F64700AAA83F /* NXSystem.cpp in Sources */,
 				6CF322541D13F64700AAA83F /* NXMutex.cpp in Sources */,
 				6CF322611D13F64700AAA83F /* BufferObject.cpp in Sources */,
+				6C4FFEC01D44E680002AAB92 /* NXWinSystem.cpp in Sources */,
 				6CF322421D13F64700AAA83F /* NXEllipsoid.cpp in Sources */,
 				6CF3223F1D13F64700AAA83F /* NXCone.cpp in Sources */,
 				6CF322601D13F64700AAA83F /* TFBDemo.cpp in Sources */,
@@ -786,6 +805,7 @@
 				6CF322631D13F64700AAA83F /* PointSize.cpp in Sources */,
 				6CFEF93B1D1D34E900F29F41 /* NXOOBB.cpp in Sources */,
 				6CF322711D13F64700AAA83F /* Bricks.cpp in Sources */,
+				6C4FFEC41D44E781002AAB92 /* NXOSXSystem.mm in Sources */,
 				6CF322701D13F64700AAA83F /* DoubeFaceShading.cpp in Sources */,
 				6CF3223C1D13F64700AAA83F /* NXAABB.cpp in Sources */,
 				6CF3225E1D13F64700AAA83F /* GSDemo.cpp in Sources */,
@@ -806,10 +826,12 @@
 				6CF3224D1D13F64700AAA83F /* NXImagePixelLoader.cpp in Sources */,
 				6CF322431D13F64700AAA83F /* NXEulerAngle.cpp in Sources */,
 				6CF3226B1D13F64700AAA83F /* SamplerDemo.cpp in Sources */,
+				6C4FFEC71D44E8FD002AAB92 /* NXAndroidSystem.cpp in Sources */,
 				6CF3225D1D13F64700AAA83F /* SkyBox1.cpp in Sources */,
 				6CF322401D13F64700AAA83F /* NXCylinder.cpp in Sources */,
 				6CF322761D13F64700AAA83F /* TCSphere.cpp in Sources */,
 				6CF322651D13F64700AAA83F /* MRTDemo.cpp in Sources */,
+				6C4FFEC21D44E734002AAB92 /* NXPosixSystem.cpp in Sources */,
 				6CF322581D13F64700AAA83F /* AppChap1_3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
