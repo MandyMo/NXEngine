@@ -235,7 +235,7 @@ namespace NX {
     public:
         bool Tick(const int DeltaTime){
             m_iTimeSinceLastTick += DeltaTime;
-            if(m_iTickDelta && m_iTimeSinceLastTick){
+            if(m_iTickDelta && m_iTimeSinceLastTick >= m_iTickDelta){
                 m_iTimeSinceLastTick -= m_iTickDelta;
                 return true;
             }
