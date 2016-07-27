@@ -9,6 +9,7 @@
 
 #include "NXTimerManager.h"
 #include "NXTimerEvent.h"
+#include "../../System/NXSystem.h"
 
 NX::TimerManager::TimerManager(){
     /*empty*/
@@ -24,14 +25,24 @@ NX::TimerManager& NX::TimerManager::Instance(){
 }
 
 
-void NX::TimerManager::Tick(const int iDeltaTime){
+int NX::TimerManager::Tick(const int iDeltaTime){
+	int cTicked = 0;
     for(auto it = m_EventId2Time.begin(); it != m_EventId2Time.end(); ++it){
         NX::EventID eventId = it->first;
         NX::NXTick * ticker = dynamic_cast<NX::NXTick*>(NX::EventManager::Instance().GetEventById(eventId));
-        if(ticker){
-            ticker->Tick(iDeltaTime);
+        if(ticker && ticker->Tick(iDeltaTime)){
+            ++cTicked;
         }
     }
+    return cTicked;
+}
+
+int NX::TimerManager::Tick(){
+	static NXInt64 LastTimeTicked = NX::System::Instance().GetMillSecondsFromSystemStart();
+	NXInt64 Now = NX::System::Instance().GetMillSecondsFromSystemStart();
+	int iDeltaTime = Now - LastTimeTicked;
+	LastTimeTicked = Now;
+	return Tick(iDeltaTime);
 }
 
 int  NX::TimerManager::RemoveTimer(NX::EventID eventId){

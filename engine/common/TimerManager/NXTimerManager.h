@@ -19,14 +19,16 @@ namespace NX {
         friend inline bool SendTimerEventToHandler(int iTime, EventHandler& eventHandler);
         friend inline int AttachTimerEventHandler(int iTime, EventHandler& eventHandler);
         friend inline int DetachTimerEventHandler(int iTime, EventHandler& eventHandler);
-        
+        friend inline int TickTimerManager(const int iDeltaTime);
+        friend inline int TickTimerManager();
     public:
         TimerManager();
         virtual ~TimerManager();
         static TimerManager& Instance();
         
     public:
-        void Tick(const int iDeltaTime);
+        int Tick();
+        int Tick(const int iDeltaTime);
         int  RemoveTimer(NX::EventID eventId);
         int  SendTimerEvent(int iTime);
         bool SendTimerEventToHandler(int iTime, EventHandler& eventHandler);
@@ -37,7 +39,14 @@ namespace NX {
         std::unordered_map<int, NX::EventID>           m_Time2EventId;
         std::unordered_map<NX::EventID, int>           m_EventId2Time;
     };
-    
+    inline int TickTimerManager(const int iDeltaTime){
+    	return NX::TimerManager::Instance().Tick(iDeltaTime);
+    }
+
+    inline int TickTimerManager(){
+    	return NX::TimerManager::Instance().Tick();
+    }
+
     inline int  SendTimerEvent(int iTime){
         return NX::TimerManager::Instance().SendTimerEvent(iTime);
     }

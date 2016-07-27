@@ -11,7 +11,7 @@
 
 #include <vector>
 
-#include "NXUtility.h"
+#include "../NXUtility.h"
 
 namespace NX {
     typedef long long EventID;
