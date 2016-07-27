@@ -1,1 +1,1 @@
-[2016-07-27 12:49:14]  log file [./engine/render/NXEngine.txt] open.
+[2016-07-27 13:00:07]  log file [./engine/render/NXEngine.txt] open.

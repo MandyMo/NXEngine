@@ -218,7 +218,7 @@ namespace NX {
         }
         
         virtual int Release(){
-            if(--m_iRefCount){
+            if(--m_iRefCount == 0){
                 delete this;
             }
             return m_iRefCount;
