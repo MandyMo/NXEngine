@@ -69,6 +69,7 @@ int NX::TimerManager::AttachTimerEventHandler(int iTime, EventHandler& eventHand
         m_EventId2Time[eventId] = iTime;
         NX::TimerEvent * event = new NX::TimerEvent(iTime, eventId);
         NX::RegisterEvent(eventId, event);
+        event->Release();
         return NX::AttachEventHandler(eventId, eventHandler);
     }
 }

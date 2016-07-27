@@ -508,11 +508,12 @@ int main(int argc, const char* argv[]){
     H1 * p11 = new H1(), *p12 = new H1(), *p13 = new H1();
     H2 * p21 = new H2(), *p22 = new H2(), *p23 = new H2();
     H3 * p31 = new H3(), *p32 = new H3(), *p33 = new H3();
-    NX::AttachTimerEventHandler(5000, *p11);
+    NX::AttachTimerEventHandler(1000, *p11);
     NX::AttachTimerEventHandler(10000,*p11);
     NX::AttachTimerEventHandler(30000,*p11);
     NX::DetachTimerEventHandler(1000, *p11);
     p11->Release();
+    NX::DetachTimerEventHandler(1000, *p11);
     p12->Release();
     p13->Release();
     p21->Release();
