@@ -200,6 +200,69 @@ namespace NX {
     }
     //=================================================end quadruples===================================================
     
+    class NXRef{
+    public:
+        NXRef(){
+            m_iRefCount = 1;
+        }
+        
+        virtual ~NXRef() {}
+        
+    public:
+        int GetRefCount(){
+            return m_iRefCount;
+        }
+        
+        virtual int AddRef(){
+            return ++m_iRefCount;
+        }
+        
+        virtual int Release(){
+            if(--m_iRefCount){
+                delete this;
+            }
+            return m_iRefCount;
+        }
+        
+    private:
+        int   m_iRefCount;
+    };
+    
+    class NXCounter{
+    public:
+        explicit NXCounter(const int iTickDelta): m_iTickDelta(iTickDelta), m_iTimeSinceLastTick(0){}
+        ~NXCounter() {}
+    public:
+        bool Tick(const int DeltaTime){
+            m_iTimeSinceLastTick += DeltaTime;
+            if(m_iTickDelta && m_iTimeSinceLastTick){
+                m_iTimeSinceLastTick -= m_iTickDelta;
+                return true;
+            }
+            return false;
+        }
+    private:
+        int  m_iTickDelta;
+        int  m_iTimeSinceLastTick;
+    };
+    
+    class NXTick{
+    public:
+        explicit NXTick(const int iTickDelta): m_iTickDelta(iTickDelta), m_iTimeSinceLastTick(0){}
+        virtual ~NXTick() {}
+    public:
+        virtual bool Tick(const int DeltaTime){
+            m_iTimeSinceLastTick += DeltaTime;
+            if(m_iTickDelta && m_iTimeSinceLastTick >= m_iTickDelta){
+                m_iTimeSinceLastTick -= m_iTickDelta;
+                return true;
+            }
+            return false;
+        }
+    private:
+        int  m_iTickDelta;
+        int  m_iTimeSinceLastTick;
+    };
 }
 
 

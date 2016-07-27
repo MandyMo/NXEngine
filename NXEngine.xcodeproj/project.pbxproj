@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C052EE41D484FA20088B859 /* NXEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C052EDC1D484FA20088B859 /* NXEvent.cpp */; };
+		6C052EE51D484FA20088B859 /* NXEventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C052EDF1D484FA20088B859 /* NXEventManager.cpp */; };
+		6C052EE61D484FA20088B859 /* NXTimerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C052EE21D484FA20088B859 /* NXTimerManager.cpp */; };
+		6C052EE91D4850FD0088B859 /* NXTimerEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C052EE71D4850FD0088B859 /* NXTimerEvent.cpp */; };
 		6C4FFEC01D44E680002AAB92 /* NXWinSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FFEBF1D44E680002AAB92 /* NXWinSystem.cpp */; };
 		6C4FFEC21D44E734002AAB92 /* NXPosixSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FFEC11D44E734002AAB92 /* NXPosixSystem.cpp */; };
 		6C4FFEC41D44E781002AAB92 /* NXOSXSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FFEC31D44E781002AAB92 /* NXOSXSystem.mm */; };
@@ -93,6 +97,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6C052EDC1D484FA20088B859 /* NXEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXEvent.cpp; sourceTree = "<group>"; };
+		6C052EDD1D484FA20088B859 /* NXEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXEvent.h; sourceTree = "<group>"; };
+		6C052EDE1D484FA20088B859 /* NXEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXEventHandler.h; sourceTree = "<group>"; };
+		6C052EDF1D484FA20088B859 /* NXEventManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXEventManager.cpp; sourceTree = "<group>"; };
+		6C052EE01D484FA20088B859 /* NXEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXEventManager.h; sourceTree = "<group>"; };
+		6C052EE21D484FA20088B859 /* NXTimerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXTimerManager.cpp; sourceTree = "<group>"; };
+		6C052EE31D484FA20088B859 /* NXTimerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXTimerManager.h; sourceTree = "<group>"; };
+		6C052EE71D4850FD0088B859 /* NXTimerEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXTimerEvent.cpp; sourceTree = "<group>"; };
+		6C052EE81D4850FD0088B859 /* NXTimerEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXTimerEvent.h; sourceTree = "<group>"; };
 		6C107B031D24C030006DF447 /* NXEngine.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NXEngine.txt; sourceTree = "<group>"; };
 		6C4FFEBF1D44E680002AAB92 /* NXWinSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXWinSystem.cpp; sourceTree = "<group>"; };
 		6C4FFEC11D44E734002AAB92 /* NXPosixSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXPosixSystem.cpp; sourceTree = "<group>"; };
@@ -336,6 +349,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C052EDB1D484FA20088B859 /* EventManager */ = {
+			isa = PBXGroup;
+			children = (
+				6C052EDC1D484FA20088B859 /* NXEvent.cpp */,
+				6C052EDD1D484FA20088B859 /* NXEvent.h */,
+				6C052EDE1D484FA20088B859 /* NXEventHandler.h */,
+				6C052EDF1D484FA20088B859 /* NXEventManager.cpp */,
+				6C052EE01D484FA20088B859 /* NXEventManager.h */,
+			);
+			path = EventManager;
+			sourceTree = "<group>";
+		};
+		6C052EE11D484FA20088B859 /* TimerManager */ = {
+			isa = PBXGroup;
+			children = (
+				6C052EE21D484FA20088B859 /* NXTimerManager.cpp */,
+				6C052EE31D484FA20088B859 /* NXTimerManager.h */,
+				6C052EE71D4850FD0088B859 /* NXTimerEvent.cpp */,
+				6C052EE81D4850FD0088B859 /* NXTimerEvent.h */,
+			);
+			path = TimerManager;
+			sourceTree = "<group>";
+		};
 		6CF320551D13F43500AAA83F = {
 			isa = PBXGroup;
 			children = (
@@ -368,6 +404,8 @@
 		6CF321521D13F64700AAA83F /* common */ = {
 			isa = PBXGroup;
 			children = (
+				6C052EDB1D484FA20088B859 /* EventManager */,
+				6C052EE11D484FA20088B859 /* TimerManager */,
 				6CF321531D13F64700AAA83F /* NXCore.cpp */,
 				6CF321541D13F64700AAA83F /* NXCore.h */,
 				6CF321551D13F64700AAA83F /* NXLog.cpp */,
@@ -773,6 +811,7 @@
 				6CF322461D13F64700AAA83F /* NXPlane.cpp in Sources */,
 				6C4FFEC91D44E94F002AAB92 /* NXiOSSystem.mm in Sources */,
 				6CF3224C1D13F64700AAA83F /* NXCamera.cpp in Sources */,
+				6C052EE91D4850FD0088B859 /* NXTimerEvent.cpp in Sources */,
 				6CF3223A1D13F64700AAA83F /* NXLog.cpp in Sources */,
 				6CF3226D1D13F64700AAA83F /* SwizzleDemo.cpp in Sources */,
 				6CF322571D13F64700AAA83F /* AppChap1_2.cpp in Sources */,
@@ -780,6 +819,7 @@
 				6CF322781D13F64700AAA83F /* DemoHeader.h in Sources */,
 				6CF322641D13F64700AAA83F /* AppChap1_4.cpp in Sources */,
 				6CF322511D13F64700AAA83F /* NXShaderManager.cpp in Sources */,
+				6C052EE41D484FA20088B859 /* NXEvent.cpp in Sources */,
 				6CF322561D13F64700AAA83F /* AppChap1_1.cpp in Sources */,
 				6CF322391D13F64700AAA83F /* NXCore.cpp in Sources */,
 				6CF3224B1D13F64700AAA83F /* NXApplication.cpp in Sources */,
@@ -789,6 +829,7 @@
 				6CF3224F1D13F64700AAA83F /* NXProgram.cpp in Sources */,
 				6CF322791D13F64700AAA83F /* main.cpp in Sources */,
 				6CF3223E1D13F64700AAA83F /* NXCircle.cpp in Sources */,
+				6C052EE61D484FA20088B859 /* NXTimerManager.cpp in Sources */,
 				6CF322501D13F64700AAA83F /* NXShader.cpp in Sources */,
 				6CF322731D13F64700AAA83F /* BricksSphere.cpp in Sources */,
 				6CF3223B1D13F64700AAA83F /* NXMemory.cpp in Sources */,
@@ -832,6 +873,7 @@
 				6CF322761D13F64700AAA83F /* TCSphere.cpp in Sources */,
 				6CF322651D13F64700AAA83F /* MRTDemo.cpp in Sources */,
 				6C4FFEC21D44E734002AAB92 /* NXPosixSystem.cpp in Sources */,
+				6C052EE51D484FA20088B859 /* NXEventManager.cpp in Sources */,
 				6CF322581D13F64700AAA83F /* AppChap1_3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

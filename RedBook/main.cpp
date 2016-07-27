@@ -474,22 +474,48 @@ int xxxmain(){
 template<int iScale>
 NX::Matrix<float, iScale, iScale> GetDSPMatrix(const NX::vector<int, iScale> &vdsp);
 
+#include "../engine/common/EventManager/NXEventManager.h"
+#include "../engine/common/TimerManager/NXTimerManager.h"
+#include "../engine/common/Eventmanager/NXEventHandler.h"
+
+class H3: public NX::EventHandler{
+public:
+    virtual bool HandleEvent(NX::Event * pEvent){
+        //cout << "H3 event" << endl;
+        NX::glb_GetLog().logToConsole("H3 event");
+        return true;
+    }
+};
+
+class H1: public NX::EventHandler{
+public:
+    virtual bool HandleEvent(NX::Event *pEvent){
+        NX::glb_GetLog().logToConsole("H1 event");
+        return true;
+    }
+};
+
+class H2: public NX::EventHandler{
+public:
+    virtual bool HandleEvent(NX::Event *pEvent){
+        NX::glb_GetLog().logToConsole("H2 event");
+        return true;
+    }
+};
+
+
 int main(int argc, const char* argv[]){
-    NX::System::Instance().DeleteDirectory("/zhangxiong/tmp");
-    NX::System::Instance().CreateDirectory("/zhangxiong/a/b");
-    NX::System::Instance().CreateDirectory("/zhangxiong/a/b/c");
-    NX::System::Instance().CreateDirectory("/zhangxiong/a/b/c/d");
-    NX::System::Instance().CreateDirectory("/zhangxiong/a/b/c/d/e");
-    NX::System::Instance().CreateDirectory("/zhangxiong/a/b/c/d/e/f");
-    if(NX::System::Instance().FileExist("/zhangxiong/a/b/e")){
-        cout << "file exist" << endl;
-    }else{
-        cout << "file not exist" << endl;
+    NX::AttachTimerEventHandler(5000, *(new H2()));
+    NX::AttachTimerEventHandler(10000, *(new H1()));
+    NX::AttachTimerEventHandler(30000, *(new H3()));
+    NXInt64 begin = NX::System::Instance().GetMillSecondsFromSystemStart(), end;
+    while(true){
+        NX::System::Instance().Sleep(100);
+        end = NX::System::Instance().GetMillSecondsFromSystemStart();
+        NX::TimerManager::Instance().Tick(end - begin);
+        begin = end;
     }
     
-    cout << "begin time" << NX::System::Instance().GetMillSecondsFromSystemStart() << endl;
-    NX::System::Instance().Sleep(3000);
-    cout << "end time" << NX::System::Instance().GetMillSecondsFromSystemStart()<<endl;
     NX::InitNXMath();
     
     {
