@@ -505,8 +505,18 @@ public:
 
 
 int main(int argc, const char* argv[]){
-    for(int i = 0; i < 10; ++i){
-        printf("%d  %d\n", i, NX::NXLowerPow2(i));
+    for(int k = 0; k < 24; ++k){
+        std::vector<int> xx = NX::NXDecodePermutation(k, 4);
+        int cc = NX::NXEncodePermutation(&xx[0], 4);
+        if(cc != k){
+            cout << "not equal" << endl;
+        }else{
+            cout << "equal " << k << endl;
+        }
+        for(int i = 0; i < xx.size(); ++i){
+            cout << xx[i] << " ";
+        }
+        cout << endl;
     }
     H1 * p11 = new H1(), *p12 = new H1(), *p13 = new H1();
     H2 * p21 = new H2(), *p22 = new H2(), *p23 = new H2();

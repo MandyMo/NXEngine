@@ -20,6 +20,7 @@
 		6C08C53D1D4B4A6300D1514E /* NXOSXSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C08C5331D4B4A6300D1514E /* NXOSXSystem.mm */; };
 		6C08C53E1D4B4A6300D1514E /* NXWinMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C08C5351D4B4A6300D1514E /* NXWinMutex.cpp */; };
 		6C08C53F1D4B4A6300D1514E /* NXWinSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C08C5361D4B4A6300D1514E /* NXWinSystem.cpp */; };
+		6C1D20FA1D4CBB0800B4C50F /* NXUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C1D20F91D4CBB0800B4C50F /* NXUtility.cpp */; };
 		6C4FFEC21D44E734002AAB92 /* NXPosixSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FFEC11D44E734002AAB92 /* NXPosixSystem.cpp */; };
 		6CF322391D13F64700AAA83F /* NXCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF321531D13F64700AAA83F /* NXCore.cpp */; };
 		6CF3223A1D13F64700AAA83F /* NXLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF321551D13F64700AAA83F /* NXLog.cpp */; };
@@ -122,6 +123,7 @@
 		6C08C5351D4B4A6300D1514E /* NXWinMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXWinMutex.cpp; sourceTree = "<group>"; };
 		6C08C5361D4B4A6300D1514E /* NXWinSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXWinSystem.cpp; sourceTree = "<group>"; };
 		6C107B031D24C030006DF447 /* NXEngine.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NXEngine.txt; sourceTree = "<group>"; };
+		6C1D20F91D4CBB0800B4C50F /* NXUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXUtility.cpp; sourceTree = "<group>"; };
 		6C4FFEC11D44E734002AAB92 /* NXPosixSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXPosixSystem.cpp; sourceTree = "<group>"; };
 		6C4FFEC51D44E805002AAB92 /* NXPosixSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXPosixSystem.h; sourceTree = "<group>"; };
 		6CF3205E1D13F43500AAA83F /* NXEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NXEngine; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -462,6 +464,7 @@
 				6CF321571D13F64700AAA83F /* NXMemory.cpp */,
 				6CF321581D13F64700AAA83F /* NXMemory.h */,
 				6CF321591D13F64700AAA83F /* NXUtility.h */,
+				6C1D20F91D4CBB0800B4C50F /* NXUtility.cpp */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -906,6 +909,7 @@
 				6CF3226E1D13F64700AAA83F /* Texture3D.cpp in Sources */,
 				6CF322741D13F64700AAA83F /* NormalTexture.cpp in Sources */,
 				6CF3224E1D13F64700AAA83F /* NXMipMapTexture.cpp in Sources */,
+				6C1D20FA1D4CBB0800B4C50F /* NXUtility.cpp in Sources */,
 				6CF322471D13F64700AAA83F /* NXQuaternion.cpp in Sources */,
 				6CF322411D13F64700AAA83F /* NXEllipse.cpp in Sources */,
 				6CF322521D13F64700AAA83F /* NXTexture.cpp in Sources */,

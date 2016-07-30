@@ -2,7 +2,7 @@
  *  File:     NXUtility.h
  *  Author:   张雄
  *  Date:     2016_06_14
- *  Purpose:  四元组，三元组，二元组等
+ *  Purpose:  四元组，三元组，二元组等以及一些辅助函数
  */
 
 #ifndef __ZX_NXENGINE_UTILITY_H__
@@ -263,6 +263,9 @@ namespace NX {
         int  m_iTickDelta;
         int  m_iTimeSinceLastTick;
     };
+    
+    NXUInt64 NXEncodePermutation(int * pPos, int len);
+    std::vector<int> NXDecodePermutation(int iRanked, int len);
 }
 
 
