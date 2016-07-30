@@ -170,7 +170,7 @@ return NX::NXAbs(va - vb) <= delta;\
     //=================================================end string hash==================================================
 
     unsigned int NXUpperPow2(unsigned int x);
-
+    unsigned int NXLowerPow2(unsigned int x);
 #include "NXMath.inl"
 }
 

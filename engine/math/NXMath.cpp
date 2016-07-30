@@ -505,3 +505,8 @@ unsigned int NX::NXUpperPow2(unsigned int v){
 	v |= v >> 16;
 	return ++v;
 }
+
+unsigned int NX::NXLowerPow2(unsigned int x){
+    unsigned int v = NX::NXUpperPow2(x);
+    return v == x ? v : v >> 1;
+}

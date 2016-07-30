@@ -505,6 +505,9 @@ public:
 
 
 int main(int argc, const char* argv[]){
+    for(int i = 0; i < 10; ++i){
+        printf("%d  %d\n", i, NX::NXLowerPow2(i));
+    }
     H1 * p11 = new H1(), *p12 = new H1(), *p13 = new H1();
     H2 * p21 = new H2(), *p22 = new H2(), *p23 = new H2();
     H3 * p31 = new H3(), *p32 = new H3(), *p33 = new H3();
