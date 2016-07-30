@@ -40,7 +40,7 @@ int NX::TimerManager::Tick(const int iDeltaTime){
 int NX::TimerManager::Tick(){
 	static NXInt64 LastTimeTicked = NX::System::Instance().GetMillSecondsFromSystemStart();
 	NXInt64 Now = NX::System::Instance().GetMillSecondsFromSystemStart();
-	int iDeltaTime = Now - LastTimeTicked;
+	int iDeltaTime = (int)(Now - LastTimeTicked);
 	LastTimeTicked = Now;
 	return Tick(iDeltaTime);
 }
