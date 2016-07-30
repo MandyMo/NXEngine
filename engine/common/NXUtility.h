@@ -266,6 +266,15 @@ namespace NX {
     
     NXUInt64 NXEncodePermutation(int * pPos, int len);
     std::vector<int> NXDecodePermutation(int iRanked, int len);
+    
+    //randdom shuffle range [begin, end)
+    template<typename RandomAccessIterator>
+    void NXRandomShuffle(RandomAccessIterator begin, RandomAccessIterator end){
+        int len = end - begin;
+        while(len){
+            std::swap(*begin, *(begin + std::rand() % len--));
+        }
+    }
 }
 
 
