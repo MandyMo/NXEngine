@@ -510,3 +510,19 @@ unsigned int NX::NXLowerPow2(unsigned int x){
     unsigned int v = NX::NXUpperPow2(x);
     return v == x ? v : v >> 1;
 }
+
+NXUInt64     NX::NXUpperPow2(NXUInt64 v){
+    --v;
+    v |= v >> 1;
+    v |= v >> 2;
+    v |= v >> 4;
+    v |= v >> 8;
+    v |= v >> 16;
+    v |= v >> 32;
+    return ++v;
+}
+
+NXUInt64     NX::NXLowerPow2(NXUInt64 x){
+    NXUInt64 v = NX::NXUpperPow2(x);
+    return v == x ? v : v >> 1;
+}

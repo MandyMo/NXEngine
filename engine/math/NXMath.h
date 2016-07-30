@@ -171,6 +171,8 @@ return NX::NXAbs(va - vb) <= delta;\
 
     unsigned int NXUpperPow2(unsigned int x);
     unsigned int NXLowerPow2(unsigned int x);
+    NXUInt64     NXUpperPow2(NXUInt64 x);
+    NXUInt64     NXLowerPow2(NXUInt64 x);
 #include "NXMath.inl"
 }
 
