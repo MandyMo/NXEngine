@@ -1,5 +1,6 @@
 /*
- *  File:     NXUtility.h
+ *  File:     NXUtility.cpp
+ *
  *  Author:   张雄
  *  Date:     2016_06_14
  *  Purpose:  四元组，三元组，二元组等以及一些辅助函数
