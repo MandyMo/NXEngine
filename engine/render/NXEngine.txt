@@ -1,1 +1,5 @@
-[2016-07-30 20:35:41]  log file [./engine/render/NXEngine.txt] open.
+aaaa, bb
+123 456 789
+33333333
+444444444
+555555555

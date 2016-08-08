@@ -504,7 +504,218 @@ public:
 };
 
 
+#include <iostream>
+#include <string.h>
+#include <stdlib.h>
+using namespace  std;
+
+unsigned int NXUpperPow2(unsigned int v){
+    --v;
+    v |= v >> 1;
+    v |= v >> 2;
+    v |= v >> 4;
+    v |= v >> 8;
+    v |= v >> 16;
+    return ++v;
+}
+
+unsigned int NXLowerPow2(unsigned int x){
+    unsigned int v = NXUpperPow2(x);
+    return v == x ? v : v >> 1;
+}
+
+unsigned int NXPow2(unsigned int x){
+    int bc = 0;
+    while(x){
+        ++bc;
+        x >>= 1;
+    }
+    return bc;
+}
+
+class Matrix{
+public:
+    friend inline Matrix operator * (const Matrix &lhs, const Matrix &rhs);
+    friend inline Matrix QuickPow(const int n);
+public:
+    explicit Matrix(int iScale);
+    Matrix();
+public:
+    vector<unsigned int>& operator[] (const int idx){
+        return m_Elem[idx];
+    }
+    
+    const vector<unsigned int> & operator[] (const int idx) const{
+        return m_Elem[idx];
+    }
+    
+    void SetScale(int iScale);
+public:
+    vector<vector<unsigned int > > m_Elem;
+    int          m_iScale;
+};
+
+Matrix pm[32];
+
+class Solution{
+public:
+    bool ReadData();
+    int GetResult();
+private:
+    bool Check(const Matrix &m);
+public:
+    int N;
+    int M;
+    Matrix cost;
+};
+
+inline Matrix operator * (const Matrix &lhs, const Matrix &rhs){
+    int iScale = lhs.m_iScale;
+    Matrix result(iScale);
+    for(int r = 0; r < iScale; ++r){
+        for(int c = 0; c < iScale; ++c){
+            result[r][c] = -1;
+            for(int k = 0; k < iScale; ++k){
+                if(lhs[r][k] == -1 || rhs[k][c] == -1){
+                    continue;
+                }
+                result[r][c] = std::min(result[r][c], lhs[r][k] + rhs[k][c]);
+            }
+        }
+    }
+    return result;
+}
+
+inline Matrix QuickPow(const int n){
+    if(n == 1){
+        return pm[0];
+    }
+    int p2 = NXLowerPow2(n);
+    int l2 = NXPow2(n);
+    return p2 == n ? pm[l2 - 1] : pm[l2 - 1] * QuickPow(n - p2);
+}
+
+Matrix::Matrix(int iScale){
+    SetScale(iScale);
+}
+
+Matrix::Matrix(){
+    
+}
+
+void Matrix::SetScale(int iScale){
+    m_iScale = iScale;
+    m_Elem.resize(iScale);
+    for(int i = 0; i < iScale; ++i){
+        m_Elem[i].resize(iScale);
+    }
+}
+
+bool Solution::ReadData(){
+    if(! (cin >> N)){
+        return false;
+    }
+    
+    cin  >> M;
+    cost.SetScale(N);
+    for(int r = 0; r < N; ++r){
+        for(int c = 0; c < N; ++c){
+            cin >> cost[r][c];
+        }
+        cost[r][r] = -1;
+    }
+    pm[0] = cost;
+    int l = NXPow2(M);
+    for(int i = 1; i < l; ++i){
+        pm[i] = pm[i- 1] * pm[i - 1];
+    }
+    return true;
+}
+
+bool Solution::Check(const Matrix &m){
+    for(int r = 0; r < N; ++r){
+        for(int c = 0; c < N; ++c){
+            if(m[r][c] <= M){
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
+int Solution::GetResult(){
+    if(!Check(cost)){
+        return 0;
+    }
+    
+    int l = 1, r = M;
+    int m;
+    while(l < r){
+        m = (l + r) >> 1;
+        if(Check(QuickPow(m))){
+            l = m + 1;
+        }else{
+            r = m - 1;
+        }
+    }
+    while(!Check(QuickPow(l))){
+        --l;
+    }
+    return l;
+}
+
+bool IsPrime(unsigned int x){
+    unsigned top = sqrt(x);
+    for(int i = 2; i <= top; ++i){
+        if(x % i == 0){
+            return false;
+        }
+    }
+    return true;
+}
+
+bool IsPrime(unsigned long long x){
+    unsigned top = sqrt(x);
+    for(int i = 2; i <= top; ++i){
+        if(x % i == 0){
+            return false;
+        }
+    }
+    return true;
+}
+
 int main(int argc, const char* argv[]){
+    unsigned int l = 1 << 31;
+    while(!IsPrime(l)){
+        --l;
+    }
+    cout << l << endl;
+    
+    unsigned long long x = 2305843009213693951ull;
+    unsigned long long y = 1ull << 63;
+    if(x > y){
+        cout << "x > y" << endl;
+    }else{
+        cout << "x < y" << endl;
+    }
+    return 1;
+    
+    Solution so;
+    while(so.ReadData()){
+        cout << so.GetResult() << endl;
+    }
+    std::fstream ss;
+    ss.open("./engine/render/NXEngine.txt");
+    if(ss){
+        cout << "open succedd" << endl;
+    }else{
+        cout << "open failed" << endl;
+        return 0;
+    }
+    ss << "aaaa, bb" << endl;
+    ss << "123 456 789" << endl;
+    return 0;
     for(int k = 0; k < 24; ++k){
         std::vector<int> xx = NX::NXDecodePermutation(k, 4);
         int cc = NX::NXEncodePermutation(&xx[0], 4);
