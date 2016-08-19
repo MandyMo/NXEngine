@@ -6,7 +6,7 @@
  */
 
 
-#include "NXCore.h"
+#include "../NXCore.h"
 
 namespace NX {
     class MemoryManager{

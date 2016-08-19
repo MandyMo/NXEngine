@@ -200,7 +200,18 @@ namespace NX {
     }
     //=================================================end quadruples===================================================
     
-    class NXRef{
+    class NXIUnknow{
+    public:
+        NXIUnknow();
+        virtual ~NXIUnknow() {}
+        
+    public:
+        virtual int GetRefCount() = 0;
+        virtual int AddRef()      = 0;
+        virtual int Release()     = 0;
+    };
+    
+    class NXRef: public NXIUnknow{
     public:
         NXRef(){
             m_iRefCount = 1;
@@ -209,7 +220,7 @@ namespace NX {
         virtual ~NXRef() {}
         
     public:
-        int GetRefCount(){
+        virtual int GetRefCount(){
             return m_iRefCount;
         }
         

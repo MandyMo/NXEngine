@@ -9,6 +9,9 @@
 #ifndef __ZX_NXENGINE_CORE_H__
 #define __ZX_NXENGINE_CORE_H__
 
+#include "NXType.h"
+#include "NXPlatform.h"
+
 #ifndef __in
 #define __in
 #endif
@@ -31,46 +34,6 @@
 
 #ifndef TEXT
 #define TEXT(queto) _T(queto)
-#endif
-
-#if defined(_MSC_VER)
-#if defined(WINRT)
-#define PLATFORM_WINRT 1
-#else
-#define PLATFORM_WINDOWS 1
-#endif
-
-#if defined(_WIN64)
-#define PLATFORM_64 1
-#elif defined(_WIN32)
-#define PLATFORM_32 1
-#endif
-#elif defined(__ANDROID__)
-#define PLATFORM_ANDROID 1
-#if defined(__x86_64__) || defined(__aarch64__)
-#define PLATFORM_64 1
-#else
-#define PLATFORM_32 1
-#endif
-#elif defined(__linux__)
-#define PLATFORM_LINUX 1
-#if defined(__x86_64__)
-#define PLATFORM_64 1
-#else
-#define PLATFORM_32 1
-#endif
-#elif defined(__APPLE__)
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IOS)
-#define PLATFORM_IOS 1
-#else
-#define PLATFORM_OSX 1
-#endif
-
-#if defined(__x86_64__) || defined(__arm64__)
-#define PLATFORM_64 1
-#else
-#define PLATFORM_32 1
-#endif
 #endif
 
 /**
@@ -125,40 +88,7 @@
 #include <GLFW/glfw3.h>
 
 
-//char
-typedef char            byte;
-typedef signed   char   sbyte;
-typedef unsigned char   ubyte;
-typedef signed   char   schar;
-typedef unsigned char   uchar;
 
-//wchar_t
-typedef signed wchar_t   swchar_t;
-typedef unsigned wchar_t uwchar_t;
-typedef wchar_t          wchar;
-typedef signed wchar_t   swchar;
-typedef unsigned wchar_t uwchar;
-
-//short
-typedef signed   short   sshort;
-typedef unsigned short   ushort;
-
-//int
-typedef signed   int     sint;
-typedef unsigned int     uint;
-
-
-//long
-typedef signed   long     slong;
-typedef unsigned long     ulong;
-
-//long long
-typedef signed long long    sllong;
-typedef unsigned long long  ullong;
-typedef long long           llong;
-
-typedef long long NXInt64;
-typedef ullong    NXUInt64;
 
 template<GLenum Type>
 class NXEnable{
