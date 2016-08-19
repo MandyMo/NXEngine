@@ -6,7 +6,7 @@
 #include "NXMatrix.h"
 #include "NXShaderManager.h"
 #include "DemoHeader.h"
-#include "../engine/common/NXMemory.h"
+#include "../engine/common/Memory/NXMemory.h"
 #include "../engine/math/NXPrimitive.h"
 #include "../engine/math/NXQuaternion.h"
 #include "../engine/math/NXAlgorithm.h"

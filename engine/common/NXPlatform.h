@@ -46,5 +46,3 @@
 #define PLATFORM_32 1
 #endif
 #endif
-
-#endif //!__ZX_NXENGINE_CORE_H__

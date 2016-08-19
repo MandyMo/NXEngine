@@ -17,5 +17,7 @@ namespace NX {
     public:
         void* FixedAlloc(__in const int iMemSize, __in const int iAlignSize);
         void  FixedDelloc(__in const void * const pFixedAddress);
+        void* AllocateBuffer(__in const int iMemSize);
+        void FreeBuffer(const void * const pAddress);
     };
 }

@@ -23,6 +23,7 @@
 		6C1D20FA1D4CBB0800B4C50F /* NXUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C1D20F91D4CBB0800B4C50F /* NXUtility.cpp */; };
 		6C4FFEC21D44E734002AAB92 /* NXPosixSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FFEC11D44E734002AAB92 /* NXPosixSystem.cpp */; };
 		6CE09FF51D67304300C8C927 /* NXMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE09FF31D67304300C8C927 /* NXMemory.cpp */; };
+		6CE09FFB1D67354200C8C927 /* NXMemoryFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE09FFA1D67354200C8C927 /* NXMemoryFile.cpp */; };
 		6CF322391D13F64700AAA83F /* NXCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF321531D13F64700AAA83F /* NXCore.cpp */; };
 		6CF3223A1D13F64700AAA83F /* NXLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF321551D13F64700AAA83F /* NXLog.cpp */; };
 		6CF3223C1D13F64700AAA83F /* NXAABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF3215B1D13F64700AAA83F /* NXAABB.cpp */; };
@@ -130,6 +131,10 @@
 		6CE09FF21D672EF000C8C927 /* NXType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXType.h; sourceTree = "<group>"; };
 		6CE09FF31D67304300C8C927 /* NXMemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXMemory.cpp; sourceTree = "<group>"; };
 		6CE09FF41D67304300C8C927 /* NXMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXMemory.h; sourceTree = "<group>"; };
+		6CE09FF71D67315A00C8C927 /* NXReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXReader.h; sourceTree = "<group>"; };
+		6CE09FF81D6733DA00C8C927 /* NXMemoryFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXMemoryFile.h; sourceTree = "<group>"; };
+		6CE09FF91D6733FA00C8C927 /* NXWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXWriter.h; sourceTree = "<group>"; };
+		6CE09FFA1D67354200C8C927 /* NXMemoryFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXMemoryFile.cpp; sourceTree = "<group>"; };
 		6CF3205E1D13F43500AAA83F /* NXEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NXEngine; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CF321531D13F64700AAA83F /* NXCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXCore.cpp; sourceTree = "<group>"; };
 		6CF321541D13F64700AAA83F /* NXCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXCore.h; sourceTree = "<group>"; };
@@ -434,6 +439,17 @@
 			path = Memory;
 			sourceTree = "<group>";
 		};
+		6CE09FF61D67315200C8C927 /* File */ = {
+			isa = PBXGroup;
+			children = (
+				6CE09FF71D67315A00C8C927 /* NXReader.h */,
+				6CE09FF91D6733FA00C8C927 /* NXWriter.h */,
+				6CE09FF81D6733DA00C8C927 /* NXMemoryFile.h */,
+				6CE09FFA1D67354200C8C927 /* NXMemoryFile.cpp */,
+			);
+			path = File;
+			sourceTree = "<group>";
+		};
 		6CF320551D13F43500AAA83F = {
 			isa = PBXGroup;
 			children = (
@@ -466,6 +482,7 @@
 		6CF321521D13F64700AAA83F /* common */ = {
 			isa = PBXGroup;
 			children = (
+				6CE09FF61D67315200C8C927 /* File */,
 				6CE09FEF1D672DFA00C8C927 /* Memory */,
 				6C052EDB1D484FA20088B859 /* EventManager */,
 				6C052EE11D484FA20088B859 /* TimerManager */,
@@ -883,6 +900,7 @@
 				6CF322571D13F64700AAA83F /* AppChap1_2.cpp in Sources */,
 				6CF3225C1D13F64700AAA83F /* AppChap1_7.cpp in Sources */,
 				6CF322781D13F64700AAA83F /* DemoHeader.h in Sources */,
+				6CE09FFB1D67354200C8C927 /* NXMemoryFile.cpp in Sources */,
 				6CF322641D13F64700AAA83F /* AppChap1_4.cpp in Sources */,
 				6CF322511D13F64700AAA83F /* NXShaderManager.cpp in Sources */,
 				6C052EE41D484FA20088B859 /* NXEvent.cpp in Sources */,

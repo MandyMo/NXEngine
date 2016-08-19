@@ -43,3 +43,11 @@ void NX::MemoryManager::FixedDelloc(__in const void * const pFixedAddress){
     void * pStartAddress         = (void*)*pAddress;
     free(pStartAddress);
 }
+
+void* NX::MemoryManager::AllocateBuffer(__in const int iMemSize){
+    return malloc(iMemSize);
+}
+
+void NX::MemoryManager::FreeBuffer(const void * const pAddress){
+    free((void*)pAddress);
+}

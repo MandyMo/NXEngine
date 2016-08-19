@@ -202,7 +202,7 @@ namespace NX {
     
     class NXIUnknow{
     public:
-        NXIUnknow();
+        NXIUnknow() {}
         virtual ~NXIUnknow() {}
         
     public:
