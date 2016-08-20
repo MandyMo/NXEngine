@@ -685,7 +685,21 @@ bool IsPrime(unsigned long long x){
     return true;
 }
 
+#include "../engine/common/File/NXMemoryFile.h"
+
 int main(int argc, const char* argv[]){
+    
+    NX::MemoryFile *file = new NX::MemoryFile(1000);
+    NX::Writer * writer = file;
+    NX::Reader * reader = file;
+    for(int i = 0; i < 250; ++i){
+        writer->WriteString("0");
+    }
+    
+    NXUInt32 le;
+    std::string s = reader->ReadString(250, le);
+    cout << s.length() << endl;
+    file->Release();
     unsigned int l = 1 << 31;
     while(!IsPrime(l)){
         --l;
