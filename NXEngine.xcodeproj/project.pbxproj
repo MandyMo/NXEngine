@@ -22,6 +22,8 @@
 		6C08C53F1D4B4A6300D1514E /* NXWinSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C08C5361D4B4A6300D1514E /* NXWinSystem.cpp */; };
 		6C1D20FA1D4CBB0800B4C50F /* NXUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C1D20F91D4CBB0800B4C50F /* NXUtility.cpp */; };
 		6C4FFEC21D44E734002AAB92 /* NXPosixSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FFEC11D44E734002AAB92 /* NXPosixSystem.cpp */; };
+		6C534DAE1D896C7600B41CEF /* NXiOSKVFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C534DAD1D896C7600B41CEF /* NXiOSKVFile.mm */; };
+		6C534DB01D896CC600B41CEF /* NXiOSThreadSafeQueue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C534DAF1D896CC600B41CEF /* NXiOSThreadSafeQueue.mm */; };
 		6CE09FF51D67304300C8C927 /* NXMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE09FF31D67304300C8C927 /* NXMemory.cpp */; };
 		6CE09FFB1D67354200C8C927 /* NXMemoryFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE09FFA1D67354200C8C927 /* NXMemoryFile.cpp */; };
 		6CF322391D13F64700AAA83F /* NXCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF321531D13F64700AAA83F /* NXCore.cpp */; };
@@ -127,6 +129,10 @@
 		6C1D20F91D4CBB0800B4C50F /* NXUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXUtility.cpp; sourceTree = "<group>"; };
 		6C4FFEC11D44E734002AAB92 /* NXPosixSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXPosixSystem.cpp; sourceTree = "<group>"; };
 		6C4FFEC51D44E805002AAB92 /* NXPosixSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXPosixSystem.h; sourceTree = "<group>"; };
+		6C534DAC1D896C5100B41CEF /* NXKVFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXKVFile.h; sourceTree = "<group>"; };
+		6C534DAD1D896C7600B41CEF /* NXiOSKVFile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NXiOSKVFile.mm; sourceTree = "<group>"; };
+		6C534DAF1D896CC600B41CEF /* NXiOSThreadSafeQueue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NXiOSThreadSafeQueue.mm; sourceTree = "<group>"; };
+		6C534DB11D896CD500B41CEF /* NXThreadSafeQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXThreadSafeQueue.h; sourceTree = "<group>"; };
 		6CE09FF01D672E2300C8C927 /* NXPlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXPlatform.h; sourceTree = "<group>"; };
 		6CE09FF21D672EF000C8C927 /* NXType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXType.h; sourceTree = "<group>"; };
 		6CE09FF31D67304300C8C927 /* NXMemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NXMemory.cpp; sourceTree = "<group>"; };
@@ -430,6 +436,15 @@
 			path = Win32;
 			sourceTree = "<group>";
 		};
+		6C534DAB1D896C1200B41CEF /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				6C534DAF1D896CC600B41CEF /* NXiOSThreadSafeQueue.mm */,
+				6C534DB11D896CD500B41CEF /* NXThreadSafeQueue.h */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
 		6CE09FEF1D672DFA00C8C927 /* Memory */ = {
 			isa = PBXGroup;
 			children = (
@@ -446,6 +461,8 @@
 				6CE09FF91D6733FA00C8C927 /* NXWriter.h */,
 				6CE09FF81D6733DA00C8C927 /* NXMemoryFile.h */,
 				6CE09FFA1D67354200C8C927 /* NXMemoryFile.cpp */,
+				6C534DAC1D896C5100B41CEF /* NXKVFile.h */,
+				6C534DAD1D896C7600B41CEF /* NXiOSKVFile.mm */,
 			);
 			path = File;
 			sourceTree = "<group>";
@@ -482,6 +499,7 @@
 		6CF321521D13F64700AAA83F /* common */ = {
 			isa = PBXGroup;
 			children = (
+				6C534DAB1D896C1200B41CEF /* Collection */,
 				6CE09FF61D67315200C8C927 /* File */,
 				6CE09FEF1D672DFA00C8C927 /* Memory */,
 				6C052EDB1D484FA20088B859 /* EventManager */,
@@ -895,6 +913,7 @@
 				6CF322461D13F64700AAA83F /* NXPlane.cpp in Sources */,
 				6CF3224C1D13F64700AAA83F /* NXCamera.cpp in Sources */,
 				6C052EE91D4850FD0088B859 /* NXTimerEvent.cpp in Sources */,
+				6C534DB01D896CC600B41CEF /* NXiOSThreadSafeQueue.mm in Sources */,
 				6CF3223A1D13F64700AAA83F /* NXLog.cpp in Sources */,
 				6CF3226D1D13F64700AAA83F /* SwizzleDemo.cpp in Sources */,
 				6CF322571D13F64700AAA83F /* AppChap1_2.cpp in Sources */,
@@ -958,6 +977,7 @@
 				6CF3225D1D13F64700AAA83F /* SkyBox1.cpp in Sources */,
 				6C08C53A1D4B4A6300D1514E /* NXiOSMutex.cpp in Sources */,
 				6CF322401D13F64700AAA83F /* NXCylinder.cpp in Sources */,
+				6C534DAE1D896C7600B41CEF /* NXiOSKVFile.mm in Sources */,
 				6CF322761D13F64700AAA83F /* TCSphere.cpp in Sources */,
 				6CF322651D13F64700AAA83F /* MRTDemo.cpp in Sources */,
 				6C4FFEC21D44E734002AAB92 /* NXPosixSystem.cpp in Sources */,

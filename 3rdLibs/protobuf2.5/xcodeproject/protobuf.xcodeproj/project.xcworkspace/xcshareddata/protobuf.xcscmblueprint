@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9045de5c-fdcf-11e3-9b32-1180e4f903b2++505",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "9045de5c-fdcf-11e3-9b32-1180e4f903b2++505" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "9045de5c-fdcf-11e3-9b32-1180e4f903b2++505" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D5A36F05-FEF6-4EBE-ABD6-A2F3E32853B7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "9045de5c-fdcf-11e3-9b32-1180e4f903b2++505" : "ys_project\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "protobuf",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "AzureEngine\/protobuf2.5\/xcodeproject\/protobuf.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/10.236.192.18\/svn\/seven_client",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9045de5c-fdcf-11e3-9b32-1180e4f903b2++505"
+    }
+  ]
+}

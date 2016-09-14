@@ -13,6 +13,7 @@
 #include <android/log.h>
 #else                                                      //windows us OutputDebugStringA
 #include <windows.h>
+#include <iostream>
 #pragma comment(lib, "kernel32.lib")
 #endif
 
@@ -28,8 +29,10 @@ va_end(VarArgList);\
 }
 #endif
 
+#define NX_USE_MY_CONSOLE 1
+
 NX::Log::Log(const std::string& strLogFilePath):m_strLogFilePath(strLogFilePath){
-#if defined(PLATFORM_WINDOWS)
+#if defined(PLATFORM_WINDOWS) && NX_USE_MY_CONSOLE
     AllocConsole();
     SetConsoleTitle(_T("Debug output"));
     freopen("CONOUT$","w",stdout);
@@ -44,7 +47,7 @@ NX::Log::Log(const std::string& strLogFilePath):m_strLogFilePath(strLogFilePath)
 }
 
 NX::Log::~Log(){
-#if defined(PLATFORM_WINDOWS)
+#if defined(PLATFORM_WINDOWS) && NX_USE_MY_CONSOLE
     FreeConsole();
 #endif
     log("log file [%s] closed.", m_strLogFilePath.c_str());

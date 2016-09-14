@@ -286,6 +286,14 @@ namespace NX {
             std::swap(*begin, *(begin + std::rand() % len--));
         }
     }
+    
+    
+    std::string  EncodeBase64(const std::string &src);
+    std::string  DecodeBase64(const std::string &src);
+    std::string  Encrpt(const std::string &src);
+    std::string  Decrpt(const std::string &src);
+    std::string  DecrptFromFile(const std::string &strSrcFile, const std::string &strDstFile);
+    std::string  EncrptFromFile(const std::string &strSrcFile, const std::string &strDstFile);
 }
 
 
