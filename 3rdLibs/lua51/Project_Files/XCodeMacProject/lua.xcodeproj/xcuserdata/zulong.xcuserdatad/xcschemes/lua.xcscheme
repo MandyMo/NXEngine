@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6C73BA941D8973F50041A05C"
+               BlueprintIdentifier = "6C534D2F1D896B9500B41CEF"
                BuildableName = "liblua.a"
                BlueprintName = "lua"
                ReferencedContainer = "container:lua.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6C73BA941D8973F50041A05C"
+            BlueprintIdentifier = "6C534D2F1D896B9500B41CEF"
             BuildableName = "liblua.a"
             BlueprintName = "lua"
             ReferencedContainer = "container:lua.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6C73BA941D8973F50041A05C"
+            BlueprintIdentifier = "6C534D2F1D896B9500B41CEF"
             BuildableName = "liblua.a"
             BlueprintName = "lua"
             ReferencedContainer = "container:lua.xcodeproj">
