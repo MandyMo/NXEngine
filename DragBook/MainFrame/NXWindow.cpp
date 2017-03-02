@@ -1,10 +1,10 @@
-
+ï»¿
 /**
  *  File:      NXWindow.cpp
  *
- *  Author:    ÕÅĞÛ(zhangxiong 1025679612@qq.com)
+ *  Author:    å¼ é›„(zhangxiong 1025679612@qq.com)
  *  Date:	   2017_03_02
- *  Purpose:   ·â×°Win32 windows
+ *  Purpose:   å°è£…Win32 windows
  */
 
 #include "NXWindow.h"
@@ -16,7 +16,7 @@ namespace NX{
 
 	Window::~Window(){}
 
-	//´¦ÀíËùÓĞµÄÏûÏ¢
+	//å¤„ç†æ‰€æœ‰çš„æ¶ˆæ¯
 	LRESULT		Window::MessageHandler(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam){
 		map<UINT, MsgHandler>::iterator it= m_mpMessageChain.find(uMsg);
 		if(it!= m_mpMessageChain.end()){
@@ -76,8 +76,8 @@ namespace NX{
 			rtWndArea.bottom-	rtWndArea.top, hWndParent, hMenu, (HINSTANCE)GetModuleHandle(NULL),lpParam);
 		if(m_hCurrent==	NULL)
 			return	false;
-		InitMessageHandler();	//³õÊ¼»¯ÏûÏ¢´¦Àíº¯ÊıÁ´
-		SetHook();				//Ìø×ªµ½ÀàµÄ³ÉÔ±º¯ÊıÀïÃæ
+		InitMessageHandler();	//åˆå§‹åŒ–æ¶ˆæ¯å¤„ç†å‡½æ•°é“¾
+		SetHook();				//è·³è½¬åˆ°ç±»çš„æˆå‘˜å‡½æ•°é‡Œé¢
 		return	true;
 	}
 
@@ -86,7 +86,7 @@ namespace NX{
 		return	0;
 	}
 
-	HWND	Window::GetHwnd(){		//µÃµ½µ±Ç°µÄ´°¿Ú¾ä±ú
+	HWND	Window::GetHwnd(){		//å¾—åˆ°å½“å‰çš„çª—å£å¥æŸ„
 		return	m_hCurrent;
 	}
 }

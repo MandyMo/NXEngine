@@ -1,10 +1,10 @@
-
+ï»¿
 /**
  *  File:      NXHeader.h
  *
- *  Author:    ÕÅĞÛ(zhangxiong 1025679612@qq.com)
+ *  Author:    å¼ é›„(zhangxiong 1025679612@qq.com)
  *  Date:	   2017_03_02
- *  Purpose:   ÓÃÓÚÑ§Ï°DXµÄäÖÈ¾¿ò¼Ü
+ *  Purpose:   ç”¨äºå­¦ä¹ DXçš„æ¸²æŸ“æ¡†æ¶
  */
 
 #ifndef		__ZX_HEADER_H__
@@ -35,7 +35,7 @@ using namespace std;
 
 
 
-//Õû¸öÓÎÏ·ÇøÓòµÄ´óĞ¡
+//æ•´ä¸ªæ¸¸æˆåŒºåŸŸçš„å¤§å°
 #define		MAINFRAME_WIDTH		1024
 #define		MAINFRAME_HEIGHT	768
 

@@ -1,10 +1,10 @@
-
+ï»¿
 /**
  *  File:      NXWindow.h
  *
- *  Author:    ÕÅĞÛ(zhangxiong 1025679612@qq.com)
+ *  Author:    å¼ é›„(zhangxiong 1025679612@qq.com)
  *  Date:	   2017_03_02
- *  Purpose:   ·â×°Win32 windows
+ *  Purpose:   å°è£…Win32 windows
  */
 
 
@@ -50,14 +50,14 @@ namespace NX{
 	public:
 		virtual		WPARAM	MessageLoop();
 	private:
-		//´¦ÀíËùÓĞµÄÏûÏ¢
+		//å¤„ç†æ‰€æœ‰çš„æ¶ˆæ¯
 		virtual		LRESULT		MessageHandler(
 			__inout HWND hwnd,
 			__in	UINT uMsg,
 			__in	WPARAM wParam,
 			__in	LPARAM lParam);
 
-		//ÊÇÒ»¸öÏûÏ¢¹³×Ó,Õâ¸öº¯ÊıÈÃÀàµÄ³ÉÔ±º¯Êı³ÉÎªÏûÏ¢´¦Àíº¯Êı
+		//æ˜¯ä¸€ä¸ªæ¶ˆæ¯é’©å­,è¿™ä¸ªå‡½æ•°è®©ç±»çš„æˆå‘˜å‡½æ•°æˆä¸ºæ¶ˆæ¯å¤„ç†å‡½æ•°
 		virtual		void	SetHook();
 	public:
 		virtual		void	InitMessageHandler();	
@@ -73,18 +73,18 @@ namespace NX{
 			HMENU		hMenu,				// handle to menu, or child-window identifier
 			LPVOID		lpParam				// pointer to window-creation data
 			);
-			HWND	GetHwnd();		//µÃµ½µ±Ç°µÄ´°¿Ú¾ä±ú
+			HWND	GetHwnd();		//å¾—åˆ°å½“å‰çš„çª—å£å¥æŸ„
 	public:
 		virtual	LRESULT		OnClose(WPARAM	wParam, LPARAM	lParam);
 
 	public:
-		MsgChain			m_mpMessageChain;		//ÏûÏ¢´¦Àí
+		MsgChain			m_mpMessageChain;		//æ¶ˆæ¯å¤„ç†
 
 	public:
-		WNDPROC				m_lpfnOldProc;	//¾ÉµÄ¹ı³Ì(»Øµ÷µÄÊ±ºò¿ÉÄÜ»áÊ¹ÓÃµ½)
+		WNDPROC				m_lpfnOldProc;	//æ—§çš„è¿‡ç¨‹(å›è°ƒçš„æ—¶å€™å¯èƒ½ä¼šä½¿ç”¨åˆ°)
 	private:
-		HWND				m_hCurrent;		//µ±Ç°´°¿ÚµÄ¾ä±ú
-		unsigned	char	m_HookProc[sizeof(g_proc_code)];//¹³×Ó¹ı³Ì
+		HWND				m_hCurrent;		//å½“å‰çª—å£çš„å¥æŸ„
+		unsigned	char	m_HookProc[sizeof(g_proc_code)];//é’©å­è¿‡ç¨‹
 	};
 
 

@@ -1,10 +1,10 @@
-
+Ôªø
 /**
  *  File:      NXDX9Window.cpp
  *
- *  Author:    ’≈–€(zhangxiong 1025679612@qq.com)
+ *  Author:    Âº†ÈõÑ(zhangxiong 1025679612@qq.com)
  *  Date:	   2017_03_02
- *  Purpose:   ∑‚◊∞DX window
+ *  Purpose:   Â∞ÅË£ÖDX window
  */
 
 #include "NXDX9Window.h"

@@ -1,10 +1,10 @@
-
+ï»¿
 /**
  *  File:      NXWndClass.cpp
  *
- *  Author:    ÕÅĞÛ(zhangxiong 1025679612@qq.com)
+ *  Author:    å¼ é›„(zhangxiong 1025679612@qq.com)
  *  Date:	   2017_03_02
- *  Purpose:   ×¢²áWindows´°¿ÚÀà
+ *  Purpose:   æ³¨å†ŒWindowsçª—å£ç±»
  */
 
 #include "NXWndClass.h"
