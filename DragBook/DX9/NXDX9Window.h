@@ -8,6 +8,8 @@
  */
 
 #include "NXWindow.h"
+#include "D3DX9.h"
+
 
 namespace NX {
 	class DX9Window : public NX::Window{
@@ -23,5 +25,11 @@ namespace NX {
 		virtual void PostRender();
 		virtual void PreRender();
 		virtual void Render();
+
+	private:
+		IDirect3D9					*m_pD3D9;
+		IDirect3DDevice9			*m_pDevice;
+		D3DCAPS9					m_D3dCaps;
+		D3DPRESENT_PARAMETERS		m_D3dParameter;
 	};
 }
