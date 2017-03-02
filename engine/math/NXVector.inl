@@ -148,40 +148,14 @@ inline bool operator == (const vector<double, Scale> &lhs, const vector<double, 
 #endif
 
 //char(byte)
-DECLARE_VECTOR_TYPE(char)       //char1,
-DECLARE_VECTOR_TYPE(byte);      //byte1
-DECLARE_VECTOR_TYPE(sbyte);     //sbyte
-DECLARE_VECTOR_TYPE(ubyte);     //ubyte
-DECLARE_VECTOR_TYPE(schar);     //signed char
-DECLARE_VECTOR_TYPE(uchar);     //unsigned char
-
-//wchar_t
-DECLARE_VECTOR_TYPE(wchar_t);
-DECLARE_VECTOR_TYPE(swchar_t);
-DECLARE_VECTOR_TYPE(uwchar_t);
-DECLARE_VECTOR_TYPE(wchar);
-DECLARE_VECTOR_TYPE(swchar);
-DECLARE_VECTOR_TYPE(uwchar);
-
-//short
-DECLARE_VECTOR_TYPE(short);     //short
-DECLARE_VECTOR_TYPE(sshort);    //signed short
-DECLARE_VECTOR_TYPE(ushort);    //unsigned short
-
-//int
-DECLARE_VECTOR_TYPE(int);      //int
-DECLARE_VECTOR_TYPE(sint);     //sgined int
-DECLARE_VECTOR_TYPE(uint);     //unsigned int
-
-//long
-DECLARE_VECTOR_TYPE(long);     //long
-DECLARE_VECTOR_TYPE(slong);    //signed long
-DECLARE_VECTOR_TYPE(ulong);    //unsigned long
-
-//long long
-DECLARE_VECTOR_TYPE(llong);    //long long
-DECLARE_VECTOR_TYPE(sllong);   //signed long long
-DECLARE_VECTOR_TYPE(ullong);   //unsigned long long
+DECLARE_VECTOR_TYPE(NXInt8)
+DECLARE_VECTOR_TYPE(NXUInt8)
+DECLARE_VECTOR_TYPE(NXInt16)
+DECLARE_VECTOR_TYPE(NXUInt16)
+DECLARE_VECTOR_TYPE(NXInt32)
+DECLARE_VECTOR_TYPE(NXUInt32)
+DECLARE_VECTOR_TYPE(NXInt64)
+DECLARE_VECTOR_TYPE(NXUInt64)
 
 //float
 DECLARE_VECTOR_TYPE(float);    //float

@@ -1,12 +1,11 @@
-/*
+/**
  *  File:    NXViewFrustum.h
  *  author:  张雄
  *  date:    2016_06_01
  *  purpose: 定义ViewFrustum及相应的一些操作函数
  */
 
-#ifndef __ZX_NXENGINE_VIEWFRUSTUM_H__
-#define __ZX_NXENGINE_VIEWFRUSTUM_H__
+#pragma once
 
 #include "../math/NXPlane.h"
 
@@ -42,7 +41,6 @@ namespace NX {
         inline NX::Plane GetBottomPlane() const;
     
     public:
-        /**几何体关于视堆的可视性测试*/
         bool Visible(const NX::Circle &circle,              const unsigned int mask = NX::VF_VT_ALL);
         bool Visible(const NX::Sphere &sphere,              const unsigned int mask = NX::VF_VT_ALL);
         bool Visible(const NX::Ellipse &ellipse,            const unsigned int mask = NX::VF_VT_ALL);
@@ -81,6 +79,3 @@ namespace NX {
         return m_BottomPlane;
     }
 }
-
-
-#endif  //!__ZX_NXENGINE_VIEWFRUSTUM_H__

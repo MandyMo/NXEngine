@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "NXCore.h"
+#include "..\NXCore.h"
 
 namespace NX {
     class Writer{

@@ -15,6 +15,7 @@
 #include <windows.h>
 #include <iostream>
 #pragma comment(lib, "kernel32.lib")
+#define _CRT_SECURE_NO_WARNINGS 1
 #endif
 
 static char MsgBuf[1024];

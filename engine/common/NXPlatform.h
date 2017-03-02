@@ -8,6 +8,8 @@
 #pragma once
 
 #if defined(_MSC_VER)
+#define _CRT_SECURE_NO_WARNINGS 1
+#pragma warning(disable:4819)
 #if defined(WINRT)
 #define PLATFORM_WINRT 1
 #else

@@ -8,6 +8,7 @@
 #ifndef __ZX_NXENGINE_MATRIX_INL__
 #define __ZX_NXENGINE_MATRIX_INL__
 
+
 template<typename T, int Row, int Col>
 template<typename U>
 inline Matrix<T, Row, Col>::Matrix(const Matrix<U, Row, Col> &rhs){
@@ -164,7 +165,7 @@ template<typename T, int Row, int Col>
 template<typename U, int Scale>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetRow(int row, const NX::vector<U, Scale> &rhs){
     NXAssert(row < Row && row >=0);
-    for(int i = 0, l = std::min(Scale, Col); i < l; ++i){
+    for(int i = 0, l = NXMin(Scale, Col); i < l; ++i){
         m_Element[row][i] = rhs.v[i];
     }
     return *this;
@@ -226,7 +227,7 @@ template<typename T, int Row, int Col>
 template<typename U, int Scale>
 inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::SetCol(int col, const NX::vector<U, Scale> &rhs){
     NXAssert(col < Col && col >=0);
-    for(int i = 0, l = std::min(Scale, Row); i < l; ++i){
+    for(int i = 0, l = NXMin(Scale, Row); i < l; ++i){
         m_Element[i][col] = rhs.v[i];
     }
     return *this;
@@ -506,42 +507,15 @@ DECLARE_MATRIX_TYPE_ROW(type, 3)\
 DECLARE_MATRIX_TYPE_ROW(type, 4)
 #endif
 
+DECLARE_MATRIX_TYPE(NXInt8)
+DECLARE_MATRIX_TYPE(NXUInt8)
+DECLARE_MATRIX_TYPE(NXInt16)
+DECLARE_MATRIX_TYPE(NXUInt16)
+DECLARE_MATRIX_TYPE(NXInt32)
+DECLARE_MATRIX_TYPE(NXUInt32)
+DECLARE_MATRIX_TYPE(NXInt64)
+DECLARE_MATRIX_TYPE(NXUInt64)
 
-//char(byte)
-DECLARE_MATRIX_TYPE(char)       //char1,
-DECLARE_MATRIX_TYPE(byte);      //byte1
-DECLARE_MATRIX_TYPE(sbyte);     //sbyte
-DECLARE_MATRIX_TYPE(ubyte);     //ubyte
-DECLARE_MATRIX_TYPE(schar);     //signed char
-DECLARE_MATRIX_TYPE(uchar);     //unsigned char
-
-//wchar_t
-DECLARE_MATRIX_TYPE(wchar_t);
-DECLARE_MATRIX_TYPE(swchar_t);
-DECLARE_MATRIX_TYPE(uwchar_t);
-DECLARE_MATRIX_TYPE(wchar);
-DECLARE_MATRIX_TYPE(swchar);
-DECLARE_MATRIX_TYPE(uwchar);
-
-//short
-DECLARE_MATRIX_TYPE(short);     //short
-DECLARE_MATRIX_TYPE(sshort);    //signed short
-DECLARE_MATRIX_TYPE(ushort);    //unsigned short
-
-//int
-DECLARE_MATRIX_TYPE(int);      //int
-DECLARE_MATRIX_TYPE(sint);     //sgined int
-DECLARE_MATRIX_TYPE(uint);     //unsigned int
-
-//long
-DECLARE_MATRIX_TYPE(long);     //long
-DECLARE_MATRIX_TYPE(slong);    //signed long
-DECLARE_MATRIX_TYPE(ulong);    //unsigned long
-
-//long long
-DECLARE_MATRIX_TYPE(llong);    //long long
-DECLARE_MATRIX_TYPE(sllong);   //signed long long
-DECLARE_MATRIX_TYPE(ullong);   //unsigned long long
 
 //float
 DECLARE_MATRIX_TYPE(float);    //float

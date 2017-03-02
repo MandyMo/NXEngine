@@ -21,8 +21,8 @@ namespace NX {
         virtual void Sleep(__in const unsigned int iMilliSeconds) = 0;
         virtual bool FileExist(__in const std::string& strFilePath) = 0;
         virtual bool DeleteFile(__in const std::string& strFilePath);
-        virtual bool CreateDirectory(__in const std::string& strDirPath) = 0;
-        virtual bool DeleteDirectory(__in const std::string& strDirPath) = 0;
+        virtual bool CreateFileDirectory(__in const std::string& strDirPath) = 0;
+        virtual bool DeleteFileDirectory(__in const std::string& strDirPath) = 0;
         virtual NXInt64 GetMillSecondsFromSystemStart() = 0;
     };
 }

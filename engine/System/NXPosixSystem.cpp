@@ -28,14 +28,14 @@ namespace NX{
         usleep(iMilliSeconds * 1000);
     }
     
-    bool PosixSystem::CreateDirectory(__in const std::string& strDirPath){
+    bool PosixSystem::CreateFileDirectory(__in const std::string& strDirPath){
         if(mkdir(strDirPath.c_str(), S_IRWXU) == -1){
             return false;
         }
         return true;
     }
     
-    bool PosixSystem::DeleteDirectory(__in const std::string& strDirPath){
+    bool PosixSystem::DeleteFileDirectory(__in const std::string& strDirPath){
         if(!NX::System::Instance().FileExist(strDirPath)){
             return true;
         }
@@ -65,7 +65,7 @@ namespace NX{
             if(strcmp(dir_info->d_name, ".") == 0 || strcmp(dir_info->d_name, "..") == 0){
                 continue;
             }else{
-                DeleteDirectory(file_path);
+                DeleteFileDirectory(file_path);
             }
         }
         closedir(dir);

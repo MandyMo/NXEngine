@@ -11,6 +11,7 @@
 #include "NXNumeric.h"
 #include "NXVector.h"
 #include "NXMath.h"
+#include "..\common\nxtype.h"
 
 namespace NX {
     template<typename T, int Row, int Col>

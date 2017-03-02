@@ -84,13 +84,16 @@
 #include <typeinfo>
 #include <cstdarg>
 #include <cstdio>
+#if !PLATFORM_WINDOWS
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#endif
 
 
 
-
+#if !defined(_MSC_VER)
 template<GLenum Type>
+
 class NXEnable{
 public:
     NXEnable(){
@@ -100,6 +103,8 @@ public:
         glDisable(Type);
     }
 };
+
+#endif
 
 namespace NX{
     extern void NXAssertFailed(const char *szFileName, const char *szFuncName, const int iLine, const char * expr);

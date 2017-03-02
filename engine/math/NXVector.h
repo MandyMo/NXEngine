@@ -8,7 +8,7 @@
 #ifndef __ZX_NXENGINE_VECTOR_H__
 #define __ZX_NXENGINE_VECTOR_H__
 
-#include "NXCore.h"
+#include "..\common\nxcore.h"
 #include "NXNumeric.h"
 #include "NXMath.h"
 

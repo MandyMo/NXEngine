@@ -20,7 +20,7 @@ bool NX::System::DeleteFile(__in const std::string& strFilePath){
     return !remove(strFilePath.c_str());
 }
 
-bool NX::System::CreateDirectory(__in const std::string& strDirPath){
+bool NX::System::CreateFileDirectory(__in const std::string& strDirPath){
     NXAssert(0 && "bool NX::System::CreateDirectory(__in const std::string strDirPath)");
     return false;
 }

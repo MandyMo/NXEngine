@@ -8,9 +8,9 @@
 
 #include "../NXSystem.h"
 
-#if defined(PLATFORM_WINDOWS)
 
 #ifdef PLATFORM_WINDOWS
+
 #include <Windows.h>
 
 namespace NX {
@@ -18,14 +18,14 @@ namespace NX {
     public:
         WinSystem();
         virtual ~WinSystem();
-    public:
-        virtual void Sleep(__in const unsigned int iMilliSeconds);
-        virtual bool FileExist(__in const std::string& strFilePath);
-        virtual bool DeleteDirectory(__in const std::string& strDirPath);
-        virtual bool CreateDirectory(__in const std::string& strDirPath);
-        virtual NXInt64 GetMillSecondsFromSystemStart();
+	public:        
+        virtual void Sleep(__in const unsigned int iMilliSeconds) override;
+        virtual bool FileExist(__in const std::string& strFilePath) override;
+        virtual bool DeleteFileDirectory(__in const std::string& strDirPath) override;
+		virtual bool CreateFileDirectory(__in const std::string& strDirPath)override;
+        virtual NXInt64 GetMillSecondsFromSystemStart() override;
     };
-    
+
     WinSystem::WinSystem(){
         //empty here
     }
@@ -38,12 +38,12 @@ namespace NX {
         ::Sleep(iMilliSeconds);
     }
     
-    bool WinSystem::CreateDirectory(__in const std::string strDirPath){
-        return NX::System::CreateDirectory(strDirPath);
+	bool WinSystem::CreateFileDirectory(__in const std::string& strDirPath) {
+		return true;
     }
     
-    bool WinSystem::DeleteDirectory(__in const std::string& strDirPath){
-        if(!NX::System::Instance().IsFileExist(strDirPath)){
+    bool WinSystem::DeleteFileDirectory(__in const std::string& strDirPath){
+        if(!NX::System::Instance().FileExist(strDirPath)){
             return true;
         }
         char szSearchFinal[MAX_PATH];
@@ -57,17 +57,17 @@ namespace NX {
                     continue;
                 if(strcmp(dataFile.cFileName, "..") == 0)
                     continue;
-                strcpy(szSearchFinal, szDir);
+                strcpy(szSearchFinal, strDirPath.c_str());
                 strcat(szSearchFinal, "/");
                 strcat(szSearchFinal, dataFile.cFileName);
                 if(dataFile.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY){
-                    NX::System::Instance().DeleteDirectory(szSearchFinal);
+                    DeleteFileDirectory(szSearchFinal);
                 }else{
-                    NX::System::Instance().DeleteFile(szSearchFinal);
+					DeleteFile(szSearchFinal);
                 }
             } while (::FindNextFileA(hSearch, &dataFile));
             ::FindClose(hSearch);
-            return ::RemoveDirectoryA(szDir);
+            return ::RemoveDirectoryA(strDirPath.c_str());
         }
         return false;
     }
@@ -75,7 +75,7 @@ namespace NX {
     bool WinSystem::FileExist(__in const std::string& strFilePath){
         WIN32_FIND_DATA FindFileData;
         NX::NXZeroMemory(&FindFileData);
-        HANDLE hFind = ::FindFirstFile(strDirPath.c_str(), &FindFileData);
+        HANDLE hFind = ::FindFirstFile(strFilePath.c_str(), &FindFileData);
         if (hFind == INVALID_HANDLE_VALUE) {
             return false;
         }else {
@@ -105,8 +105,4 @@ namespace NX {
         return SharedObject;
     }
 }
-#endif  //PLATFORM_WINDOWS
-
-#endif
-
-
+#endif 

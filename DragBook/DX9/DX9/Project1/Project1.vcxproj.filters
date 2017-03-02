@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="MainFrame">
+      <UniqueIdentifier>{667beb7c-2e64-490e-9d06-0f679340d569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine">
+      <UniqueIdentifier>{b04bc2c2-ec6a-479d-9dc0-7ee310b329af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\common">
+      <UniqueIdentifier>{499fba75-492d-47ca-ae6e-a170c1df0b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\common\Collection">
+      <UniqueIdentifier>{dc7f8a54-7873-4b97-ab14-062f4213a523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\common\EventManager">
+      <UniqueIdentifier>{8aa9b5bc-3bfc-41da-865b-e89ef0d91893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\common\File">
+      <UniqueIdentifier>{42a52113-b56d-483d-b1a7-58d249f75c16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\common\Memory">
+      <UniqueIdentifier>{3b4ed58d-0c7a-497f-a242-ea0720e36652}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\common\TimerManager">
+      <UniqueIdentifier>{18813ea3-168a-43e0-b153-e8585365fe7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\math">
+      <UniqueIdentifier>{348b3877-7e93-4e37-bfe3-4bccb95b6f20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\Render">
+      <UniqueIdentifier>{6a61f3ef-5d18-4d51-8231-7557a4f3dd40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\System">
+      <UniqueIdentifier>{bea04f1b-6bdd-4e14-9ab8-06648ec76e47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\System\Windows">
+      <UniqueIdentifier>{ca5ffbec-4a1a-4884-8cd2-c403f73be2bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\System\iOS">
+      <UniqueIdentifier>{6263ce9b-6e4e-40a9-a35e-85aad4f95f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\System\Android">
+      <UniqueIdentifier>{d43d2d9a-3d14-4537-8a8b-8a2cecd9fa3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\System\OSX">
+      <UniqueIdentifier>{b4ed4ca6-ad2a-4c0b-87c1-f3441a554015}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\MainFrame\NXWindow.cpp">
+      <Filter>MainFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\MainFrame\NXWndClass.cpp">
+      <Filter>MainFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\common\NXCore.cpp">
+      <Filter>NXEngine\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\common\NXLog.cpp">
+      <Filter>NXEngine\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\common\NXUtility.cpp">
+      <Filter>NXEngine\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\common\EventManager\NXEvent.cpp">
+      <Filter>NXEngine\common\EventManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\common\EventManager\NXEventManager.cpp">
+      <Filter>NXEngine\common\EventManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\common\File\NXMemoryFile.cpp">
+      <Filter>NXEngine\common\File</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\common\Memory\NXMemory.cpp">
+      <Filter>NXEngine\common\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\common\TimerManager\NXTimerEvent.cpp">
+      <Filter>NXEngine\common\TimerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\common\TimerManager\NXTimerManager.cpp">
+      <Filter>NXEngine\common\TimerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXAABB.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXAlgorithm.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXCircle.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXCone.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXCylinder.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXEllipse.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXEllipsoid.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXEulerAngle.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXLine.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXMath.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXOOBB.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXPlane.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXQuaternion.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXRayTrace.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXSphere.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\math\NXTriangle.cpp">
+      <Filter>NXEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\render\NXCamera.cpp">
+      <Filter>NXEngine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\render\NXViewFrustum.cpp">
+      <Filter>NXEngine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\System\NXMutex.cpp">
+      <Filter>NXEngine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\System\NXPosixSystem.cpp">
+      <Filter>NXEngine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\System\NXSystem.cpp">
+      <Filter>NXEngine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\System\Win32\NXWinMutex.cpp">
+      <Filter>NXEngine\System\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\System\Win32\NXWinSystem.cpp">
+      <Filter>NXEngine\System\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\System\OSX\NXOSXMutex.cpp">
+      <Filter>NXEngine\System\OSX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\System\Android\NXAndroidMutex.cpp">
+      <Filter>NXEngine\System\Android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\System\Android\NXAndroidSystem.cpp">
+      <Filter>NXEngine\System\Android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\System\Android\NXJNIWrapper.cpp">
+      <Filter>NXEngine\System\Android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\System\iOS\NXiOSMutex.cpp">
+      <Filter>NXEngine\System\iOS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\NXDX9Window.cpp">
+      <Filter>MainFrame</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\MainFrame\NXWindow.h">
+      <Filter>MainFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\MainFrame\NXWndClass.h">
+      <Filter>MainFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\MainFrame\NXHeader.h">
+      <Filter>MainFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\nxcore.h">
+      <Filter>NXEngine\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\NXLog.h">
+      <Filter>NXEngine\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\NXPlatform.h">
+      <Filter>NXEngine\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\nxtype.h">
+      <Filter>NXEngine\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\NXUtility.h">
+      <Filter>NXEngine\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\Collection\NXThreadSafeQueue.h">
+      <Filter>NXEngine\common\Collection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\EventManager\NXEvent.h">
+      <Filter>NXEngine\common\EventManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\EventManager\NXEventHandler.h">
+      <Filter>NXEngine\common\EventManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\EventManager\NXEventManager.h">
+      <Filter>NXEngine\common\EventManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\File\NXKVFile.h">
+      <Filter>NXEngine\common\File</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\File\NXMemoryFile.h">
+      <Filter>NXEngine\common\File</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\File\NXReader.h">
+      <Filter>NXEngine\common\File</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\File\NXWriter.h">
+      <Filter>NXEngine\common\File</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\Memory\NXMemory.h">
+      <Filter>NXEngine\common\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\TimerManager\NXTimerEvent.h">
+      <Filter>NXEngine\common\TimerManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\common\TimerManager\NXTimerManager.h">
+      <Filter>NXEngine\common\TimerManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXAABB.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXAlgorithm.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXCircle.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXComplex.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXCone.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXCylinder.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXEllipse.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXEllipsoid.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXEulerAngle.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXLine.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXMath.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXMatrix.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXNumeric.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXOOBB.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXPlane.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXPrimitive.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXQuaternion.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXRayTrace.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXSphere.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXTriangle.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\math\NXVector.h">
+      <Filter>NXEngine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\render\NXCamera.h">
+      <Filter>NXEngine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\render\NXViewFrustum.h">
+      <Filter>NXEngine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\System\NXMutex.h">
+      <Filter>NXEngine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\System\NXPosixSystem.h">
+      <Filter>NXEngine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\System\NXSystem.h">
+      <Filter>NXEngine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\System\Android\NXJNIWrapper.h">
+      <Filter>NXEngine\System\Android</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NXDX9Window.h">
+      <Filter>MainFrame</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm">
+      <Filter>NXEngine\common\Collection</Filter>
+    </None>
+    <None Include="..\..\..\..\engine\common\File\NXiOSKVFile.mm">
+      <Filter>NXEngine\common\File</Filter>
+    </None>
+    <None Include="..\..\..\..\engine\math\NXAlgorithm.inl">
+      <Filter>NXEngine\math</Filter>
+    </None>
+    <None Include="..\..\..\..\engine\math\NXMath.inl">
+      <Filter>NXEngine\math</Filter>
+    </None>
+    <None Include="..\..\..\..\engine\math\NXMatrix.inl">
+      <Filter>NXEngine\math</Filter>
+    </None>
+    <None Include="..\..\..\..\engine\math\NXPrimitive.inl">
+      <Filter>NXEngine\math</Filter>
+    </None>
+    <None Include="..\..\..\..\engine\math\NXVector.inl">
+      <Filter>NXEngine\math</Filter>
+    </None>
+    <None Include="..\..\..\..\engine\System\OSX\NXOSXSystem.mm">
+      <Filter>NXEngine\System\OSX</Filter>
+    </None>
+    <None Include="..\..\..\..\engine\System\iOS\NXiOSSystem.mm">
+      <Filter>NXEngine\System\iOS</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\engine\render\NXEngine.txt">
+      <Filter>NXEngine\Render</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

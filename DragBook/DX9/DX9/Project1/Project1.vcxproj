@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{44188F4C-FD31-4E11-92C2-568B334B7254}</ProjectGuid>
+    <RootNamespace>Project1</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>..\..\..\..\engine;..\..\..\MainFrame;C:\Program Files %28x86%29\Microsoft DirectX 9.0 SDK %28December 2004%29\Include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\engine\common\EventManager\NXEvent.cpp" />
+    <ClCompile Include="..\..\..\..\engine\common\EventManager\NXEventManager.cpp" />
+    <ClCompile Include="..\..\..\..\engine\common\File\NXMemoryFile.cpp" />
+    <ClCompile Include="..\..\..\..\engine\common\Memory\NXMemory.cpp" />
+    <ClCompile Include="..\..\..\..\engine\common\NXCore.cpp" />
+    <ClCompile Include="..\..\..\..\engine\common\NXLog.cpp" />
+    <ClCompile Include="..\..\..\..\engine\common\NXUtility.cpp" />
+    <ClCompile Include="..\..\..\..\engine\common\TimerManager\NXTimerEvent.cpp" />
+    <ClCompile Include="..\..\..\..\engine\common\TimerManager\NXTimerManager.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXAABB.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXAlgorithm.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXCircle.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXCone.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXCylinder.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXEllipse.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXEllipsoid.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXEulerAngle.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXLine.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXMath.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXOOBB.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXPlane.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXQuaternion.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXRayTrace.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXSphere.cpp" />
+    <ClCompile Include="..\..\..\..\engine\math\NXTriangle.cpp" />
+    <ClCompile Include="..\..\..\..\engine\render\NXCamera.cpp" />
+    <ClCompile Include="..\..\..\..\engine\render\NXViewFrustum.cpp" />
+    <ClCompile Include="..\..\..\..\engine\System\Android\NXAndroidMutex.cpp" />
+    <ClCompile Include="..\..\..\..\engine\System\Android\NXAndroidSystem.cpp" />
+    <ClCompile Include="..\..\..\..\engine\System\Android\NXJNIWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\engine\System\iOS\NXiOSMutex.cpp" />
+    <ClCompile Include="..\..\..\..\engine\System\NXMutex.cpp" />
+    <ClCompile Include="..\..\..\..\engine\System\NXPosixSystem.cpp" />
+    <ClCompile Include="..\..\..\..\engine\System\NXSystem.cpp" />
+    <ClCompile Include="..\..\..\..\engine\System\OSX\NXOSXMutex.cpp" />
+    <ClCompile Include="..\..\..\..\engine\System\Win32\NXWinMutex.cpp" />
+    <ClCompile Include="..\..\..\..\engine\System\Win32\NXWinSystem.cpp" />
+    <ClCompile Include="..\..\..\MainFrame\NXWindow.cpp" />
+    <ClCompile Include="..\..\..\MainFrame\NXWndClass.cpp" />
+    <ClCompile Include="..\..\NXDX9Window.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\engine\common\Collection\NXThreadSafeQueue.h" />
+    <ClInclude Include="..\..\..\..\engine\common\EventManager\NXEvent.h" />
+    <ClInclude Include="..\..\..\..\engine\common\EventManager\NXEventHandler.h" />
+    <ClInclude Include="..\..\..\..\engine\common\EventManager\NXEventManager.h" />
+    <ClInclude Include="..\..\..\..\engine\common\File\NXKVFile.h" />
+    <ClInclude Include="..\..\..\..\engine\common\File\NXMemoryFile.h" />
+    <ClInclude Include="..\..\..\..\engine\common\File\NXReader.h" />
+    <ClInclude Include="..\..\..\..\engine\common\File\NXWriter.h" />
+    <ClInclude Include="..\..\..\..\engine\common\Memory\NXMemory.h" />
+    <ClInclude Include="..\..\..\..\engine\common\nxcore.h" />
+    <ClInclude Include="..\..\..\..\engine\common\NXLog.h" />
+    <ClInclude Include="..\..\..\..\engine\common\NXPlatform.h" />
+    <ClInclude Include="..\..\..\..\engine\common\nxtype.h" />
+    <ClInclude Include="..\..\..\..\engine\common\NXUtility.h" />
+    <ClInclude Include="..\..\..\..\engine\common\TimerManager\NXTimerEvent.h" />
+    <ClInclude Include="..\..\..\..\engine\common\TimerManager\NXTimerManager.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXAABB.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXAlgorithm.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXCircle.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXComplex.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXCone.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXCylinder.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXEllipse.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXEllipsoid.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXEulerAngle.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXLine.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXMath.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXMatrix.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXNumeric.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXOOBB.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXPlane.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXPrimitive.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXQuaternion.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXRayTrace.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXSphere.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXTriangle.h" />
+    <ClInclude Include="..\..\..\..\engine\math\NXVector.h" />
+    <ClInclude Include="..\..\..\..\engine\render\NXCamera.h" />
+    <ClInclude Include="..\..\..\..\engine\render\NXViewFrustum.h" />
+    <ClInclude Include="..\..\..\..\engine\System\Android\NXJNIWrapper.h" />
+    <ClInclude Include="..\..\..\..\engine\System\NXMutex.h" />
+    <ClInclude Include="..\..\..\..\engine\System\NXPosixSystem.h" />
+    <ClInclude Include="..\..\..\..\engine\System\NXSystem.h" />
+    <ClInclude Include="..\..\..\MainFrame\NXHeader.h" />
+    <ClInclude Include="..\..\..\MainFrame\NXWindow.h" />
+    <ClInclude Include="..\..\..\MainFrame\NXWndClass.h" />
+    <ClInclude Include="..\..\NXDX9Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm" />
+    <None Include="..\..\..\..\engine\common\File\NXiOSKVFile.mm" />
+    <None Include="..\..\..\..\engine\math\NXAlgorithm.inl" />
+    <None Include="..\..\..\..\engine\math\NXMath.inl" />
+    <None Include="..\..\..\..\engine\math\NXMatrix.inl" />
+    <None Include="..\..\..\..\engine\math\NXPrimitive.inl" />
+    <None Include="..\..\..\..\engine\math\NXVector.inl" />
+    <None Include="..\..\..\..\engine\System\iOS\NXiOSSystem.mm" />
+    <None Include="..\..\..\..\engine\System\OSX\NXOSXSystem.mm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\engine\render\NXEngine.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

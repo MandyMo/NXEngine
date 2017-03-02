@@ -11,10 +11,10 @@
 #include "NXComplex.h"
 #include "NXVector.h"
 #include "NXMatrix.h"
-#include "NXUtility.h"
+#include "..\common\NXUtility.h"
 #include <vector>
 #include <functional>
-
+#include <algorithm>
 
 static bool bMathLibInited = false;
 

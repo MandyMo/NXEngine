@@ -25,12 +25,12 @@ void* NX::MemoryManager::FixedAlloc(__in const int iMemSize, __in const int iAli
     NXAssert(iAlignSize > 1 && !(iAlignSize & (iAlignSize - 1)));
     //expand memory size
     int iFinalSize       = iMemSize + iAlignSize + sizeof(void*);
-    ullong  StartAddress = (ullong)malloc(iFinalSize);
+	NXUInt64  StartAddress = (NXUInt64)malloc(iFinalSize);
     if(StartAddress == 0){
         return NULL;
     }
-    ullong  Address           = (StartAddress + sizeof(void*) + iAlignSize) & ~(iAlignSize - 1);
-    *(((ullong*)Address) - 1) = StartAddress;
+	NXUInt64  Address           = (StartAddress + sizeof(void*) + iAlignSize) & ~(iAlignSize - 1);
+    *(((NXUInt64*)Address) - 1) = StartAddress;
     return (void*)Address;
 }
 
@@ -39,7 +39,7 @@ void NX::MemoryManager::FixedDelloc(__in const void * const pFixedAddress){
     if(!pFixedAddress){
         return;
     }
-    ullong *pAddress             = ((ullong*)pFixedAddress) - 1;
+    NXUInt64 *pAddress             = ((NXUInt64*)pFixedAddress) - 1;
     void * pStartAddress         = (void*)*pAddress;
     free(pStartAddress);
 }
