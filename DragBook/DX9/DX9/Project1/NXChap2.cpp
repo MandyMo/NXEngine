@@ -7,31 +7,31 @@
  *  Purpose:   DX Demo1
  */
 
-#include "NXChap1.h"
+#include "NXChap2.h"
 
 #include "..\..\..\..\engine\common\nxcore.h"
 #include "..\..\..\..\engine\common\NXLog.h"
 #include "..\..\..\..\engine\math\NXAlgorithm.h"
 
-NX::NXChap1::NXChap1() {
+NX::NXChap2::NXChap2() {
 	/**empty*/
 }
 
-NX::NXChap1::~NXChap1() {
+NX::NXChap2::~NXChap2() {
 	/**empty*/
 }
 
-void NX::NXChap1::PostRender() {
+void NX::NXChap2::PostRender() {
 	GetD3D9Device()->EndScene();
 	GetD3D9Device()->Present(NULL, NULL, NULL, NULL);
 }
 
-void NX::NXChap1::PreRender() {
+void NX::NXChap2::PreRender() {
 	GetD3D9Device()->BeginScene();
 	GetD3D9Device()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xffffffff, 1.f, 0);
 }
 
-void NX::NXChap1::Render() {
+void NX::NXChap2::Render() {
 	{//fill vb data
 		Vertex *v = NULL;
 		m_pVB->Lock(0, 0, (void**)&v, 0);
@@ -49,12 +49,12 @@ void NX::NXChap1::Render() {
 
 	{//set world matrix
 		D3DXMATRIX v;
-		D3DXMatrixIdentity(&v);
+		D3DXMatrixTranslation(&v, -3.0f, 0, 0);
 		GetD3D9Device()->SetTransform(D3DTS_WORLD, &v);
 	}
 
 	{//set view matrix
-		D3DXVECTOR3   at(0, 0, -5);
+		D3DXVECTOR3   at(0, 0, -3);
 		D3DXVECTOR3   target(0, 0, 0);
 		D3DXVECTOR3   up(0, 1, 0);
 		D3DXMATRIX	  v;
@@ -72,34 +72,43 @@ void NX::NXChap1::Render() {
 	}
 
 	{//set render state
-		GetD3D9Device()->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		GetD3D9Device()->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+		GetD3D9Device()->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+		GetD3D9Device()->SetRenderState(D3DRS_LIGHTING, FALSE);
 	}
 
 	{//commit data
 		GetD3D9Device()->SetStreamSource(0, m_pVB, 0, sizeof(Vertex));
 		GetD3D9Device()->SetIndices(m_pIB);
-		GetD3D9Device()->SetFVF(D3DFVF_XYZ);
+		GetD3D9Device()->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
 
 		GetD3D9Device()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 3, 0, 1);
-		//GetD3D9Device()->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+	}
+
+	{//set world matrix
+		D3DXMATRIX v;
+		D3DXMatrixTranslation(&v, 3.0f, 0, 0);
+		GetD3D9Device()->SetTransform(D3DTS_WORLD, &v);
+		GetD3D9Device()->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_FLAT);
+		GetD3D9Device()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 3, 0, 1);
 	}
 }
 
 
-void NX::NXChap1::OnInitDX3Succeed() {
+void NX::NXChap2::OnInitDX3Succeed() {
 	m_pIB	=	NULL;
 	m_pVB	=	NULL;
 	NX::NXZeroArray(m_v);
 
 	do {
 		{//create vertex
-			m_v[0] = Vertex(-1.f, -1.f, 1.f);
-			m_v[1] = Vertex(-1.f, 1.f, 1.f);
-			m_v[2] = Vertex(1.f, 1.f, 1.f);
+			m_v[0] = Vertex(0xffff0000, -1.f, -1.f, 1.f);
+			m_v[1] = Vertex(0xff00ff00, -1.f, 1.f, 1.f);
+			m_v[2] = Vertex(0xff0000ff, 1.f, 1.f, 1.f);
 		}
 
 		{//create vb
-			GetD3D9Device()->CreateVertexBuffer(sizeof(m_v), D3DUSAGE_WRITEONLY, D3DFVF_XYZ, D3DPOOL_MANAGED, &m_pVB, NULL);
+			GetD3D9Device()->CreateVertexBuffer(sizeof(m_v), D3DUSAGE_WRITEONLY, D3DFVF_XYZ | D3DFVF_DIFFUSE, D3DPOOL_MANAGED, &m_pVB, NULL);
 			glb_GetLog().logToConsole("create vb %s", m_pVB != NULL ? "succeed" : "failed");
 			if (m_pVB == NULL) {
 				break;
@@ -122,6 +131,6 @@ void NX::NXChap1::OnInitDX3Succeed() {
 }
 
 
-void NX::NXChap1::OnTick(NXUInt32 uDelta) {
+void NX::NXChap2::OnTick(NXUInt32 uDelta) {
 
 }

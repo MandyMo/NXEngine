@@ -158,6 +158,7 @@
     <ClCompile Include="..\..\NXDX9Window.cpp" />
     <ClCompile Include="NXChap1.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NXChap2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\engine\common\Collection\NXThreadSafeQueue.h" />
@@ -208,6 +209,7 @@
     <ClInclude Include="..\..\..\MainFrame\NXWndClass.h" />
     <ClInclude Include="..\..\NXDX9Window.h" />
     <ClInclude Include="NXChap1.h" />
+    <ClInclude Include="NXChap2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm" />

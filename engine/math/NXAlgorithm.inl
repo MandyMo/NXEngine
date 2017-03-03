@@ -314,13 +314,13 @@ inline Matrix<T, Scale, Scale> GetMatrixRotateByAix(const vector<U, 3> &Aix, con
 //z/w: [0, 1]
 //w: z
 template<typename T, int Scale>
-inline Matrix<T, Scale, Scale> GetPerspectiveMatrix(const T FovAngle, const T aspect, const T near, const T far){
+inline Matrix<T, Scale, Scale> GetPerspectiveMatrix(const T FovAngle, const T aspect, const T zn, const T zf){
     NXAssert(Scale == 4);
     Matrix<T, Scale, Scale> result;
     T CotValue = 1 / std::tan(DG2RD(FovAngle) / 2);
-    T dif = near - far;
-    T a = -far / dif;
-    T b = near * far / dif;
+    T dif = zn - zf;
+    T a = -zf / dif;
+    T b = zn * zf / dif;
     result.m_Element[0][0] = 1 / aspect * CotValue;
     result.m_Element[1][1] = CotValue;
     result.m_Element[2][2] = a;

@@ -142,6 +142,19 @@ namespace NX {
     inline void NXZeroMemory(void * ptr, int _n){
         std::memset(ptr, 0, _n);
     }
+
+	template<typename T, int N>
+	inline void NXZeroArray(T (&AryRef)[N] ) {
+		NX::NXZeroMemory(AryRef, sizeof(AryRef));
+	}
+
+	template<typename T>
+	inline void NXSafeRelease(T*& objPtr) {
+		if (objPtr) {
+			objPtr->Release();
+		}
+		objPtr = NULL;
+	}
 }
 
 #endif //!__ZX_NXENGINE_CORE_H__

@@ -11,7 +11,7 @@
 
 #include "NXWindow.h"
 #include "D3DX9.h"
-
+#include "..\..\engine\common\nxtype.h"
 
 namespace NX {
 	class DX9Window : public NX::Window{
@@ -27,6 +27,10 @@ namespace NX {
 		virtual void PostRender();
 		virtual void PreRender();
 		virtual void Render();
+
+	private:
+		virtual void OnInitDX3Succeed();
+		virtual void OnTick(NXUInt32	uDelta);
 
 	public:
 		inline IDirect3D9*				GetD3D9(){return m_pD3D9;}

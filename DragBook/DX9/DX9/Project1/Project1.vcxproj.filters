@@ -189,6 +189,9 @@
     <ClCompile Include="NXChap1.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="NXChap2.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\MainFrame\NXWindow.h">
@@ -333,6 +336,9 @@
       <Filter>MainFrame</Filter>
     </ClInclude>
     <ClInclude Include="NXChap1.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="NXChap2.h">
       <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>

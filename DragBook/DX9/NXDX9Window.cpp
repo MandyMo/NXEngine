@@ -9,6 +9,7 @@
 
 #include "NXDX9Window.h"
 #include "common\NXLog.h"
+#include "System\NXSystem.h"
 
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
@@ -23,7 +24,13 @@ NX::DX9Window::DX9Window() {
 }
 
 NX::DX9Window::~DX9Window() {
-	/**empty here*/
+	if (m_pDevice) {
+		m_pDevice->Release();
+	}
+
+	if (m_pD3D9) {
+		m_pD3D9->Release();
+	}
 }
 
 bool NX::DX9Window::Create(DWORD dwExStyle, DWORD dwStyle, LPTSTR lpszClassName, LPTSTR lpszWindowName, RECT rtWndArea, HWND hWndParent, HMENU hMenu, LPVOID lpParam) {
@@ -70,6 +77,8 @@ bool NX::DX9Window::Create(DWORD dwExStyle, DWORD dwStyle, LPTSTR lpszClassName,
 			if (FAILED(hr)) {
 				break;
 			}
+
+			OnInitDX3Succeed();
 
 			return true;
 		}
@@ -119,10 +128,22 @@ WPARAM NX::DX9Window::MessageLoop() {
 			::TranslateMessage(&msg);
 			::DispatchMessage(&msg);
 		} else {
+			static NXUInt64	uPreTickedTime = NX::System::Instance().GetMillSecondsFromSystemStart();
+			NXUInt64 uNowTickedTime = NX::System::Instance().GetMillSecondsFromSystemStart();
+			OnTick(uNowTickedTime - uPreTickedTime);
+			uPreTickedTime = uNowTickedTime;
 			PreRender();
 			Render();
 			PostRender();
 		}
 	}
 	return msg.wParam;
+}
+
+void NX::DX9Window::OnInitDX3Succeed() {
+	/**empty*/
+}
+
+void NX::DX9Window::OnTick(NXUInt32	uDelta) {
+
 }

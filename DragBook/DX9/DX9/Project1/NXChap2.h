@@ -12,10 +12,10 @@
 #pragma once
 
 namespace NX {
-	class NXChap1 : public NX::DX9Window {
+	class NXChap2 : public NX::DX9Window {
 	public:
-		NXChap1();
-		virtual ~NXChap1();
+		NXChap2();
+		virtual ~NXChap2();
 
 	public:
 		virtual void PostRender();
@@ -28,8 +28,9 @@ namespace NX {
 
 	public:
 		struct Vertex {
-			Vertex(float _x = 0.f, float _y = 0.f, float _z = 0.f):x(_x), y(_y), z(_z){}
+			Vertex(D3DCOLOR _color = 0,float _x = 0.f, float _y = 0.f, float _z = 0.f):x(_x), y(_y), z(_z), color(_color){}
 			float x, y, z;
+			D3DCOLOR color;
 		};
 	private:
 		IDirect3DVertexBuffer9		*m_pVB;
