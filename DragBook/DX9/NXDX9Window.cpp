@@ -38,7 +38,7 @@ bool NX::DX9Window::Create(DWORD dwExStyle, DWORD dwStyle, LPTSTR lpszClassName,
 
 		{//init D3D9
 			m_pD3D9 = Direct3DCreate9(D3D_SDK_VERSION);
-			glb_GetLog().logToConsole("CreateD3D9 %s" , m_pD3D9 == NULL ? "Succeed" :"failed");
+			glb_GetLog().logToConsole("CreateD3D9 %s" , m_pD3D9 != NULL ? "Succeed" :"failed");
 			if (!m_pD3D9) {
 				break;
 			}

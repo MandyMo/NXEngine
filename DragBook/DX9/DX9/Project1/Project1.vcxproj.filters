@@ -58,6 +58,9 @@
     <Filter Include="NXEngine\System\OSX">
       <UniqueIdentifier>{b4ed4ca6-ad2a-4c0b-87c1-f3441a554015}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo">
+      <UniqueIdentifier>{f83e80da-b84c-427e-a61b-644e1559b9b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -182,6 +185,9 @@
     </ClCompile>
     <ClCompile Include="..\..\NXDX9Window.cpp">
       <Filter>MainFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="NXChap1.cpp">
+      <Filter>Demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -325,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="..\..\NXDX9Window.h">
       <Filter>MainFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="NXChap1.h">
+      <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

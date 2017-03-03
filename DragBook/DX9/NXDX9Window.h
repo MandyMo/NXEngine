@@ -7,6 +7,8 @@
  *  Purpose:   封装DX window
  */
 
+#pragma once
+
 #include "NXWindow.h"
 #include "D3DX9.h"
 
@@ -25,6 +27,10 @@ namespace NX {
 		virtual void PostRender();
 		virtual void PreRender();
 		virtual void Render();
+
+	public:
+		inline IDirect3D9*				GetD3D9(){return m_pD3D9;}
+		inline IDirect3DDevice9*		GetD3D9Device(){return m_pDevice;}
 
 	private:
 		IDirect3D9					*m_pD3D9;
