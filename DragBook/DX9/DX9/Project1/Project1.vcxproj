@@ -80,6 +80,8 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <IgnoreSpecificDefaultLibraries>libcp</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>legacy_stdio_definitions.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -88,6 +90,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libcp</IgnoreSpecificDefaultLibraries>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -158,6 +164,8 @@
     <ClCompile Include="..\..\NXDX9Window.cpp" />
     <ClCompile Include="NXChap1.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NXChap17_1.cpp" />
+    <ClCompile Include="NXChap17_2.cpp" />
     <ClCompile Include="NXChap2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +217,8 @@
     <ClInclude Include="..\..\..\MainFrame\NXWndClass.h" />
     <ClInclude Include="..\..\NXDX9Window.h" />
     <ClInclude Include="NXChap1.h" />
+    <ClInclude Include="NXChap17_1.h" />
+    <ClInclude Include="NXChap17_2.h" />
     <ClInclude Include="NXChap2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +234,20 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\engine\render\NXEngine.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="NXChap17_1_vs.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="NXChap17_2_ps.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="NXChap17_2_vs.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

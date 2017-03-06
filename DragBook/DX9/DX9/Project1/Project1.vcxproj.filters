@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -192,6 +188,12 @@
     <ClCompile Include="NXChap2.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="NXChap17_1.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="NXChap17_2.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\MainFrame\NXWindow.h">
@@ -341,6 +343,12 @@
     <ClInclude Include="NXChap2.h">
       <Filter>Demo</Filter>
     </ClInclude>
+    <ClInclude Include="NXChap17_1.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="NXChap17_2.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm">
@@ -375,5 +383,16 @@
     <Text Include="..\..\..\..\engine\render\NXEngine.txt">
       <Filter>NXEngine\Render</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="NXChap17_1_vs.hlsl">
+      <Filter>Demo</Filter>
+    </FxCompile>
+    <FxCompile Include="NXChap17_2_ps.hlsl">
+      <Filter>Demo</Filter>
+    </FxCompile>
+    <FxCompile Include="NXChap17_2_vs.hlsl">
+      <Filter>Demo</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

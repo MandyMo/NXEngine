@@ -13,6 +13,8 @@
 #include "D3DX9.h"
 #include "..\..\engine\common\nxtype.h"
 
+#pragma comment(lib, "libcpmt.lib")
+
 namespace NX {
 	class DX9Window : public NX::Window{
 	public:

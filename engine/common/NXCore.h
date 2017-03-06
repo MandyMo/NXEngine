@@ -139,6 +139,11 @@ namespace NX {
         std::memset(ptr, 0, sizeof(T));
     }
     
+	template<typename T>
+	inline void NXClearStruct(T& obj) {
+		NX::NXZeroMemory(&obj);
+	}
+
     inline void NXZeroMemory(void * ptr, int _n){
         std::memset(ptr, 0, _n);
     }
