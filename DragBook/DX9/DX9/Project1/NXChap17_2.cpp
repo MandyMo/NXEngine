@@ -25,13 +25,12 @@ NX::NXChap17_2::NXChap17_2() {
 	m_pTexB				=	NULL;
 	m_pIB				=	NULL;
 	m_pVB				=	NULL;
+	m_pVertexDesc		=	NULL;
 }
 
 NX::NXChap17_2::~NXChap17_2() {
 	
 }
-
-DWORD NX::NXChap17_2::Vertex::FVF = D3DFVF_XYZ | D3DFVF_TEX2;
 
 void NX::NXChap17_2::PostRender() {
 	GetD3D9Device()->EndScene();
@@ -61,7 +60,7 @@ void NX::NXChap17_2::Render() {
 		GetD3D9Device()->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 		GetD3D9Device()->SetVertexShader(m_pVertexShader);
 		GetD3D9Device()->SetPixelShader(m_pPixelShader);
-		GetD3D9Device()->SetFVF(Vertex::FVF);
+		GetD3D9Device()->SetVertexDeclaration(m_pVertexDesc);
 		GetD3D9Device()->SetRenderState(D3DRS_LIGHTING, false);
 		GetD3D9Device()->SetStreamSource(0, m_pVB, 0, sizeof(Vertex));
 		GetD3D9Device()->SetIndices(m_pIB);
@@ -73,8 +72,18 @@ void NX::NXChap17_2::Render() {
 void NX::NXChap17_2::OnInitDX3Succeed() {
 	ID3DXBuffer *shader = NULL;
 	ID3DXBuffer *errorBuffer = NULL;
+	HRESULT hr;
 	do {
-		HRESULT hr;
+		{//vertex declartion
+			D3DVERTEXELEMENT9 decl[] = {
+				{ 0, 0,  D3DDECLTYPE_FLOAT3,  D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION,0 },
+				{ 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
+				{ 0, 20, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 1 },
+				D3DDECL_END(),
+			};
+
+			hr = GetD3D9Device()->CreateVertexDeclaration(decl, &m_pVertexDesc);
+		}
 		{//set m_v
 			m_v[0] = Vertex(-5,  5, 0, 0, 0, 0, 0);
 			m_v[1] = Vertex(-5, -5, 0, 0, 1, 0, 1);
@@ -125,7 +134,7 @@ void NX::NXChap17_2::OnInitDX3Succeed() {
 		}
 
 		{//create vertex & index buffer
-			GetD3D9Device()->CreateVertexBuffer(sizeof(m_v), D3DUSAGE_WRITEONLY, Vertex::FVF, D3DPOOL_MANAGED, &m_pVB, NULL);
+			GetD3D9Device()->CreateVertexBuffer(sizeof(m_v), D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVB, NULL);
 			GetD3D9Device()->CreateIndexBuffer(6 * sizeof(NXInt16), D3DUSAGE_WRITEONLY, D3DFMT_INDEX16, D3DPOOL_MANAGED, &m_pIB, NULL);
 		}
 	}while(false);

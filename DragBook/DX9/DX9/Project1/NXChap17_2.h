@@ -37,8 +37,6 @@ namespace NX {
 			float x, y, z;
 			float u1, v1;
 			float u2, v2;
-
-			static DWORD	FVF;
 		};
 
 	private:
@@ -54,5 +52,6 @@ namespace NX {
 		Vertex							m_v[4];
 		IDirect3DVertexBuffer9			*m_pVB;
 		IDirect3DIndexBuffer9			*m_pIB;
+		IDirect3DVertexDeclaration9		*m_pVertexDesc;
 	};
 }
