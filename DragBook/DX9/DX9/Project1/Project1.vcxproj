@@ -166,6 +166,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NXChap17_1.cpp" />
     <ClCompile Include="NXChap17_2.cpp" />
+    <ClCompile Include="NXChap17_3.cpp" />
     <ClCompile Include="NXChap2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +220,7 @@
     <ClInclude Include="NXChap1.h" />
     <ClInclude Include="NXChap17_1.h" />
     <ClInclude Include="NXChap17_2.h" />
+    <ClInclude Include="NXChap17_3.h" />
     <ClInclude Include="NXChap2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +248,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="NXChap17_2_vs.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="NXChap17_3_effect.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </FxCompile>
   </ItemGroup>

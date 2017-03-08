@@ -74,7 +74,7 @@ void NX::NXChap17_2::OnInitDX3Succeed() {
 	ID3DXBuffer *errorBuffer = NULL;
 	HRESULT hr;
 	do {
-		{//vertex declartion
+		{//vertex declaration
 			D3DVERTEXELEMENT9 decl[] = {
 				{ 0, 0,  D3DDECLTYPE_FLOAT3,  D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION,0 },
 				{ 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },

@@ -271,7 +271,7 @@ namespace NX {
             T v[1];
         };
 #ifdef _MSC_VER
-#pragma pop()
+#pragma pack()
 #endif
     };
     
@@ -403,7 +403,7 @@ namespace NX {
             };
         };
 #ifdef _MSC_VER
-#pragma pop()
+#pragma pack()
 #endif
     };
 
@@ -544,7 +544,7 @@ namespace NX {
             };
         };
 #ifdef _MSC_VER
-#pragma pop()
+#pragma pack()
 #endif
     };
     
@@ -697,7 +697,7 @@ namespace NX {
             };
         };
 #ifdef _MSC_VER
-#pragma pop()
+#pragma pack()
 #endif
     };
     
