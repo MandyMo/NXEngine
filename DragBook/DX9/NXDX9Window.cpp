@@ -15,12 +15,15 @@
 #pragma comment(lib, "d3dx9.lib")
 #pragma comment(lib, "winmm.lib")
 
+static NX::DX9Window* pD3DWindow = NULL;
+
 NX::DX9Window::DX9Window() {
 	m_pD3D9				= NULL;
 	m_pDevice			= NULL;
 	memset(&m_D3dParameter, 0, sizeof(m_D3dParameter));
 	NX::NXZeroMemory(&m_D3dParameter);
 	NX::NXZeroMemory(&m_D3dCaps);
+	pD3DWindow = this;
 }
 
 NX::DX9Window::~DX9Window() {
@@ -146,4 +149,12 @@ void NX::DX9Window::OnInitDX3Succeed() {
 
 void NX::DX9Window::OnTick(NXUInt32	uDelta) {
 
+}
+
+NX::DX9Window* NX::glb_GetD3DWindow() {
+	return pD3DWindow;
+}
+
+IDirect3DDevice9 * NX::glb_GetD3DDevice() {
+	return NX::glb_GetD3DWindow()->GetD3D9Device();
 }

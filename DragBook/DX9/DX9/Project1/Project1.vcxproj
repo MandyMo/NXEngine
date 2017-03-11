@@ -77,6 +77,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,6 +162,7 @@
     <ClCompile Include="..\..\..\..\engine\System\Win32\NXWinSystem.cpp" />
     <ClCompile Include="..\..\..\MainFrame\NXWindow.cpp" />
     <ClCompile Include="..\..\..\MainFrame\NXWndClass.cpp" />
+    <ClCompile Include="..\..\NXDX9TextureManager.cpp" />
     <ClCompile Include="..\..\NXDX9Window.cpp" />
     <ClCompile Include="NXChap1.cpp" />
     <ClCompile Include="main.cpp" />
@@ -168,6 +170,9 @@
     <ClCompile Include="NXChap17_2.cpp" />
     <ClCompile Include="NXChap17_3.cpp" />
     <ClCompile Include="NXChap2.cpp" />
+    <ClCompile Include="NXChap2_1.cpp" />
+    <ClCompile Include="NXChap3_1.cpp" />
+    <ClCompile Include="NXChap3_2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\engine\common\Collection\NXThreadSafeQueue.h" />
@@ -216,12 +221,16 @@
     <ClInclude Include="..\..\..\MainFrame\NXHeader.h" />
     <ClInclude Include="..\..\..\MainFrame\NXWindow.h" />
     <ClInclude Include="..\..\..\MainFrame\NXWndClass.h" />
+    <ClInclude Include="..\..\NXDX9TextureManager.h" />
     <ClInclude Include="..\..\NXDX9Window.h" />
     <ClInclude Include="NXChap1.h" />
     <ClInclude Include="NXChap17_1.h" />
     <ClInclude Include="NXChap17_2.h" />
     <ClInclude Include="NXChap17_3.h" />
     <ClInclude Include="NXChap2.h" />
+    <ClInclude Include="NXChap2_1.h" />
+    <ClInclude Include="NXChap3_1.h" />
+    <ClInclude Include="NXChap3_2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm" />
@@ -251,6 +260,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="NXChap17_3_effect.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="NXChap2_1_effect.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </FxCompile>
   </ItemGroup>

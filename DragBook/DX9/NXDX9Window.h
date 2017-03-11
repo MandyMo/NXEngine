@@ -12,6 +12,8 @@
 #include "NXWindow.h"
 #include "D3DX9.h"
 #include "..\..\engine\common\nxtype.h"
+#include "..\..\engine\common\nxcore.h"
+#include "..\..\engine\common\NXLog.h"
 
 #pragma comment(lib, "libcpmt.lib")
 
@@ -44,4 +46,7 @@ namespace NX {
 		D3DCAPS9					m_D3dCaps;
 		D3DPRESENT_PARAMETERS		m_D3dParameter;
 	};
+
+	DX9Window* glb_GetD3DWindow();
+	IDirect3DDevice9 *glb_GetD3DDevice();
 }

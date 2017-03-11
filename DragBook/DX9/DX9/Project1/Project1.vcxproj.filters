@@ -194,6 +194,21 @@
     <ClCompile Include="NXChap17_2.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="NXChap17_3.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\NXDX9TextureManager.cpp">
+      <Filter>MainFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="NXChap2_1.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="NXChap3_1.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="NXChap3_2.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\MainFrame\NXWindow.h">
@@ -349,6 +364,21 @@
     <ClInclude Include="NXChap17_2.h">
       <Filter>Demo</Filter>
     </ClInclude>
+    <ClInclude Include="NXChap17_3.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NXDX9TextureManager.h">
+      <Filter>MainFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="NXChap2_1.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="NXChap3_1.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="NXChap3_2.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm">
@@ -392,6 +422,12 @@
       <Filter>Demo</Filter>
     </FxCompile>
     <FxCompile Include="NXChap17_2_vs.hlsl">
+      <Filter>Demo</Filter>
+    </FxCompile>
+    <FxCompile Include="NXChap17_3_effect.hlsl">
+      <Filter>Demo</Filter>
+    </FxCompile>
+    <FxCompile Include="NXChap2_1_effect.hlsl">
       <Filter>Demo</Filter>
     </FxCompile>
   </ItemGroup>

@@ -1,11 +1,11 @@
 ﻿
 /**
- *  File:      NXChap17_3.h
- *
- *  Author:    张雄(zhangxiong 1025679612@qq.com)
- *  Date:	   2017_03_08
- *  Purpose:   DX9 Effect test
- */
+*  File:      NXChap17_3.h
+*
+*  Author:    张雄(zhangxiong 1025679612@qq.com)
+*  Date:	   2017_03_08
+*  Purpose:   DX9 Effect test
+*/
 
 #pragma once
 
@@ -29,7 +29,7 @@ namespace NX {
 	public:
 		struct Vertex {
 			Vertex(float _x, float _y, float _z, float _u1, float _v1, float _u2, float _v2) :
-				x(_x), y(_y), z(_z), u1(_u1), v1(_v1), u2(_u2), v2(_v2){
+				x(_x), y(_y), z(_z), u1(_u1), v1(_v1), u2(_u2), v2(_v2) {
 			}
 			Vertex() {
 				/**trival*/
