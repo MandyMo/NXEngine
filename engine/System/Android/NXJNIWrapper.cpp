@@ -15,7 +15,7 @@ JavaVM* NX::JNIWrapper::g_JVM           = NULL;
 int     NX::JNIWrapper::m_JNI_VERSION   = JNI_VERSION_1_6;
 
 /**
- *   sava JavaVM pointer
+ *   save JavaVM pointer
  */
 extern "C" JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void* reserved){
     NX::glb_GetLog().logToConsole("saved JavaVM pointer succedd");

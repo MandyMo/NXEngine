@@ -25,8 +25,13 @@ int main() {
 // 	D3DXMatrixPerspectiveFovLH(&m1, fov, asp, zn, zf);
 // 	NX::float4X4 m2 = GetTransposed(NX::GetPerspectiveMatrix<float>(75, asp, zn, zf));
 
-	D3DXMatrixOrthoLH(&m1, fov, asp, zn, zf);
-	NX::float4X4 m2 = GetTransposed(NX::GetOrthogonalMatrix<float>(75, asp, zn, zf));
+// 	D3DXMatrixOrthoLH(&m1, fov, asp, zn, zf);
+// 	NX::float4X4 m2 = GetTransposed(NX::GetOrthogonalMatrix<float>(75, asp, zn, zf));
+	float eye[] = {rand() % 1000, rand() % 1000, rand() % 1000 };
+	float at[] = {rand() % 1000, rand() % 1000, rand() % 1000 };
+	float up[] = {rand() % 1000, rand() % 1000, rand() % 1000 };
+	D3DXMatrixLookAtLH(&m1, &D3DXVECTOR3(eye), &D3DXVECTOR3(at), &D3DXVECTOR3(up));
+	NX::float4X4 m2 = GetTransposed(NX::GetLookAtMatrix<float>(NX::float3(eye), NX::float3(at), NX::float3(up)));
 	for (int i = 0; i < 4; ++i) {
 		for (int j = 0; j < 4; ++j) {
 			if (!NX::Equalfloat(m1.m[i][j], m2[i][j])) {
