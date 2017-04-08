@@ -57,6 +57,7 @@ namespace NX{
 
 	void		Window::InitMessageHandler(){
 		m_mpMessageChain[WM_CLOSE]		=	static_cast<MsgHandler>(&Window::OnClose);
+		m_mpMessageChain[WM_KEYDOWN]	=	static_cast<MsgHandler>(&Window::OnKeyDown);
 	}
 
 	bool	Window::Create(
@@ -84,6 +85,14 @@ namespace NX{
 	LRESULT		Window::OnClose(WPARAM	wParam, LPARAM	lParam){
 		::PostQuitMessage(0);
 		return	0;
+	}
+
+	LRESULT	Window::OnKeyDown(WPARAM wPparam, LPARAM lParam) {
+		if (wPparam == VK_ESCAPE) {
+			::DestroyWindow(GetHwnd());
+			::PostQuitMessage(0);
+		}
+		return 0;
 	}
 
 	HWND	Window::GetHwnd(){		//得到当前的窗口句柄

@@ -76,6 +76,7 @@ namespace NX{
 			HWND	GetHwnd();		//得到当前的窗口句柄
 	public:
 		virtual	LRESULT		OnClose(WPARAM	wParam, LPARAM	lParam);
+		virtual LRESULT		OnKeyDown(WPARAM wPparam, LPARAM lParam);
 
 	public:
 		MsgChain			m_mpMessageChain;		//消息处理

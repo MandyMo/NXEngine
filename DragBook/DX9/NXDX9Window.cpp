@@ -61,6 +61,8 @@ bool NX::DX9Window::Create(DWORD dwExStyle, DWORD dwStyle, LPTSTR lpszClassName,
 				break;
 			}
 
+			glb_GetLog().logToConsole("You have %d monitors.", m_pD3D9->GetAdapterCount());
+
 			m_D3dParameter.BackBufferWidth				= MAINFRAME_WIDTH;
 			m_D3dParameter.BackBufferHeight				= MAINFRAME_HEIGHT;
 			m_D3dParameter.BackBufferFormat				= D3DFMT_A8R8G8B8;

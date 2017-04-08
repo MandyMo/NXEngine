@@ -334,15 +334,15 @@ inline Matrix<T, Scale, Scale> GetPerspectiveMatrix(const T FovAngle, const T as
 //z: [0, 1]
 //w: 1
 template<typename T, int Scale>
-inline Matrix<T, Scale, Scale> GetOrthogonalMatrix(const T Width, const T Height, const T near, const T far){
+inline Matrix<T, Scale, Scale> GetOrthogonalMatrix(const T Width, const T Height, const T zn, const T zf){
     NXAssert(Scale == 4);
     Matrix<T, Scale, Scale> result;
     result.m_Element[Scale - 1][Scale - 1] = T(1);
     result.m_Element[0][0] = 2 / Width;
     result.m_Element[1][1] = 2 / Height;
-    const T dif = far - near;
+    const T dif = zf - zn;
     const T a   = 1 / dif;
-    const T b   = -near / dif;
+    const T b   = -zn / dif;
     result.m_Element[2][2] = a;
     result.m_Element[2][3] = b;
     return result;
