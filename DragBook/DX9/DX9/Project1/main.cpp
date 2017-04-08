@@ -39,7 +39,7 @@ int main() {
 			}
 		}
 	}
-
+	NX::glb_GetLog().logToConsole("\nwhat the fuck =============================================\n");
 	cout << "end of compare" << endl;
 	NX::Window*	mainframe = new	NX::NXChap4_1();
 	RECT	MainFrameRt = { 300, 200, MAINFRAME_WIDTH + 300, MAINFRAME_HEIGHT + 200 };
