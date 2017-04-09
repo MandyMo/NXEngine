@@ -46,7 +46,7 @@
 
 #ifndef CLS_MEM_OFFSET
 #define CLS_MEM_OFFSET(ClsName, MemName) \
-    (void*)(&((ClsName*)0)->MemName)
+    (NXUInt32)((void*)(&((ClsName*)0)->MemName))
 #endif
 
 #ifndef BUFFER_OFFSET
@@ -159,6 +159,18 @@ namespace NX {
 			objPtr->Release();
 		}
 		objPtr = NULL;
+	}
+
+	template<typename T>
+	inline void NXSafeDelete(T*& objPtr) {
+		delete objPtr;
+		objPtr = nullptr;
+	}
+
+	template<typename T>
+	inline void NXSafeDeleteArray(T*& objArrayAddr) {
+		delete[] objArrayAddr;
+		objArrayAddr = nullptr;
 	}
 }
 

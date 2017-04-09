@@ -471,6 +471,24 @@ inline NX::Matrix<RT, Row, Col> operator - (const NX::Matrix<T, Row, Col> &lhs, 
 }
 
 template<typename T, int Row, int Col>
+inline bool operator == (const NX::Matrix<T, Row, Col> &lhs, const NX::Matrix<T, Row, Col> &rhs) {
+	for (int r = 0; r < Row; ++r) {
+		for (int c = 0; c < Col; ++c) {
+			if (NX::EqualfloatWithDelta(lhs[r][c], rhs[r][c], .001f)) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+template<typename T, int Row, int Col>
+inline bool operator != (const NX::Matrix<T, Row, Col> &lhs, const NX::Matrix<T, Row, Col> &rhs) {
+	return !(lhs == rhs);
+}
+
+template<typename T, int Row, int Col>
 inline NX::vector<T, Col> Matrix<T, Row, Col>::GetRow(int row){
     NXAssert(row >= 0 && row < Row);
     return vector<T, Col>(m_Element[row]);

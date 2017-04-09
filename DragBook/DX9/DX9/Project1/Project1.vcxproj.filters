@@ -57,6 +57,9 @@
     <Filter Include="Demo">
       <UniqueIdentifier>{f83e80da-b84c-427e-a61b-644e1559b9b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NXEngine\Entity">
+      <UniqueIdentifier>{9aa3ed44-5dee-47e0-b50d-f40d57c9c7df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -208,6 +211,18 @@
     </ClCompile>
     <ClCompile Include="NXChap3_2.cpp">
       <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="NXChap4_1.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Entity\NXTransform.cpp">
+      <Filter>NXEngine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Entity\NXTerrain.cpp">
+      <Filter>NXEngine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\render\NXEngine.cpp">
+      <Filter>NXEngine\Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -378,6 +393,21 @@
     </ClInclude>
     <ClInclude Include="NXChap3_2.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="NXChap4_1.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Entity\NXIEntity.h">
+      <Filter>NXEngine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Entity\NXTransform.h">
+      <Filter>NXEngine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Entity\NXTerrain.h">
+      <Filter>NXEngine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\render\NXEngine.h">
+      <Filter>NXEngine\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

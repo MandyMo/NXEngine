@@ -160,6 +160,12 @@ namespace NX {
     
     template<typename T, int Row, int Col, typename U, typename RT = T>
     inline NX::Matrix<RT, Row, Col> operator - (const NX::Matrix<T, Row, Col> &lhs, const NX::Matrix<U, Row, Col> &rhs);
+
+	template<typename T, int Row, int Col>
+	inline bool operator == (const NX::Matrix<T, Row, Col> &lhs, const NX::Matrix<T, Row, Col> &rhs);
+
+	template<typename T, int Row, int Col>
+	inline bool operator != (const NX::Matrix<T, Row, Col> &lhs, const NX::Matrix<T, Row, Col> &rhs);
     //==============================================end of nomember function============================================
 #include "NXMatrix.inl"
     

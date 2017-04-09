@@ -97,7 +97,7 @@ namespace NX{
             iPivotIndex = 3;
             MM = MZ;
         }
-        float PivotValue = std::sqrt(MM + 1) * 0.5;
+        float PivotValue = std::sqrt(MM + 1) * 0.5f;
         float Mult = 0.25f / PivotValue;
         switch(iPivotIndex){
             case 0:

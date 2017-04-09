@@ -132,6 +132,8 @@
     <ClCompile Include="..\..\..\..\engine\common\NXUtility.cpp" />
     <ClCompile Include="..\..\..\..\engine\common\TimerManager\NXTimerEvent.cpp" />
     <ClCompile Include="..\..\..\..\engine\common\TimerManager\NXTimerManager.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Entity\NXTerrain.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Entity\NXTransform.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXAABB.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXAlgorithm.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXCircle.cpp" />
@@ -149,6 +151,7 @@
     <ClCompile Include="..\..\..\..\engine\math\NXSphere.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXTriangle.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXCamera.cpp" />
+    <ClCompile Include="..\..\..\..\engine\render\NXEngine.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXViewFrustum.cpp" />
     <ClCompile Include="..\..\..\..\engine\System\Android\NXAndroidMutex.cpp" />
     <ClCompile Include="..\..\..\..\engine\System\Android\NXAndroidSystem.cpp" />
@@ -173,6 +176,7 @@
     <ClCompile Include="NXChap2_1.cpp" />
     <ClCompile Include="NXChap3_1.cpp" />
     <ClCompile Include="NXChap3_2.cpp" />
+    <ClCompile Include="NXChap4_1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\engine\common\Collection\NXThreadSafeQueue.h" />
@@ -191,6 +195,9 @@
     <ClInclude Include="..\..\..\..\engine\common\NXUtility.h" />
     <ClInclude Include="..\..\..\..\engine\common\TimerManager\NXTimerEvent.h" />
     <ClInclude Include="..\..\..\..\engine\common\TimerManager\NXTimerManager.h" />
+    <ClInclude Include="..\..\..\..\engine\Entity\NXIEntity.h" />
+    <ClInclude Include="..\..\..\..\engine\Entity\NXTerrain.h" />
+    <ClInclude Include="..\..\..\..\engine\Entity\NXTransform.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXAABB.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXAlgorithm.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXCircle.h" />
@@ -213,6 +220,7 @@
     <ClInclude Include="..\..\..\..\engine\math\NXTriangle.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXVector.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXCamera.h" />
+    <ClInclude Include="..\..\..\..\engine\render\NXEngine.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXViewFrustum.h" />
     <ClInclude Include="..\..\..\..\engine\System\Android\NXJNIWrapper.h" />
     <ClInclude Include="..\..\..\..\engine\System\NXMutex.h" />
@@ -231,6 +239,7 @@
     <ClInclude Include="NXChap2_1.h" />
     <ClInclude Include="NXChap3_1.h" />
     <ClInclude Include="NXChap3_2.h" />
+    <ClInclude Include="NXChap4_1.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm" />
@@ -247,6 +256,7 @@
     <Text Include="..\..\..\..\engine\render\NXEngine.txt" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Terrain_Effect.hlsl" />
     <FxCompile Include="NXChap17_1_vs.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
