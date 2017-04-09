@@ -60,6 +60,15 @@
     <Filter Include="NXEngine\Entity">
       <UniqueIdentifier>{9aa3ed44-5dee-47e0-b50d-f40d57c9c7df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NXEngine\ShadersFiles">
+      <UniqueIdentifier>{ab3d43ba-203d-48ce-a87c-69037858efd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\ShadersFiles\DirectX">
+      <UniqueIdentifier>{6e1d2ce8-323d-4401-9237-a516c0f92ed7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\ShadersFiles\OpenGLES">
+      <UniqueIdentifier>{ecf9b320-ca46-4dc5-a060-71a0832aab9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -459,6 +468,9 @@
     </FxCompile>
     <FxCompile Include="NXChap2_1_effect.hlsl">
       <Filter>Demo</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Terrain_Effect.hlsl">
+      <Filter>NXEngine\ShadersFiles\DirectX</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

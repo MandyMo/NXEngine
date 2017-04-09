@@ -17,7 +17,7 @@ namespace NX {
 		struct Vertex;
 
 	public:
-		Terrain(const int Row, const int Col, const float dx, const float dy, const std::string &strTextureFilePath);
+		Terrain(const int Row, const int Col, const float dx, const float dz, const std::string &strTextureFilePath);
 		virtual ~Terrain();
 
 	public:
@@ -38,7 +38,7 @@ namespace NX {
 		float					                 m_Width;
 		float					                 m_Height;
 		float					                 m_dx;
-		float					                 m_dy;
+		float					                 m_dz;
 		Vertex					                 **m_pVertexData;
 		std::string				                 m_strTextureFilePath;
 	};

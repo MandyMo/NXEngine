@@ -256,7 +256,9 @@
     <Text Include="..\..\..\..\engine\render\NXEngine.txt" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Terrain_Effect.hlsl" />
+    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Terrain_Effect.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
     <FxCompile Include="NXChap17_1_vs.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>

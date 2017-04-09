@@ -14,13 +14,13 @@ namespace NX {
 	extern IDirect3DDevice9 * glb_GetD3DDevice();
 }
 
-NX::Terrain::Terrain(const int Row, const int Col, const float dx, const float dy, const std::string &strTextureFilePath) {
+NX::Terrain::Terrain(const int Row, const int Col, const float dx, const float dz, const std::string &strTextureFilePath) {
 	m_RowCount                  =     Row;
 	m_ColCount                  =     Col;
 	m_dx                        =     dx;
-	m_dy                        =     dy;
+	m_dz                        =     dz;
 	m_Width                     =     m_dx * (m_RowCount - 1);
-	m_Height                    =     m_dy * (m_ColCount - 1);
+	m_Height                    =     m_dz * (m_ColCount - 1);
 	m_strTextureFilePath        =     strTextureFilePath;
 	m_pVertexData               =     NULL;
 	CreateVertexs();
@@ -37,9 +37,9 @@ NX::Terrain::~Terrain() {
 
 float NX::Terrain::GetHeight(const float x, const float y) const {
 	NXAssert(x >= 0 && x <= m_Width && y >=0 && y <= m_Height);
-	int r = x / m_dx, c = y / m_dy;
-	float dr = x - r * m_dx, dc = y - c * m_dy;
-	if (dr / m_dx + dc / m_dy >= 1.0f) {
+	int r = x / m_dx, c = y / m_dz;
+	float dr = x - r * m_dx, dc = y - c * m_dz;
+	if (dr / m_dx + dc / m_dz >= 1.0f) {
 		return GetHeight(m_pVertexData[r + 1][c].Position, m_pVertexData[r + 1][c + 1].Position, m_pVertexData[r][c + 1].Position, x, y);
 	} else {
 		return GetHeight(m_pVertexData[r + 1][c].Position, m_pVertexData[r][c].Position, m_pVertexData[r][c + 1].Position, x, y);
@@ -94,7 +94,7 @@ void NX::Terrain::CreateVertexs() {
 		for (int r = 0; r < m_RowCount; ++r) {
 			m_pVertexData[r] = new Vertex[m_ColCount];
 			for (int c = 0; c < m_ColCount; ++c) {
-				m_pVertexData[r][c] = Vertex(r * m_dx, 0, c * m_dy, r & 1, c & 1, .0f, 0.f, .0f);
+				m_pVertexData[r][c] = Vertex(r * m_dx, 0, c * m_dz, r & 1, c & 1, .0f, 0.f, .0f);
 			}
 		}
 	}
