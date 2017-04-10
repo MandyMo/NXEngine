@@ -172,6 +172,10 @@ namespace NX {
 		delete[] objArrayAddr;
 		objArrayAddr = nullptr;
 	}
+
+#if defined(PLATFORM_WINDOWS)
+    #define KeyDown(key) (GetAsyncKeyState(key) & 0x08000)
+#endif
 }
 
 #endif //!__ZX_NXENGINE_CORE_H__

@@ -6,10 +6,10 @@
  *    Purpose:   render terrain
  */
 
- extern Matrix ModelMatrix;      // Model => World
- extern Matrix ViewmMatrix;      // World => View
- extern Matrix ProjectMatrix;    // View  => Project plane
-
+extern Matrix ModelMatrix;      // Model => World
+extern Matrix ViewmMatrix;      // World => View
+extern Matrix ProjectMatrix;    // View  => Project plane
+extern texture BaseColor;       // grass color
 struct VS_INPUT {
     vector position : POSITION;
     float2 texCoord	: TEXCOORD0;
@@ -32,8 +32,6 @@ struct PS_INTPUT {
 struct PS_OUTPUT {
 	vector	color	: COLOR0;
 };
-
-texture BaseColor;
 
 sampler2D BaseColorSampler = sampler_state {
 	texture		= <BaseColor>;
@@ -58,7 +56,9 @@ PS_OUTPUT PSMain(PS_INTPUT input) {
 
 Technique TerrainShader{
 	Pass BasePass {
-	   VertexShader  = compile vs_2_0 VSMain();
-	   PixelShader   = compile ps_2_0 PSMain();
+		FILLMODE      = WIREFRAME;
+		LIGHTING      = false;
+		VertexShader  = compile vs_3_0 VSMain();
+		PixelShader   = compile ps_3_0 PSMain();
 	}
 }

@@ -29,16 +29,16 @@ namespace NX {
 		virtual void OnTick(const int dwMillSeconds) = 0;
 
 	public:
-		inline Transform&    GetTransform();
-		inline Transform     GetTransform() const;
-		inline bool          IsVisible() const;
-		inline bool          IsTickedEachFrame() const;
-		inline std::string&  GetObjName();
-		inline std::string   GetObjName() const;
-		inline IEntity&      SetVisible(const bool Visible);
-		inline IEntity&      SetTransform(const Transform &trans);
-		inline IEntity&      SetCanEverTick(const bool EverTick);
-		inline IEntity&      SetObjectName(const std::string &ObjName);
+		Transform&    GetTransform();
+		Transform     GetTransform() const;
+		bool          IsVisible() const;
+		bool          IsTickedEachFrame() const;
+		std::string&  GetObjName();
+		std::string   GetObjName() const;
+		IEntity&      SetVisible(const bool Visible);
+		IEntity&      SetTransform(const Transform &trans);
+		IEntity&      SetCanEverTick(const bool EverTick);
+		IEntity&      SetObjectName(const std::string &ObjName);
 
 	private:
 		Transform			  m_Transform;	

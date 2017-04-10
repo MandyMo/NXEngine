@@ -236,14 +236,14 @@
     <ClCompile Include="..\..\..\..\engine\render\NXEngine.cpp">
       <Filter>NXEngine\Render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\engine\entity\NXIEntity.cpp">
-      <Filter>NXEngine\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\engine\GamePlay\NXGameWorld.cpp">
       <Filter>NXEngine\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="NXEngineDemo.cpp">
       <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\entity\NXIEntity.cpp">
+      <Filter>NXEngine\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

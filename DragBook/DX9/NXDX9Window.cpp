@@ -10,6 +10,8 @@
 #include "NXDX9Window.h"
 #include "common\NXLog.h"
 #include "System\NXSystem.h"
+#include "../../engine/entity/NXTerrain.h"
+#include "../../engine/render/NXCamera.h"
 
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
@@ -92,38 +94,19 @@ bool NX::DX9Window::Create(DWORD dwExStyle, DWORD dwStyle, LPTSTR lpszClassName,
 }
 
 void NX::DX9Window::PreRender() {
-	/**empty*/
+	m_pDevice->BeginScene();
+	GetD3D9Device()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xffffffff, 1.f, 0);
 }
 
 void NX::DX9Window::PostRender() {
-	/**empty*/
+	m_pDevice->EndScene();
+	m_pDevice->Present(NULL, NULL, NULL, NULL);
 }
 
 void NX::DX9Window::Render() {
-	do{
-		m_pDevice->BeginScene();
-		D3DSURFACE_DESC surfacedesc;
-		IDirect3DSurface9 *_surface = NULL;
-		m_pDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &_surface);
-		_surface->GetDesc(&surfacedesc);
-		if (_surface == NULL) {
-			break;
-		}
-
-		D3DLOCKED_RECT lockedrect;
-		_surface->LockRect(&lockedrect, 0, 0);
-		DWORD *pImageData = (DWORD *)lockedrect.pBits;
-		for (int i = 0; i < surfacedesc.Height; i++) {
-			for (int j = 0; j < surfacedesc.Width; j++) {
-				int index = i * lockedrect.Pitch / 4 + j;
-				pImageData[index] = 0xFF808080; 
-			}
-		}
-
-		_surface->UnlockRect();
-	}while(false);
-	m_pDevice->EndScene();
-	m_pDevice->Present(NULL, NULL, NULL, NULL);
+	if (m_pTerrain) {
+		m_pTerrain->Render();
+	}
 }
 
 WPARAM NX::DX9Window::MessageLoop() {
@@ -146,11 +129,49 @@ WPARAM NX::DX9Window::MessageLoop() {
 }
 
 void NX::DX9Window::OnInitDX3Succeed() {
-	/**empty*/
+	
+	//create terrain
+	m_pTerrain = new NX::Terrain(1000, 1000, 0.5, 0.5, "");
+
+	{//create camera
+		float3  Eye(200.f, m_pTerrain->GetHeight(200.f, 200.f) + 1.6f, 200.f);
+		float3  at(Eye + float3(1.f, -1.f, 1.f));
+		float3  up(.0f, 1.f, .0f);
+		m_pCamera = new PerspectCamera(Eye, at, up, 75.f, MAINFRAME_WIDTH * 1.f / MAINFRAME_HEIGHT, 0.001f, 1000.f);
+	}
+
+	GetCursorPos(&m_CurPos);
 }
 
 void NX::DX9Window::OnTick(NXUInt32	uDelta) {
+	{//update camera position
+		const float Dist = uDelta * 0.01;
+		if (KeyDown('W') || KeyDown(VK_UP) || KeyDown('w')) {
+			m_pCamera->MoveFront(Dist);
+		}
 
+		if (KeyDown('S') || KeyDown(VK_DOWN) || KeyDown('s')) {
+			m_pCamera->MoveBack(Dist);
+		}
+
+		if (KeyDown('A') || KeyDown(VK_LEFT) || KeyDown('a')) {
+			m_pCamera->MoveLeft(Dist);
+		}
+
+		if (KeyDown('D') || KeyDown(VK_RIGHT) || KeyDown('d')) {
+			m_pCamera->MoveRight(Dist);
+		}
+	}
+
+	{//update camera angle
+		POINT CurPos;
+		GetCursorPos(&CurPos);
+		if (KeyDown(VK_LBUTTON)) {
+			m_pCamera->RotateByUpDownAxis(CurPos.x - m_CurPos.x);
+			m_pCamera->RotateByLeftRightAxis(CurPos.y - m_CurPos.y);
+		}
+		m_CurPos = CurPos;
+	}
 }
 
 NX::DX9Window* NX::glb_GetD3DWindow() {

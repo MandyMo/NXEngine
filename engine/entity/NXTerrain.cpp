@@ -9,9 +9,13 @@
 
 #include "NXTerrain.h"
 #include "../math/NXAlgorithm.h"
+#include "../../DragBook/DX9/NXDX9Window.h"
+#include "../../engine/entity/NXTerrain.h"
+#include "../../engine/render/NXCamera.h"
 
 namespace NX {
 	extern IDirect3DDevice9 * glb_GetD3DDevice();
+	extern DX9Window* glb_GetD3DWindow();
 }
 
 NX::Terrain::Terrain(const int Row, const int Col, const float dx, const float dz, const std::string &strTextureFilePath) {
@@ -22,27 +26,38 @@ NX::Terrain::Terrain(const int Row, const int Col, const float dx, const float d
 	m_Width                     =     m_dx * (m_RowCount - 1);
 	m_Height                    =     m_dz * (m_ColCount - 1);
 	m_strTextureFilePath        =     strTextureFilePath;
-	m_pVertexData               =     NULL;
+	m_pVertexData               =     nullptr;
+	m_pVertexDesc               =     nullptr;
+	m_pEffect                   =     nullptr;
+	m_pWorldMatrixHandle        =     nullptr;
+	m_pViewMatrixHandle         =     nullptr;
+	m_pProjectMatrixHandle      =     nullptr;
+	m_pVertexBuffer             =     nullptr;
+	m_pIndexBuffer              =     nullptr;
+
 	CreateVertexs();
+	CompileEffectFile();
+	CreateVertexAndIndexBuffer();
 }
 
 NX::Terrain::~Terrain() {
-	if (m_pVertexData) {
-		for (int r = 0; r < m_RowCount; ++r) {
-			NX::NXSafeDeleteArray(m_pVertexData[r]);
-		}
-	}
 	NX::NXSafeDeleteArray(m_pVertexData);
+	NX::NXSafeDeleteArray(m_pVertexData);
+	NX::NXSafeRelease(m_pVertexDesc);
+	NX::NXSafeRelease(m_pEffect);
+	NX::NXSafeRelease(m_pVertexBuffer);
+	NX::NXSafeRelease(m_pIndexBuffer);
 }
 
 float NX::Terrain::GetHeight(const float x, const float y) const {
 	NXAssert(x >= 0 && x <= m_Width && y >=0 && y <= m_Height);
 	int r = x / m_dx, c = y / m_dz;
 	float dr = x - r * m_dx, dc = y - c * m_dz;
+	int idx = r * m_RowCount + c;
 	if (dr / m_dx + dc / m_dz >= 1.0f) {
-		return GetHeight(m_pVertexData[r + 1][c].Position, m_pVertexData[r + 1][c + 1].Position, m_pVertexData[r][c + 1].Position, x, y);
+		return GetHeight(m_pVertexData[idx + m_RowCount].Position, m_pVertexData[idx + m_RowCount + 1].Position, m_pVertexData[idx + 1].Position, x, y);
 	} else {
-		return GetHeight(m_pVertexData[r + 1][c].Position, m_pVertexData[r][c].Position, m_pVertexData[r][c + 1].Position, x, y);
+		return GetHeight(m_pVertexData[idx + m_RowCount].Position, m_pVertexData[idx].Position, m_pVertexData[idx + 1].Position, x, y);
 	}
 }
 
@@ -60,41 +75,50 @@ float NX::Terrain::GetHeight(float3 &pA, float3 &pB, float3 &pC, const float x, 
 }
 
 void NX::Terrain::Render() {
-	IDirect3DVertexDeclaration9 *pVertexDesc = NULL;
-	{//create vertex description
-		D3DVERTEXELEMENT9 VertexDescs[] = {
-			{ 0, 0,                                D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,  D3DDECLUSAGE_POSITION, 0 },
-			{ 0, CLS_MEM_OFFSET(Vertex, TexCoord), D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,  D3DDECLUSAGE_TEXCOORD, 1 },
-			{ 0, CLS_MEM_OFFSET(Vertex, Normal),   D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,  D3DDECLUSAGE_NORMAL,   2 },
-			D3DDECL_END(),
-		};
-		glb_GetD3DDevice()->CreateVertexDeclaration(VertexDescs, &pVertexDesc);
-		glb_GetD3DDevice()->SetVertexDeclaration(pVertexDesc);
+	glb_GetD3DDevice()->SetVertexDeclaration(m_pVertexDesc);
+	DX9Window *pWindow = glb_GetD3DWindow();
+	m_pEffect->SetMatrixTranspose(m_pWorldMatrixHandle,   (D3DXMATRIX*)(&GetTransform().GetTransformMatrix()));
+	m_pEffect->SetMatrixTranspose(m_pViewMatrixHandle,    (D3DXMATRIX*)&pWindow->GetCamera()->GetMVMatrix());
+	m_pEffect->SetMatrixTranspose(m_pProjectMatrixHandle, (D3DXMATRIX*)&pWindow->GetCamera()->GetProjectMatrix());
+
+	{//commit data
+		if (m_pVertexBuffer) {
+			void *pBase = nullptr;
+			m_pVertexBuffer->Lock(0, 0, &pBase, D3DLOCK_DISCARD);
+			if (pBase != NULL) {
+				memcpy(pBase, m_pVertexData, sizeof(Vertex) * m_RowCount *m_ColCount);
+			}
+			m_pVertexBuffer->Unlock();
+		}
 	}
 
-	{//commit vertex data
-
-	}
-
-	{//clear
-		NX::NXSafeRelease(pVertexDesc);
+	{//render
+		m_pEffect->SetTechnique(m_pTechniqueHandle);
+		UINT uPass;
+		m_pEffect->Begin(&uPass, 0);
+		for(int i = 0; i < uPass; ++i){
+			m_pEffect->BeginPass(i);
+			pWindow->GetD3D9Device()->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(Vertex));
+			pWindow->GetD3D9Device()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, (m_RowCount - 1) * (m_ColCount - 1) * 6, 0, (m_RowCount - 1) * (m_ColCount - 1) * 2);
+			m_pEffect->EndPass();
+		}
 	}
 }
 
 NX::Terrain::Vertex&	NX::Terrain::GetVertex(const int r, const int c) {
 	NXAssert(r >= 0 && r < m_RowCount && c >= 0 && c< m_ColCount);
-	return m_pVertexData[r][c];
+	return m_pVertexData[r * m_RowCount + c];
 }
 
 void NX::Terrain::CreateVertexs() {
 	NXAssert(m_RowCount > 0 && m_ColCount > 0);
 
 	{//create vertex data
-		m_pVertexData = new Vertex*[m_RowCount];
+		m_pVertexData = new Vertex[m_RowCount * m_ColCount];
+		Vertex *pVertex = m_pVertexData;
 		for (int r = 0; r < m_RowCount; ++r) {
-			m_pVertexData[r] = new Vertex[m_ColCount];
 			for (int c = 0; c < m_ColCount; ++c) {
-				m_pVertexData[r][c] = Vertex(r * m_dx, 0, c * m_dz, r & 1, c & 1, .0f, 0.f, .0f);
+				*pVertex = Vertex(r * m_dx, 0, c * m_dz, r & 1, c & 1, .0f, 0.f, .0f);
 			}
 		}
 	}
@@ -123,4 +147,79 @@ NX::ENTITY_TYPE NX::Terrain::GetEntityType() {
 
 void NX::Terrain::OnTick(const int dwMillSeconds) {
 
+}
+
+bool NX::Terrain::CompileEffectFile() {
+	DX9Window *pWindow = glb_GetD3DWindow();
+	ID3DXBuffer *pError = nullptr;
+	HRESULT hr;
+	const char *pszEffectFilePath = "../../../../engine/Shaders/DirectX/Terrain_Effect.hlsl";
+	hr = D3DXCreateEffectFromFile(glb_GetD3DDevice(), pszEffectFilePath, NULL, NULL, D3DXSHADER_DEBUG, NULL, &m_pEffect, &pError);
+	if (pError != nullptr) {
+		glb_GetLog().logToConsole("compile [file: %s] with [error: %s]", pszEffectFilePath, pError->GetBufferPointer());
+	}else if (FAILED(hr)) {
+		glb_GetLog().logToConsole("compile [file: %s] failed", pszEffectFilePath);
+	} else {
+		m_pWorldMatrixHandle   = m_pEffect->GetParameterByName(NULL, "ModelMatrix");
+		m_pViewMatrixHandle    = m_pEffect->GetParameterByName(NULL, "ViewmMatrix");
+		m_pProjectMatrixHandle = m_pEffect->GetParameterByName(NULL, "ProjectMatrix");
+		m_pGrassTextureHandle  = m_pEffect->GetParameterByName(NULL, "BaseColor");
+		m_pTechniqueHandle     = m_pEffect->GetTechniqueByName("TerrainShader");
+	}
+
+	if (FAILED(hr) || pError) {
+		NX::NXSafeRelease(m_pEffect);
+		NX::NXSafeRelease(pError);
+		return false;
+	}
+
+	{
+		D3DVERTEXELEMENT9 VertexDescs[] = {
+			{ 0, 0,                                D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,  D3DDECLUSAGE_POSITION, 0 },
+			{ 0, CLS_MEM_OFFSET(Vertex, TexCoord), D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,  D3DDECLUSAGE_TEXCOORD, 1 },
+			{ 0, CLS_MEM_OFFSET(Vertex, Normal),   D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,  D3DDECLUSAGE_NORMAL,   2 },
+			D3DDECL_END(),
+		};
+		glb_GetD3DDevice()->CreateVertexDeclaration(VertexDescs, &m_pVertexDesc);
+	}
+	return true;
+}
+
+void NX::Terrain::CreateVertexAndIndexBuffer() {
+	DX9Window *pWindow = glb_GetD3DWindow();
+	HRESULT hr;
+	do {
+		hr = pWindow->GetD3D9Device()->CreateVertexBuffer(sizeof(Vertex) * m_RowCount *m_ColCount, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVertexBuffer, NULL);
+		if (FAILED(hr) || !m_pVertexBuffer) {
+			glb_GetLog().logToConsole("Create terrain vertex buffer failed");
+			break;
+		}
+
+		hr = pWindow->GetD3D9Device()->CreateIndexBuffer(sizeof(int) * (m_RowCount - 1) * (m_ColCount - 1) * 6, D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &m_pIndexBuffer, NULL);
+		if (FAILED(hr) || !m_pIndexBuffer) {
+			glb_GetLog().logToConsole("Create terrain index buffer failed");
+			break;
+		}
+
+		NXUInt32 *pIndex  = new NXUInt32[(m_RowCount - 1) * (m_ColCount - 1) * 6];
+		NXUInt32 *pWriter = pIndex;
+		for (int r = 0; r < m_RowCount - 1; ++r) {
+			for (int c = 0; c < m_ColCount - 1; ++c) {
+				int idx = r * m_RowCount + c;
+				*pWriter++ = idx;
+				*pWriter++ = idx + 1;
+				*pWriter++ = idx + m_RowCount;
+				*pWriter++ = idx + m_RowCount;
+				*pWriter++ = idx + 1;
+				*pWriter++ = idx + m_RowCount + 1;
+			}
+		}
+		void *pBase = NULL;
+		m_pIndexBuffer->Lock(0, 0, &pBase, D3DLOCK_DISCARD);
+		if(pBase != NULL){
+			memcpy(pBase, pIndex, sizeof(int) * (m_RowCount - 1) * (m_ColCount - 1) * 6);
+		}
+		m_pIndexBuffer->Unlock();
+		delete[] pIndex;
+	}while(false);
 }

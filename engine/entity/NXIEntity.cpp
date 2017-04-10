@@ -22,41 +22,41 @@ NX::IEntity& NX::IEntity::SetTransform(const Transform &trans) {
 	return *this;
 }
 
-inline NX::Transform& NX::IEntity::GetTransform() {
+NX::Transform& NX::IEntity::GetTransform() {
 	return m_Transform;
 }
 
-inline NX::Transform NX::IEntity::GetTransform() const {
+NX::Transform NX::IEntity::GetTransform() const {
 	return m_Transform;
 }
 
-inline NX::IEntity& NX::IEntity::SetVisible(const bool Visible) {
+NX::IEntity& NX::IEntity::SetVisible(const bool Visible) {
 	m_Visible = Visible;
 	return *this;
 }
 
-inline bool NX::IEntity::IsVisible() const {
+bool NX::IEntity::IsVisible() const {
 	return m_Visible;
 }
 
-inline NX::IEntity& NX::IEntity::SetCanEverTick(const bool EverTick) {
+NX::IEntity& NX::IEntity::SetCanEverTick(const bool EverTick) {
 	m_CanEverTick = EverTick;
 	return *this;
 }
 
-inline bool NX::IEntity::IsTickedEachFrame() const {
+bool NX::IEntity::IsTickedEachFrame() const {
 	return m_CanEverTick;
 }
 
-inline NX::IEntity& NX::IEntity::SetObjectName(const std::string &ObjName) {
+NX::IEntity& NX::IEntity::SetObjectName(const std::string &ObjName) {
 	m_strObjName = ObjName;
 	return *this;
 }
 
-inline std::string NX::IEntity::GetObjName() const {
+std::string NX::IEntity::GetObjName() const {
 	return m_strObjName;
 }
 
-inline std::string& NX::IEntity::GetObjName() {
+std::string& NX::IEntity::GetObjName() {
 	return m_strObjName;
 }

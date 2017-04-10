@@ -10,6 +10,7 @@
 
 #include "NXIEntity.h"
 #include <d3d9.h>
+#include <d3dx9.h>
 
 namespace NX {
 	class Terrain : public IEntity {
@@ -30,8 +31,10 @@ namespace NX {
 		virtual void OnTick(const int dwMillSeconds) override;
 
 	private:
-		void CreateVertexs();
-		float GetHeight(float3 &pA, float3 &pB, float3 &pC, const float x, const float z) const;
+		void   CreateVertexs();
+		float  GetHeight(float3 &pA, float3 &pB, float3 &pC, const float x, const float z) const;
+		bool   CompileEffectFile();
+		void   CreateVertexAndIndexBuffer();
 
 	private:
 		int						                 m_RowCount;
@@ -40,8 +43,17 @@ namespace NX {
 		float					                 m_Height;
 		float					                 m_dx;
 		float					                 m_dz;
-		Vertex					                 **m_pVertexData;
+		Vertex					                 *m_pVertexData;
 		std::string				                 m_strTextureFilePath;
+		IDirect3DVertexDeclaration9              *m_pVertexDesc;
+		ID3DXEffect                              *m_pEffect;
+		D3DXHANDLE                               m_pWorldMatrixHandle;
+		D3DXHANDLE                               m_pViewMatrixHandle;
+		D3DXHANDLE                               m_pProjectMatrixHandle;
+		D3DXHANDLE                               m_pGrassTextureHandle;
+		D3DXHANDLE                               m_pTechniqueHandle;
+		IDirect3DVertexBuffer9                   *m_pVertexBuffer;
+		IDirect3DIndexBuffer9                    *m_pIndexBuffer;
 	};
 
 	struct Terrain::Vertex {
