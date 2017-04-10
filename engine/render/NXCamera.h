@@ -36,8 +36,13 @@ namespace NX {
         virtual void RotateByAxisAtFixedPosition(const float3 &axis, const float3 &Position, const float radian);
         
     public:
-        float4x4  GetMVMatrix();
-        
+        float4x4  GetMVMatrix() const;
+        float3    GetRightAxis() const;
+		float3    GetFrontAxis() const;
+		float3    GetUpAxis() const;
+		float3    GetEyePosition() const;
+		float3    GetEyeDirection() const;
+
     private:
         void CaculateAxis();
         

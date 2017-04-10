@@ -135,6 +135,7 @@
     <ClCompile Include="..\..\..\..\engine\entity\NXIEntity.cpp" />
     <ClCompile Include="..\..\..\..\engine\Entity\NXTerrain.cpp" />
     <ClCompile Include="..\..\..\..\engine\Entity\NXTransform.cpp" />
+    <ClCompile Include="..\..\..\..\engine\GamePlay\NXGameWorld.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXAABB.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXAlgorithm.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXCircle.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="NXChap3_1.cpp" />
     <ClCompile Include="NXChap3_2.cpp" />
     <ClCompile Include="NXChap4_1.cpp" />
+    <ClCompile Include="NXEngineDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\engine\common\Collection\NXThreadSafeQueue.h" />
@@ -199,6 +201,7 @@
     <ClInclude Include="..\..\..\..\engine\Entity\NXIEntity.h" />
     <ClInclude Include="..\..\..\..\engine\Entity\NXTerrain.h" />
     <ClInclude Include="..\..\..\..\engine\Entity\NXTransform.h" />
+    <ClInclude Include="..\..\..\..\engine\GamePlay\NXGameWorld.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXAABB.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXAlgorithm.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXCircle.h" />
@@ -241,6 +244,7 @@
     <ClInclude Include="NXChap3_1.h" />
     <ClInclude Include="NXChap3_2.h" />
     <ClInclude Include="NXChap4_1.h" />
+    <ClInclude Include="NXEngineDemo.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm" />

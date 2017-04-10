@@ -69,6 +69,9 @@
     <Filter Include="NXEngine\ShadersFiles\OpenGLES">
       <UniqueIdentifier>{ecf9b320-ca46-4dc5-a060-71a0832aab9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NXEngine\GamePlay">
+      <UniqueIdentifier>{92cf2b9e-ead4-4357-83b0-ba3a4d928ef7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -235,6 +238,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\engine\entity\NXIEntity.cpp">
       <Filter>NXEngine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\GamePlay\NXGameWorld.cpp">
+      <Filter>NXEngine\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="NXEngineDemo.cpp">
+      <Filter>Demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -420,6 +429,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\engine\render\NXEngine.h">
       <Filter>NXEngine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\GamePlay\NXGameWorld.h">
+      <Filter>NXEngine\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="NXEngineDemo.h">
+      <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -102,7 +102,7 @@ void NX::Terrain::CreateVertexs() {
 	{//set height
 		for (int r = 0; r < m_RowCount; ++r) {
 			for (int c = 0; c < m_ColCount; ++c) {
-				GetVertex(r, c).y = rand() % 10000 - 10000;
+				//GetVertex(r, c).y = rand() % 10000 - 10000;
 			}
 		}
 	}

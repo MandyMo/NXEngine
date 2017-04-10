@@ -113,7 +113,27 @@ void NX::MVMatrixController::RotateByAxisAtFixedPosition(const float3 &axis, con
     CaculateAxis();
 }
 
-NX::float4x4  NX::MVMatrixController::GetMVMatrix(){
+NX::float3 NX::MVMatrixController::GetRightAxis() const {
+	return m_vRight;
+}
+
+NX::float3 NX::MVMatrixController::GetFrontAxis() const {
+	return m_vFront;
+}
+
+NX::float3 NX::MVMatrixController::GetUpAxis() const {
+	return m_vUp;
+}
+
+NX::float3  NX::MVMatrixController::GetEyePosition() const {
+	return m_vEye;
+}
+
+NX::float3  NX::MVMatrixController::GetEyeDirection() const {
+	return m_vLooked - m_vEye;
+}
+
+NX::float4x4  NX::MVMatrixController::GetMVMatrix() const{
     return m_MVMatrix;
 }
 

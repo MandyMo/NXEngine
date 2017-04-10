@@ -6,6 +6,9 @@
  *    Purpose:   render terrain
  */
 
+ extern Matrix ModelMatrix;      // Model => World
+ extern Matrix ViewmMatrix;      // World => View
+ extern Matrix ProjectMatrix;    // View  => Project plane
 
 struct VS_INPUT {
     vector position : POSITION;
@@ -41,11 +44,15 @@ sampler2D BaseColorSampler = sampler_state {
 
 VS_OUTPUT VSMain(VS_INPUT input) {
 	VS_OUTPUT o = (VS_OUTPUT)0;
+	Matrix MV   = ModelMatrix * ViewmMatrix;
+	Matrix MVP  = ModelMatrix * ViewmMatrix * ProjectMatrix;
+	o.position  = mul(input.position, MVP);
 	return o;
 }
 
 PS_OUTPUT PSMain(PS_INTPUT input) {
 	PS_OUTPUT o = (PS_OUTPUT)0;
+	o.color     = tex2D(BaseColorSampler, input.texCoord);
 	return o;
 }
 
