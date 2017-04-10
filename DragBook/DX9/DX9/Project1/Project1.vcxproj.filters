@@ -233,6 +233,9 @@
     <ClCompile Include="..\..\..\..\engine\render\NXEngine.cpp">
       <Filter>NXEngine\Render</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\entity\NXIEntity.cpp">
+      <Filter>NXEngine\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\MainFrame\NXWindow.h">

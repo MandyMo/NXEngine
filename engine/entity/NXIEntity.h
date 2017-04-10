@@ -17,30 +17,33 @@ namespace NX {
 
 	class IEntity {
 	public:
-		NX::IEntity::IEntity() {
-			/**empty here*/
-		}
+		IEntity();
 
-		NX::IEntity::~IEntity() {
-			/**empty here*/
-		}
+		virtual ~IEntity();
 
 	public:
 		virtual void Render() = 0;
 
 		virtual ENTITY_TYPE GetEntityType() = 0;
 
+		virtual void OnTick(const int dwMillSeconds) = 0;
+
 	public:
-		void SetTransform(const Transform &trans) {
-			m_Transform = trans;
-		}
+		inline Transform&    GetTransform();
+		inline Transform     GetTransform() const;
+		inline bool          IsVisible() const;
+		inline bool          IsTickedEachFrame() const;
+		inline std::string&  GetObjName();
+		inline std::string   GetObjName() const;
+		inline IEntity&      SetVisible(const bool Visible);
+		inline IEntity&      SetTransform(const Transform &trans);
+		inline IEntity&      SetCanEverTick(const bool EverTick);
+		inline IEntity&      SetObjectName(const std::string &ObjName);
 
-		Transform& GetTransform() {
-			return m_Transform;
-		}
 	private:
-		Transform			m_Transform;
+		Transform			  m_Transform;	
+		bool				  m_Visible;
+		bool				  m_CanEverTick;
+		std::string           m_strObjName;
 	};
-
-
 }

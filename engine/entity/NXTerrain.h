@@ -27,7 +27,7 @@ namespace NX {
 	public:
 		virtual void Render() override;
 		virtual ENTITY_TYPE GetEntityType() override;
-
+		virtual void OnTick(const int dwMillSeconds) override;
 	private:
 		void CreateVertexs();
 		float GetHeight(float3 &pA, float3 &pB, float3 &pC, const float x, const float z) const;

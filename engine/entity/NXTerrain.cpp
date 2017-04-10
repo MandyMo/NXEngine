@@ -120,3 +120,7 @@ void NX::Terrain::CreateVertexs() {
 NX::ENTITY_TYPE NX::Terrain::GetEntityType() {
 	return ENTITY_TYPE::ENTITY_TYPE_TERRAIN;
 }
+
+void NX::Terrain::OnTick(const int dwMillSeconds) {
+
+}

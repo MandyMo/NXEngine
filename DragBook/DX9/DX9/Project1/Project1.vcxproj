@@ -132,6 +132,7 @@
     <ClCompile Include="..\..\..\..\engine\common\NXUtility.cpp" />
     <ClCompile Include="..\..\..\..\engine\common\TimerManager\NXTimerEvent.cpp" />
     <ClCompile Include="..\..\..\..\engine\common\TimerManager\NXTimerManager.cpp" />
+    <ClCompile Include="..\..\..\..\engine\entity\NXIEntity.cpp" />
     <ClCompile Include="..\..\..\..\engine\Entity\NXTerrain.cpp" />
     <ClCompile Include="..\..\..\..\engine\Entity\NXTransform.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXAABB.cpp" />
