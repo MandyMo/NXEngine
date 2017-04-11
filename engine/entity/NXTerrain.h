@@ -30,6 +30,10 @@ namespace NX {
 		virtual ENTITY_TYPE GetEntityType() override;
 		virtual void OnTick(const int dwMillSeconds) override;
 
+	public:
+		float GetMaxRangeByXAxis() const;
+		float GetMaxRangeByZAxis() const;
+
 	private:
 		void   CreateVertexs();
 		float  GetHeight(float3 &pA, float3 &pB, float3 &pC, const float x, const float z) const;
@@ -51,6 +55,7 @@ namespace NX {
 		D3DXHANDLE                               m_pViewMatrixHandle;
 		D3DXHANDLE                               m_pProjectMatrixHandle;
 		D3DXHANDLE                               m_pGrassTextureHandle;
+		D3DXHANDLE                               m_pRoadTextureHandle;
 		D3DXHANDLE                               m_pTechniqueHandle;
 		IDirect3DVertexBuffer9                   *m_pVertexBuffer;
 		IDirect3DIndexBuffer9                    *m_pIndexBuffer;

@@ -43,7 +43,7 @@ namespace NX {
 		inline class PerspectCamera*          GetCamera(){return m_pCamera;}
 		inline class Terrain*                 GetTerrain(){return m_pTerrain;}
 
-	private:
+	public:
 		IDirect3D9					*m_pD3D9;
 		IDirect3DDevice9			*m_pDevice;
 		D3DCAPS9					m_D3dCaps;

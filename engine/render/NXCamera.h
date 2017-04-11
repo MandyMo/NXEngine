@@ -19,22 +19,22 @@ namespace NX {
         virtual ~MVMatrixController() = 0;
         
     public:
-        virtual void MoveLeft(const float PosDiff);
-        virtual void MoveRight(const float PosDiff);
-        virtual void MoveFront(const float PosDiff);
-        virtual void MoveBack(const float PosDiff);
-        virtual void MoveDown(const float PosDiff);
-        virtual void MoveUp(const float PosDiff);
-        virtual void MoveByVector(const float3 &vTranslate);
-        virtual void MoveByAxis(const float3 &vDirection, const float Distance);
+        virtual MVMatrixController& MoveLeft(const float PosDiff);
+        virtual MVMatrixController& MoveRight(const float PosDiff);
+        virtual MVMatrixController& MoveFront(const float PosDiff);
+        virtual MVMatrixController& MoveBack(const float PosDiff);
+        virtual MVMatrixController& MoveDown(const float PosDiff);
+        virtual MVMatrixController& MoveUp(const float PosDiff);
+        virtual MVMatrixController& MoveByVector(const float3 &vTranslate);
+        virtual MVMatrixController& MoveByAxis(const float3 &vDirection, const float Distance);
         
     public:
-        virtual void RotateByFrontBackAxis(const float radian);
-        virtual void RotateByLeftRightAxis(const float radian);
-        virtual void RotateByUpDownAxis(const float radian);
-        virtual void RotateByAxis(const float3 &axis, const float radian);
-        virtual void RotateByAxisAtFixedPosition(const float3 &axis, const float3 &Position, const float radian);
-        
+        virtual MVMatrixController& RotateByFrontBackAxis(const float radian);
+        virtual MVMatrixController& RotateByLeftRightAxis(const float radian);
+        virtual MVMatrixController& RotateByUpDownAxis(const float radian);
+        virtual MVMatrixController& RotateByAxis(const float3 &axis, const float radian);
+        virtual MVMatrixController& RotateByAxisAtFixedPosition(const float3 &axis, const float3 &Position, const float radian);
+
     public:
         float4x4  GetMVMatrix() const;
         float3    GetRightAxis() const;
@@ -42,6 +42,9 @@ namespace NX {
 		float3    GetUpAxis() const;
 		float3    GetEyePosition() const;
 		float3    GetEyeDirection() const;
+
+	public:
+		MVMatrixController& SetCameraPosition(const NX::float3 &_Pos);
 
     private:
         void CaculateAxis();

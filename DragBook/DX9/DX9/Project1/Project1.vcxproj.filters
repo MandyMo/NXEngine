@@ -72,6 +72,15 @@
     <Filter Include="NXEngine\GamePlay">
       <UniqueIdentifier>{92cf2b9e-ead4-4357-83b0-ba3a4d928ef7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NXEngine\EngineResouces">
+      <UniqueIdentifier>{13818e48-5090-4028-b2b0-2327c6cd387f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\EngineResouces\Grass">
+      <UniqueIdentifier>{934522e8-28a2-4064-930b-f51c7067c09b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NXEngine\EngineResouces\Road">
+      <UniqueIdentifier>{2a51dcc4-0150-4dda-9a7e-d6e7e734b780}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -490,5 +499,10 @@
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Terrain_Effect.hlsl">
       <Filter>NXEngine\ShadersFiles\DirectX</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\engine\EngineResouces\Road\dirt.jpg">
+      <Filter>NXEngine\EngineResouces\Road</Filter>
+    </Image>
   </ItemGroup>
 </Project>

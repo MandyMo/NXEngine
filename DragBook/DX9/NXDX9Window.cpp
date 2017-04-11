@@ -134,10 +134,11 @@ void NX::DX9Window::OnInitDX3Succeed() {
 	m_pTerrain = new NX::Terrain(1000, 1000, 0.5, 0.5, "");
 
 	{//create camera
-		float3  Eye(200.f, m_pTerrain->GetHeight(200.f, 200.f) + 1.6f, 200.f);
+		float3  Eye(0, 0, 0);
+		Eye.y   = m_pTerrain->GetHeight(Eye.x, Eye.z) + 1.6;
 		float3  at(Eye + float3(1.f, -1.f, 1.f));
 		float3  up(.0f, 1.f, .0f);
-		m_pCamera = new PerspectCamera(Eye, at, up, 75.f, MAINFRAME_WIDTH * 1.f / MAINFRAME_HEIGHT, 0.001f, 1000.f);
+		m_pCamera = new PerspectCamera(Eye, at, up, 75.f, MAINFRAME_WIDTH * 1.f / MAINFRAME_HEIGHT, 0.01f, 1000.f);
 	}
 
 	GetCursorPos(&m_CurPos);
@@ -167,10 +168,22 @@ void NX::DX9Window::OnTick(NXUInt32	uDelta) {
 		POINT CurPos;
 		GetCursorPos(&CurPos);
 		if (KeyDown(VK_LBUTTON)) {
-			m_pCamera->RotateByUpDownAxis(CurPos.x - m_CurPos.x);
-			m_pCamera->RotateByLeftRightAxis(CurPos.y - m_CurPos.y);
+			float dx = CurPos.x - m_CurPos.x;
+			float dy = CurPos.y - m_CurPos.y;
+			dx *= 0.002f;
+			dy *= 0.002f;
+			m_pCamera->RotateByUpDownAxis(dx);
+			m_pCamera->RotateByAxis(m_pCamera->GetRightAxis(), dy);
 		}
 		m_CurPos = CurPos;
+	}
+
+	{//update camera position
+		NX::float3 Pos = m_pCamera->GetEyePosition();
+		NX::Clamp(Pos.x, 0, m_pTerrain->GetMaxRangeByXAxis());
+		NX::Clamp(Pos.z, 0, m_pTerrain->GetMaxRangeByZAxis());
+		Pos.y = m_pTerrain->GetHeight(Pos.x, Pos.z) + 1.6f;
+		m_pCamera->SetCameraPosition(Pos);
 	}
 }
 

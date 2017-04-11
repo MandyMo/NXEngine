@@ -12,6 +12,7 @@
 #include "../../DragBook/DX9/NXDX9Window.h"
 #include "../../engine/entity/NXTerrain.h"
 #include "../../engine/render/NXCamera.h"
+#include "../../DragBook/DX9/NXDX9TextureManager.h"
 
 namespace NX {
 	extern IDirect3DDevice9 * glb_GetD3DDevice();
@@ -34,6 +35,8 @@ NX::Terrain::Terrain(const int Row, const int Col, const float dx, const float d
 	m_pProjectMatrixHandle      =     nullptr;
 	m_pVertexBuffer             =     nullptr;
 	m_pIndexBuffer              =     nullptr;
+	m_pGrassTextureHandle       =     nullptr;
+    m_pRoadTextureHandle        =     nullptr;
 
 	CreateVertexs();
 	CompileEffectFile();
@@ -92,6 +95,11 @@ void NX::Terrain::Render() {
 		}
 	}
 
+	{//set HLSL variable
+		m_pEffect->SetTexture(m_pRoadTextureHandle, NXDX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Road/dirt01.jpg"));
+		m_pEffect->SetTexture(m_pGrassTextureHandle, NXDX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Grass/Grass01.jpg"));
+	}
+
 	{//render
 		m_pEffect->SetTechnique(m_pTechniqueHandle);
 		UINT uPass;
@@ -99,6 +107,7 @@ void NX::Terrain::Render() {
 		for(int i = 0; i < uPass; ++i){
 			m_pEffect->BeginPass(i);
 			pWindow->GetD3D9Device()->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(Vertex));
+			pWindow->GetD3D9Device()->SetIndices(m_pIndexBuffer);
 			pWindow->GetD3D9Device()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, (m_RowCount - 1) * (m_ColCount - 1) * 6, 0, (m_RowCount - 1) * (m_ColCount - 1) * 2);
 			m_pEffect->EndPass();
 		}
@@ -118,7 +127,7 @@ void NX::Terrain::CreateVertexs() {
 		Vertex *pVertex = m_pVertexData;
 		for (int r = 0; r < m_RowCount; ++r) {
 			for (int c = 0; c < m_ColCount; ++c) {
-				*pVertex = Vertex(r * m_dx, 0, c * m_dz, r & 1, c & 1, .0f, 0.f, .0f);
+				*pVertex++ = Vertex(r * m_dx, 0, c * m_dz, r & 1, c & 1, .0f, 0.f, .0f);
 			}
 		}
 	}
@@ -126,7 +135,7 @@ void NX::Terrain::CreateVertexs() {
 	{//set height
 		for (int r = 0; r < m_RowCount; ++r) {
 			for (int c = 0; c < m_ColCount; ++c) {
-				//GetVertex(r, c).y = rand() % 10000 - 10000;
+				GetVertex(r, c).y = NX::RandFloatInRange(0.2, 0.6);
 			}
 		}
 	}
@@ -161,9 +170,11 @@ bool NX::Terrain::CompileEffectFile() {
 		glb_GetLog().logToConsole("compile [file: %s] failed", pszEffectFilePath);
 	} else {
 		m_pWorldMatrixHandle   = m_pEffect->GetParameterByName(NULL, "ModelMatrix");
-		m_pViewMatrixHandle    = m_pEffect->GetParameterByName(NULL, "ViewmMatrix");
+		m_pViewMatrixHandle    = m_pEffect->GetParameterByName(NULL, "ViewMatrix");
 		m_pProjectMatrixHandle = m_pEffect->GetParameterByName(NULL, "ProjectMatrix");
 		m_pGrassTextureHandle  = m_pEffect->GetParameterByName(NULL, "BaseColor");
+		m_pGrassTextureHandle  = m_pEffect->GetParameterByName(NULL, "GrassTexture");
+		m_pRoadTextureHandle   = m_pEffect->GetParameterByName(NULL, "RoadTexture");
 		m_pTechniqueHandle     = m_pEffect->GetTechniqueByName("TerrainShader");
 	}
 
@@ -176,8 +187,8 @@ bool NX::Terrain::CompileEffectFile() {
 	{
 		D3DVERTEXELEMENT9 VertexDescs[] = {
 			{ 0, 0,                                D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,  D3DDECLUSAGE_POSITION, 0 },
-			{ 0, CLS_MEM_OFFSET(Vertex, TexCoord), D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,  D3DDECLUSAGE_TEXCOORD, 1 },
-			{ 0, CLS_MEM_OFFSET(Vertex, Normal),   D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,  D3DDECLUSAGE_NORMAL,   2 },
+			{ 0, CLS_MEM_OFFSET(Vertex, TexCoord), D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,  D3DDECLUSAGE_TEXCOORD, 0 },
+			{ 0, CLS_MEM_OFFSET(Vertex, Normal),   D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,  D3DDECLUSAGE_NORMAL,   0 },
 			D3DDECL_END(),
 		};
 		glb_GetD3DDevice()->CreateVertexDeclaration(VertexDescs, &m_pVertexDesc);
@@ -222,4 +233,12 @@ void NX::Terrain::CreateVertexAndIndexBuffer() {
 		m_pIndexBuffer->Unlock();
 		delete[] pIndex;
 	}while(false);
+}
+
+float NX::Terrain::GetMaxRangeByXAxis() const {
+	return m_Width;
+}
+
+float NX::Terrain::GetMaxRangeByZAxis() const {
+	return m_Height;
 }

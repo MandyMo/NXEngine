@@ -7,9 +7,12 @@
  */
 
 extern Matrix ModelMatrix;      // Model => World
-extern Matrix ViewmMatrix;      // World => View
+extern Matrix ViewMatrix;       // World => View
 extern Matrix ProjectMatrix;    // View  => Project plane
-extern texture BaseColor;       // grass color
+extern texture RoadTexture;     // road color
+extern texture GrassTexture;    // grass color
+extern texture NormalMap;       // normal map
+
 struct VS_INPUT {
     vector position : POSITION;
     float2 texCoord	: TEXCOORD0;
@@ -33,8 +36,15 @@ struct PS_OUTPUT {
 	vector	color	: COLOR0;
 };
 
-sampler2D BaseColorSampler = sampler_state {
-	texture		= <BaseColor>;
+sampler2D RoadColorSampler = sampler_state {
+	texture		= <RoadTexture>;
+	MinFilter	= LINEAR;
+	MagFilter	= LINEAR;
+	MipFilter	= LINEAR;
+};
+
+sampler2D GrassColorSampler = sampler_state {
+	texture		= <GrassTexture>;
 	MinFilter	= LINEAR;
 	MagFilter	= LINEAR;
 	MipFilter	= LINEAR;
@@ -42,22 +52,27 @@ sampler2D BaseColorSampler = sampler_state {
 
 VS_OUTPUT VSMain(VS_INPUT input) {
 	VS_OUTPUT o = (VS_OUTPUT)0;
-	Matrix MV   = ModelMatrix * ViewmMatrix;
-	Matrix MVP  = ModelMatrix * ViewmMatrix * ProjectMatrix;
+	Matrix MV   = mul(ModelMatrix , ViewMatrix);
+	Matrix MVP  = mul(MV, ProjectMatrix);
 	o.position  = mul(input.position, MVP);
+	o.texCoord  = input.texCoord;
 	return o;
 }
 
 PS_OUTPUT PSMain(PS_INTPUT input) {
-	PS_OUTPUT o = (PS_OUTPUT)0;
-	o.color     = tex2D(BaseColorSampler, input.texCoord);
+	PS_OUTPUT o      = (PS_OUTPUT)0;
+	float3 RoadColor = tex2D(RoadColorSampler, input.texCoord);
+
+	float3 GrassColor= tex2D(GrassColorSampler, input.texCoord);
+
+	o.color.xyz      = RoadColor *0.2 + GrassColor * 0.8;
 	return o;
 }
 
 Technique TerrainShader{
 	Pass BasePass {
-		FILLMODE      = WIREFRAME;
 		LIGHTING      = false;
+		CULLMODE      = none;
 		VertexShader  = compile vs_3_0 VSMain();
 		PixelShader   = compile ps_3_0 PSMain();
 	}

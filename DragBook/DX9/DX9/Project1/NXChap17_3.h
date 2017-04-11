@@ -10,7 +10,7 @@
 #pragma once
 
 #include "..\..\NXDX9Window.h"
-
+#include "../../engine/render/NXCamera.h"
 namespace NX {
 	class NXChap17_3 : public NX::DX9Window {
 	public:
@@ -28,19 +28,48 @@ namespace NX {
 
 	public:
 		struct Vertex {
-			Vertex(float _x, float _y, float _z, float _u1, float _v1, float _u2, float _v2) :
-				x(_x), y(_y), z(_z), u1(_u1), v1(_v1), u2(_u2), v2(_v2) {
+			Vertex(const float3 _pos, const float2 _uv, const float3 _normal) : Position(_pos), TexCoord(_uv), Normal(_normal) {}
+			Vertex(const float _x, const float _y, const float _z, const float _u, const float _v, const float _nx, const float _ny, const float _nz) {
+				x = _x, y = _y, z = _z;
+				u = _u, v = _v;
+				nx = _nx, ny = _ny, nz = _nz;
 			}
+
 			Vertex() {
 				/**trival*/
 			}
-			float x, y, z;
-			float u1, v1;
-			float u2, v2;
+
+			union {// position
+				float3 Position;
+				struct {
+					float x;
+					float y;
+					float z;
+				};
+			};
+
+			union {// texture uv
+				float2 TexCoord;
+				struct {
+					float u;
+					float v;
+				};
+			};
+
+			union {// normal
+				float3 Normal;
+				struct {
+					float nx;
+					float ny;
+					float nz;
+				};
+			};
 		};
 
 	private:
-		D3DXHANDLE						ViewProjHandle;
+		D3DXHANDLE						WorldMatrixHandle;
+		D3DXHANDLE						ViewMatrixHandle;
+		D3DXHANDLE                      ProjMatrixHandle;
 		D3DXHANDLE						TexAHandle;
 		D3DXHANDLE						TexBHandle;
 		Vertex							m_v[4];
@@ -52,5 +81,6 @@ namespace NX {
 		IDirect3DTexture9				*m_pTexA;
 		IDirect3DTexture9				*m_pTexB;
 		D3DXHANDLE						TechHandle;
+		float Angle;
 	};
 }
