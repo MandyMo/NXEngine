@@ -141,6 +141,14 @@ NX::float4x4  NX::MVMatrixController::GetMVMatrix() const{
     return m_MVMatrix;
 }
 
+NX::ProjectController::~ProjectController() {
+	//empty here
+}
+
+NX::ProjectController::ProjectController() {
+	//empty here
+}
+
 NX::PerspectCamera::PerspectCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
                                    const float FovByAngel, const float Ratio, const float Near, const float Far):MVMatrixController(Eye, Looked, Up){
     m_fFovByAngel   = FovByAngel;

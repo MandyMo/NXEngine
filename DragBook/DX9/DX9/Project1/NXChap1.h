@@ -7,7 +7,7 @@
  *  Purpose:   DX Demo1
  */
 
-#include "..\..\NXDX9Window.h"
+#include "../../../../engine/Window/NXDX9Window.h"
 
 #pragma once
 

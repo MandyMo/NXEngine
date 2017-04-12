@@ -9,14 +9,15 @@
 
 #include "NXTerrain.h"
 #include "../math/NXAlgorithm.h"
-#include "../../DragBook/DX9/NXDX9Window.h"
 #include "../../engine/entity/NXTerrain.h"
 #include "../../engine/render/NXCamera.h"
-#include "../../DragBook/DX9/NXDX9TextureManager.h"
+#include "../render/NXDX9TextureManager.h"
+#include "../render/NXEngine.h"
+#include "../render/NXEffectManager.h"
+#include "../common/NXLog.h"
 
 namespace NX {
 	extern IDirect3DDevice9 * glb_GetD3DDevice();
-	extern DX9Window* glb_GetD3DWindow();
 }
 
 NX::Terrain::Terrain(const int Row, const int Col, const float dx, const float dz, const std::string &strTextureFilePath) {
@@ -30,13 +31,8 @@ NX::Terrain::Terrain(const int Row, const int Col, const float dx, const float d
 	m_pVertexData               =     nullptr;
 	m_pVertexDesc               =     nullptr;
 	m_pEffect                   =     nullptr;
-	m_pWorldMatrixHandle        =     nullptr;
-	m_pViewMatrixHandle         =     nullptr;
-	m_pProjectMatrixHandle      =     nullptr;
 	m_pVertexBuffer             =     nullptr;
 	m_pIndexBuffer              =     nullptr;
-	m_pGrassTextureHandle       =     nullptr;
-    m_pRoadTextureHandle        =     nullptr;
 
 	CreateVertexs();
 	CompileEffectFile();
@@ -77,12 +73,11 @@ float NX::Terrain::GetHeight(float3 &pA, float3 &pB, float3 &pC, const float x, 
 	}
 }
 
-void NX::Terrain::Render() {
+void NX::Terrain::Render(struct RenderParameter &renderer) {
 	glb_GetD3DDevice()->SetVertexDeclaration(m_pVertexDesc);
-	DX9Window *pWindow = glb_GetD3DWindow();
-	m_pEffect->SetMatrixTranspose(m_pWorldMatrixHandle,   (D3DXMATRIX*)(&GetTransform().GetTransformMatrix()));
-	m_pEffect->SetMatrixTranspose(m_pViewMatrixHandle,    (D3DXMATRIX*)&pWindow->GetCamera()->GetMVMatrix());
-	m_pEffect->SetMatrixTranspose(m_pProjectMatrixHandle, (D3DXMATRIX*)&pWindow->GetCamera()->GetProjectMatrix());
+	m_pEffect->SetMatrixTranspose(m_pEffect->GetParameterByName(NULL, "ModelMatrix"),   (D3DXMATRIX*)(&GetTransform().GetTransformMatrix()));
+	m_pEffect->SetMatrixTranspose(m_pEffect->GetParameterByName(NULL, "ViewMatrix"),    (D3DXMATRIX*)&renderer.pMVController->GetMVMatrix());
+	m_pEffect->SetMatrixTranspose(m_pEffect->GetParameterByName(NULL, "ProjectMatrix"), (D3DXMATRIX*)&renderer.pProjectController->GetProjectMatrix());
 
 	{//commit data
 		if (m_pVertexBuffer) {
@@ -96,19 +91,19 @@ void NX::Terrain::Render() {
 	}
 
 	{//set HLSL variable
-		m_pEffect->SetTexture(m_pRoadTextureHandle, NXDX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Road/dirt01.jpg"));
-		m_pEffect->SetTexture(m_pGrassTextureHandle, NXDX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Grass/Grass01.jpg"));
+		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "RoadTexture"), DX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Road/dirt01.jpg"));
+		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "GrassTexture"), DX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Grass/Grass01.jpg"));
 	}
 
 	{//render
-		m_pEffect->SetTechnique(m_pTechniqueHandle);
+		m_pEffect->SetTechnique(m_pEffect->GetTechniqueByName("TerrainShader"));
 		UINT uPass;
 		m_pEffect->Begin(&uPass, 0);
 		for(int i = 0; i < uPass; ++i){
 			m_pEffect->BeginPass(i);
-			pWindow->GetD3D9Device()->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(Vertex));
-			pWindow->GetD3D9Device()->SetIndices(m_pIndexBuffer);
-			pWindow->GetD3D9Device()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, (m_RowCount - 1) * (m_ColCount - 1) * 6, 0, (m_RowCount - 1) * (m_ColCount - 1) * 2);
+			renderer.pDXDevice->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(Vertex));
+			renderer.pDXDevice->SetIndices(m_pIndexBuffer);
+			renderer.pDXDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, (m_RowCount - 1) * (m_ColCount - 1) * 6, 0, (m_RowCount - 1) * (m_ColCount - 1) * 2);
 			m_pEffect->EndPass();
 		}
 	}
@@ -159,30 +154,8 @@ void NX::Terrain::OnTick(const int dwMillSeconds) {
 }
 
 bool NX::Terrain::CompileEffectFile() {
-	DX9Window *pWindow = glb_GetD3DWindow();
-	ID3DXBuffer *pError = nullptr;
-	HRESULT hr;
 	const char *pszEffectFilePath = "../../../../engine/Shaders/DirectX/Terrain_Effect.hlsl";
-	hr = D3DXCreateEffectFromFile(glb_GetD3DDevice(), pszEffectFilePath, NULL, NULL, D3DXSHADER_DEBUG, NULL, &m_pEffect, &pError);
-	if (pError != nullptr) {
-		glb_GetLog().logToConsole("compile [file: %s] with [error: %s]", pszEffectFilePath, pError->GetBufferPointer());
-	}else if (FAILED(hr)) {
-		glb_GetLog().logToConsole("compile [file: %s] failed", pszEffectFilePath);
-	} else {
-		m_pWorldMatrixHandle   = m_pEffect->GetParameterByName(NULL, "ModelMatrix");
-		m_pViewMatrixHandle    = m_pEffect->GetParameterByName(NULL, "ViewMatrix");
-		m_pProjectMatrixHandle = m_pEffect->GetParameterByName(NULL, "ProjectMatrix");
-		m_pGrassTextureHandle  = m_pEffect->GetParameterByName(NULL, "BaseColor");
-		m_pGrassTextureHandle  = m_pEffect->GetParameterByName(NULL, "GrassTexture");
-		m_pRoadTextureHandle   = m_pEffect->GetParameterByName(NULL, "RoadTexture");
-		m_pTechniqueHandle     = m_pEffect->GetTechniqueByName("TerrainShader");
-	}
-
-	if (FAILED(hr) || pError) {
-		NX::NXSafeRelease(m_pEffect);
-		NX::NXSafeRelease(pError);
-		return false;
-	}
+	m_pEffect = NX::EffectManager::Instance().GetEffect(pszEffectFilePath);
 
 	{
 		D3DVERTEXELEMENT9 VertexDescs[] = {
@@ -197,16 +170,15 @@ bool NX::Terrain::CompileEffectFile() {
 }
 
 void NX::Terrain::CreateVertexAndIndexBuffer() {
-	DX9Window *pWindow = glb_GetD3DWindow();
 	HRESULT hr;
 	do {
-		hr = pWindow->GetD3D9Device()->CreateVertexBuffer(sizeof(Vertex) * m_RowCount *m_ColCount, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVertexBuffer, NULL);
+		hr = glb_GetD3DDevice()->CreateVertexBuffer(sizeof(Vertex) * m_RowCount *m_ColCount, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVertexBuffer, NULL);
 		if (FAILED(hr) || !m_pVertexBuffer) {
 			glb_GetLog().logToConsole("Create terrain vertex buffer failed");
 			break;
 		}
 
-		hr = pWindow->GetD3D9Device()->CreateIndexBuffer(sizeof(int) * (m_RowCount - 1) * (m_ColCount - 1) * 6, D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &m_pIndexBuffer, NULL);
+		hr = glb_GetD3DDevice()->CreateIndexBuffer(sizeof(int) * (m_RowCount - 1) * (m_ColCount - 1) * 6, D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &m_pIndexBuffer, NULL);
 		if (FAILED(hr) || !m_pIndexBuffer) {
 			glb_GetLog().logToConsole("Create terrain index buffer failed");
 			break;

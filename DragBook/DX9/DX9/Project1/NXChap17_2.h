@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "..\..\NXDX9Window.h"
+#include "../../../../engine/Window/NXDX9Window.h"
 
 namespace NX {
 	class NXChap17_2 : public NX::DX9Window {

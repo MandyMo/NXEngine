@@ -8,7 +8,7 @@
 */
 
 #include "NXChap4_1.h"
-#include "../../NXDX9TextureManager.h"
+#include "../../../../engine/Render/NXDX9TextureManager.h"
 
 class NX::NXChap4_1::Animation {
 public:

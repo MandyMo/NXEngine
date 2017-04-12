@@ -10,26 +10,26 @@
 #pragma once
 
 #include "NXDX9TextureManager.h"
-#include "NXDX9Window.h"
+#include "../Window/NXDX9Window.h"
 #include "../../engine/common/NXLog.h"
 
-NX::NXDX9TextureManager& NX::NXDX9TextureManager::Instance() {
-	static NXDX9TextureManager SharedObject;
+NX::DX9TextureManager& NX::DX9TextureManager::Instance() {
+	static DX9TextureManager SharedObject;
 	return SharedObject;
 }
 
-NX::NXDX9TextureManager::NXDX9TextureManager() {
+NX::DX9TextureManager::DX9TextureManager() {
 	m_vTextures.clear();
 }
 
-NX::NXDX9TextureManager::~NXDX9TextureManager() {
+NX::DX9TextureManager::~DX9TextureManager() {
 	for (auto it = m_vTextures.begin(); it != m_vTextures.end(); ++it) {
 		it->second->Release();
 	}
 	m_vTextures.clear();
 }
 
-IDirect3DTexture9*	NX::NXDX9TextureManager::GetTexture(const std::string &strFilePath) {
+IDirect3DTexture9*	NX::DX9TextureManager::GetTexture(const std::string &strFilePath) {
 	IDirect3DTexture9 *pD3DTexture = NULL;
 	if (m_vTextures.count(strFilePath)) {
 		return m_vTextures[strFilePath];
@@ -43,14 +43,14 @@ IDirect3DTexture9*	NX::NXDX9TextureManager::GetTexture(const std::string &strFil
 	return pD3DTexture;
 }
 
-void	NX::NXDX9TextureManager::DeleteTexture(const std::string &strFilePath) {
+void	NX::DX9TextureManager::DeleteTexture(const std::string &strFilePath) {
 	if (m_vTextures.count(strFilePath) && m_vTextures[strFilePath] != NULL) {
 		m_vTextures[strFilePath]->Release();
 	}
 	m_vTextures.erase(strFilePath);
 }
 
-std::string			NX::NXDX9TextureManager::GetTextureName(IDirect3DTexture9* pD3DTexture) {
+std::string			NX::DX9TextureManager::GetTextureName(IDirect3DTexture9* pD3DTexture) {
 	for (auto it = m_vTextures.begin(); it != m_vTextures.end(); ++it) {
 		if (it->second == pD3DTexture) {
 			return it->first;
@@ -59,7 +59,7 @@ std::string			NX::NXDX9TextureManager::GetTextureName(IDirect3DTexture9* pD3DTex
 	return "";
 }
 
-void			NX::NXDX9TextureManager::DeleteTexture(IDirect3DTexture9 *pD3DTexture) {
+void			NX::DX9TextureManager::DeleteTexture(IDirect3DTexture9 *pD3DTexture) {
 	for (auto it = m_vTextures.begin(); it != m_vTextures.end(); ++it) {
 		if (it->second == pD3DTexture) {
 			m_vTextures.erase(it);

@@ -13,4 +13,11 @@ namespace NX {
 	class Engine {
 
 	};
+
+	struct RenderParameter {
+		class MVMatrixController  *pMVController;
+		class ProjectController   *pProjectController;
+		class IDirect3DDevice9    *pDXDevice;
+		class IDirect3D9          *pDirectX;
+	};
 }

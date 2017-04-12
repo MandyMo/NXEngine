@@ -12,6 +12,10 @@
 #include "..\..\..\..\engine\common\nxcore.h"
 #include "..\..\..\..\engine\common\NXLog.h"
 #include "..\..\..\..\engine\math\NXAlgorithm.h"
+#include "../../engine/entity/NXTerrain.h"
+#include "../../engine/entity/NXCube.h"
+#include "../../engine/render/NXCamera.h"
+#include "../../engine/render/NXEngine.h"
 
 #define KeyDown(key) (GetAsyncKeyState(key) & 0x08000)
 
@@ -35,65 +39,86 @@ void NX::NXEngineDemo::PreRender() {
 }
 
 void NX::NXEngineDemo::Render() {
+	RenderParameter renderer;
+	{
+		renderer.pMVController        = m_pCamera;
+		renderer.pProjectController   = m_pCamera;
+		renderer.pDirectX             = GetD3D9();
+		renderer.pDXDevice            = GetD3D9Device();
+	}
+
 	if (m_pTerrain) {
-		m_pTerrain->Render();
+		m_pTerrain->Render(renderer);
+	}
+
+	if (m_pCube) {
+		m_pCube->Render(renderer);
 	}
 }
 
 void NX::NXEngineDemo::OnInitDX3Succeed() {
-	m_pTerrain = new NX::Terrain(1000, 1000, 0.5, 0.5, "");
+	//create terrain
+	m_pTerrain = new NX::Terrain(1000, 1000, 1.0, 1.0, "");
 
 	{//create camera
-		float3 Eye(200.f, m_pTerrain->GetHeight(200.f, 200.f) + 1.6f, 200.f);
+		float3  Eye(0, 0, 0);
+		Eye.y = m_pTerrain->GetHeight(Eye.x, Eye.z) + 1.6;
 		float3  at(Eye + float3(1.f, -1.f, 1.f));
-		float3 up(0.f, 1.f, 0.f);
-		m_pCamera = new PerspectCamera(Eye, at, up, 75.f, MAINFRAME_WIDTH * 1.f / MAINFRAME_HEIGHT, 0.001f, 1000.f);
+		float3  up(.0f, 1.f, .0f);
+		m_pCamera = new PerspectCamera(Eye, at, up, 75.f, MAINFRAME_WIDTH * 1.f / MAINFRAME_HEIGHT, 0.01f, 1000.f);
+	}
+
+	{//create cube
+		m_pCube = new NX::Cube(float3(1, 1, 1));
+		m_pCube->GetTransform().SetRotation(0, 1, 0);
+		m_pCube->GetTransform().SetTranslation(0, 3, 0);
 	}
 	GetCursorPos(&m_CurPos);
 }
 
 void NX::NXEngineDemo::OnTick(NXUInt32 uDelta) {
-	const float Dist = uDelta * 0.01;
-	bool bPressed = false;
-	if (KeyDown('W') || KeyDown(VK_UP) || KeyDown('w')) {
-		m_pCamera->MoveFront(Dist);
-		bPressed = true;
-	}
-	if (KeyDown('S') || KeyDown(VK_DOWN) || KeyDown('s')) {
-		m_pCamera->MoveBack(Dist);
-		bPressed = true;
-	}
-	if (KeyDown('A') || KeyDown(VK_LEFT) || KeyDown('a')) {
-		m_pCamera->MoveLeft(Dist);
-		bPressed = true;
-	}
-	if (KeyDown('D') || KeyDown(VK_RIGHT) || KeyDown('d')) {
-		m_pCamera->MoveRight(Dist);
-		bPressed = true;
+	{//update camera position
+		const float Dist = uDelta * 0.002;
+		if (KeyDown('W') || KeyDown(VK_UP) || KeyDown('w')) {
+			m_pCamera->MoveFront(Dist);
+		}
+
+		if (KeyDown('S') || KeyDown(VK_DOWN) || KeyDown('s')) {
+			m_pCamera->MoveBack(Dist);
+		}
+
+		if (KeyDown('A') || KeyDown(VK_LEFT) || KeyDown('a')) {
+			m_pCamera->MoveLeft(Dist);
+		}
+
+		if (KeyDown('D') || KeyDown(VK_RIGHT) || KeyDown('d')) {
+			m_pCamera->MoveRight(Dist);
+		}
 	}
 
-	if (KeyDown(VK_CONTROL)) {
-		POINT CurPos ;
+	{//update camera angle
+		POINT CurPos;
 		GetCursorPos(&CurPos);
-		m_pCamera->RotateByUpDownAxis(CurPos.x - m_CurPos.x);
-		m_pCamera->RotateByLeftRightAxis(CurPos.y - m_CurPos.y);
+		if (KeyDown(VK_LBUTTON)) {
+			float dx = CurPos.x - m_CurPos.x;
+			float dy = CurPos.y - m_CurPos.y;
+			dx *= 0.002f;
+			dy *= 0.002f;
+			m_pCamera->RotateByUpDownAxis(dx);
+			m_pCamera->RotateByAxis(m_pCamera->GetRightAxis(), dy);
+		}
+		m_CurPos = CurPos;
 	}
-	if (bPressed) {
-		NX::float3 _pos = m_pCamera->GetEyePosition();
-		NX::float3 _dir = m_pCamera->GetEyeDirection();
-		printf("{pos [x: %f] [y: %f] [z: %f]} \n", _pos.x, _pos.y, _pos.z);
-		printf("{dir [x: %f] [y: %f] [z: %f]} \n", _dir.x, _dir.y, _dir.z);
-	}
-}
 
-void NX::NXEngineDemo::InitMessageHandler() {
-	DX9Window::InitMessageHandler();
-	m_mpMessageChain[WM_KEYDOWN] = static_cast<MsgHandler>(&NXEngineDemo::OnKeyDown);
-}
-
-LRESULT NX::NXEngineDemo::OnKeyDown(WPARAM wPparam, LPARAM lParam) {
-	if (wPparam == VK_ESCAPE) {
-		::PostQuitMessage(0);
+	{//update camera position
+		NX::float3 Pos = m_pCamera->GetEyePosition();
+		NX::Clamp(Pos.x, 0, m_pTerrain->GetMaxRangeByXAxis());
+		NX::Clamp(Pos.z, 0, m_pTerrain->GetMaxRangeByZAxis());
+		Pos.y = m_pTerrain->GetHeight(Pos.x, Pos.z) + 1.6f;
+		m_pCamera->SetCameraPosition(Pos);
 	}
-	return wPparam;
+
+	{
+		m_pCube->OnTick(uDelta);
+	}
 }

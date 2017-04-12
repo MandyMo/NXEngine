@@ -19,7 +19,7 @@ namespace NX {
 		virtual ~Cube();
 
 	public:
-		virtual void Render() override;
+		virtual void Render(struct RenderParameter &renderer) override;
 		virtual ENTITY_TYPE GetEntityType() override;
 		virtual void OnTick(const int dwMillSeconds) override;
 	
@@ -30,7 +30,7 @@ namespace NX {
 		Size3D				           m_Size;
 		IDirect3DIndexBuffer9          *m_pIndexBuffer;
 		IDirect3DVertexBuffer9         *m_pVertexBuffer;
-		ID3DXEffect                    *m_pEffect;
 		IDirect3DVertexDeclaration9    *m_pVertexDesc;
+		ID3DXEffect                    *m_pEffect;
 	};
 }

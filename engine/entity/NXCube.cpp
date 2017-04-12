@@ -7,9 +7,11 @@
 */
 
 #include "NXCube.h"
-#include "../../DragBook/DX9/NXDX9Window.h"
-#include "../../DragBook/DX9/NXDX9TextureManager.h"
-#include "../../engine/render/NXCamera.h"
+#include "../Window/NXDX9Window.h"
+#include "../render/NXDX9TextureManager.h"
+#include "../render/NXCamera.h"
+#include "../render/NXEngine.h"
+#include "../render/NXEffectManager.h"
 
 struct NX::Cube::Vertex{
 	Vertex(float _x, float _y, float _z, float _u, float _v):x(_x), y(_y), z(_z), u(_u), v(_v) {
@@ -38,28 +40,18 @@ struct NX::Cube::Vertex{
 NX::Cube::Cube(const Size3D &_size) :m_Size(_size) {
 	m_pIndexBuffer        = nullptr;
 	m_pVertexBuffer       = nullptr;
-	m_pEffect             = nullptr;
 	m_pVertexDesc         = nullptr;
-
-	{//compile shader
+	m_pEffect             = NX::EffectManager::Instance().GetEffect("../../../../engine/Shaders/DirectX/Cube3D_Effect.hlsl");
+	{
 		DX9Window *pWindow = glb_GetD3DWindow();
-		const char *pszEffectFilePath = "../../../../engine/Shaders/DirectX/Cube3D_Effect.hlsl";
-		ID3DXBuffer *pError = NULL;
-		HRESULT hr = D3DXCreateEffectFromFile(glb_GetD3DDevice(), pszEffectFilePath, NULL, NULL, D3DXSHADER_DEBUG, NULL, &m_pEffect, &pError);
-		if (pError != nullptr) {
-			glb_GetLog().logToConsole("compile [file: %s] with [error: %s]", pszEffectFilePath, pError->GetBufferPointer());
-		} else if (FAILED(hr)) {
-			glb_GetLog().logToConsole("compile [file: %s] failed", pszEffectFilePath);
-		} else {
-			pWindow->GetD3D9Device()->CreateIndexBuffer(sizeof(NXUInt16) * 36, D3DUSAGE_WRITEONLY, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pIndexBuffer, NULL);
-			pWindow->GetD3D9Device()->CreateVertexBuffer(sizeof(Vertex) * 8, D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL);
-			D3DVERTEXELEMENT9 VertexDesc[] = {
-				{0, CLS_MEM_OFFSET(Vertex, x), D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
-				{0, CLS_MEM_OFFSET(Vertex, u), D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
-				D3DDECL_END(),
-			};
-			pWindow->GetD3D9Device()->CreateVertexDeclaration(VertexDesc, &m_pVertexDesc);
-		}
+		pWindow->GetD3D9Device()->CreateIndexBuffer(sizeof(NXUInt16) * 36, D3DUSAGE_WRITEONLY, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pIndexBuffer, NULL);
+		pWindow->GetD3D9Device()->CreateVertexBuffer(sizeof(Vertex) * 8, D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL);
+		D3DVERTEXELEMENT9 VertexDesc[] = {
+			{0, CLS_MEM_OFFSET(Vertex, x), D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
+			{0, CLS_MEM_OFFSET(Vertex, u), D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
+			D3DDECL_END(),
+		};
+		pWindow->GetD3D9Device()->CreateVertexDeclaration(VertexDesc, &m_pVertexDesc);
 	}
 }
 
@@ -69,7 +61,7 @@ NX::Cube::~Cube() {
 	NX::NXSafeRelease(m_pEffect);
 }
 
-void NX::Cube::Render() {
+void NX::Cube::Render(struct RenderParameter &renderer) {
 	DX9Window *pWindow = glb_GetD3DWindow();
 	pWindow->GetD3D9Device()->SetVertexDeclaration(m_pVertexDesc);
 
@@ -109,8 +101,8 @@ void NX::Cube::Render() {
 	}
 	
 	{//shader variables
-		m_pEffect->SetMatrixTranspose(m_pEffect->GetParameterByName(NULL, "MVP"), (D3DXMATRIX*)&(pWindow->GetCamera()->GetWatchMatrix() * GetTransform().GetTransformMatrix()));
-		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "BaseColor"), NXDX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Road/dirt01.jpg"));
+		m_pEffect->SetMatrixTranspose(m_pEffect->GetParameterByName(NULL, "MVP"), (D3DXMATRIX*)&(renderer.pProjectController->GetProjectMatrix() * renderer.pMVController->GetMVMatrix() * GetTransform().GetTransformMatrix()));
+		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "BaseColor"), DX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Road/dirt01.jpg"));
 	}
 
 	{//commit to gpu

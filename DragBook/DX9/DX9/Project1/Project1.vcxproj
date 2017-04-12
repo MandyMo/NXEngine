@@ -133,6 +133,7 @@
     <ClCompile Include="..\..\..\..\engine\common\NXUtility.cpp" />
     <ClCompile Include="..\..\..\..\engine\common\TimerManager\NXTimerEvent.cpp" />
     <ClCompile Include="..\..\..\..\engine\common\TimerManager\NXTimerManager.cpp" />
+    <ClCompile Include="..\..\..\..\engine\entity\NXCube.cpp" />
     <ClCompile Include="..\..\..\..\engine\entity\NXIEntity.cpp" />
     <ClCompile Include="..\..\..\..\engine\Entity\NXTerrain.cpp" />
     <ClCompile Include="..\..\..\..\engine\Entity\NXTransform.cpp" />
@@ -154,7 +155,9 @@
     <ClCompile Include="..\..\..\..\engine\math\NXSphere.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXTriangle.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXCamera.cpp" />
+    <ClCompile Include="..\..\..\..\engine\render\NXDX9TextureManager.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXEngine.cpp" />
+    <ClCompile Include="..\..\..\..\engine\render\NXEffectManager.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXViewFrustum.cpp" />
     <ClCompile Include="..\..\..\..\engine\System\Android\NXAndroidMutex.cpp" />
     <ClCompile Include="..\..\..\..\engine\System\Android\NXAndroidSystem.cpp" />
@@ -166,10 +169,9 @@
     <ClCompile Include="..\..\..\..\engine\System\OSX\NXOSXMutex.cpp" />
     <ClCompile Include="..\..\..\..\engine\System\Win32\NXWinMutex.cpp" />
     <ClCompile Include="..\..\..\..\engine\System\Win32\NXWinSystem.cpp" />
-    <ClCompile Include="..\..\..\MainFrame\NXWindow.cpp" />
-    <ClCompile Include="..\..\..\MainFrame\NXWndClass.cpp" />
-    <ClCompile Include="..\..\NXDX9TextureManager.cpp" />
-    <ClCompile Include="..\..\NXDX9Window.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Window\NXDX9Window.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Window\NXWindow.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Window\NXWndClass.cpp" />
     <ClCompile Include="NXChap1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NXChap17_1.cpp" />
@@ -199,6 +201,7 @@
     <ClInclude Include="..\..\..\..\engine\common\NXUtility.h" />
     <ClInclude Include="..\..\..\..\engine\common\TimerManager\NXTimerEvent.h" />
     <ClInclude Include="..\..\..\..\engine\common\TimerManager\NXTimerManager.h" />
+    <ClInclude Include="..\..\..\..\engine\entity\NXCube.h" />
     <ClInclude Include="..\..\..\..\engine\Entity\NXIEntity.h" />
     <ClInclude Include="..\..\..\..\engine\Entity\NXTerrain.h" />
     <ClInclude Include="..\..\..\..\engine\Entity\NXTransform.h" />
@@ -225,17 +228,18 @@
     <ClInclude Include="..\..\..\..\engine\math\NXTriangle.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXVector.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXCamera.h" />
+    <ClInclude Include="..\..\..\..\engine\render\NXDX9TextureManager.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXEngine.h" />
+    <ClInclude Include="..\..\..\..\engine\render\NXEffectManager.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXViewFrustum.h" />
     <ClInclude Include="..\..\..\..\engine\System\Android\NXJNIWrapper.h" />
     <ClInclude Include="..\..\..\..\engine\System\NXMutex.h" />
     <ClInclude Include="..\..\..\..\engine\System\NXPosixSystem.h" />
     <ClInclude Include="..\..\..\..\engine\System\NXSystem.h" />
-    <ClInclude Include="..\..\..\MainFrame\NXHeader.h" />
-    <ClInclude Include="..\..\..\MainFrame\NXWindow.h" />
-    <ClInclude Include="..\..\..\MainFrame\NXWndClass.h" />
-    <ClInclude Include="..\..\NXDX9TextureManager.h" />
-    <ClInclude Include="..\..\NXDX9Window.h" />
+    <ClInclude Include="..\..\..\..\engine\Window\NXDX9Window.h" />
+    <ClInclude Include="..\..\..\..\engine\Window\NXHeader.h" />
+    <ClInclude Include="..\..\..\..\engine\Window\NXWindow.h" />
+    <ClInclude Include="..\..\..\..\engine\Window\NXWndClass.h" />
     <ClInclude Include="NXChap1.h" />
     <ClInclude Include="NXChap17_1.h" />
     <ClInclude Include="NXChap17_2.h" />
@@ -262,6 +266,9 @@
     <Text Include="..\..\..\..\engine\render\NXEngine.txt" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Cube3D_Effect.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Terrain_Effect.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </FxCompile>
@@ -285,7 +292,8 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\engine\EngineResouces\Road\dirt.jpg" />
+    <Image Include="..\..\..\..\engine\EngineResouces\Grass\Grass01.jpg" />
+    <Image Include="..\..\..\..\engine\EngineResouces\Road\dirt01.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

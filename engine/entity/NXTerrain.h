@@ -26,7 +26,7 @@ namespace NX {
 		Vertex&	GetVertex(const int r, const int c);
 
 	public:
-		virtual void Render() override;
+		virtual void Render(struct RenderParameter &renderer) override;
 		virtual ENTITY_TYPE GetEntityType() override;
 		virtual void OnTick(const int dwMillSeconds) override;
 
@@ -51,12 +51,6 @@ namespace NX {
 		std::string				                 m_strTextureFilePath;
 		IDirect3DVertexDeclaration9              *m_pVertexDesc;
 		ID3DXEffect                              *m_pEffect;
-		D3DXHANDLE                               m_pWorldMatrixHandle;
-		D3DXHANDLE                               m_pViewMatrixHandle;
-		D3DXHANDLE                               m_pProjectMatrixHandle;
-		D3DXHANDLE                               m_pGrassTextureHandle;
-		D3DXHANDLE                               m_pRoadTextureHandle;
-		D3DXHANDLE                               m_pTechniqueHandle;
 		IDirect3DVertexBuffer9                   *m_pVertexBuffer;
 		IDirect3DIndexBuffer9                    *m_pIndexBuffer;
 	};

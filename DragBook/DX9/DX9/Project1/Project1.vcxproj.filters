@@ -9,9 +9,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="MainFrame">
-      <UniqueIdentifier>{667beb7c-2e64-490e-9d06-0f679340d569}</UniqueIdentifier>
-    </Filter>
     <Filter Include="NXEngine">
       <UniqueIdentifier>{b04bc2c2-ec6a-479d-9dc0-7ee310b329af}</UniqueIdentifier>
     </Filter>
@@ -81,16 +78,13 @@
     <Filter Include="NXEngine\EngineResouces\Road">
       <UniqueIdentifier>{2a51dcc4-0150-4dda-9a7e-d6e7e734b780}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NXEngine\Window">
+      <UniqueIdentifier>{dbe86242-7457-4af1-9401-54afc4a4b9d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\MainFrame\NXWindow.cpp">
-      <Filter>MainFrame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\MainFrame\NXWndClass.cpp">
-      <Filter>MainFrame</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\engine\common\NXCore.cpp">
       <Filter>NXEngine\common</Filter>
@@ -203,9 +197,6 @@
     <ClCompile Include="..\..\..\..\engine\System\iOS\NXiOSMutex.cpp">
       <Filter>NXEngine\System\iOS</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\NXDX9Window.cpp">
-      <Filter>MainFrame</Filter>
-    </ClCompile>
     <ClCompile Include="NXChap1.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
@@ -220,9 +211,6 @@
     </ClCompile>
     <ClCompile Include="NXChap17_3.cpp">
       <Filter>Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\NXDX9TextureManager.cpp">
-      <Filter>MainFrame</Filter>
     </ClCompile>
     <ClCompile Include="NXChap2_1.cpp">
       <Filter>Demo</Filter>
@@ -254,17 +242,26 @@
     <ClCompile Include="..\..\..\..\engine\entity\NXIEntity.cpp">
       <Filter>NXEngine\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\entity\NXCube.cpp">
+      <Filter>NXEngine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Window\NXDX9Window.cpp">
+      <Filter>NXEngine\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Window\NXWindow.cpp">
+      <Filter>NXEngine\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Window\NXWndClass.cpp">
+      <Filter>NXEngine\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\render\NXDX9TextureManager.cpp">
+      <Filter>NXEngine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\render\NXEffectManager.cpp">
+      <Filter>NXEngine\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\MainFrame\NXWindow.h">
-      <Filter>MainFrame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\MainFrame\NXWndClass.h">
-      <Filter>MainFrame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\MainFrame\NXHeader.h">
-      <Filter>MainFrame</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\engine\common\nxcore.h">
       <Filter>NXEngine\common</Filter>
     </ClInclude>
@@ -394,9 +391,6 @@
     <ClInclude Include="..\..\..\..\engine\System\Android\NXJNIWrapper.h">
       <Filter>NXEngine\System\Android</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\NXDX9Window.h">
-      <Filter>MainFrame</Filter>
-    </ClInclude>
     <ClInclude Include="NXChap1.h">
       <Filter>Demo</Filter>
     </ClInclude>
@@ -411,9 +405,6 @@
     </ClInclude>
     <ClInclude Include="NXChap17_3.h">
       <Filter>Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\NXDX9TextureManager.h">
-      <Filter>MainFrame</Filter>
     </ClInclude>
     <ClInclude Include="NXChap2_1.h">
       <Filter>Demo</Filter>
@@ -444,6 +435,27 @@
     </ClInclude>
     <ClInclude Include="NXEngineDemo.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\entity\NXCube.h">
+      <Filter>NXEngine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Window\NXDX9Window.h">
+      <Filter>NXEngine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Window\NXHeader.h">
+      <Filter>NXEngine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Window\NXWindow.h">
+      <Filter>NXEngine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Window\NXWndClass.h">
+      <Filter>NXEngine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\render\NXDX9TextureManager.h">
+      <Filter>NXEngine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\render\NXEffectManager.h">
+      <Filter>NXEngine\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -499,9 +511,15 @@
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Terrain_Effect.hlsl">
       <Filter>NXEngine\ShadersFiles\DirectX</Filter>
     </FxCompile>
+    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Cube3D_Effect.hlsl">
+      <Filter>NXEngine\ShadersFiles\DirectX</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\engine\EngineResouces\Road\dirt.jpg">
+    <Image Include="..\..\..\..\engine\EngineResouces\Grass\Grass01.jpg">
+      <Filter>NXEngine\EngineResouces\Grass</Filter>
+    </Image>
+    <Image Include="..\..\..\..\engine\EngineResouces\Road\dirt01.jpg">
       <Filter>NXEngine\EngineResouces\Road</Filter>
     </Image>
   </ItemGroup>

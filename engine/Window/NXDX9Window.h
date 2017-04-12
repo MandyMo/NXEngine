@@ -10,11 +10,10 @@
 #pragma once
 
 #include "NXWindow.h"
-#include "D3DX9.h"
+#include <D3DX9.h>
 #include "..\..\engine\common\nxtype.h"
 #include "..\..\engine\common\nxcore.h"
 #include "..\..\engine\common\NXLog.h"
-
 
 #pragma comment(lib, "libcpmt.lib")
 
@@ -40,18 +39,12 @@ namespace NX {
 	public:
 		inline IDirect3D9*				GetD3D9(){return m_pD3D9;}
 		inline IDirect3DDevice9*		GetD3D9Device(){return m_pDevice;}
-		inline class PerspectCamera*          GetCamera(){return m_pCamera;}
-		inline class Terrain*                 GetTerrain(){return m_pTerrain;}
 
 	public:
 		IDirect3D9					*m_pD3D9;
 		IDirect3DDevice9			*m_pDevice;
 		D3DCAPS9					m_D3dCaps;
 		D3DPRESENT_PARAMETERS		m_D3dParameter;
-		class Terrain               *m_pTerrain;
-		class Cube                  *m_pCube;
-		class PerspectCamera        *m_pCamera;
-		POINT                        m_CurPos;
 	};
 
 	DX9Window* glb_GetD3DWindow();

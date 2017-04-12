@@ -8,7 +8,7 @@
 */
 
 #include "NXChap2_1.h"
-#include "../../NXDX9TextureManager.h"
+#include "../../../../engine/Render/NXDX9TextureManager.h"
 
 static double m_angle = 0;
 
@@ -72,7 +72,7 @@ void NX::NXChap2_1::Render() {
 			m_pEffect->BeginPass(0);
 
 			for(int i = 0; i < m_vTextures.size(); ++i){
-				m_pEffect->SetTexture(BaseColorHandle, NXDX9TextureManager::Instance().GetTexture(m_vTextures[i]));
+				m_pEffect->SetTexture(BaseColorHandle, DX9TextureManager::Instance().GetTexture(m_vTextures[i]));
 				m_pXMesh->DrawSubset(i);
 			}
 
@@ -90,7 +90,7 @@ void NX::NXChap2_1::Render() {
 			m_pEffect->BeginPass(0);
 
 			for (int i = 0; i < m_vTextures.size(); ++i) {
-				m_pEffect->SetTexture(BaseColorHandle, NXDX9TextureManager::Instance().GetTexture(m_vTextures[i]));
+				m_pEffect->SetTexture(BaseColorHandle, DX9TextureManager::Instance().GetTexture(m_vTextures[i]));
 				m_pXMesh->DrawSubset(i);
 			}
 

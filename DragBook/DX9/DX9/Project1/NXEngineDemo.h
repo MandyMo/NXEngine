@@ -7,7 +7,7 @@
  *  Purpose:   DX Demo1
  */
 
-#include "..\..\NXDX9Window.h"
+#include "../../../../engine/Window/NXDX9Window.h"
 #include "../../engine/entity/NXTerrain.h"
 #include "../../engine/render/NXCamera.h"
 
@@ -27,12 +27,14 @@ namespace NX {
 	private:
 		virtual void OnInitDX3Succeed() override;
 		virtual void OnTick(NXUInt32 uDelta) override;
-		virtual void InitMessageHandler() override;
-		virtual LRESULT OnKeyDown(WPARAM wPparam, LPARAM lParam);
+
+		inline class PerspectCamera*          GetCamera() { return m_pCamera; }
+		inline class Terrain*                 GetTerrain() { return m_pTerrain; }
 
 	public:
-		NX::Terrain				*m_pTerrain;
-		NX::PerspectCamera		*m_pCamera;
-		POINT					m_CurPos;
+		class Terrain               *m_pTerrain;
+		class Cube                  *m_pCube;
+		class PerspectCamera        *m_pCamera;
+		POINT                        m_CurPos;
 	};
 }

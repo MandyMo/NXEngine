@@ -14,11 +14,11 @@
 #include <string>
 
 namespace NX {
-	class NXDX9TextureManager {
+	class DX9TextureManager {
 	public:
-		static NXDX9TextureManager& Instance();
-		NXDX9TextureManager();
-		virtual ~NXDX9TextureManager();
+		static DX9TextureManager& Instance();
+		DX9TextureManager();
+		virtual ~DX9TextureManager();
 
 	public:
 		IDirect3DTexture9*	GetTexture(const std::string &strFilePath);

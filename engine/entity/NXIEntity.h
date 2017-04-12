@@ -16,7 +16,7 @@ namespace NX {
 		ENTITY_TYPE_TERRAIN,           // 地形
 		ENTITY_TYPE_SKY_BOX,           // 天空盒
 		ENTITY_TYPE_SKY_SPHERE,        // 天空球
-		ENTITY_TYPE_CUBE3D,	           // 3D盒子
+		ENTITY_TYPE_CUBE3D,            // 3D盒子
 	};
 
 	class IEntity {
@@ -26,7 +26,7 @@ namespace NX {
 		virtual ~IEntity();
 
 	public:
-		virtual void Render() = 0;
+		virtual void Render(struct RenderParameter &renderer) = 0;
 
 		virtual ENTITY_TYPE GetEntityType() = 0;
 

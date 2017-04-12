@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "..\..\NXDX9Window.h"
+#include "../../../../engine/Window/NXDX9Window.h"
 #include "../../engine/render/NXCamera.h"
 namespace NX {
 	class NXChap17_3 : public NX::DX9Window {
@@ -82,5 +82,6 @@ namespace NX {
 		IDirect3DTexture9				*m_pTexB;
 		D3DXHANDLE						TechHandle;
 		float Angle;
+		NX::PerspectCamera              *m_pCamera;
 	};
 }

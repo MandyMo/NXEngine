@@ -5,8 +5,7 @@
  *  purpose: 定义一组操作摄像机的方法
  */
 
-#ifndef __ZX_NXENGINE_CAMERA_H__
-#define __ZX_NXENGINE_CAMERA_H__
+#pragma once
 
 #include "../math/NXVector.h"
 #include "../math/NXMatrix.h"
@@ -58,7 +57,6 @@ namespace NX {
         float4X4                m_MVMatrix;
     };
     
-    template<typename T>
     class ProjectController{
     public:
         ProjectController();
@@ -72,18 +70,8 @@ namespace NX {
     public:
         float4X4         m_ProjectMatrix;
     };
-    
-    template<typename T>
-    ProjectController<T>::~ProjectController(){
-        //empty here
-    }
-    
-    template<typename T>
-    ProjectController<T>::ProjectController(){
-        //empty here
-    }
-    
-    class PerspectCamera: public MVMatrixController, public ProjectController<MVMatrixController>{
+        
+    class PerspectCamera: public MVMatrixController, public ProjectController{
     public:
         PerspectCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
                        const float FovByAngel, const float Ratio, const float Near, const float Far);
@@ -102,7 +90,7 @@ namespace NX {
         float           m_fFarPlane;
     };
     
-    class OrthogonalCamera: public MVMatrixController, public ProjectController<MVMatrixController>{
+    class OrthogonalCamera: public MVMatrixController, public ProjectController{
     public:
         OrthogonalCamera(const float3 &Eye, const float3 &Looked, const float3 &Up,
                          const float Width, const float Height, const float Near, const float Far);
@@ -126,6 +114,4 @@ namespace NX {
         float           m_fFarPlane;
     };
 }
-
-#endif
 

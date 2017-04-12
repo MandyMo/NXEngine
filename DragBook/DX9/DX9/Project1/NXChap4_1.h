@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "..\..\NXDX9Window.h"
+#include "../../../../engine/Window/NXDX9Window.h"
 #include <vector>
 #include <string>
 

@@ -8,7 +8,7 @@
 */
 
 #include "NXChap3_1.h"
-#include "../../NXDX9TextureManager.h"
+#include "../../../../engine/Render/NXDX9TextureManager.h"
 
 class NX::NXChap3_1::Bone : public D3DXFRAME {
 public:
