@@ -17,24 +17,24 @@
 static	const unsigned char g_proc_code[] =
 {
 	//------------parameter-----------------
-	0x8B,0x44,0x24,0x10,		// mov         eax,dword ptr [esp+10h] 
-	0x50,						// push        eax  
-	0x8B,0x44,0x24,0x10,		// mov         eax,dword ptr [esp+10h] 
-	0x50,						// push        eax  
-	0x8B,0x44,0x24,0x10,	    // mov         eax,dword ptr [esp+10h] 
-	0x50,						// push        eax  
-	0x8B,0x44,0x24,0x10,		// mov         eax,dword ptr [esp+10h] 
-	0x50,						// push        eax  
+	0x8B,0x44,0x24,0x10,        // mov         eax,dword ptr [esp+10h] 
+	0x50,                       // push        eax  
+	0x8B,0x44,0x24,0x10,        // mov         eax,dword ptr [esp+10h] 
+	0x50,                       // push        eax  
+	0x8B,0x44,0x24,0x10,        // mov         eax,dword ptr [esp+10h] 
+	0x50,                       // push        eax  
+	0x8B,0x44,0x24,0x10,        // mov         eax,dword ptr [esp+10h] 
+	0x50,                       // push        eax  
 
 	//-----------this poiner-------------
 	0xB9,0x5C,0xFF,0x12,0x00,   // mov ecx,0x12FF5C 
 
 	//-----------call back function-------------
 	0xB8,0x00,0x00,0x00,0x00,   // mov         eax,0 
-	0xFF,0xD0,					// call        eax
+	0xFF,0xD0,                  // call        eax
 
 	//return
-	0xC2,0x10,0x00				// ret         10h  
+	0xC2,0x10,0x00              // ret         10h  
 };
 
 namespace NX{
