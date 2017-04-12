@@ -11,6 +11,7 @@
 #include "common\NXLog.h"
 #include "System\NXSystem.h"
 #include "../../engine/entity/NXTerrain.h"
+#include "../../engine/entity/NXCube.h"
 #include "../../engine/render/NXCamera.h"
 
 #pragma comment(lib, "d3d9.lib")
@@ -107,6 +108,10 @@ void NX::DX9Window::Render() {
 	if (m_pTerrain) {
 		m_pTerrain->Render();
 	}
+
+	if (m_pCube) {
+		m_pCube->Render();
+	}
 }
 
 WPARAM NX::DX9Window::MessageLoop() {
@@ -131,7 +136,7 @@ WPARAM NX::DX9Window::MessageLoop() {
 void NX::DX9Window::OnInitDX3Succeed() {
 	
 	//create terrain
-	m_pTerrain = new NX::Terrain(1000, 1000, 0.5, 0.5, "");
+	m_pTerrain = new NX::Terrain(1000, 1000, 1.0, 1.0, "");
 
 	{//create camera
 		float3  Eye(0, 0, 0);
@@ -141,12 +146,17 @@ void NX::DX9Window::OnInitDX3Succeed() {
 		m_pCamera = new PerspectCamera(Eye, at, up, 75.f, MAINFRAME_WIDTH * 1.f / MAINFRAME_HEIGHT, 0.01f, 1000.f);
 	}
 
+	{//create cube
+		m_pCube = new NX::Cube(float3(1, 1, 1));
+		m_pCube->GetTransform().SetRotation(0, 1, 0);
+		m_pCube->GetTransform().SetTranslation(0, 3, 0);
+	}
 	GetCursorPos(&m_CurPos);
 }
 
 void NX::DX9Window::OnTick(NXUInt32	uDelta) {
 	{//update camera position
-		const float Dist = uDelta * 0.01;
+		const float Dist = uDelta * 0.002;
 		if (KeyDown('W') || KeyDown(VK_UP) || KeyDown('w')) {
 			m_pCamera->MoveFront(Dist);
 		}
@@ -184,6 +194,10 @@ void NX::DX9Window::OnTick(NXUInt32	uDelta) {
 		NX::Clamp(Pos.z, 0, m_pTerrain->GetMaxRangeByZAxis());
 		Pos.y = m_pTerrain->GetHeight(Pos.x, Pos.z) + 1.6f;
 		m_pCamera->SetCameraPosition(Pos);
+	}
+
+	{
+		m_pCube->OnTick(uDelta);
 	}
 }
 

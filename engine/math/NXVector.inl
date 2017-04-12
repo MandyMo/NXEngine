@@ -165,4 +165,9 @@ DECLARE_VECTOR_TYPE(double);   //double
 
 #undef DECLARE_VECTOR_TYPE
 
+typedef float3 Point3D;
+typedef float2 Point2D;
+typedef float2 Size2D;
+typedef float3 Size3D;
+
 #endif //!__ZX_NXENGINE_VECTOR_INL__

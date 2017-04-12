@@ -41,6 +41,7 @@ namespace NX {
         EulerAngle& FromObjectToWorldQuaternion(const Quaternion &q);
         EulerAngle& FromWorldToObjectQuaternion(const Quaternion &q);
         EulerAngle& FromQuaternion(const Quaternion &q, const EulerAngleMode mode);
+
     public:
         /**
          *  (heading, pitch, bank) = (yaw, pitch, roll) = (y, x, z) rotate angles

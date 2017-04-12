@@ -90,6 +90,9 @@ namespace NX {
     
     template<typename T>
     inline Matrix<T, 4, 4> GetTranslated(const T dx, const T dy, const T dz);
+
+	template<typename T>
+	inline Matrix<T, 4, 4> GetTranslated(const NX::vector<T, 3> &delta);
     
     template<typename T, int Scale = 4>
     inline Matrix<T, Scale, Scale> GetMatrixRotateByX(const T radian);
@@ -100,9 +103,18 @@ namespace NX {
     template<typename T, int Scale = 4>
     inline Matrix<T, Scale, Scale> GetMatrixRotateByZ(const T radian);
     
+	template<typename T, int Scale = 4>
+	inline Matrix<T, Scale, Scale> GetMatrixRotateByXYZ(const T rx, const T ry, const T rz);
+
+	template<typename T, int Scale = 4>
+	inline Matrix<T, Scale, Scale> GetMatrixRotateByXYZ(const NX::vector<T, 3> &r);
+
     template<typename T, int Scale = 4>
     inline Matrix<T, Scale, Scale> GetScaleMatrix(const T sx, const T sy, const T sz);
     
+	template<typename T, int Scale = 4>
+	inline Matrix<T, Scale, Scale> GetScaleMatrix(const NX::vector<T, 3> &s);
+
     template<typename T, int Scale, typename RT = T>
     inline RT TraceMatrix(const NX::Matrix<T, Scale, Scale> &m);
     

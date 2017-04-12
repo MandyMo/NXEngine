@@ -198,6 +198,12 @@ inline Matrix<T, 4, 4> GetTranslated(const T dx, const T dy, const T dz){
     return result;
 }
 
+template<typename T>
+inline Matrix<T, 4, 4> GetTranslated(const NX::vector<T, 3> &delta) {
+	return GetTranslated(delta[0], delta[1], delta[2]);
+}
+
+
 template<typename T, int Scale /* = 4 */>
 inline Matrix<T, Scale, Scale> GetMatrixRotateByX(const T radian){
     NXAssert(Scale == 3 || Scale == 4);
@@ -209,6 +215,17 @@ inline Matrix<T, Scale, Scale> GetMatrixRotateByX(const T radian){
     result.m_Element[1][1] = CosValue, result.m_Element[1][2] = -SinValue;
     result.m_Element[2][1] = SinValue, result.m_Element[2][2] = CosValue;
     return result;
+}
+
+
+template<typename T, int Scale /* = 4 */>
+inline Matrix<T, Scale, Scale> GetMatrixRotateByXYZ(const T rx, const T ry, const T rz) {
+	return GetMatrixRotateByX(rx) * GetMatrixRotateByY(ry) * GetMatrixRotateByZ(rz);
+}
+
+template<typename T, int Scale /* = 4 */>
+inline Matrix<T, Scale, Scale> GetMatrixRotateByXYZ(const NX::vector<T, 3> &r) {
+	return GetMatrixRotateByXYZ(r[0], r[1], r[2]);
 }
 
 template<typename T, int Scale /* = 4*/>
@@ -243,6 +260,11 @@ inline Matrix<T, Scale, Scale> GetScaleMatrix(const T sx, const T sy, const T sz
     result.m_Element[1][1] = sy;
     result.m_Element[2][2] = sz;
     return result;
+}
+
+template<typename T, int Scale /* = 4 */>
+inline Matrix<T, Scale, Scale> GetScaleMatrix(const NX::vector<T, 3> &s) {
+	return GetScaleMatrix<T,Scale>(s[0], s[1], s[2]);
 }
 
 template<typename T, int Scale, typename RT /* = T */>

@@ -49,6 +49,7 @@ namespace NX {
 		D3DCAPS9					m_D3dCaps;
 		D3DPRESENT_PARAMETERS		m_D3dParameter;
 		class Terrain               *m_pTerrain;
+		class Cube                  *m_pCube;
 		class PerspectCamera        *m_pCamera;
 		POINT                        m_CurPos;
 	};
