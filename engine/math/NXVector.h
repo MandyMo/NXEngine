@@ -760,6 +760,9 @@ namespace NX {
     
     template<int Scale>
     inline bool operator == (const vector<double, Scale> &lhs, const vector<double, Scale> &rhs);
+
+	template<typename T, typename U, int Scale>
+	inline vector<T, Scale> operator % (const vector<T, Scale> &lhs, const U &ModeValue);
     //==============================================end of nomember function============================================
 #include "NXVector.inl"
 }

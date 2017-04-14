@@ -156,6 +156,7 @@
     <ClCompile Include="..\..\..\..\engine\math\NXSphere.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXTriangle.cpp" />
     <ClCompile Include="..\..\..\..\engine\Particle\NXParticle.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Particle\NXParticleSystem.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXCamera.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXDX9TextureManager.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXEngine.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="..\..\..\..\engine\math\NXTriangle.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXVector.h" />
     <ClInclude Include="..\..\..\..\engine\Particle\NXParticle.h" />
+    <ClInclude Include="..\..\..\..\engine\Particle\NXParticleSystem.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXCamera.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXDX9TextureManager.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXEngine.h" />

@@ -13,11 +13,11 @@
 
 namespace NX {
 	enum ENTITY_TYPE{
-		ENTITY_TYPE_TERRAIN,           // 地形
-		ENTITY_TYPE_SKY_BOX,           // 天空盒
-		ENTITY_TYPE_SKY_SPHERE,        // 天空球
-		ENTITY_TYPE_CUBE3D,            // 3D盒子
-		ENTITY_TYPE_PARTICLE,          // 粒子
+		ENTITY_TYPE_TERRAIN,             // 地形
+		ENTITY_TYPE_SKY_BOX,             // 天空盒
+		ENTITY_TYPE_SKY_SPHERE,          // 天空球
+		ENTITY_TYPE_CUBE3D,              // 3D盒子
+		ENTITY_TYPE_PARTICLE_SYSTEM,     // 粒子系统
 	};
 
 	class IEntity {

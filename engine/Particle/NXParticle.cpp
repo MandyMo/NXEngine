@@ -1,10 +1,10 @@
 ﻿/*
-*  File:    NXParticle.cpp
-*
-*  author:  张雄(zhang xiong, 1025679612@qq.com)
-*  date:    2017_04_12
-*  purpose: define a particle
-*/
+ *  File:    NXParticle.cpp
+ *
+ *  author:  张雄(zhang xiong, 1025679612@qq.com)
+ *  date:    2017_04_12
+ *  purpose: define a particle
+ */
 
 #include <vector>
 
@@ -17,6 +17,7 @@ NX::Particle::Particle(const int iTextureIndex, const NX::float3 &_Rotation, con
 	m_Velocity(_Velocity), m_AngularVelocity(_Velocity), m_fLiveTime(_LiveTime), m_BoundBox(_BoundBox), m_Size(_Size)
 {
 	m_fTimeElapsed = 0.f;
+	m_bDied        = false;
 }
 
 NX::Particle::~Particle() {
@@ -24,7 +25,19 @@ NX::Particle::~Particle() {
 }
 
 void NX::Particle::OnTick(const float fDelta) {
+	if (m_bDied) {
+		return;
+	}
+	m_Position            += m_Velocity * fDelta;
+	m_Rotation            += m_AngularVelocity * fDelta;
+	m_Velocity            += m_Acceleration * fDelta;
+	m_AngularVelocity     += m_Angularcceleration * fDelta;
+	m_fTimeElapsed        += fDelta;
+	m_Rotation            =  m_Rotation % kf2Pi;
 
+	if (m_fTimeElapsed >= m_fLiveTime || !InBoundBox()) {
+		m_bDied           = true;
+	}
 }
 
 void NX::Particle::Reset(const int iTextureIndex, const float3 &_Rotation, const float3 &_Position, const float3 &_Acceleration, const float3 &_AngularAcceleration,
@@ -40,6 +53,7 @@ void NX::Particle::Reset(const int iTextureIndex, const float3 &_Rotation, const
 	m_BoundBox                   =            _BoundBox;
 	m_Size                       =            _Size;
 	m_fTimeElapsed               =            0.f;
+	m_bDied                      =            false;
 }
 
 std::vector<NX::Particle::Vertex>  NX::Particle::GetVertex() {
@@ -197,11 +211,16 @@ NX::Particle& NX::Particle::SetSize(const float2 &_Size) {
 	return *this;
 }
 
-int             NX::Particle::GetTextureIndex() const {
+NX::Particle& NX::Particle::SetDied(const bool bDied) {
+	m_bDied = bDied;
+	return *this;
+}
+
+int NX::Particle::GetTextureIndex() const {
 	return m_iTextureIndex;
 }
 
-const NX::float3&   NX::Particle::GetRotation() const {
+const NX::float3& NX::Particle::GetRotation() const {
 	return m_Rotation;
 }
 
@@ -209,27 +228,27 @@ const NX::float3&   NX::Particle::GetPosition() const {
 	return m_Position;
 }
 
-const NX::float3&   NX::Particle::GetAcceleration() const {
+const NX::float3& NX::Particle::GetAcceleration() const {
 	return m_Acceleration;
 }
 
-const NX::float3&   NX::Particle::GetAngularAcceleration() const {
+const NX::float3& NX::Particle::GetAngularAcceleration() const {
 	return m_Angularcceleration;
 }
 
-const NX::float3&   NX::Particle::GetVelocity() const {
+const NX::float3& NX::Particle::GetVelocity() const {
 	return m_Velocity;
 }
 
-const NX::float3&   NX::Particle::GetAngularVelocity() const {
+const NX::float3& NX::Particle::GetAngularVelocity() const {
 	return m_AngularVelocity;
 }
 
-float           NX::Particle::GetLiveTime() const {
+float NX::Particle::GetLiveTime() const {
 	return m_fLiveTime;
 }
 
-float           NX::Particle::GetTimeElapsed() const {
+float NX::Particle::GetTimeElapsed() const {
 	return m_fTimeElapsed;
 }
 
@@ -237,6 +256,16 @@ const NX::float3X2& NX::Particle::GetBoundBox() const {
 	return m_BoundBox;
 }
 
-const NX::float2&   NX::Particle::GetSize() const {
+const NX::float2& NX::Particle::GetSize() const {
 	return m_Size;
+}
+
+bool NX::Particle::IsDied() const {
+	return m_bDied;
+}
+
+bool NX::Particle::InBoundBox() const {
+	return m_BoundBox[0][0] <= m_Position.x && m_BoundBox[0][1] >= m_Position.x 
+		&& m_BoundBox[1][0] <= m_Position.y && m_BoundBox[1][1] >= m_Position.y 
+		&& m_BoundBox[2][0] <= m_Position.z && m_BoundBox[2][1] >= m_Position.z;
 }

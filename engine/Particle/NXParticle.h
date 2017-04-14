@@ -1,10 +1,10 @@
 /*
-*  File:    NXParticle.h
-*
-*  author:  张雄(zhang xiong, 1025679612@qq.com)
-*  date:    2017_04_13
-*  purpose: define a particle
-*/
+ *  File:    NXParticle.h
+ *
+ *  author:  张雄(zhang xiong, 1025679612@qq.com)
+ *  date:    2017_04_13
+ *  purpose: define a particle
+ */
 
 #pragma once
 
@@ -12,6 +12,8 @@
 
 #include "../math/NXVector.h"
 #include "../math/NXMatrix.h"
+#include "../entity/NXIEntity.h"
+
 
 namespace NX {
 	class Particle {
@@ -79,7 +81,7 @@ namespace NX {
 		Particle& SetBoundBox(const float3X2 &_BoundBox);
 
 		Particle& SetSize(const float2 &_Size);
-
+		Particle& SetDied(const bool bDied);
 	public:
 		int              GetTextureIndex() const;
 		const float3&    GetRotation() const;
@@ -92,6 +94,11 @@ namespace NX {
 		float            GetTimeElapsed() const;
 		const float3X2&  GetBoundBox() const;
 		const float2&    GetSize() const;
+		bool             IsDied() const;
+
+
+	private:
+		bool InBoundBox() const;
 
 	private:
 		int              m_iTextureIndex;         //texture index of the particle texture set
@@ -105,5 +112,20 @@ namespace NX {
 		float            m_fTimeElapsed;          //time elapsed
 		float3X2         m_BoundBox;              //the particle muse be bounded in this box3D
 		float2           m_Size;                  //size of the particle
+		bool             m_bDied;                 //particle is died, we needn't render it any more
+	};
+
+	class ParticleSystem : public IEntity{
+	public:
+		ParticleSystem();
+		virtual ~ParticleSystem();
+	
+	public:
+		virtual void Render(struct RenderParameter &renderer) = 0;
+		virtual ENTITY_TYPE GetEntityType() = 0;
+		virtual void OnTick(const float fDeleta) = 0;
+
+	private:
+		std::vector<Particle*>         m_Particles;
 	};
 }
