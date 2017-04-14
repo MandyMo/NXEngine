@@ -17,6 +17,7 @@ namespace NX {
 		ENTITY_TYPE_SKY_BOX,           // 天空盒
 		ENTITY_TYPE_SKY_SPHERE,        // 天空球
 		ENTITY_TYPE_CUBE3D,            // 3D盒子
+		ENTITY_TYPE_PARTICLE,          // 粒子
 	};
 
 	class IEntity {
@@ -30,7 +31,7 @@ namespace NX {
 
 		virtual ENTITY_TYPE GetEntityType() = 0;
 
-		virtual void OnTick(const int dwMillSeconds) = 0;
+		virtual void OnTick(const float fDeleta) = 0;
 
 	public:
 		Transform&    GetTransform();

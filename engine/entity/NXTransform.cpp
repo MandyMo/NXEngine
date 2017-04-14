@@ -58,7 +58,7 @@ const NX::float3&   NX::Transform::GetTranslation() const {
 	return m_Translation;
 }
 
-NX::Transform& NX::Transform::SetRotation(const float3 &_rotation) {
+NX::Transform& NX::Transform::SetRotation(const NX::float3 &_rotation) {
 	m_Rotation = _rotation;
 	ReCaculateLocalTransform();
 	return *this;
@@ -68,7 +68,7 @@ NX::Transform& NX::Transform::SetRotation(const float rx, const float ry, const 
 	return SetRotation(float3(rx, ry, rz));
 }
 
-NX::Transform& NX::Transform::SetScale(const float3 &_scale) {
+NX::Transform& NX::Transform::SetScale(const NX::float3 &_scale) {
 	m_Scale = _scale;
 	ReCaculateLocalTransform();
 	return *this;
@@ -78,7 +78,7 @@ NX::Transform& NX::Transform::SetScale(const float sx, const float sy, const flo
 	return SetScale(float3(sx, sy, sz));
 }
 
-NX::Transform& NX::Transform::SetTranslation(const float3 &_translation) {
+NX::Transform& NX::Transform::SetTranslation(const NX::float3 &_translation) {
 	m_Translation = _translation;
 	ReCaculateLocalTransform();
 	return *this;
@@ -86,4 +86,20 @@ NX::Transform& NX::Transform::SetTranslation(const float3 &_translation) {
 
 NX::Transform& NX::Transform::SetTranslation(const float dx, const float dy, const float dz) {
 	return SetTranslation(float3(dx, dy, dz));
+}
+
+NX::Transform& NX::Transform::AddRotation(const NX::float3 &_addRotation) {
+	return SetRotation(GetRotation() + _addRotation);
+}
+
+NX::Transform& NX::Transform::AddRotation(const float _arx, const float _ary, const float _arz) {
+	return AddRotation(float3(_arx, _ary, _arz));
+}
+
+NX::Transform& NX::Transform::AddTranslation(const NX::float3 &_addTranslation) {
+	return SetTranslation(GetTranslation() + _addTranslation);
+}
+
+NX::Transform& NX::Transform::AddTranslation(const float _atx, const float _aty, const float _atz) {
+	return AddTranslation(float3(_atx, _aty, _atz));
 }

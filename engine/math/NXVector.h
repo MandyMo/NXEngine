@@ -155,7 +155,6 @@ namespace NX {
     
     template<typename T>
     class vector<T, 0>{
-#pragma error "invalid parameter for tempate with 0 to be the size"
     };
     
     template<typename T>

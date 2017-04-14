@@ -81,6 +81,9 @@
     <Filter Include="NXEngine\Window">
       <UniqueIdentifier>{dbe86242-7457-4af1-9401-54afc4a4b9d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NXEngine\Particle">
+      <UniqueIdentifier>{40b937ed-6a2a-4b60-bfaa-b0483ed10005}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -259,6 +262,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\engine\render\NXEffectManager.cpp">
       <Filter>NXEngine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\entity\NXSky.cpp">
+      <Filter>NXEngine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Particle\NXParticle.cpp">
+      <Filter>NXEngine\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -457,6 +466,12 @@
     <ClInclude Include="..\..\..\..\engine\render\NXEffectManager.h">
       <Filter>NXEngine\Render</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\entity\NXSky.h">
+      <Filter>NXEngine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Particle\NXParticle.h">
+      <Filter>NXEngine\Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm">
@@ -512,6 +527,9 @@
       <Filter>NXEngine\ShadersFiles\DirectX</Filter>
     </FxCompile>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Cube3D_Effect.hlsl">
+      <Filter>NXEngine\ShadersFiles\DirectX</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\SkyBox_Effect.hlsl">
       <Filter>NXEngine\ShadersFiles\DirectX</Filter>
     </FxCompile>
   </ItemGroup>

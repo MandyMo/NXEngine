@@ -123,6 +123,6 @@ NX::ENTITY_TYPE NX::Cube::GetEntityType() {
 	return ENTITY_TYPE_CUBE3D;
 }
 
-void NX::Cube::OnTick(const int dwMillSeconds) {
-	GetTransform().SetRotation(GetTransform().GetRotation() + float3(0, dwMillSeconds *0.001, 0));
+void NX::Cube::OnTick(const float fDelta) {
+	GetTransform().SetRotation(GetTransform().GetRotation() + float3(0, fDelta, 0));
 }

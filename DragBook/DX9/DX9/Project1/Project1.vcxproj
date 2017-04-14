@@ -135,6 +135,7 @@
     <ClCompile Include="..\..\..\..\engine\common\TimerManager\NXTimerManager.cpp" />
     <ClCompile Include="..\..\..\..\engine\entity\NXCube.cpp" />
     <ClCompile Include="..\..\..\..\engine\entity\NXIEntity.cpp" />
+    <ClCompile Include="..\..\..\..\engine\entity\NXSky.cpp" />
     <ClCompile Include="..\..\..\..\engine\Entity\NXTerrain.cpp" />
     <ClCompile Include="..\..\..\..\engine\Entity\NXTransform.cpp" />
     <ClCompile Include="..\..\..\..\engine\GamePlay\NXGameWorld.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="..\..\..\..\engine\math\NXRayTrace.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXSphere.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXTriangle.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Particle\NXParticle.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXCamera.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXDX9TextureManager.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXEngine.cpp" />
@@ -203,6 +205,7 @@
     <ClInclude Include="..\..\..\..\engine\common\TimerManager\NXTimerManager.h" />
     <ClInclude Include="..\..\..\..\engine\entity\NXCube.h" />
     <ClInclude Include="..\..\..\..\engine\Entity\NXIEntity.h" />
+    <ClInclude Include="..\..\..\..\engine\entity\NXSky.h" />
     <ClInclude Include="..\..\..\..\engine\Entity\NXTerrain.h" />
     <ClInclude Include="..\..\..\..\engine\Entity\NXTransform.h" />
     <ClInclude Include="..\..\..\..\engine\GamePlay\NXGameWorld.h" />
@@ -227,6 +230,7 @@
     <ClInclude Include="..\..\..\..\engine\math\NXSphere.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXTriangle.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXVector.h" />
+    <ClInclude Include="..\..\..\..\engine\Particle\NXParticle.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXCamera.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXDX9TextureManager.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXEngine.h" />
@@ -267,6 +271,9 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Cube3D_Effect.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\SkyBox_Effect.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Terrain_Effect.hlsl">

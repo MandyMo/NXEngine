@@ -15,9 +15,11 @@ namespace NX {
 	class Transform {
 	public:
 		Transform();
+
 		Transform(const Transform &rhs){
 			*this = rhs;
 		}
+
 		~Transform();
 
 	public:
@@ -33,6 +35,10 @@ namespace NX {
 		Transform& SetTranslation(const float3 &_translation);
 		Transform& SetTranslation(const float dx, const float dy, const float dz);
 		Transform& SetTransform(const Transform& trans);
+		Transform& AddRotation(const float3 &_addRotation);
+		Transform& AddRotation(const float _arx, const float _ary, const float _arz);
+		Transform& AddTranslation(const float3 &_addTranslation);
+		Transform& AddTranslation(const float _atx, const float _aty, const float _atz);
 
 	public:
 		friend bool operator == (const Transform &l, const Transform &r);

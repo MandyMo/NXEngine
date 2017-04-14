@@ -21,7 +21,7 @@ namespace NX {
 	public:
 		virtual void Render(struct RenderParameter &renderer) override;
 		virtual ENTITY_TYPE GetEntityType() override;
-		virtual void OnTick(const int dwMillSeconds) override;
+		virtual void OnTick(const float dwMillSeconds) override;
 	
 	private:
 		struct Vertex;
