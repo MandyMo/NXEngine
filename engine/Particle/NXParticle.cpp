@@ -66,8 +66,9 @@ std::vector<NX::Particle::Vertex>  NX::Particle::GetVertex() {
 
 	NX::float3X3 RotationMatrix = NX::GetMatrixRotateByXYZ(m_Rotation);
 	for (int i = 0; i < 4; ++i) {
-		float3& rv = (*(float3*)(&v[i].x));
-		rv = rv * RotationMatrix;        //rotate
+		float3X1& rm = (*(float3X1*)(&v[i].x));
+		float3 &rv   = (*(float3*)(&v[i].x));
+		rm = RotationMatrix * rm;        //rotate
 		rv += m_Position;                //position
 	}
 
