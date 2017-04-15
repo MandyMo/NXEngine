@@ -269,6 +269,12 @@
     <ClCompile Include="..\..\..\..\engine\Particle\NXParticle.cpp">
       <Filter>NXEngine\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Particle\NXParticleSystem.cpp">
+      <Filter>NXEngine\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Particle\NXSnowParticleSystem.cpp">
+      <Filter>NXEngine\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\engine\common\nxcore.h">
@@ -472,6 +478,12 @@
     <ClInclude Include="..\..\..\..\engine\Particle\NXParticle.h">
       <Filter>NXEngine\Particle</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Particle\NXParticleSystem.h">
+      <Filter>NXEngine\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Particle\NXSnowParticleSystem.h">
+      <Filter>NXEngine\Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm">
@@ -530,6 +542,9 @@
       <Filter>NXEngine\ShadersFiles\DirectX</Filter>
     </FxCompile>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\SkyBox_Effect.hlsl">
+      <Filter>NXEngine\ShadersFiles\DirectX</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Particle_Effect.hlsl">
       <Filter>NXEngine\ShadersFiles\DirectX</Filter>
     </FxCompile>
   </ItemGroup>

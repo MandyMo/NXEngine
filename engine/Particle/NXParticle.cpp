@@ -12,9 +12,9 @@
 #include "../math/NXAlgorithm.h"
 
 NX::Particle::Particle(const int iTextureIndex, const NX::float3 &_Rotation, const NX::float3 &_Position, const NX::float3 &_Acceleration, const NX::float3 &_AngularAcceleration,
-	const NX::float3 &_Velocity, const NX::float3 &_AngularVelocity, const float _LiveTime, const NX::float3X2 &_BoundBox, const NX::float2 &_Size):
+	const NX::float3 &_Velocity, const NX::float3 &_AngularVelocity, const float _LiveTime, const NX::float2 &_Size):
 	m_iTextureIndex(iTextureIndex), m_Rotation(_Rotation), m_Position(_Position), m_Acceleration(_Acceleration), m_Angularcceleration(_AngularAcceleration),
-	m_Velocity(_Velocity), m_AngularVelocity(_Velocity), m_fLiveTime(_LiveTime), m_BoundBox(_BoundBox), m_Size(_Size)
+	m_Velocity(_Velocity), m_AngularVelocity(_Velocity), m_fLiveTime(_LiveTime), m_Size(_Size)
 {
 	m_fTimeElapsed = 0.f;
 	m_bDied        = false;
@@ -35,13 +35,13 @@ void NX::Particle::OnTick(const float fDelta) {
 	m_fTimeElapsed        += fDelta;
 	m_Rotation            =  m_Rotation % kf2Pi;
 
-	if (m_fTimeElapsed >= m_fLiveTime || !InBoundBox()) {
+	if (m_fTimeElapsed >= m_fLiveTime) {
 		m_bDied           = true;
 	}
 }
 
 void NX::Particle::Reset(const int iTextureIndex, const float3 &_Rotation, const float3 &_Position, const float3 &_Acceleration, const float3 &_AngularAcceleration,
-	const float3 &_Velocity, const float3 &_AngularVelocity, const float _LiveTime, const float3X2 &_BoundBox, const float2 &_Size) {
+	const float3 &_Velocity, const float3 &_AngularVelocity, const float _LiveTime, const float2 &_Size) {
 	m_iTextureIndex              =            iTextureIndex;
 	m_Rotation                   =            _Rotation;
 	m_Position                   =            _Position;
@@ -50,7 +50,6 @@ void NX::Particle::Reset(const int iTextureIndex, const float3 &_Rotation, const
 	m_Velocity                   =            _Velocity;
 	m_AngularVelocity            =            _AngularVelocity;
 	m_fLiveTime                  =            _LiveTime;
-	m_BoundBox                   =            _BoundBox;
 	m_Size                       =            _Size;
 	m_fTimeElapsed               =            0.f;
 	m_bDied                      =            false;
@@ -202,11 +201,6 @@ NX::Particle& NX::Particle::AddLiveTime(const float _addLiveTime) {
 	return *this;
 }
 
-NX::Particle& NX::Particle::SetBoundBox(const float3X2 &_BoundBox) {
-	m_BoundBox = _BoundBox;
-	return *this;
-}
-
 NX::Particle& NX::Particle::SetSize(const float2 &_Size) {
 	m_Size = _Size;
 	return *this;
@@ -253,20 +247,10 @@ float NX::Particle::GetTimeElapsed() const {
 	return m_fTimeElapsed;
 }
 
-const NX::float3X2& NX::Particle::GetBoundBox() const {
-	return m_BoundBox;
-}
-
 const NX::float2& NX::Particle::GetSize() const {
 	return m_Size;
 }
 
 bool NX::Particle::IsDied() const {
 	return m_bDied;
-}
-
-bool NX::Particle::InBoundBox() const {
-	return m_BoundBox[0][0] <= m_Position.x && m_BoundBox[0][1] >= m_Position.x 
-		&& m_BoundBox[1][0] <= m_Position.y && m_BoundBox[1][1] >= m_Position.y 
-		&& m_BoundBox[2][0] <= m_Position.z && m_BoundBox[2][1] >= m_Position.z;
 }

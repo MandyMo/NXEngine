@@ -32,13 +32,13 @@ namespace NX {
 
 	public:
 		Particle(const int iTextureIndex, const float3 &_Rotation, const float3 &_Position, const float3 &_Acceleration, const float3 &_AngularAcceleration, 
-			const float3 &_Velocity, const float3 &_AngularVelocity, const float _LiveTime, const float3X2 &_BoundBox, const float2 &_Size);
+			const float3 &_Velocity, const float3 &_AngularVelocity, const float _LiveTime,  const float2 &_Size);
 		virtual ~Particle();
 
 	public:
 		virtual void OnTick(const float fDelta);
 		virtual void Reset(const int iTextureIndex, const float3 &_Rotation, const float3 &_Position, const float3 &_Acceleration, const float3 &_AngularAcceleration,
-			const float3 &_Velocity, const float3 &_AngularVelocity, const float _LiveTime, const float3X2 &_BoundBox, const float2 &_Size);
+			const float3 &_Velocity, const float3 &_AngularVelocity, const float _LiveTime, const float2 &_Size);
 		virtual std::vector<Vertex> GetVertex();
 		virtual std::vector<int>    GetVertexIndex();
 
@@ -78,10 +78,9 @@ namespace NX {
 		Particle& SetLiveTime(const float _LiveTime);
 		Particle& AddLiveTime(const float _addLiveTime);
 
-		Particle& SetBoundBox(const float3X2 &_BoundBox);
-
 		Particle& SetSize(const float2 &_Size);
 		Particle& SetDied(const bool bDied);
+
 	public:
 		int              GetTextureIndex() const;
 		const float3&    GetRotation() const;
@@ -92,13 +91,8 @@ namespace NX {
 		const float3&    GetAngularVelocity() const;
 		float            GetLiveTime() const;
 		float            GetTimeElapsed() const;
-		const float3X2&  GetBoundBox() const;
 		const float2&    GetSize() const;
 		bool             IsDied() const;
-
-
-	private:
-		bool InBoundBox() const;
 
 	private:
 		int              m_iTextureIndex;         //texture index of the particle texture set
@@ -110,22 +104,7 @@ namespace NX {
 		float3           m_AngularVelocity;       //angular velocity
 		float            m_fLiveTime;             //time of the particle's life
 		float            m_fTimeElapsed;          //time elapsed
-		float3X2         m_BoundBox;              //the particle muse be bounded in this box3D
 		float2           m_Size;                  //size of the particle
 		bool             m_bDied;                 //particle is died, we needn't render it any more
-	};
-
-	class ParticleSystem : public IEntity{
-	public:
-		ParticleSystem();
-		virtual ~ParticleSystem();
-	
-	public:
-		virtual void Render(struct RenderParameter &renderer) = 0;
-		virtual ENTITY_TYPE GetEntityType() = 0;
-		virtual void OnTick(const float fDeleta) = 0;
-
-	private:
-		std::vector<Particle*>         m_Particles;
 	};
 }
