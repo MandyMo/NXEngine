@@ -50,12 +50,10 @@ void NX::ParticleSystem::Render(struct RenderParameter &renderer) {
 	char *pIB = nullptr;
 	UINT32 CC = 0;
 	std::vector<int> ri;
-	m_pEffect->SetTechnique(m_pEffect->GetTechniqueByName("ParticleShader"));
 	NX::NXSafeRelease(m_pIndexBuffer);
 	NX::NXSafeRelease(m_pVertexBuffer);
-	renderer.pDXDevice->CreateIndexBuffer(m_LiveParticleCount * sizeof(int) * 6, D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_DEFAULT, &m_pIndexBuffer, NULL );
-	renderer.pDXDevice->CreateVertexBuffer(m_LiveParticleCount * sizeof(NX::Particle::Vertex) * 4, D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL);
-	renderer.pDXDevice->SetVertexDeclaration(m_pVertexDesc);
+	renderer.pDXDevice->CreateIndexBuffer(m_LiveParticleCount * sizeof(int) * 6, D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &m_pIndexBuffer, NULL );
+	renderer.pDXDevice->CreateVertexBuffer(m_LiveParticleCount * sizeof(NX::Particle::Vertex) * 4, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVertexBuffer, NULL);
 
 	m_pVertexBuffer->Lock(0, 0, (void**)&pVB, D3DLOCK_DISCARD);
 	m_pIndexBuffer->Lock(0, 0, (void**)&pIB, D3DLOCK_DISCARD);
@@ -80,17 +78,17 @@ void NX::ParticleSystem::Render(struct RenderParameter &renderer) {
 	m_pVertexBuffer->Unlock();
 	m_pIndexBuffer->Unlock();
 
-	{
-		glb_GetD3DDevice()->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(NX::Particle::Vertex));
-		glb_GetD3DDevice()->SetIndices(m_pIndexBuffer);
-	}
-
 	m_pEffect->SetMatrixTranspose(m_pEffect->GetParameterByName(NULL, "VPMatrix"), (D3DXMATRIX*)(&renderer.pProjectController->GetWatchMatrix()));
 	m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "ParticleTexture"), NX::DX9TextureManager::Instance().GetTexture(m_TextureSet[m_Particles[0]->GetTextureIndex()]));
+
+	m_pEffect->SetTechnique(m_pEffect->GetTechniqueByName("ParticleShader"));
 	m_pEffect->Begin(&uPasses, 0);
 
 	for (int i = 0; i < uPasses; ++i) {
 		m_pEffect->BeginPass(i);
+		glb_GetD3DDevice()->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(NX::Particle::Vertex));
+		glb_GetD3DDevice()->SetIndices(m_pIndexBuffer);
+		renderer.pDXDevice->SetVertexDeclaration(m_pVertexDesc);
 		renderer.pDXDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_LiveParticleCount * 6, 0, m_LiveParticleCount * 2);
 		m_pEffect->EndPass();
 	}

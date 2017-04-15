@@ -16,6 +16,7 @@
 #include "../../engine/entity/NXCube.h"
 #include "../../engine/render/NXCamera.h"
 #include "../../engine/render/NXEngine.h"
+#include "../../engine/Particle/NXSnowParticleSystem.h"
 
 #define KeyDown(key) (GetAsyncKeyState(key) & 0x08000)
 
@@ -35,7 +36,7 @@ void NX::NXEngineDemo::PostRender() {
 
 void NX::NXEngineDemo::PreRender() {
 	GetD3D9Device()->BeginScene();
-	GetD3D9Device()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xffffffff, 1.f, 0);
+	GetD3D9Device()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.f, 0);
 }
 
 void NX::NXEngineDemo::Render() {
@@ -53,6 +54,10 @@ void NX::NXEngineDemo::Render() {
 
 	if (m_pCube) {
 		m_pCube->Render(renderer);
+	}
+
+	if (m_pSnowParticleSystem) {
+		m_pSnowParticleSystem->Render(renderer);
 	}
 }
 
@@ -74,11 +79,24 @@ void NX::NXEngineDemo::OnInitDX3Succeed() {
 		m_pCube->GetTransform().SetTranslation(0, 3, 0);
 	}
 	GetCursorPos(&m_CurPos);
+
+	{//create snow system
+		std::vector<std::string> TextureSet;
+		TextureSet.push_back("../../../../engine/EngineResouces/Particle/Snow/particle-snow.png");
+		float3X2 BoundBox;
+		BoundBox[0][0] = 0.f;
+		BoundBox[0][1] = m_pTerrain->GetMaxRangeByXAxis();
+		BoundBox[1][0] = 0.f;
+		BoundBox[1][1] = 10.f;
+		BoundBox[2][0] = 0;
+		BoundBox[2][1] = m_pTerrain->GetMaxRangeByZAxis();
+		m_pSnowParticleSystem  = new SnowParticleSystem(1, TextureSet, BoundBox);
+	}
 }
 
-void NX::NXEngineDemo::OnTick(NXUInt32 uDelta) {
+void NX::NXEngineDemo::OnTick(const float fDelta) {
 	{//update camera position
-		const float Dist = uDelta * 0.002;
+		const float Dist = fDelta * 2;
 		if (KeyDown('W') || KeyDown(VK_UP) || KeyDown('w')) {
 			m_pCamera->MoveFront(Dist);
 		}
@@ -119,6 +137,10 @@ void NX::NXEngineDemo::OnTick(NXUInt32 uDelta) {
 	}
 
 	{
-		m_pCube->OnTick(uDelta);
+		m_pCube->OnTick(fDelta);
+	}
+
+	{
+		m_pSnowParticleSystem->OnTick(fDelta);
 	}
 }

@@ -26,7 +26,7 @@ namespace NX {
 
 	private:
 		virtual void OnInitDX3Succeed() override;
-		virtual void OnTick(NXUInt32 uDelta) override;
+		virtual void OnTick(float fDelta) override;
 
 		inline class PerspectCamera*          GetCamera() { return m_pCamera; }
 		inline class Terrain*                 GetTerrain() { return m_pTerrain; }
@@ -35,6 +35,7 @@ namespace NX {
 		class Terrain               *m_pTerrain;
 		class Cube                  *m_pCube;
 		class PerspectCamera        *m_pCamera;
+		class ParticleSystem        *m_pSnowParticleSystem;
 		POINT                        m_CurPos;
 	};
 }
