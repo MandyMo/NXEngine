@@ -140,7 +140,7 @@ template<typename T, typename U, int Scale>
 inline vector<T, Scale> operator % (const vector<T, Scale> &lhs, const U &ModeValue) {
 	vector<T, Scale> result(lhs);
 	for (int i = 0; i < Scale; ++i) {
-		result[i] -= ModeValue - floor(result[i] / ModeValue);
+		result[i] -= ModeValue * floor(result[i] / ModeValue);
 	}
 	return result;
 }

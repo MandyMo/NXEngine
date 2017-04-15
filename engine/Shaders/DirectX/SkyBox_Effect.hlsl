@@ -71,9 +71,10 @@ PS_OUTPUT PSMain(PS_INTPUT input) {
 
 Technique TerrainShader{
 	Pass BasePass {
-		LIGHTING      = false;
-		CULLMODE      = none;
-		VertexShader  = compile vs_3_0 VSMain();
-		PixelShader   = compile ps_3_0 PSMain();
+		LIGHTING           = false;
+		CULLMODE           = none;
+		ALPHABLENDENABLE   = false;
+		VertexShader       = compile vs_3_0 VSMain();
+		PixelShader        = compile ps_3_0 PSMain();
 	}
 }

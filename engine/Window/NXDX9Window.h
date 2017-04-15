@@ -34,7 +34,7 @@ namespace NX {
 
 	private:
 		virtual void OnInitDX3Succeed();
-		virtual void OnTick(NXUInt32	uDelta);
+		virtual void OnTick(const float	fDelta);
 
 	public:
 		inline IDirect3D9*				GetD3D9(){return m_pD3D9;}

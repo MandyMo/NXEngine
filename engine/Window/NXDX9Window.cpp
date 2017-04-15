@@ -113,7 +113,7 @@ WPARAM NX::DX9Window::MessageLoop() {
 		} else {
 			static NXUInt64	uPreTickedTime = NX::System::Instance().GetMillSecondsFromSystemStart();
 			NXUInt64 uNowTickedTime = NX::System::Instance().GetMillSecondsFromSystemStart();
-			OnTick(uNowTickedTime - uPreTickedTime);
+			OnTick((uNowTickedTime - uPreTickedTime) * .001f);
 			uPreTickedTime = uNowTickedTime;
 			PreRender();
 			Render();
@@ -127,7 +127,7 @@ void NX::DX9Window::OnInitDX3Succeed() {
 	
 }
 
-void NX::DX9Window::OnTick(NXUInt32	uDelta) {
+void NX::DX9Window::OnTick(const float	uDelta) {
 	
 }
 

@@ -13,7 +13,7 @@
 namespace NX {
 	class SnowParticleSystem : public ParticleSystem {
 	public:
-		SnowParticleSystem(const std::vector<std::string> &_TextureFileSet, const float3x2 &_ParticleBound);
+		SnowParticleSystem(const int _ParticleCount, const std::vector<std::string> &_TextureFileSet, const float3x2 &_ParticleBound);
 		virtual ~SnowParticleSystem();
 
 	public:

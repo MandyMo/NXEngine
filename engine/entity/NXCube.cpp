@@ -116,6 +116,7 @@ void NX::Cube::Render(struct RenderParameter &renderer) {
 			pWindow->GetD3D9Device()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 36, 0, 12);
 			m_pEffect->EndPass();
 		}
+		m_pEffect->End();
 	}
 }
 

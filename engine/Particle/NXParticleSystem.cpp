@@ -15,12 +15,10 @@
 
 NX::ParticleSystem::ParticleSystem(const std::vector<std::string> &_TextureFileSet, const float3x2 &_ParticleBound) :
 	m_TextureSet(_TextureFileSet), m_ParticleBoundBox(_ParticleBound) {
-	const char *pszEffectFilePath = "../../../../engine/Shaders/DirectX/Terrain_Effect.hlsl";
+	const char *pszEffectFilePath = "../../../../engine/Shaders/DirectX/Particle_Effect.hlsl";
 	 m_pEffect = NX::EffectManager::Instance().GetEffect(pszEffectFilePath);
 
 	 IDirect3DDevice9 *pDevice = glb_GetD3DDevice();
-	 pDevice->CreateVertexBuffer(sizeof(NX::Particle::Vertex) * 4, D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL);
-	 pDevice->CreateIndexBuffer(sizeof(NXUInt16) * 6, D3DUSAGE_WRITEONLY, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pIndexBuffer, NULL);
 
 	 D3DVERTEXELEMENT9 VertexDesc[] = {
 		 {0, CLS_MEM_OFFSET(NX::Particle::Vertex, x), D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
@@ -29,6 +27,8 @@ NX::ParticleSystem::ParticleSystem(const std::vector<std::string> &_TextureFileS
 	 };
 
 	 pDevice->CreateVertexDeclaration(VertexDesc, &m_pVertexDesc);
+	 m_pIndexBuffer = nullptr;
+	 m_pVertexDesc  = nullptr;
 }
 
 NX::ParticleSystem::~ParticleSystem() {
@@ -40,45 +40,61 @@ NX::ParticleSystem::~ParticleSystem() {
 }
 
 void NX::ParticleSystem::Render(struct RenderParameter &renderer) {
-	m_pEffect->SetTechnique(m_pEffect->GetTechniqueByName("ParticleShader"));
-	UINT uPasses = 0;
-	for (int idx = 0; idx < m_Particles.size(); ++idx) {
-		if (m_Particles[idx] && !m_Particles[idx]->IsDied()) {
-			m_pEffect->Begin(&uPasses, 0);
-			const std::vector<NX::Particle::Vertex> &rv = m_Particles[idx]->GetVertex();
-			const std::vector<int> &ri = m_Particles[idx]->GetVertexIndex();
-			void *pBase;
-
-			{//vertex data
-				pBase = NULL;
-				m_pVertexBuffer->Lock(0, 0, &pBase, D3DLOCK_DISCARD);
-				memcpy(pBase, &rv[0], rv.size() * sizeof(NX::Particle::Vertex));
-				m_pVertexBuffer->Unlock();
-			}
-
-			{//index data
-				pBase = NULL;
-				NXUInt16 ib[] = {ri[0], ri[1], ri[2], ri[3], ri[4], ri[5]};
-				m_pIndexBuffer->Lock(0, 0, &pBase, D3DLOCK_DISCARD);
-				memcpy(pBase, ib, sizeof(ib));
-				m_pIndexBuffer->Unlock();
-			}
-
-			{
-				glb_GetD3DDevice()->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(NX::Particle::Vertex));
-				glb_GetD3DDevice()->SetIndices(m_pIndexBuffer);
-			}
-
-			m_pEffect->SetMatrixTranspose(m_pEffect->GetParameterByName(NULL, "VPMatrix"), (D3DXMATRIX*)(&renderer.pProjectController->GetWatchMatrix()));
-			m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "ParticleTexture"), NX::DX9TextureManager::Instance().GetTexture(m_TextureSet[m_Particles[idx]->GetTextureIndex()]));
-
-			for (int i = 0; i < uPasses; ++i) {
-				m_pEffect->BeginPass(i);
-				glb_GetD3DDevice()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 6, 0, 2);
-			}
-			m_pEffect->End();
-		}
+	if (!m_LiveParticleCount) {
+		return;
 	}
+
+	UINT uPasses = 0;
+	Particle *pParticle = nullptr;
+	char *pVB = nullptr;
+	char *pIB = nullptr;
+	UINT32 CC = 0;
+	std::vector<int> ri;
+	m_pEffect->SetTechnique(m_pEffect->GetTechniqueByName("ParticleShader"));
+	NX::NXSafeRelease(m_pIndexBuffer);
+	NX::NXSafeRelease(m_pVertexBuffer);
+	renderer.pDXDevice->CreateIndexBuffer(m_LiveParticleCount * sizeof(int) * 6, D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_DEFAULT, &m_pIndexBuffer, NULL );
+	renderer.pDXDevice->CreateVertexBuffer(m_LiveParticleCount * sizeof(NX::Particle::Vertex) * 4, D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL);
+	renderer.pDXDevice->SetVertexDeclaration(m_pVertexDesc);
+
+	m_pVertexBuffer->Lock(0, 0, (void**)&pVB, D3DLOCK_DISCARD);
+	m_pIndexBuffer->Lock(0, 0, (void**)&pIB, D3DLOCK_DISCARD);
+
+	for (int idx = 0; idx < m_Particles.size(); ++idx) {
+		pParticle = m_Particles[idx];
+		if (!pParticle || pParticle->IsDied()) {
+			continue;
+		}
+		const std::vector<NX::Particle::Vertex> &rv = m_Particles[idx]->GetVertex();
+		ri = m_Particles[idx]->GetVertexIndex();
+		memcpy(pVB, &rv[0], sizeof(Particle::Vertex) * 4);
+		for (int i = 0; i < 6; ++i) {
+			ri[i] += CC;
+		}
+		memcpy(pIB, &ri[0], sizeof(int) * 6);
+		CC += 4;
+		pVB += sizeof(Particle::Vertex) * 4;
+		pIB += sizeof(int) * 6;
+	}
+
+	m_pVertexBuffer->Unlock();
+	m_pIndexBuffer->Unlock();
+
+	{
+		glb_GetD3DDevice()->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(NX::Particle::Vertex));
+		glb_GetD3DDevice()->SetIndices(m_pIndexBuffer);
+	}
+
+	m_pEffect->SetMatrixTranspose(m_pEffect->GetParameterByName(NULL, "VPMatrix"), (D3DXMATRIX*)(&renderer.pProjectController->GetWatchMatrix()));
+	m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "ParticleTexture"), NX::DX9TextureManager::Instance().GetTexture(m_TextureSet[m_Particles[0]->GetTextureIndex()]));
+	m_pEffect->Begin(&uPasses, 0);
+
+	for (int i = 0; i < uPasses; ++i) {
+		m_pEffect->BeginPass(i);
+		renderer.pDXDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_LiveParticleCount * 6, 0, m_LiveParticleCount * 2);
+		m_pEffect->EndPass();
+	}
+	m_pEffect->End();
 }
 
 NX::ENTITY_TYPE NX::ParticleSystem::GetEntityType() {
@@ -86,15 +102,17 @@ NX::ENTITY_TYPE NX::ParticleSystem::GetEntityType() {
 }
 
 void NX::ParticleSystem::OnTick(const float fDeleta) {
+	m_LiveParticleCount = 0;
+	NX::Particle *pParticle = nullptr;
 	for (int i = 0; i < m_Particles.size(); ++i) {
-		if (m_Particles[i] && !m_Particles[i]->IsDied()) {
-			m_Particles[i]->OnTick(fDeleta);
-		}
-	}
-
-	for (int i = 0; i < m_Particles.size(); ++i) {
-		if (m_Particles[i] && !m_Particles[i]->IsDied () && !InBoundBox(m_Particles[i]->GetPosition())) {
-			m_Particles[i]->SetDied(true);
+		pParticle = m_Particles[i];
+		if (pParticle && !pParticle->IsDied()) {
+			pParticle->OnTick(fDeleta);
+			if (!InBoundBox(pParticle->GetPosition())) {
+				pParticle->SetDied(true);
+			} else {
+				++m_LiveParticleCount;
+			}
 		}
 	}
 }

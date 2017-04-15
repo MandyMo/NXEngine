@@ -54,8 +54,8 @@ Technique ParticleShader{
 		LIGHTING         = false;
 		CULLMODE         = none;
 		ALPHABLENDENABLE = true;
-		SRCALPHA         = D3DBLEND_SRCALPHA;
-		DESTBLENDALPHA   = D3DBLEND_INVSRCALPHA;
+		SRCBLENDALPHA    = SRCALPHA;
+		DESTBLENDALPHA   = INVSRCALPHA;
 		VertexShader  = compile vs_3_0 VSMain();
 		PixelShader   = compile ps_3_0 PSMain();
 	}

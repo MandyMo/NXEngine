@@ -51,5 +51,6 @@ namespace NX {
 		IDirect3DIndexBuffer9                *m_pIndexBuffer;
 		ID3DXEffect                          *m_pEffect;
 		IDirect3DVertexDeclaration9          *m_pVertexDesc;
+		int                                  m_LiveParticleCount;
 	};
 }

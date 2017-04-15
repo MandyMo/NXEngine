@@ -106,6 +106,7 @@ void NX::Terrain::Render(struct RenderParameter &renderer) {
 			renderer.pDXDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, (m_RowCount - 1) * (m_ColCount - 1) * 6, 0, (m_RowCount - 1) * (m_ColCount - 1) * 2);
 			m_pEffect->EndPass();
 		}
+		m_pEffect->End();
 	}
 }
 
