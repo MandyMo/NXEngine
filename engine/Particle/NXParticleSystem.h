@@ -31,14 +31,17 @@ namespace NX {
 		virtual void OnTick(const float fDeleta) override;
 
 	public:
-		virtual void AddNewParticle() = 0;
-		virtual void AddNewParticle(Particle *pParticle);
+		virtual ParticleSystem& AddNewParticle() = 0;
+		virtual ParticleSystem& AddNewParticle(Particle *pParticle);
+		virtual ParticleSystem& ResetParticle(Particle *pParticle) = 0;
 
 	public:
-		void            RemoveParticle(const int iParticleIndex);
+		ParticleSystem&  RemoveParticle(const int iParticleIndex);
 		const Particle* GetParticle(const int iParticleIndex) const;
 		const float3X2& GetBoundBox() const;
 		const std::vector<std::string>& GetTextureSet() const;
+		const std::vector<Particle*>&   GetParticles() const;
+		int             GetParticleCount() const;
 
 	private:
 		bool             InBoundBox(const float3 &_Position);
@@ -52,5 +55,6 @@ namespace NX {
 		ID3DXEffect                          *m_pEffect;
 		IDirect3DVertexDeclaration9          *m_pVertexDesc;
 		int                                  m_LiveParticleCount;
+		int                                  m_BufferAllocedCount;
 	};
 }

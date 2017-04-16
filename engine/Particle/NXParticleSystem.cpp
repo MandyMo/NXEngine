@@ -15,20 +15,22 @@
 
 NX::ParticleSystem::ParticleSystem(const std::vector<std::string> &_TextureFileSet, const float3x2 &_ParticleBound) :
 	m_TextureSet(_TextureFileSet), m_ParticleBoundBox(_ParticleBound) {
-	const char *pszEffectFilePath = "../../../../engine/Shaders/DirectX/Particle_Effect.hlsl";
+	 m_pIndexBuffer = nullptr;
+	 m_pVertexDesc  = nullptr;
+	 const char *pszEffectFilePath = "../../../../engine/Shaders/DirectX/Particle_Effect.hlsl";
 	 m_pEffect = NX::EffectManager::Instance().GetEffect(pszEffectFilePath);
 
 	 IDirect3DDevice9 *pDevice = glb_GetD3DDevice();
 
 	 D3DVERTEXELEMENT9 VertexDesc[] = {
-		 {0, CLS_MEM_OFFSET(NX::Particle::Vertex, x), D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
-		 {0, CLS_MEM_OFFSET(NX::Particle::Vertex, u), D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,   0},
+		 { 0, CLS_MEM_OFFSET(NX::Particle::Vertex, x), D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
+		 { 0, CLS_MEM_OFFSET(NX::Particle::Vertex, u), D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
 		 D3DDECL_END(),
 	 };
 
 	 pDevice->CreateVertexDeclaration(VertexDesc, &m_pVertexDesc);
-	 m_pIndexBuffer = nullptr;
-	 m_pVertexDesc  = nullptr;
+
+	 m_BufferAllocedCount = 0;
 }
 
 NX::ParticleSystem::~ParticleSystem() {
@@ -37,6 +39,10 @@ NX::ParticleSystem::~ParticleSystem() {
 		delete m_Particles[i];
 	}
 	m_Particles.clear();
+
+	m_BufferAllocedCount = 0;
+	NX::NXSafeRelease(m_pVertexBuffer);
+	NX::NXSafeRelease(m_pIndexBuffer);
 }
 
 void NX::ParticleSystem::Render(struct RenderParameter &renderer) {
@@ -50,10 +56,6 @@ void NX::ParticleSystem::Render(struct RenderParameter &renderer) {
 	char *pIB = nullptr;
 	UINT32 CC = 0;
 	std::vector<int> ri;
-	NX::NXSafeRelease(m_pIndexBuffer);
-	NX::NXSafeRelease(m_pVertexBuffer);
-	renderer.pDXDevice->CreateIndexBuffer(m_LiveParticleCount * sizeof(int) * 6, D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &m_pIndexBuffer, NULL );
-	renderer.pDXDevice->CreateVertexBuffer(m_LiveParticleCount * sizeof(NX::Particle::Vertex) * 4, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVertexBuffer, NULL);
 
 	m_pVertexBuffer->Lock(0, 0, (void**)&pVB, D3DLOCK_DISCARD);
 	m_pIndexBuffer->Lock(0, 0, (void**)&pIB, D3DLOCK_DISCARD);
@@ -115,11 +117,22 @@ void NX::ParticleSystem::OnTick(const float fDeleta) {
 	}
 }
 
-void NX::ParticleSystem::AddNewParticle(Particle *pParticle) {
+NX::ParticleSystem& NX::ParticleSystem::AddNewParticle(Particle *pParticle) {
 	NXAssert(pParticle != NULL && "Particle shouldn't be null");
 	if(pParticle){
 		m_Particles.push_back(pParticle);
 	}
+
+	if (m_BufferAllocedCount < m_Particles.size()) {//expand vertex & index buffer
+		NX::NXSafeRelease(m_pIndexBuffer);
+		NX::NXSafeRelease(m_pVertexBuffer);
+		m_BufferAllocedCount = m_BufferAllocedCount * 2 + 1;
+		IDirect3DDevice9 *pDevice = glb_GetD3DDevice();
+		pDevice->CreateIndexBuffer(m_BufferAllocedCount * sizeof(int) * 6, D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &m_pIndexBuffer, NULL);
+		pDevice->CreateVertexBuffer(m_BufferAllocedCount * sizeof(NX::Particle::Vertex) * 4, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVertexBuffer, NULL);
+	}
+
+	return *this;
 }
 
 bool NX::ParticleSystem::InBoundBox(const NX::float3 &_Position) {
@@ -128,9 +141,10 @@ bool NX::ParticleSystem::InBoundBox(const NX::float3 &_Position) {
 		&& _Position.z >= m_ParticleBoundBox[2][0] && _Position.z <= m_ParticleBoundBox[2][1];
 }
 
-void NX::ParticleSystem::RemoveParticle(const int iParticleIndex) {
+NX::ParticleSystem& NX::ParticleSystem::RemoveParticle(const int iParticleIndex) {
 	NXAssert(iParticleIndex >= 0 && iParticleIndex < m_Particles.size());
 	m_Particles.erase(m_Particles.begin() + iParticleIndex);
+	return *this;
 }
 
 const NX::float3X2& NX::ParticleSystem::GetBoundBox() const {
@@ -139,4 +153,12 @@ const NX::float3X2& NX::ParticleSystem::GetBoundBox() const {
 
 const std::vector<std::string>& NX::ParticleSystem::GetTextureSet() const {
 	return m_TextureSet;
+}
+
+const std::vector<NX::Particle*>&  NX::ParticleSystem::GetParticles() const {
+	return m_Particles;
+}
+
+int NX::ParticleSystem::GetParticleCount() const {
+	return m_Particles.size();
 }

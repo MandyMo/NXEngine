@@ -48,7 +48,7 @@ NX::Cube::Cube(const Size3D &_size) :m_Size(_size) {
 		pWindow->GetD3D9Device()->CreateVertexBuffer(sizeof(Vertex) * 8, D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL);
 		D3DVERTEXELEMENT9 VertexDesc[] = {
 			{0, CLS_MEM_OFFSET(Vertex, x), D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
-			{0, CLS_MEM_OFFSET(Vertex, u), D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
+			{0, CLS_MEM_OFFSET(Vertex, u), D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
 			D3DDECL_END(),
 		};
 		pWindow->GetD3D9Device()->CreateVertexDeclaration(VertexDesc, &m_pVertexDesc);
@@ -125,5 +125,5 @@ NX::ENTITY_TYPE NX::Cube::GetEntityType() {
 }
 
 void NX::Cube::OnTick(const float fDelta) {
-	GetTransform().SetRotation(GetTransform().GetRotation() + float3(0, fDelta, 0));
+	/**do nothing*/
 }

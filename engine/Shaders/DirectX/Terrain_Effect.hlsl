@@ -65,7 +65,7 @@ PS_OUTPUT PSMain(PS_INTPUT input) {
 
 	float3 GrassColor= tex2D(GrassColorSampler, input.texCoord);
 
-	o.color.xyz      = RoadColor *0.9 + GrassColor * 0.1;
+	o.color.rgb      = (RoadColor *0.9 + GrassColor * 0.1).rgb;
 	return o;
 }
 

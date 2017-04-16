@@ -48,7 +48,7 @@ VS_OUTPUT VSMain(VS_INPUT input) {
 
 PS_OUTPUT PSMain(PS_INTPUT input) {
 	PS_OUTPUT o      = (PS_OUTPUT)0;
-	o.color          = tex2D(BaseColorSampler, input.texCoord);
+	o.color.rgb          = tex2D(BaseColorSampler, input.texCoord).rgb;
 	return o;
 }
 

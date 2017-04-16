@@ -17,7 +17,9 @@ namespace NX {
 		virtual ~SnowParticleSystem();
 
 	public:
-		virtual void AddNewParticle() override;
-		virtual void AddNewParticle(Particle *pParticle) override;
+		virtual SnowParticleSystem& AddNewParticle() override;
+		virtual SnowParticleSystem& AddNewParticle(Particle *pParticle) override;
+		virtual void OnTick(const float fDeleta) override;
+		virtual SnowParticleSystem& ResetParticle(Particle *pParticle) override;
 	};
 };

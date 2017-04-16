@@ -63,7 +63,7 @@ void NX::NXEngineDemo::Render() {
 
 void NX::NXEngineDemo::OnInitDX3Succeed() {
 	//create terrain
-	m_pTerrain = new NX::Terrain(1000, 1000, 1.0, 1.0, "");
+	m_pTerrain = new NX::Terrain(1000, 1000, 0.01f, 0.01f, "");
 
 	{//create camera
 		float3  Eye(0, 0, 0);
@@ -90,7 +90,7 @@ void NX::NXEngineDemo::OnInitDX3Succeed() {
 		BoundBox[1][1] = 10.f;
 		BoundBox[2][0] = 0;
 		BoundBox[2][1] = m_pTerrain->GetMaxRangeByZAxis();
-		m_pSnowParticleSystem  = new SnowParticleSystem(1, TextureSet, BoundBox);
+		m_pSnowParticleSystem  = new SnowParticleSystem(1000, TextureSet, BoundBox);
 	}
 }
 
@@ -130,8 +130,8 @@ void NX::NXEngineDemo::OnTick(const float fDelta) {
 
 	{//update camera position
 		NX::float3 Pos = m_pCamera->GetEyePosition();
-		NX::Clamp(Pos.x, 0, m_pTerrain->GetMaxRangeByXAxis());
-		NX::Clamp(Pos.z, 0, m_pTerrain->GetMaxRangeByZAxis());
+		NX::Clamp(Pos.x, 0, m_pTerrain->GetMaxRangeByXAxis() - Epsilon<float>::m_Epsilon);
+		NX::Clamp(Pos.z, 0, m_pTerrain->GetMaxRangeByZAxis() - Epsilon<float>::m_Epsilon);
 		Pos.y = m_pTerrain->GetHeight(Pos.x, Pos.z) + 1.6f;
 		m_pCamera->SetCameraPosition(Pos);
 	}

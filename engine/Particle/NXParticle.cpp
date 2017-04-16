@@ -14,7 +14,7 @@
 NX::Particle::Particle(const int iTextureIndex, const NX::float3 &_Rotation, const NX::float3 &_Position, const NX::float3 &_Acceleration, const NX::float3 &_AngularAcceleration,
 	const NX::float3 &_Velocity, const NX::float3 &_AngularVelocity, const float _LiveTime, const NX::float2 &_Size):
 	m_iTextureIndex(iTextureIndex), m_Rotation(_Rotation), m_Position(_Position), m_Acceleration(_Acceleration), m_Angularcceleration(_AngularAcceleration),
-	m_Velocity(_Velocity), m_AngularVelocity(_Velocity), m_fLiveTime(_LiveTime), m_Size(_Size)
+	m_Velocity(_Velocity), m_AngularVelocity(_AngularVelocity), m_fLiveTime(_LiveTime), m_Size(_Size)
 {
 	m_fTimeElapsed = 0.f;
 	m_bDied        = false;

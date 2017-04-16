@@ -33,6 +33,7 @@ namespace NX {
 	public:
 		Particle(const int iTextureIndex, const float3 &_Rotation, const float3 &_Position, const float3 &_Acceleration, const float3 &_AngularAcceleration, 
 			const float3 &_Velocity, const float3 &_AngularVelocity, const float _LiveTime,  const float2 &_Size);
+		Particle() = default;
 		virtual ~Particle();
 
 	public:
