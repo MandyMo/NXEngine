@@ -45,6 +45,7 @@ namespace NX {
 
 	private:
 		bool             InBoundBox(const float3 &_Position);
+		void             ShrinkBuffer();
 
 	private:
 		std::vector<Particle*>               m_Particles;

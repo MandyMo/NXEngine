@@ -123,15 +123,7 @@ NX::ParticleSystem& NX::ParticleSystem::AddNewParticle(Particle *pParticle) {
 		m_Particles.push_back(pParticle);
 	}
 
-	if (m_BufferAllocedCount < m_Particles.size()) {//expand vertex & index buffer
-		NX::NXSafeRelease(m_pIndexBuffer);
-		NX::NXSafeRelease(m_pVertexBuffer);
-		m_BufferAllocedCount = m_BufferAllocedCount * 2 + 1;
-		IDirect3DDevice9 *pDevice = glb_GetD3DDevice();
-		pDevice->CreateIndexBuffer(m_BufferAllocedCount * sizeof(int) * 6, D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &m_pIndexBuffer, NULL);
-		pDevice->CreateVertexBuffer(m_BufferAllocedCount * sizeof(NX::Particle::Vertex) * 4, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVertexBuffer, NULL);
-	}
-
+	ShrinkBuffer();
 	return *this;
 }
 
@@ -144,6 +136,7 @@ bool NX::ParticleSystem::InBoundBox(const NX::float3 &_Position) {
 NX::ParticleSystem& NX::ParticleSystem::RemoveParticle(const int iParticleIndex) {
 	NXAssert(iParticleIndex >= 0 && iParticleIndex < m_Particles.size());
 	m_Particles.erase(m_Particles.begin() + iParticleIndex);
+	ShrinkBuffer();
 	return *this;
 }
 
@@ -161,4 +154,15 @@ const std::vector<NX::Particle*>&  NX::ParticleSystem::GetParticles() const {
 
 int NX::ParticleSystem::GetParticleCount() const {
 	return m_Particles.size();
+}
+
+void NX::ParticleSystem::ShrinkBuffer() {
+	if (m_BufferAllocedCount < m_Particles.size() || m_BufferAllocedCount >= m_Particles.size() * 4) {//expand or shrink buffer
+		NX::NXSafeRelease(m_pIndexBuffer);
+		NX::NXSafeRelease(m_pVertexBuffer);
+		m_BufferAllocedCount = m_BufferAllocedCount * 2 + 1;
+		IDirect3DDevice9 *pDevice = glb_GetD3DDevice();
+		pDevice->CreateIndexBuffer(m_BufferAllocedCount * sizeof(int) * 6, D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &m_pIndexBuffer, NULL);
+		pDevice->CreateVertexBuffer(m_BufferAllocedCount * sizeof(NX::Particle::Vertex) * 4, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVertexBuffer, NULL);
+	}
 }
