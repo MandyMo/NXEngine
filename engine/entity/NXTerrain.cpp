@@ -91,7 +91,7 @@ void NX::Terrain::Render(struct RenderParameter &renderer) {
 	}
 
 	{//set HLSL variable
-		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "RoadTexture"), DX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Road/dirt01.jpg"));
+		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "RoadTexture"), DX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Road/terrainstone.jpg"));
 		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "GrassTexture"), DX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Grass/Grass01.jpg"));
 	}
 
