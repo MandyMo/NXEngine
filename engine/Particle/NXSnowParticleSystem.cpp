@@ -14,50 +14,6 @@
 #include "../math/NXAlgorithm.h"
 #include "../render/NXEngine.h"
 
-
-/*
-NX::SnowParticleSystem::SnowParticleSystem(const float _fRadius, const float _fIgnoreRadius, const int _ParticleCount, const std::vector<std::string> &_TextureFileSet, const float3x2 &_ParticleBound) :ParticleSystem(_TextureFileSet, _ParticleBound) {
-	m_fRadius         = _fRadius;
-	m_MoveController  = nullptr;
-	m_fIgnoreRadius   = _fIgnoreRadius;
-	for (int i = 0; i < _ParticleCount; ++i) {
-		AddNewParticle();
-	}
-}
-
-NX::SnowParticleSystem::~SnowParticleSystem() {
-
-}
-
-NX::SnowParticleSystem& NX::SnowParticleSystem::AddNewParticle() {
-	NX::Particle *pParticle = new NX::Particle();
-	ResetParticle(pParticle);
-	AddNewParticle(pParticle);
-	return *this;
-}
-
-NX::SnowParticleSystem& NX::SnowParticleSystem::AddNewParticle(Particle *pParticle) {
-	ParticleSystem::AddNewParticle(pParticle);
-	return *this;
-}
-
-NX::SnowParticleSystem& NX::SnowParticleSystem::ResetParticle(Particle *pParticle) {
-
-}
-
-void NX::SnowParticleSystem::OnTick(const float fDeleta) {
-	const std::vector<Particle*>& rv = GetParticles();
-	for (int i = 0; i < rv.size(); ++i) {
-		if (rv[i] && rv[i]->IsDied()) {
-			ResetParticle(rv[i]);
-		}
-	}
-
-	ParticleSystem::OnTick(fDeleta);
-}
-
-*/
-
 NX::SnowParticleSystem::SnowParticleSystem(const MVMatrixController *pMoveController, const float _fRadius, const float _fIgnoreRadius, const int _ParticleCount, const std::vector<std::string> &_TextureFileSet): m_TextureSet(_TextureFileSet) {
 	m_MoveController      =    const_cast<MVMatrixController*>(pMoveController);
 	m_fRadius             =    _fRadius;
@@ -83,6 +39,10 @@ NX::SnowParticleSystem::SnowParticleSystem(const MVMatrixController *pMoveContro
 	};
 
 	pDevice->CreateVertexDeclaration(VertexDesc, &m_pVertexDesc);
+
+	if (m_MoveController) {
+		GetTransform().SetTranslation(m_MoveController->GetEyePosition());
+	}
 
 	NX::Particle *pParticle = nullptr;
 	for (int i = 0; i < _ParticleCount; ++i) {
@@ -155,6 +115,7 @@ void NX::SnowParticleSystem::Render(struct RenderParameter &renderer) {
 }
 
 void NX::SnowParticleSystem::OnTick(const float fDeleta) {
+	GetTransform().SetTranslation(m_MoveController->GetEyePosition());
 	Particle *pParticle = nullptr;
 	for (int i = 0; i < m_Particles.size(); ++i) {
 		pParticle = m_Particles[i];
@@ -166,32 +127,6 @@ void NX::SnowParticleSystem::OnTick(const float fDeleta) {
 			pParticle->OnTick(fDeleta);
 		}
 	}
-
-	if (!m_MoveController) {
-		return;
-	}
-
-	float3 Dif = GetTransform().GetTranslation() - m_MoveController->GetEyePosition();
-	if (NX::LengthSquare(Dif) <= m_fIgnoreRadius *m_fIgnoreRadius || NX::Dot(Dif, m_MoveController->GetFrontAxis()) >= 0.f) {
-		return;
-	}
-
-	const float3 &n = m_MoveController->GetFrontAxis();
-	const float4X4 &RM = NX::GetReflectionMatrix(n[0], n[1], n[2], NX::Dot(n, m_MoveController->GetEyePosition()));
-
-	for (int i = 0; i < m_Particles.size(); ++i) {
-		pParticle = m_Particles[i];
-		if (!pParticle) {
-			return;
-		} else {
-			Dif = pParticle->GetPosition() - m_MoveController->GetEyePosition();
-			if (NX::Dot(n, Dif) < 0.f && LengthSquare(Dif) > m_fIgnoreRadius * m_fIgnoreRadius) {
-				pParticle->SetPosition(RM * pParticle->GetPosition());
-			}
-		}
-	}
-
-	GetTransform().SetTranslation(RM * GetTransform().GetTranslation());
 }
 
 NX::ENTITY_TYPE  NX::SnowParticleSystem::GetEntityType() {
@@ -225,7 +160,7 @@ NX::SnowParticleSystem& NX::SnowParticleSystem::ResetParticle(Particle *pParticl
 	{
 		float u = NX::RandFloatInRange(0, kfPi);
 		float v = NX::RandFloatInRange(0, kf2Pi);
-		float r = NX::RandFloatInRange(0, m_fRadius);
+		float r = NX::RandFloatInRange(m_fIgnoreRadius, m_fRadius);
 		_Position.y = std::cosf(u);
 		_Position.x = std::sinf(u) * std::cosf(v);
 		_Position.z = std::sinf(u) * std::sinf(v);
@@ -237,7 +172,7 @@ NX::SnowParticleSystem& NX::SnowParticleSystem::ResetParticle(Particle *pParticl
 	float3 _Velocity = float3(RandFloatInRange(-0.3f, 0.3f), -RandFloatInRange(0.2f, 0.4f), RandFloatInRange(-0.3f, 0.3f));
 	float3 _AngularVelocity = float3(RandFloatInRange(-1.f, 1.f), RandFloatInRange(-1.f, 1.f), RandFloatInRange(-1.f, 1.f));
 	float _LiveTime = RandFloatInRange(0.f, 100000.f);
-	float _Size = RandFloatInRange(0.01, 0.05);
+	float _Size = RandFloatInRange(0.01, 0.02);
 
 	pParticle->SetTextureIndex(_TextureIndex).SetRotation(_Rotation).SetPosition(_Position).SetAcceleration(_Acceleration).
 		SetAngularAcceleration(_AngularAcceleration).SetVelocity(_Velocity).SetAngularVelocity(_AngularVelocity).
@@ -280,7 +215,7 @@ bool NX::SnowParticleSystem::InShpere(const Particle *pParticle) {
 		return true;
 	}
 
-	return NX::LengthSquare(pParticle->GetPosition() - GetTransform().GetTranslation()) <= m_fRadiusSquare;
+	return NX::LengthSquare(pParticle->GetPosition() - GetTransform().GetTranslation()) <= m_fRadiusSquare / 4;
 }
 
 void NX::SnowParticleSystem::ResizeBuffer() {

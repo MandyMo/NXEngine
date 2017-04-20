@@ -89,7 +89,7 @@ void NX::NXEngineDemo::OnInitDX3Succeed() {
 	{//create snow system
 		std::vector<std::string> TextureSet;
 		TextureSet.push_back("../../../../engine/EngineResouces/Particle/Snow/particle-snow.png");
-		m_pSnowParticleSystem  = new SnowParticleSystem(m_pCamera, 4.f, 1.f, 1000, TextureSet);
+		m_pSnowParticleSystem  = new SnowParticleSystem(m_pCamera, 1.5f, 0.35f, 2000, TextureSet);
 	}
 
 	{
