@@ -671,6 +671,22 @@ inline Matrix<T, iScale, iScale>& SimplifyMatrix(Matrix<T, iScale, iScale> &matr
     return matrix;
 }
 
+inline Matrix<float, 4, 4> GetReflectionMatrix(const float a, const float b, const float c, const float d) {
+	NXAssert(NX::EqualfloatWithDelta(a * a + b * b + c * c, 1.f, 0.001));
+	float aa2 = -a * a * 2.f, bb2 = -b * b * 2.f, cc2 = -c * c * 2.f, ab2 = -a * b * 2.f, ac2 = -a * c *2.f, bc2 = -b * c * 2.f;
+	float result[][4] = {
+		{1.f + aa2,      ab2,         ac2,        -a * d},
+		{ab2,            1 + bb2,     bc2,        -b * d},
+		{ac2,            bc2,         1 + cc2,    -c * d},
+		{0.f,            0.f,         0.f,        1.f},
+	};
+	return Matrix<float, 4, 4>(result[0]);
+}
+
+inline Matrix<float, 4, 4> GetReflectionMatrix(const float4 &plane) {
+	return GetReflectionMatrix(plane[0], plane[1], plane[2], plane[3]);
+}
+
 template<typename T, int iScale>
 inline Matrix<T, iScale, iScale>& GetSimplifiedMatrix(const Matrix<T, iScale, iScale> &matrix, const T EpsilonValue){
     Matrix<T, iScale, iScale> result(matrix);

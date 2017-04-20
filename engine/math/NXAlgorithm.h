@@ -266,6 +266,14 @@ namespace NX {
     template<typename  T, typename U, typename RT = float>
     inline Matrix<RT, 3, 3> GetProjectMatrix(const vector<T, 3> &lhs, const vector<U, 3> &normal);
     
+
+	/**
+	 *  给定沿一个平面的反射变换矩阵 ax + by + cz + d = 0, (a, b, c) is a normalized normal
+	 */
+	inline Matrix<float, 4, 4> GetReflectionMatrix(const float a, const float b, const float c, const float d);
+
+	inline Matrix<float, 4, 4> GetReflectionMatrix(const float4 &plane);
+
     /**
      *  返回点沿给定方向的缩放变换矩阵
      */

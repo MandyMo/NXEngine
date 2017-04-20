@@ -9,7 +9,7 @@
 
 #include "../../../../engine/Window/NXDX9Window.h"
 #include "../../engine/entity/NXTerrain.h"
-#include "../../engine/render/NXCamera.h"
+#include "../../engine/render/NXCamera.h""
 
 #pragma once
 
@@ -36,6 +36,7 @@ namespace NX {
 		class Cube                  *m_pCube;
 		class PerspectCamera        *m_pCamera;
 		class ParticleSystem        *m_pSnowParticleSystem;
+		class Sky                   *m_pSky;
 		POINT                        m_CurPos;
 	};
 }

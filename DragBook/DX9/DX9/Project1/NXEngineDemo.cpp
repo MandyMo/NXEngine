@@ -17,12 +17,14 @@
 #include "../../engine/render/NXCamera.h"
 #include "../../engine/render/NXEngine.h"
 #include "../../engine/Particle/NXSnowParticleSystem.h"
+#include "../../engine/entity/NXSky.h"
 
 #define KeyDown(key) (GetAsyncKeyState(key) & 0x08000)
 
 NX::NXEngineDemo::NXEngineDemo() {
 	m_pTerrain        = nullptr;
 	m_pCamera         = nullptr;
+	m_pSky            = nullptr;
 }
 
 NX::NXEngineDemo::~NXEngineDemo() {
@@ -56,6 +58,10 @@ void NX::NXEngineDemo::Render() {
 		m_pCube->Render(renderer);
 	}
 
+	if (m_pSky) {
+		m_pSky->Render(renderer);
+	}
+
 	if (m_pSnowParticleSystem) {
 		m_pSnowParticleSystem->Render(renderer);
 	}
@@ -63,14 +69,14 @@ void NX::NXEngineDemo::Render() {
 
 void NX::NXEngineDemo::OnInitDX3Succeed() {
 	//create terrain
-	m_pTerrain = new NX::Terrain(1000, 1000, 0.01f, 0.01f, "");
+	m_pTerrain = new NX::Terrain(1000, 1000, 1.f, 1.f, "");
 
 	{//create camera
 		float3  Eye(0, 0, 0);
 		Eye.y = m_pTerrain->GetHeight(Eye.x, Eye.z) + 1.6;
 		float3  at(Eye + float3(1.f, -1.f, 1.f));
 		float3  up(.0f, 1.f, .0f);
-		m_pCamera = new PerspectCamera(Eye, at, up, 75.f, MAINFRAME_WIDTH * 1.f / MAINFRAME_HEIGHT, 0.01f, 1000.f);
+		m_pCamera = new PerspectCamera(Eye, at, up, 75.f, MAINFRAME_WIDTH * 1.f / MAINFRAME_HEIGHT, 0.01f, 40000.f);
 	}
 
 	{//create cube
@@ -83,14 +89,17 @@ void NX::NXEngineDemo::OnInitDX3Succeed() {
 	{//create snow system
 		std::vector<std::string> TextureSet;
 		TextureSet.push_back("../../../../engine/EngineResouces/Particle/Snow/particle-snow.png");
-		float3X2 BoundBox;
-		BoundBox[0][0] = 0.f;
-		BoundBox[0][1] = m_pTerrain->GetMaxRangeByXAxis();
-		BoundBox[1][0] = 0.f;
-		BoundBox[1][1] = 10.f;
-		BoundBox[2][0] = 0;
-		BoundBox[2][1] = m_pTerrain->GetMaxRangeByZAxis();
-		m_pSnowParticleSystem  = new SnowParticleSystem(1000, TextureSet, BoundBox);
+		m_pSnowParticleSystem  = new SnowParticleSystem(m_pCamera, 4.f, 1.f, 1000, TextureSet);
+	}
+
+	{
+		std::vector<std::string> v;
+		v.push_back("../../../../engine/EngineResouces/SkyBox/snowsky/front.jpg");
+		v.push_back("../../../../engine/EngineResouces/SkyBox/snowsky/back.jpg");
+		v.push_back("../../../../engine/EngineResouces/SkyBox/snowsky/left.jpg");
+		v.push_back("../../../../engine/EngineResouces/SkyBox/snowsky/right.jpg");
+		v.push_back("../../../../engine/EngineResouces/SkyBox/snowsky/top.jpg");
+		m_pSky = new SkyBox(v, 20000.f);
 	}
 }
 

@@ -155,6 +155,9 @@ namespace NX {
     template<typename T, int M, int N, typename U, typename RT = T>
     inline NX::Matrix<RT, M, 1> operator * (const NX::Matrix<U, M, N> &lhs, const NX::vector<T, N> &rhs);
     
+	template<typename T, typename U>
+	inline NX::vector<U, 3> operator * (const NX::Matrix<T, 4, 4> &lhs, const NX::vector<U, 3> &rhs);
+
     template<typename T, int Row, int Col, typename U, typename RT = T>
     inline NX::Matrix<RT, Row, Col> operator + (const NX::Matrix<T, Row, Col> &lhs, const NX::Matrix<U, Row, Col> &rhs);
     

@@ -287,6 +287,18 @@ inline Matrix<RT, M, K> operator * (const Matrix<T, M, N> &lhs, const Matrix<U, 
     return result;
 }
 
+template<typename T, typename U>
+inline NX::vector<U, 3> operator * (const NX::Matrix<T, 4, 4> &lhs, const NX::vector<U, 3> &rhs) {
+	NX::vector<U, 3>result;
+	for (int r = 0; r < 3; ++r) {
+		for (int c = 0; c < 3; ++c) {
+			result[r] += lhs[r][c] * rhs[c];
+		}
+		result[r] += lhs[r][3];
+	}
+	return result;
+}
+
 template<typename T, int M, int N, typename U, typename RT>
 inline vector<RT, N> operator * (const vector<T, M> &lhs, const Matrix<U, M, N> &rhs){
     vector<RT, N> result;
