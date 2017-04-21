@@ -217,15 +217,27 @@ inline Matrix<T, Scale, Scale> GetMatrixRotateByX(const T radian){
     return result;
 }
 
-
-template<typename T, int Scale /* = 4 */>
-inline Matrix<T, Scale, Scale> GetMatrixRotateByXYZ(const T rx, const T ry, const T rz) {
-	return GetMatrixRotateByX(rx) * GetMatrixRotateByY(ry) * GetMatrixRotateByZ(rz);
+template<typename T, int iScale /* = 4 */>
+inline Matrix<T, iScale, iScale> GetMatrixRotateByXYZ(const T rx, const T ry, const T rz) {
+	T sx = std::sinf(rx), sy = std::sinf(ry), sz = std::sinf(rz);
+	T cx = std::cosf(rx), cy = std::cosf(ry), cz = std::cosf(rz);
+	T sxsy = sx * sy, cxsz = cx * sz, cxcz = cx * cz;
+	T m[iScale + 1][iScale] = {
+		{ cy * cz, -cy * sz, sy},
+		{ sxsy * cz + cxsz, -sxsy * sz + cxcz, -sx * cy},
+		{ -cxcz * sy + sx * sz, cxsz * sy + sx * cz, cx * cy },
+		{0, 0, 0},
+	};
+	if (iScale == 4) {
+		m[0][3] = m[1][3] = m[2][3] = 0;
+		m[3][3] = 1;
+	}
+	return Matrix<T, iScale, iScale>(m[0]);
 }
 
-template<typename T, int Scale /* = 4 */>
-inline Matrix<T, Scale, Scale> GetMatrixRotateByXYZ(const NX::vector<T, 3> &r) {
-	return GetMatrixRotateByXYZ(r[0], r[1], r[2]);
+template<typename T, int iScale  /* = 4 */>
+inline Matrix<T, iScale, iScale> GetMatrixRotateByXYZ(const NX::vector<T, 3> &r) {
+	return GetMatrixRotateByXYZ<T, iScale>(r[0], r[1], r[2]);
 }
 
 template<typename T, int Scale /* = 4*/>
