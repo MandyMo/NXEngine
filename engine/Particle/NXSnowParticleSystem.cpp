@@ -27,7 +27,7 @@ NX::SnowParticleSystem::SnowParticleSystem(const MVMatrixController *pMoveContro
 	m_pEffect             = nullptr;
 	m_pVertexDesc         = nullptr;
 
-	const char *pszEffectFilePath = "../../../../engine/Shaders/DirectX/Particle_Effect.hlsl";
+	const char *pszEffectFilePath = "Shaders/DirectX/Particle_Effect.hlsl";
 	m_pEffect = NX::EffectManager::Instance().GetEffect(pszEffectFilePath);
 
 	IDirect3DDevice9 *pDevice = glb_GetD3DDevice();

@@ -37,10 +37,10 @@ struct NX::Cube::Vertex{
 	};
 };
 
-NX::Cube::Cube(const Size3D &_size) :m_Size(_size) {
+NX::Cube::Cube(const std::string &_TextureFilePath, const Size3D &_size) :m_Size(_size), m_TextureFilePath(_TextureFilePath) {
 	m_pVertexBuffer       = nullptr;
 	m_pVertexDesc         = nullptr;
-	m_pEffect             = NX::EffectManager::Instance().GetEffect("../../../../engine/Shaders/DirectX/Cube3D_Effect.hlsl");
+	m_pEffect             = NX::EffectManager::Instance().GetEffect("Shaders/DirectX/Cube3D_Effect.hlsl");
 	{
 		DX9Window *pWindow = glb_GetD3DWindow();
 		pWindow->GetD3D9Device()->CreateVertexBuffer(sizeof(Vertex) * 24, D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL);
@@ -68,15 +68,15 @@ void NX::Cube::Render(struct RenderParameter &renderer) {
 		Vertex v[] = {
 			//right
 			Vertex(sz.x,  sz.y,  sz.z,    0,   0),
-			Vertex(sz.x, -sz.y,  sz.z,  s.y,   0),
-			Vertex(sz.x,  sz.y, -sz.z,    0, s.z),
-			Vertex(sz.x, -sz.y, -sz.z,  s.y, s.z),
+			Vertex(sz.x, -sz.y,  sz.z,    0, s.y),
+			Vertex(sz.x,  sz.y, -sz.z,  s.z,   0),
+			Vertex(sz.x, -sz.y, -sz.z,  s.z, s.y),
 
 			//left
-			Vertex(-sz.x,  sz.y,  sz.z,    0,    0),
-			Vertex(-sz.x, -sz.y,  sz.z,  s.y,    0),
-			Vertex(-sz.x,  sz.y, -sz.z,    0,  s.z),
-			Vertex(-sz.x, -sz.y, -sz.z,  s.y,  s.z),
+			Vertex(-sz.x,  sz.y,  sz.z,   0,   0),
+			Vertex(-sz.x, -sz.y,  sz.z,   0, s.y),
+			Vertex(-sz.x,  sz.y, -sz.z, s.z,   0),
+			Vertex(-sz.x, -sz.y, -sz.z, s.z, s.y),
 
 			//front
 			Vertex(-sz.x, sz.y,  sz.z,   0,   0),
@@ -111,7 +111,7 @@ void NX::Cube::Render(struct RenderParameter &renderer) {
 
 	{//shader variables
 		m_pEffect->SetMatrixTranspose(m_pEffect->GetParameterByName(NULL, "MVP"), (D3DXMATRIX*)&(renderer.pProjectController->GetProjectMatrix() * renderer.pMVController->GetMVMatrix() * GetTransform().GetTransformMatrix()));
-		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "BaseColor"), DX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Road/dirt01.jpg"));
+		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "BaseColor"), DX9TextureManager::Instance().GetTexture(m_TextureFilePath));
 	}
 
 	{//commit to gpu
@@ -136,4 +136,18 @@ NX::ENTITY_TYPE NX::Cube::GetEntityType() {
 
 void NX::Cube::OnTick(const float fDelta) {
 	/**do nothing*/
+}
+
+
+const std::string& NX::Cube::GetTextureFilePath() const {
+	return m_TextureFilePath;
+}
+
+std::string& NX::Cube::GetTextureFilePath() {
+	return m_TextureFilePath;
+}
+
+NX::Cube& NX::Cube::SetTextureFilePath(const std::string &_TextureFilePath) {
+	m_TextureFilePath = _TextureFilePath;
+	return *this;
 }

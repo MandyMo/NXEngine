@@ -41,6 +41,7 @@ namespace NX {
 		class PerspectCamera        *m_pCamera;
 		class ParticleSystem        *m_pSnowParticleSystem;
 		class Sky                   *m_pSky;
+		class Sphere                *m_pShere;
 		POINT                        m_CurPos;
 	};
 }

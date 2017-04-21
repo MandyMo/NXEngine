@@ -18,6 +18,7 @@
 #include "../../../../engine/render/NXEngine.h"
 #include "../../../../engine/Particle/NXSnowParticleSystem.h"
 #include "../../../../engine/entity/NXSky.h"
+#include "../../../../engine/entity/NXSphere.h"
 
 #define KeyDown(key) (GetAsyncKeyState(key) & 0x08000)
 
@@ -25,6 +26,7 @@ NX::NXEngineDemo::NXEngineDemo() {
 	m_pTerrain        = nullptr;
 	m_pCamera         = nullptr;
 	m_pSky            = nullptr;
+	m_pShere          = nullptr;
 }
 
 NX::NXEngineDemo::~NXEngineDemo() {
@@ -102,38 +104,45 @@ void NX::NXEngineDemo::OnInitDX3Succeed() {
 		m_pCube->GetTransform().SetTranslation(0, 3, 0);
 	}
 
+	{//create sphere
+		m_pShere = new NX::Sphere("EngineResouces/bricks/brick1.jpg", 3, 3, 1.f);
+	}
+
 	{
 		m_pLeft = new NX::Cube();
 		m_pLeft->GetTransform().SetScale(0.25, 2, m_pTerrain->GetMaxRangeByZAxis()).SetTranslation(-0.125, 1, m_pTerrain->GetMaxRangeByZAxis() * 0.5f);
+		m_pLeft->SetTextureFilePath("EngineResouces/bricks/brick1.jpg");
 
 		m_pRight = new NX::Cube();
 		m_pRight->GetTransform().SetScale(0.25, 2, m_pTerrain->GetMaxRangeByZAxis()).SetTranslation(0.125f + m_pTerrain->GetMaxRangeByXAxis(), 1, m_pTerrain->GetMaxRangeByZAxis() * 0.5f);
+		m_pRight->SetTextureFilePath("EngineResouces/bricks/brick1.jpg");
 	}
 
 	{
 		m_pFront = new NX::Cube();
 		m_pFront->GetTransform().SetScale(m_pTerrain->GetMaxRangeByXAxis(), 2, 0.25).SetTranslation(m_pTerrain->GetMaxRangeByXAxis() * 0.5, 1, -0.125f);
+		m_pFront->SetTextureFilePath("EngineResouces/bricks/brick1.jpg");
 
 		m_pBack = new NX::Cube();
 		m_pBack->GetTransform().SetScale(m_pTerrain->GetMaxRangeByXAxis(), 2, 0.25).SetTranslation(m_pTerrain->GetMaxRangeByXAxis() * 0.5, 1, 0.125f + m_pTerrain->GetMaxRangeByZAxis());
-
+		m_pBack->SetTextureFilePath("EngineResouces/bricks/brick1.jpg");
 	}
 
 	GetCursorPos(&m_CurPos);
 
 	{//create snow system
 		std::vector<std::string> TextureSet;
-		TextureSet.push_back("../../../../engine/EngineResouces/Particle/Snow/particle-snow.png");
-		m_pSnowParticleSystem  = new SnowParticleSystem(m_pCamera, 1.5f, 0.35f, 20000, TextureSet);
+		TextureSet.push_back("EngineResouces/Particle/Snow/particle-snow.png");
+		m_pSnowParticleSystem  = new SnowParticleSystem(m_pCamera, 1.5f, 0.35f, 5000, TextureSet);
 	}
 
 	{
 		std::vector<std::string> v;
-		v.push_back("../../../../engine/EngineResouces/SkyBox/snowsky/front.jpg");
-		v.push_back("../../../../engine/EngineResouces/SkyBox/snowsky/back.jpg");
-		v.push_back("../../../../engine/EngineResouces/SkyBox/snowsky/left.jpg");
-		v.push_back("../../../../engine/EngineResouces/SkyBox/snowsky/right.jpg");
-		v.push_back("../../../../engine/EngineResouces/SkyBox/snowsky/top.jpg");
+		v.push_back("EngineResouces/SkyBox/snowsky/front.jpg");
+		v.push_back("EngineResouces/SkyBox/snowsky/back.jpg");
+		v.push_back("EngineResouces/SkyBox/snowsky/left.jpg");
+		v.push_back("EngineResouces/SkyBox/snowsky/right.jpg");
+		v.push_back("EngineResouces/SkyBox/snowsky/top.jpg");
 		m_pSky = new SkyBox(v, 20000.f);
 	}
 }

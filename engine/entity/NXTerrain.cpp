@@ -91,8 +91,8 @@ void NX::Terrain::Render(struct RenderParameter &renderer) {
 	}
 
 	{//set HLSL variable
-		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "RoadTexture"), DX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Road/terrainstone.jpg"));
-		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "GrassTexture"), DX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Grass/Grass01.jpg"));
+		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "RoadTexture"), DX9TextureManager::Instance().GetTexture("EngineResouces/Road/terrainstone.jpg"));
+		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "GrassTexture"), DX9TextureManager::Instance().GetTexture("EngineResouces/Grass/Grass01.jpg"));
 	}
 
 	{//render
@@ -155,7 +155,7 @@ void NX::Terrain::OnTick(const float fDelta) {
 }
 
 bool NX::Terrain::CompileEffectFile() {
-	const char *pszEffectFilePath = "../../../../engine/Shaders/DirectX/Terrain_Effect.hlsl";
+	const char *pszEffectFilePath = "Shaders/DirectX/Terrain_Effect.hlsl";
 	m_pEffect = NX::EffectManager::Instance().GetEffect(pszEffectFilePath);
 
 	{

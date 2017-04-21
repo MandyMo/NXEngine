@@ -78,7 +78,7 @@ NX::SkyBox::SkyBox(const std::vector<std::string> &_TextureSet, const float fLen
 	memcpy(pBase, v,   sizeof(v));
 	m_pVertexBuffer->Unlock();
 
-	const char *pszEffectFilePath = "../../../../engine/Shaders/DirectX/SkyBox_Effect.hlsl";
+	const char *pszEffectFilePath = "Shaders/DirectX/SkyBox_Effect.hlsl";
 	m_pEffect = NX::EffectManager::Instance().GetEffect(pszEffectFilePath);
 }
 

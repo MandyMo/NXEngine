@@ -72,6 +72,10 @@
     <IncludePath>..\..\..\..\engine;..\..\..\MainFrame;C:\Program Files %28x86%29\Microsoft DirectX 9.0 SDK %28December 2004%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX 9.0 SDK %28December 2004%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX 9.0 SDK %28December 2004%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX 9.0 SDK %28December 2004%29\Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -84,6 +88,8 @@
       <SubSystem>Console</SubSystem>
       <IgnoreSpecificDefaultLibraries>libcp</IgnoreSpecificDefaultLibraries>
       <AdditionalDependencies>legacy_stdio_definitions.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/Profile %(AdditionalOptions)</AdditionalOptions>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -95,6 +101,7 @@
     <Link>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcp</IgnoreSpecificDefaultLibraries>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -104,10 +111,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libcp.lib</IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>/Profile %(AdditionalOptions)</AdditionalOptions>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -121,6 +133,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -136,6 +149,7 @@
     <ClCompile Include="..\..\..\..\engine\entity\NXCube.cpp" />
     <ClCompile Include="..\..\..\..\engine\entity\NXIEntity.cpp" />
     <ClCompile Include="..\..\..\..\engine\entity\NXSky.cpp" />
+    <ClCompile Include="..\..\..\..\engine\entity\NXSphere.cpp" />
     <ClCompile Include="..\..\..\..\engine\Entity\NXTerrain.cpp" />
     <ClCompile Include="..\..\..\..\engine\Entity\NXTransform.cpp" />
     <ClCompile Include="..\..\..\..\engine\GamePlay\NXGameWorld.cpp" />
@@ -153,7 +167,6 @@
     <ClCompile Include="..\..\..\..\engine\math\NXPlane.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXRayTrace.cpp" />
-    <ClCompile Include="..\..\..\..\engine\math\NXSphere.cpp" />
     <ClCompile Include="..\..\..\..\engine\math\NXTriangle.cpp" />
     <ClCompile Include="..\..\..\..\engine\Particle\NXParticle.cpp" />
     <ClCompile Include="..\..\..\..\engine\Particle\NXSnowParticleSystem.cpp" />
@@ -207,6 +220,7 @@
     <ClInclude Include="..\..\..\..\engine\entity\NXCube.h" />
     <ClInclude Include="..\..\..\..\engine\Entity\NXIEntity.h" />
     <ClInclude Include="..\..\..\..\engine\entity\NXSky.h" />
+    <ClInclude Include="..\..\..\..\engine\entity\NXSphere.h" />
     <ClInclude Include="..\..\..\..\engine\Entity\NXTerrain.h" />
     <ClInclude Include="..\..\..\..\engine\Entity\NXTransform.h" />
     <ClInclude Include="..\..\..\..\engine\GamePlay\NXGameWorld.h" />
@@ -228,7 +242,6 @@
     <ClInclude Include="..\..\..\..\engine\math\NXPrimitive.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXQuaternion.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXRayTrace.h" />
-    <ClInclude Include="..\..\..\..\engine\math\NXSphere.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXTriangle.h" />
     <ClInclude Include="..\..\..\..\engine\math\NXVector.h" />
     <ClInclude Include="..\..\..\..\engine\Particle\NXParticle.h" />
@@ -275,33 +288,42 @@
   <ItemGroup>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Cube3D_Effect.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Particle_Effect.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\SkyBox_Effect.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Terrain_Effect.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="NXChap17_1_vs.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="NXChap17_2_ps.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="NXChap17_2_vs.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="NXChap17_3_effect.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="NXChap2_1_effect.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
