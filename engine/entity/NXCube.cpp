@@ -38,14 +38,12 @@ struct NX::Cube::Vertex{
 };
 
 NX::Cube::Cube(const Size3D &_size) :m_Size(_size) {
-	m_pIndexBuffer        = nullptr;
 	m_pVertexBuffer       = nullptr;
 	m_pVertexDesc         = nullptr;
 	m_pEffect             = NX::EffectManager::Instance().GetEffect("../../../../engine/Shaders/DirectX/Cube3D_Effect.hlsl");
 	{
 		DX9Window *pWindow = glb_GetD3DWindow();
-		pWindow->GetD3D9Device()->CreateIndexBuffer(sizeof(NXUInt16) * 36, D3DUSAGE_WRITEONLY, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pIndexBuffer, NULL);
-		pWindow->GetD3D9Device()->CreateVertexBuffer(sizeof(Vertex) * 8, D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL);
+		pWindow->GetD3D9Device()->CreateVertexBuffer(sizeof(Vertex) * 24, D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL);
 		D3DVERTEXELEMENT9 VertexDesc[] = {
 			{0, CLS_MEM_OFFSET(Vertex, x), D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
 			{0, CLS_MEM_OFFSET(Vertex, u), D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
@@ -56,7 +54,6 @@ NX::Cube::Cube(const Size3D &_size) :m_Size(_size) {
 }
 
 NX::Cube::~Cube() {
-	NX::NXSafeRelease(m_pIndexBuffer);
 	NX::NXSafeRelease(m_pVertexBuffer);
 	NX::NXSafeRelease(m_pEffect);
 }
@@ -67,15 +64,43 @@ void NX::Cube::Render(struct RenderParameter &renderer) {
 
 	{//vb
 		Size3D sz = m_Size * 0.5f;
-		Vertex v[8] = {
-			Vertex(sz.x,  sz.y,  sz.z,  0, 0),
-			Vertex(sz.x, -sz.y,  sz.z,  1, 0),
-			Vertex(sz.x, -sz.y, -sz.z,  0, 1),
-			Vertex(sz.x,  sz.y, -sz.z,  1, 1),
-			Vertex(-sz.x, sz.y, -sz.z,  0, 0),
-			Vertex(-sz.x, sz.y,  sz.z,  1, 0),
-			Vertex(-sz.x,-sz.y,  sz.z,  0, 1),
-			Vertex(-sz.z,-sz.y, -sz.z,  1, 1),
+		const float3 &s = GetTransform().GetScale();
+		Vertex v[] = {
+			//right
+			Vertex(sz.x,  sz.y,  sz.z,    0,   0),
+			Vertex(sz.x, -sz.y,  sz.z,  s.y,   0),
+			Vertex(sz.x,  sz.y, -sz.z,    0, s.z),
+			Vertex(sz.x, -sz.y, -sz.z,  s.y, s.z),
+
+			//left
+			Vertex(-sz.x,  sz.y,  sz.z,    0,    0),
+			Vertex(-sz.x, -sz.y,  sz.z,  s.y,    0),
+			Vertex(-sz.x,  sz.y, -sz.z,    0,  s.z),
+			Vertex(-sz.x, -sz.y, -sz.z,  s.y,  s.z),
+
+			//front
+			Vertex(-sz.x, sz.y,  sz.z,   0,   0),
+			Vertex( sz.x, sz.y,  sz.z, s.x,   0),
+			Vertex(-sz.x,-sz.y,  sz.z,   0, s.y),
+			Vertex( sz.x,-sz.y,  sz.z, s.x, s.y),
+
+			//back
+			Vertex(-sz.x, sz.y, -sz.z,   0,   0),
+			Vertex( sz.x, sz.y, -sz.z, s.x,   0),
+			Vertex(-sz.x,-sz.y, -sz.z,   0, s.y),
+			Vertex( sz.x,-sz.y, -sz.z, s.x, s.y),
+
+			//top
+			Vertex(-sz.x, sz.y, sz.z,   0,   0),
+			Vertex(-sz.x, sz.y,-sz.z, s.z,   0),
+			Vertex( sz.x, sz.y, sz.z,   0, s.x),
+			Vertex( sz.x, sz.y,-sz.z, s.z, s.x),
+
+			//down
+			Vertex(-sz.x, -sz.y, sz.z,   0,   0),
+			Vertex(-sz.x, -sz.y,-sz.z, s.z,   0),
+			Vertex( sz.x, -sz.y, sz.z,   0, s.x),
+			Vertex( sz.x, -sz.y,-sz.z, s.z, s.x),
 		};
 
 		void *pBase = NULL;
@@ -84,22 +109,6 @@ void NX::Cube::Render(struct RenderParameter &renderer) {
 		m_pVertexBuffer->Unlock();
 	}
 
-	{//ib
-		NXUInt16 idx[][3] = {
-			{0, 1, 2}, {0, 2, 3},
-			{0, 3, 4}, {0, 4, 5},
-			{4, 5, 6}, {4, 6, 7},
-			{1, 6, 7}, {1, 7, 2},
-			{0, 1, 6}, {0, 6, 5},
-			{2, 3, 7}, {3, 7, 4},
-		};
-
-		void *pBase = nullptr;
-		m_pIndexBuffer->Lock(0, 0, &pBase, D3DLOCK_DISCARD);
-		memcpy(pBase, idx, sizeof(idx));
-		m_pIndexBuffer->Unlock();
-	}
-	
 	{//shader variables
 		m_pEffect->SetMatrixTranspose(m_pEffect->GetParameterByName(NULL, "MVP"), (D3DXMATRIX*)&(renderer.pProjectController->GetProjectMatrix() * renderer.pMVController->GetMVMatrix() * GetTransform().GetTransformMatrix()));
 		m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "BaseColor"), DX9TextureManager::Instance().GetTexture("../../../../engine/EngineResouces/Road/dirt01.jpg"));
@@ -111,9 +120,10 @@ void NX::Cube::Render(struct RenderParameter &renderer) {
 		m_pEffect->Begin(&uPasses, 0);
 		for (int i = 0; i < uPasses; ++i) {
 			pWindow->GetD3D9Device()->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(Vertex));
-			pWindow->GetD3D9Device()->SetIndices(m_pIndexBuffer);
 			m_pEffect->BeginPass(i);
-			pWindow->GetD3D9Device()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 36, 0, 12);
+			for(int j = 0; j < 6; ++j){
+				pWindow->GetD3D9Device()->DrawPrimitive(D3DPT_TRIANGLESTRIP, j * 4, 2);
+			}
 			m_pEffect->EndPass();
 		}
 		m_pEffect->End();

@@ -68,10 +68,9 @@ NX::SnowParticleSystem::~SnowParticleSystem() {
 void NX::SnowParticleSystem::Render(struct RenderParameter &renderer) {
 	UINT uPasses = 0;
 	Particle *pParticle = nullptr;
+	IDirect3DDevice9 *pDevice = renderer.pDXDevice;
 	char *pVB = nullptr;
 	char *pIB = nullptr;
-	UINT32 CC = 0;
-	std::vector<int> ri;
 	int LiveParticleCount = 0;
 	m_pVertexBuffer->Lock(0, 0, (void**)&pVB, D3DLOCK_DISCARD);
 	m_pIndexBuffer->Lock(0, 0, (void**)&pIB, D3DLOCK_DISCARD);
@@ -81,34 +80,24 @@ void NX::SnowParticleSystem::Render(struct RenderParameter &renderer) {
 		if (!pParticle || pParticle->IsDied()) {
 			continue;
 		}
-		const std::vector<NX::Particle::Vertex> &rv = m_Particles[idx]->GetVertex();
-		ri = m_Particles[idx]->GetVertexIndex();
-		memcpy(pVB, &rv[0], sizeof(Particle::Vertex) * 4);
-		for (int i = 0; i < 6; ++i) {
-			ri[i] += CC;
-		}
-		memcpy(pIB, &ri[0], sizeof(int) * 6);
-		CC += 4;
-		pVB += sizeof(Particle::Vertex) * 4;
-		pIB += sizeof(int) * 6;
+
+		pVB += pParticle->FillVertexBuffer(pVB);
+		pIB += pParticle->FillIndexBuffer(pIB, LiveParticleCount << 2);
 		++LiveParticleCount;
 	}
 
 	m_pVertexBuffer->Unlock();
 	m_pIndexBuffer->Unlock();
-
 	m_pEffect->SetMatrixTranspose(m_pEffect->GetParameterByName(NULL, "VPMatrix"), (D3DXMATRIX*)(&renderer.pProjectController->GetWatchMatrix()));
 	m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "ParticleTexture"), NX::DX9TextureManager::Instance().GetTexture(m_TextureSet[m_Particles[0]->GetTextureIndex()]));
-
 	m_pEffect->SetTechnique(m_pEffect->GetTechniqueByName("ParticleShader"));
 	m_pEffect->Begin(&uPasses, 0);
-
 	for (int i = 0; i < uPasses; ++i) {
 		m_pEffect->BeginPass(i);
-		glb_GetD3DDevice()->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(NX::Particle::Vertex));
-		glb_GetD3DDevice()->SetIndices(m_pIndexBuffer);
-		renderer.pDXDevice->SetVertexDeclaration(m_pVertexDesc);
-		renderer.pDXDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, LiveParticleCount * 6, 0, LiveParticleCount * 2);
+		pDevice->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(NX::Particle::Vertex));
+		pDevice->SetIndices(m_pIndexBuffer);
+		pDevice->SetVertexDeclaration(m_pVertexDesc);
+		pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, LiveParticleCount * 6, 0, LiveParticleCount * 2);
 		m_pEffect->EndPass();
 	}
 	m_pEffect->End();
@@ -224,7 +213,7 @@ void NX::SnowParticleSystem::ResizeBuffer() {
 		NX::NXSafeRelease(m_pIndexBuffer);
 		m_BufferSize = 2 * m_Particles.size() + 1;
 		IDirect3DDevice9 *pDevice = glb_GetD3DDevice();
-		pDevice->CreateIndexBuffer(m_BufferSize * sizeof(int) * 6,                   D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, &m_pIndexBuffer,  NULL);
-		pDevice->CreateVertexBuffer(m_BufferSize * sizeof(NX::Particle::Vertex) * 4, D3DUSAGE_WRITEONLY, 0,              D3DPOOL_MANAGED, &m_pVertexBuffer, NULL);
+		pDevice->CreateIndexBuffer(m_BufferSize * sizeof(int) * 6,                   D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_DEFAULT, &m_pIndexBuffer,  NULL);
+		pDevice->CreateVertexBuffer(m_BufferSize * sizeof(NX::Particle::Vertex) * 4, D3DUSAGE_WRITEONLY, 0,              D3DPOOL_DEFAULT, &m_pVertexBuffer, NULL);
 	}
 }

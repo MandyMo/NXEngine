@@ -150,6 +150,16 @@ inline Matrix<T, Row, Col>& Matrix<T, Row, Col>::operator /= (const T &value){
 }
 
 template<typename T, int Row, int Col>
+inline const T Matrix<T, Row, Col>::operator() (int row, int col) const {
+	return m_Element[row][col];
+}
+
+template<typename T, int Row, int Col>
+inline T& Matrix<T, Row, Col>::operator() (int row, int col) {
+	return m_Element[row][col];
+}
+
+template<typename T, int Row, int Col>
 inline T& Matrix<T, Row, Col>::GetElement(int row, int col){
     NXAssert(row >= 0 && col >= 0 && row < Row && col < Col);
     return m_Element[row][col];

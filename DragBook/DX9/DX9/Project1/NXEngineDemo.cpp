@@ -12,12 +12,12 @@
 #include "..\..\..\..\engine\common\nxcore.h"
 #include "..\..\..\..\engine\common\NXLog.h"
 #include "..\..\..\..\engine\math\NXAlgorithm.h"
-#include "../../engine/entity/NXTerrain.h"
-#include "../../engine/entity/NXCube.h"
-#include "../../engine/render/NXCamera.h"
-#include "../../engine/render/NXEngine.h"
-#include "../../engine/Particle/NXSnowParticleSystem.h"
-#include "../../engine/entity/NXSky.h"
+#include "../../../../engine/entity/NXTerrain.h"
+#include "../../../../engine/entity/NXCube.h"
+#include "../../../../engine/render/NXCamera.h"
+#include "../../../../engine/render/NXEngine.h"
+#include "../../../../engine/Particle/NXSnowParticleSystem.h"
+#include "../../../../engine/entity/NXSky.h"
 
 #define KeyDown(key) (GetAsyncKeyState(key) & 0x08000)
 
@@ -58,6 +58,23 @@ void NX::NXEngineDemo::Render() {
 		m_pCube->Render(renderer);
 	}
 
+	if (m_pBack) {
+		m_pBack->Render(renderer);
+	}
+
+
+	if (m_pFront) {
+		m_pFront->Render(renderer);
+	}
+
+	if (m_pLeft) {
+		m_pLeft->Render(renderer);
+	}
+
+	if (m_pRight) {
+		m_pRight->Render(renderer);
+	}
+
 	if (m_pSky) {
 		m_pSky->Render(renderer);
 	}
@@ -69,7 +86,7 @@ void NX::NXEngineDemo::Render() {
 
 void NX::NXEngineDemo::OnInitDX3Succeed() {
 	//create terrain
-	m_pTerrain = new NX::Terrain(1000, 1000, 1.f, 1.f, "");
+	m_pTerrain = new NX::Terrain(200, 200, 0.1f, 0.1f, "");
 
 	{//create camera
 		float3  Eye(0, 0, 0);
@@ -80,16 +97,34 @@ void NX::NXEngineDemo::OnInitDX3Succeed() {
 	}
 
 	{//create cube
-		m_pCube = new NX::Cube(float3(1, 1, 1));
+		m_pCube = new NX::Cube();
 		m_pCube->GetTransform().SetRotation(0, 1, 0);
 		m_pCube->GetTransform().SetTranslation(0, 3, 0);
 	}
+
+	{
+		m_pLeft = new NX::Cube();
+		m_pLeft->GetTransform().SetScale(0.25, 2, m_pTerrain->GetMaxRangeByZAxis()).SetTranslation(-0.125, 1, m_pTerrain->GetMaxRangeByZAxis() * 0.5f);
+
+		m_pRight = new NX::Cube();
+		m_pRight->GetTransform().SetScale(0.25, 2, m_pTerrain->GetMaxRangeByZAxis()).SetTranslation(0.125f + m_pTerrain->GetMaxRangeByXAxis(), 1, m_pTerrain->GetMaxRangeByZAxis() * 0.5f);
+	}
+
+	{
+		m_pFront = new NX::Cube();
+		m_pFront->GetTransform().SetScale(m_pTerrain->GetMaxRangeByXAxis(), 2, 0.25).SetTranslation(m_pTerrain->GetMaxRangeByXAxis() * 0.5, 1, -0.125f);
+
+		m_pBack = new NX::Cube();
+		m_pBack->GetTransform().SetScale(m_pTerrain->GetMaxRangeByXAxis(), 2, 0.25).SetTranslation(m_pTerrain->GetMaxRangeByXAxis() * 0.5, 1, 0.125f + m_pTerrain->GetMaxRangeByZAxis());
+
+	}
+
 	GetCursorPos(&m_CurPos);
 
 	{//create snow system
 		std::vector<std::string> TextureSet;
 		TextureSet.push_back("../../../../engine/EngineResouces/Particle/Snow/particle-snow.png");
-		m_pSnowParticleSystem  = new SnowParticleSystem(m_pCamera, 1.5f, 0.35f, 2000, TextureSet);
+		m_pSnowParticleSystem  = new SnowParticleSystem(m_pCamera, 1.5f, 0.35f, 20000, TextureSet);
 	}
 
 	{
@@ -139,8 +174,9 @@ void NX::NXEngineDemo::OnTick(const float fDelta) {
 
 	{//update camera position
 		NX::float3 Pos = m_pCamera->GetEyePosition();
-		NX::Clamp(Pos.x, 0, m_pTerrain->GetMaxRangeByXAxis() - Epsilon<float>::m_Epsilon);
-		NX::Clamp(Pos.z, 0, m_pTerrain->GetMaxRangeByZAxis() - Epsilon<float>::m_Epsilon);
+		const float delta = 0.1f;
+		NX::Clamp(Pos.x, delta, m_pTerrain->GetMaxRangeByXAxis() - delta);
+		NX::Clamp(Pos.z, delta, m_pTerrain->GetMaxRangeByZAxis() - delta);
 		Pos.y = m_pTerrain->GetHeight(Pos.x, Pos.z) + 1.6f;
 		m_pCamera->SetCameraPosition(Pos);
 	}

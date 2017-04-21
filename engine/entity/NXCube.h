@@ -28,7 +28,6 @@ namespace NX {
 
 	private:
 		Size3D				           m_Size;
-		IDirect3DIndexBuffer9          *m_pIndexBuffer;
 		IDirect3DVertexBuffer9         *m_pVertexBuffer;
 		IDirect3DVertexDeclaration9    *m_pVertexDesc;
 		ID3DXEffect                    *m_pEffect;

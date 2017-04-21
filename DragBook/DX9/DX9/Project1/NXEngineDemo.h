@@ -8,8 +8,8 @@
  */
 
 #include "../../../../engine/Window/NXDX9Window.h"
-#include "../../engine/entity/NXTerrain.h"
-#include "../../engine/render/NXCamera.h""
+#include "../../../../engine/entity/NXTerrain.h"
+#include "../../../../engine/render/NXCamera.h""
 
 #pragma once
 
@@ -34,6 +34,10 @@ namespace NX {
 	public:
 		class Terrain               *m_pTerrain;
 		class Cube                  *m_pCube;
+		class Cube                  *m_pLeft;
+		class Cube                  *m_pRight;
+		class Cube                  *m_pFront;
+		class Cube                  *m_pBack;
 		class PerspectCamera        *m_pCamera;
 		class ParticleSystem        *m_pSnowParticleSystem;
 		class Sky                   *m_pSky;

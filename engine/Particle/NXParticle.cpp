@@ -58,10 +58,10 @@ void NX::Particle::Reset(const int iTextureIndex, const float3 &_Rotation, const
 std::vector<NX::Particle::Vertex>  NX::Particle::GetVertex() {
 	std::vector<NX::Particle::Vertex> v(4);
 	float lx = m_Size.x * .5f, ly = m_Size.y * .5f;
-	v[0] = Vertex(-lx, ly,  0.f, 0.f, 0.f);
-	v[1] = Vertex(lx,  ly,  0.f, 1.f, 0.f);
-	v[2] = Vertex(lx,  -ly, 0.f, 1.f, 1.f);
-	v[3] = Vertex(-lx, -ly, 0.f, 0.f, 1.f);
+	v[0] = Vertex(-lx,   ly,  0.f, 0.f, 0.f);
+	v[1] = Vertex( lx,   ly,  0.f, 1.f, 0.f);
+	v[2] = Vertex( lx,  -ly,  0.f, 1.f, 1.f);
+	v[3] = Vertex(-lx,  -ly,  0.f, 0.f, 1.f);
 
 	NX::float3X3 RotationMatrix = NX::GetMatrixRotateByXYZ(m_Rotation);
 	for (int i = 0; i < 4; ++i) {
@@ -73,6 +73,33 @@ std::vector<NX::Particle::Vertex>  NX::Particle::GetVertex() {
 
 	return v;
 }
+
+int NX::Particle::FillVertexBuffer(void *pBase) const{
+	float lx = m_Size.x * .5f, ly = m_Size.y * .5f;
+
+	Particle::Vertex v[4] = {
+		{ -lx,   ly,  0.f, 0.f, 0.f },
+		{  lx,   ly,  0.f, 1.f, 0.f },
+		{  lx,  -ly,  0.f, 1.f, 1.f },
+		{ -lx,  -ly,  0.f, 0.f, 1.f },
+	};
+
+	const NX::float3X3& RotationMatrix = NX::GetMatrixRotateByXYZ<float, 3>(m_Rotation);
+	for (int i = 0; i < 4; ++i) {
+		float3X1& rm = (*(float3X1*)(&v[i].x));
+		rm = RotationMatrix * rm;  
+		(*(float3*)(&v[i].x)) += m_Position;                //position
+	}
+	memcpy(pBase, v, sizeof(v));
+	return sizeof(v);
+}
+
+int NX::Particle::FillIndexBuffer(void *pBase, const int iStartIndex) const{
+	int iV[] = {iStartIndex, iStartIndex + 1, iStartIndex + 2, iStartIndex, iStartIndex + 2, iStartIndex + 3};
+	memcpy(pBase, iV, sizeof(iV));
+	return sizeof(iV);
+}
+
 
 std::vector<int>  NX::Particle::GetVertexIndex() {
 	return std::vector<int>({0, 1, 2, 0, 2, 3});

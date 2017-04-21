@@ -10,7 +10,7 @@
 #pragma once
 
 #include "../../../../engine/Window/NXDX9Window.h"
-#include "../../engine/render/NXCamera.h"
+#include "../../../../engine/render/NXCamera.h"
 namespace NX {
 	class NXChap17_3 : public NX::DX9Window {
 	public:

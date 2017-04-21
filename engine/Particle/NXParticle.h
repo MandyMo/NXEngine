@@ -42,6 +42,8 @@ namespace NX {
 			const float3 &_Velocity, const float3 &_AngularVelocity, const float _LiveTime, const float2 &_Size);
 		virtual std::vector<Vertex> GetVertex();
 		virtual std::vector<int>    GetVertexIndex();
+		virtual int FillVertexBuffer(void *pBase) const;
+		virtual int FillIndexBuffer(void *pBase, const int iStartIndex) const;
 
 	public:
 		Particle& SetTextureIndex(const int TextureIndex);
@@ -75,7 +77,7 @@ namespace NX {
 		Particle& SetAngularVelocity(const float _vx, const float _vy, const float _vz);
 		Particle& AddAngularVelocity(const float _avx, const float _avy, const float _avz);
 		Particle& AddAngularVelocity(const float3 &_addVelocity);
-		
+
 		Particle& SetLiveTime(const float _LiveTime);
 		Particle& AddLiveTime(const float _addLiveTime);
 

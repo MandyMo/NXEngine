@@ -36,6 +36,7 @@ namespace NX {
         
         template<typename U, int RB, int CB>
         inline Matrix(const Matrix<U, RB, CB> &rhs);
+
     public:
         template<typename U>
         inline Matrix<T, Row, Col>& operator += (const Matrix<U, Row, Col> &rhs);
@@ -91,6 +92,10 @@ namespace NX {
         
         inline T (&operator [] (int index))[Col];
         inline const T (&operator [] (int index) const)[Col];
+
+		inline const T operator() (int row, int col) const;
+
+		inline T& operator() (int row, int col);
     public:
         inline T& GetElement(int row, int col);
         
