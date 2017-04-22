@@ -52,6 +52,11 @@ void NX::Sphere::CreateTriangles() {
 		}
 		*pVertex = { 0.f, -m_fRadius, 0.f, 0.f, 1.f, 0.f, -1.f, 0.f };
 		pDevice->CreateVertexBuffer(sizeof(Vertex) * nV, D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &m_pVertexBuffer, nullptr);
+
+		void *pBase = nullptr;
+		m_pVertexBuffer->Lock(0, 0, &pBase, D3DLOCK_DISCARD);
+		memcpy(pBase, m_pVertexs, sizeof(Vertex) * nV);
+		m_pVertexBuffer->Unlock();
 	}
 
 
@@ -110,11 +115,6 @@ void NX::Sphere::Render(struct NX::RenderParameter &renderer) {
 	}
 
 	int nV = (m_iStacks - 1) * (m_iSlices + 1) + 2;
-	
-	void *pBase = nullptr;
-	m_pVertexBuffer->Lock(0, 0, &pBase, D3DLOCK_DISCARD);
-	memcpy(pBase, m_pVertexs, sizeof(Vertex) * nV);
-	m_pVertexBuffer->Unlock();
 
 	IDirect3DDevice9 *pDevice = renderer.pDXDevice;
 	m_pEffect->SetMatrix(m_pEffect->GetParameterByName(NULL, "PVMMatrix"), (D3DXMATRIX*)&(renderer.pProjectController->GetWatchMatrix() * GetTransform().GetTransformMatrix()));
