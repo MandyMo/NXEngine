@@ -130,6 +130,17 @@ namespace NX {
     template<typename T, int Scale = 4, typename U>
     inline Matrix<T, Scale, Scale> GetMatrixRotateByAix(const vector<U, 3> &Aix, const T radian);
     
+	inline Matrix<float, 4, 4> GetShadowMatrix(const float4 &plane, const float4 &light);
+
+	/***
+	 *   get shadow matrix, 
+	 *   plane is ax + by + cz + d = 0
+	 *   if ld == 0, then the light is a directionl light, and(la, lb, lc) is the directional vector
+	 *   if ld == 1, then the light is a point light, and (la, lb, lc) is the light's position
+	 */
+	inline Matrix<float, 4, 4> GetShadowMatrix(const float pa, const float pb, const float pc, const float pd,
+		const float la, const float lb, const float lc, const float ld);
+
     //x/w: [-1, 1]
     //y/w: [-1, 1]
     //z/w: [0, 1]

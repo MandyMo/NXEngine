@@ -398,6 +398,29 @@ inline Matrix<T, Scale, Scale> GetOrthogonalMatrix(const T Left, const T Right, 
 }
 
 
+inline Matrix<float, 4, 4> GetShadowMatrix(const float4 &plane, const float4 &light) {
+	const float4& p = GetNormalized(plane);
+	float d = NX::Dot(p, light);
+	const float m[][4] = {
+		{p.x *light.x + d, p.y * light.x,     p.z *light.x,     p.w *light.x     },
+		{p.x *light.y,     p.y * light.y + d, p.z *light.y,     p.w *light.y     },
+		{p.x *light.z,     p.y * light.z,     p.z *light.z + d, p.w *light.z     },
+		{p.x *light.w,     p.y * light.w,     p.z *light.w,     p.w *light.w + d },
+	};
+	return Matrix<float, 4, 4>(m);
+}
+
+/***
+ *   get shadow matrix,
+ *   plane is ax + by + cz + d = 0
+ *   if ld == 0, then the light is a directionl light, and (la, lb, lc) is the directional vector
+ *   if ld == 1, then the light is a point light, and (la, lb, lc) is the light's position
+ */
+inline Matrix<float, 4, 4> GetShadowMatrix(const float pa, const float pb, const float pc, const float pd,
+	const float la, const float lb, const float lc, const float ld) {
+	return NX::GetShadowMatrix(float4(pa, pb, pc, pd), float4(la, lb, lc, ld));
+}
+
 template<typename T, typename RT /* = T */>
 inline RT Detaminate(const Matrix<T, 2, 2>& matrix){
     return RT(matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]);
