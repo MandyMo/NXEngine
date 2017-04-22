@@ -8,13 +8,17 @@
 
 #include "NXSphere.h"
 #include "../render/NXEngine.h"
+#include "../render/NXEffectManager.h"
+#include "../render/NXDX9TextureManager.h"
+#include "../render/NXCamera.h"
 
 NX::Sphere::Sphere(const std::string &_TextureFilePath, const int _iStacks, const int _iSlices, const float _fRadius):m_TextureFilePath(_TextureFilePath){
 	m_iSlices         = _iSlices;
 	m_iStacks         = _iStacks;
-	m_fRadius         = 1.f; //_fRadius;
+	m_fRadius         = _fRadius;
 	m_pVertexs        = nullptr;
 	m_pVertexDesc     = nullptr;
+	m_pEffect         = NX::EffectManager::Instance().GetEffect("Shaders/DirectX/Sphere_Effect.hlsl");
 	CreateTriangles();
 }
 
@@ -22,7 +26,6 @@ NX::Sphere::~Sphere() {
 	NX::NXSafeRelease(m_pVertexBuffer);
 	NX::NXSafeRelease(m_pIndexBuffer);
 	NX::NXSafeRelease(m_pVertexDesc);
-	NX::NXSafeRelease(m_pEffect);
 	NX::NXSafeDeleteArray(m_pVertexs);
 }
 
@@ -78,9 +81,9 @@ void NX::Sphere::CreateTriangles() {
 			}
 		}
 
-		*pBase++ = m_iStacks * (m_iSlices + 1) + 1;
+		*pBase++ = (m_iStacks - 1) * (m_iSlices + 1) + 1;
 		for (int i = 0; i <= m_iSlices; ++i) {
-			*pBase++ = (m_iStacks - 1) * (m_iSlices + 1) + 1 + i;
+			*pBase++ = (m_iStacks - 2) * (m_iSlices + 1) + 1 + i;
 		}
 
 		m_pIndexBuffer->Unlock();
@@ -101,21 +104,12 @@ NX::Sphere& NX::Sphere::SetTextureFilePath(const std::string &_TextureFilePath) 
 	return *this;
 }
 
-void NX::Sphere::Render(struct RenderParameter &renderer) {
+void NX::Sphere::Render(struct NX::RenderParameter &renderer) {
 	if (!m_pVertexs) {
 		return;
 	}
 
 	int nV = (m_iStacks - 1) * (m_iSlices + 1) + 2;
-
-//	float3X3 M = GetTransform().GetTransformMatrix();
-	float3 T = GetTransform().GetTranslation();
-
-	for (int i = 0; i < nV; ++i) {
-// 		float3X1& rm = (*(float3X1*)(&m_pVertexs[i].x)) ;
-// 		rm = M * rm;
-		(*(float3*)(&m_pVertexs[i].x)) += T;
-	}
 	
 	void *pBase = nullptr;
 	m_pVertexBuffer->Lock(0, 0, &pBase, D3DLOCK_DISCARD);
@@ -123,6 +117,24 @@ void NX::Sphere::Render(struct RenderParameter &renderer) {
 	m_pVertexBuffer->Unlock();
 
 	IDirect3DDevice9 *pDevice = renderer.pDXDevice;
+	m_pEffect->SetMatrix(m_pEffect->GetParameterByName(NULL, "PVMMatrix"), (D3DXMATRIX*)&(renderer.pProjectController->GetWatchMatrix() * GetTransform().GetTransformMatrix()));
+	m_pEffect->SetTexture(m_pEffect->GetParameterByName(NULL, "BaseColor"),NX::DX9TextureManager::Instance().GetTexture(m_TextureFilePath));
+
+	UINT uPasses = 0;
+	m_pEffect->Begin(&uPasses, 0);
+	for (int i = 0; i < uPasses; ++i) {
+		pDevice->SetVertexDeclaration(m_pVertexDesc);
+		pDevice->SetStreamSource(0, m_pVertexBuffer, 0, sizeof(Vertex));
+		pDevice->SetIndices(m_pIndexBuffer);
+
+		m_pEffect->BeginPass(i);
+
+		pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLEFAN,   0, 0, m_iSlices + 2, 0, m_iSlices);
+		pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, (m_iStacks - 2) * (m_iSlices + 1) * 2, m_iSlices + 2, (m_iStacks - 2) * (m_iSlices + 1) * 2);
+		pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLEFAN,   0, 0, m_iSlices + 2, (m_iStacks - 2) * (m_iSlices + 1) * 2 + m_iSlices + 2, m_iSlices);
+		m_pEffect->EndPass();
+	}
+	m_pEffect->End();
 }
 
 NX::ENTITY_TYPE NX::Sphere::GetEntityType() {

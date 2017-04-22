@@ -81,6 +81,10 @@ void NX::NXEngineDemo::Render() {
 		m_pSky->Render(renderer);
 	}
 
+	if (m_pShere) {
+		m_pShere->Render(renderer);
+	}
+
 	if (m_pSnowParticleSystem) {
 		m_pSnowParticleSystem->Render(renderer);
 	}
@@ -105,7 +109,8 @@ void NX::NXEngineDemo::OnInitDX3Succeed() {
 	}
 
 	{//create sphere
-		m_pShere = new NX::Sphere("EngineResouces/bricks/brick1.jpg", 3, 3, 1.f);
+		m_pShere = new NX::Sphere("EngineResouces/Pics/sun.bmp", 100, 100, 100.f);
+		m_pShere->GetTransform().SetTranslation(4000, 1000, 1000);
 	}
 
 	{

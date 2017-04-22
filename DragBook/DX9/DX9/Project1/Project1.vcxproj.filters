@@ -158,9 +158,6 @@
     <ClCompile Include="..\..\..\..\engine\math\NXRayTrace.cpp">
       <Filter>NXEngine\math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\engine\math\NXSphere.cpp">
-      <Filter>NXEngine\math</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\engine\math\NXTriangle.cpp">
       <Filter>NXEngine\math</Filter>
     </ClCompile>
@@ -272,6 +269,9 @@
     <ClCompile Include="..\..\..\..\engine\Particle\NXSnowParticleSystem.cpp">
       <Filter>NXEngine\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\entity\NXSphere.cpp">
+      <Filter>NXEngine\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\engine\common\nxcore.h">
@@ -376,9 +376,6 @@
     <ClInclude Include="..\..\..\..\engine\math\NXRayTrace.h">
       <Filter>NXEngine\math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\engine\math\NXSphere.h">
-      <Filter>NXEngine\math</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\engine\math\NXTriangle.h">
       <Filter>NXEngine\math</Filter>
     </ClInclude>
@@ -481,6 +478,9 @@
     <ClInclude Include="..\..\..\..\engine\Particle\NXSnowParticleSystem.h">
       <Filter>NXEngine\Particle</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\entity\NXSphere.h">
+      <Filter>NXEngine\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm">
@@ -542,6 +542,9 @@
       <Filter>NXEngine\ShadersFiles\DirectX</Filter>
     </FxCompile>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Particle_Effect.hlsl">
+      <Filter>NXEngine\ShadersFiles\DirectX</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Sphere_Effect.hlsl">
       <Filter>NXEngine\ShadersFiles\DirectX</Filter>
     </FxCompile>
   </ItemGroup>
