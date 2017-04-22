@@ -42,6 +42,7 @@ namespace NX {
 		class ParticleSystem        *m_pSnowParticleSystem;
 		class Sky                   *m_pSky;
 		class Sphere                *m_pShere;
+		class Sphere                *m_pKity[4];
 		POINT                        m_CurPos;
 	};
 }

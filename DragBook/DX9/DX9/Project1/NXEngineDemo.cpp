@@ -85,6 +85,12 @@ void NX::NXEngineDemo::Render() {
 		m_pShere->Render(renderer);
 	}
 
+	for (int i = 0; i < NX::ArrayLength(m_pKity); ++i) {
+		if (m_pKity[i]) {
+			m_pKity[i]->Render(renderer);
+		}
+	}
+
 	if (m_pSnowParticleSystem) {
 		m_pSnowParticleSystem->Render(renderer);
 	}
@@ -106,6 +112,14 @@ void NX::NXEngineDemo::OnInitDX3Succeed() {
 		m_pCube = new NX::Cube();
 		m_pCube->GetTransform().SetRotation(0, 1, 0);
 		m_pCube->GetTransform().SetTranslation(0, 3, 0);
+	}
+
+
+	{
+		for (int i = 0; i < NX::ArrayLength(m_pKity); ++i) {
+			m_pKity[i] = new NX::Sphere("EngineResouces/pics/sb.jpg", 50, 50, NX::RandFloatInRange(0.2, 1.5) + 0.1);
+			m_pKity[i]->GetTransform().SetTranslation(NX::RandFloatInRange(0.f, m_pTerrain->GetMaxRangeByXAxis()), 3 + NX::RandFloatInRange(3, 5), NX::RandFloatInRange(0, m_pTerrain->GetMaxRangeByZAxis()));
+		}
 	}
 
 	{//create sphere
