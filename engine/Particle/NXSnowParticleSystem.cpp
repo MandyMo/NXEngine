@@ -161,7 +161,7 @@ NX::SnowParticleSystem& NX::SnowParticleSystem::ResetParticle(Particle *pParticl
 	float3 _Velocity = float3(RandFloatInRange(-0.3f, 0.3f), -RandFloatInRange(0.2f, 0.4f), RandFloatInRange(-0.3f, 0.3f));
 	float3 _AngularVelocity = float3(RandFloatInRange(-1.f, 1.f), RandFloatInRange(-1.f, 1.f), RandFloatInRange(-1.f, 1.f));
 	float _LiveTime = RandFloatInRange(0.f, 100000.f);
-	float _Size = RandFloatInRange(0.01, 0.02);
+	float _Size = RandFloatInRange(0.005, 0.01);
 
 	pParticle->SetTextureIndex(_TextureIndex).SetRotation(_Rotation).SetPosition(_Position).SetAcceleration(_Acceleration).
 		SetAngularAcceleration(_AngularAcceleration).SetVelocity(_Velocity).SetAngularVelocity(_AngularVelocity).

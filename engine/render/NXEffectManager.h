@@ -10,6 +10,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "NXShaderMacro.h"
+
 namespace NX {
 	class EffectManager {
 	public:
@@ -19,6 +21,8 @@ namespace NX {
 
 	public:
 		class ID3DXEffect*  GetEffect(const std::string &strEffectFilePath);
+		class ID3DXEffect*  GetEffect(const std::string &strEffectFilePath, const ShaderMacros &shaderMacros);
+		void DeleteEffect(const std::string &strEffectFilePath, const ShaderMacros &shaderMacros);
 		void DeleteEffect(const std::string &strEffectFilePath);
 		void DeleteEffect(const ID3DXEffect *pEffect);
 

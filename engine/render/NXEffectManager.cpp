@@ -31,14 +31,15 @@ NX::EffectManager::~EffectManager() {
 }
 
 
-ID3DXEffect*  NX::EffectManager::GetEffect(const std::string &strEffectFilePath) {
-	if (m_Effects.count(strEffectFilePath)) {
-		return m_Effects[strEffectFilePath];
+ID3DXEffect*  NX::EffectManager::GetEffect(const std::string &strEffectFilePath, const ShaderMacros &shaderMacros) {
+	std::string strShaderKey = strEffectFilePath + shaderMacros.GetMacrosDescription();
+	if (m_Effects.count(strShaderKey)) {
+		return m_Effects[strShaderKey];
 	}
 	
 	ID3DXBuffer *pError = nullptr;
 	ID3DXEffect *pEffect = nullptr;
-	HRESULT hr = D3DXCreateEffectFromFile(glb_GetD3DDevice(), strEffectFilePath.c_str(), NULL, NULL, D3DXSHADER_DEBUG, NULL, &pEffect, &pError);
+	HRESULT hr = D3DXCreateEffectFromFile(glb_GetD3DDevice(), strEffectFilePath.c_str(), (D3DXMACRO*)shaderMacros(), NULL, D3DXSHADER_DEBUG, NULL, &pEffect, &pError);
 	if (pError) {
 		glb_GetLog().logToConsole("Compile effect [file: %s] with [error:%s]", strEffectFilePath.c_str(), pError->GetBufferPointer());
 	} else if (FAILED(hr)) {
@@ -46,7 +47,7 @@ ID3DXEffect*  NX::EffectManager::GetEffect(const std::string &strEffectFilePath)
 		NX::NXSafeRelease(pEffect);
 	} else {
 		glb_GetLog().logToConsole("Compile effect [file: %s] succeed", strEffectFilePath.c_str());
-		m_Effects[strEffectFilePath] = pEffect;
+		m_Effects[strShaderKey] = pEffect;
 		return pEffect;
 	}
 
@@ -54,8 +55,19 @@ ID3DXEffect*  NX::EffectManager::GetEffect(const std::string &strEffectFilePath)
 	return nullptr;
 }
 
+ID3DXEffect* NX::EffectManager::GetEffect(const std::string &strEffectFilePath) {
+	ShaderMacros shaderMacros;
+	return GetEffect(strEffectFilePath, shaderMacros);
+}
+
 void NX::EffectManager::DeleteEffect(const std::string &strEffectFilePath) {
-	m_Effects.erase(strEffectFilePath);
+	ShaderMacros shaderMacros;
+	DeleteEffect(strEffectFilePath, shaderMacros);
+}
+
+void NX::EffectManager::DeleteEffect(const std::string &strEffectFilePath, const ShaderMacros &shaderMacros) {
+	std::string strKey = strEffectFilePath + shaderMacros.GetMacrosDescription();
+	m_Effects.erase(strKey);
 }
 
 void NX::EffectManager::DeleteEffect(const ID3DXEffect *pEffect) {

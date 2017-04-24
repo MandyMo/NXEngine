@@ -1,80 +1,32 @@
 /**
- *    File:      Terrain_Effect.hlsl
+ *    File:      Basic_Lighting.hlsl
  *  
  *    Date:      2017_04_10  
  *    Author:    ÕÅÐÛ(zhang xiong, 1025679612@qq.com)
  *    Purpose:   render terrain
  */
 
-extern Matrix ModelMatrix;      // Model => World
-extern Matrix ViewMatrix;       // World => View
-extern Matrix ProjectMatrix;    // View  => Project plane
-extern texture RoadTexture;     // road color
-extern texture GrassTexture;    // grass color
-extern texture NormalMap;       // normal map
+ #if defined(ENABLE_BASIC_LIGHTING)
 
-struct VS_INPUT {
-    vector position : POSITION;
-    float2 texCoord	: TEXCOORD0;
-	float3 Normal   : NORMAL;
-};
+ extern matrix   RModelMatrix;   // the reverse of Model -> View space transform matrix
+ extern float3   EyePotion;      // the position of camera
+ extern float4   LightPosition;  // the position of light, if LightPosition.w is 1, then it's point light, else it's directional light
+ extern float3   AmbientColor;   // the ambient color
+ extern float3   LightColor;     // the light's color
 
-struct VS_OUTPUT {
-    vector position : POSITION;
-    float2 texCoord	: TEXCOORD0;
-	float3 Normal   : NORMAL;
-};
-
-
-struct PS_INTPUT {
-    vector position : POSITION;
-    float2 texCoord	: TEXCOORD0;
-	float3 Normal   : NORMAL;
-};
-
-struct PS_OUTPUT {
-	vector	color	: COLOR0;
-};
-
-sampler2D RoadColorSampler = sampler_state {
-	texture		= <RoadTexture>;
-	MinFilter	= LINEAR;
-	MagFilter	= LINEAR;
-	MipFilter	= LINEAR;
-};
-
-sampler2D GrassColorSampler = sampler_state {
-	texture		= <GrassTexture>;
-	MinFilter	= LINEAR;
-	MagFilter	= LINEAR;
-	MipFilter	= LINEAR;
-};
-
-VS_OUTPUT VSMain(VS_INPUT input) {
-	VS_OUTPUT o = (VS_OUTPUT)0;
-	Matrix MV   = mul(ModelMatrix , ViewMatrix);
-	Matrix MVP  = mul(MV, ProjectMatrix);
-	o.position  = mul(input.position, MVP);
-	o.texCoord  = input.texCoord;
-	return o;
-}
-
-PS_OUTPUT PSMain(PS_INTPUT input) {
-	PS_OUTPUT o      = (PS_OUTPUT)0;
-	float3 RoadColor = tex2D(RoadColorSampler, input.texCoord);
-
-	float3 GrassColor= tex2D(GrassColorSampler, input.texCoord);
-
-	o.color.rgb      = (RoadColor *0.9 + GrassColor * 0.1).rgb;
-	return o;
-}
-
-Technique TerrainShader{
-	Pass BasePass {
-		LIGHTING           = false;
-		CULLMODE           = none;
-		ALPHABLENDENABLE   = false;
-		VertexShader       = compile vs_3_0 VSMain();
-		PixelShader        = compile ps_3_0 PSMain();
+float3 GetSpecularColor(float3 Normal, float3 Position){
+	float3 P2E         = EyePotion - Position;
+	float3 WorldNormal = mul(float4(Normal, 0.f), RModelMatrix);
+	float3 P2L;
+	if( LightPosition.w > 0.f ) {
+		P2L = LightPosition.xyz - Position;
+	} else {
+		P2L = LightPosition;
 	}
+
+	float3 HalfNormal = normalize(P2L + P2E);
+	
+	return saturate(dot(HalfNormal, WorldNormal)) * LightColor;
 }
+
+ #endif

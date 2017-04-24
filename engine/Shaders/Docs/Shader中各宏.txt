@@ -1,0 +1,6 @@
+﻿1，DEBUG
+	标志是否为Debug模式
+2，NDEBUG
+	标志是否为非Debug模式
+3，ENABLE_BASIC_LIGHTING
+	标志是否启用基本光照(基本光照使用Phong着色模型)

@@ -6,6 +6,8 @@
  *    Purpose:   render terrain
  */
 
+ #include "Basic_Lighting.hlsl"
+
 extern Matrix ModelMatrix;      // Model => World
 extern Matrix ViewMatrix;       // World => View
 extern Matrix ProjectMatrix;    // View  => Project plane

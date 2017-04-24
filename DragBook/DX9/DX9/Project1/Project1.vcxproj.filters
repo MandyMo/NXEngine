@@ -84,6 +84,9 @@
     <Filter Include="NXEngine\Particle">
       <UniqueIdentifier>{40b937ed-6a2a-4b60-bfaa-b0483ed10005}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NXEngine\ShadersFiles\Doc">
+      <UniqueIdentifier>{3d305ed0-f458-4fce-b46c-5cc09e89e2ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\engine\entity\NXSphere.cpp">
       <Filter>NXEngine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\render\NXShaderMacro.cpp">
+      <Filter>NXEngine\Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -481,6 +487,9 @@
     <ClInclude Include="..\..\..\..\engine\entity\NXSphere.h">
       <Filter>NXEngine\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\render\NXShaderMacro.h">
+      <Filter>NXEngine\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm">
@@ -515,6 +524,9 @@
     <Text Include="..\..\..\..\engine\render\NXEngine.txt">
       <Filter>NXEngine\Render</Filter>
     </Text>
+    <Text Include="..\..\..\..\engine\Shaders\Docs\Shader中各宏.txt">
+      <Filter>NXEngine\ShadersFiles\Doc</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="NXChap17_1_vs.hlsl">
@@ -545,6 +557,9 @@
       <Filter>NXEngine\ShadersFiles\DirectX</Filter>
     </FxCompile>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Sphere_Effect.hlsl">
+      <Filter>NXEngine\ShadersFiles\DirectX</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Basic_Lighting.hlsl">
       <Filter>NXEngine\ShadersFiles\DirectX</Filter>
     </FxCompile>
   </ItemGroup>

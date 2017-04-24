@@ -9,6 +9,8 @@
 
 #pragma once
 
+#include "../math/NXVector.h"
+
 namespace NX {
 	class Engine {
 
@@ -19,5 +21,8 @@ namespace NX {
 		class ProjectController   *pProjectController;
 		class IDirect3DDevice9    *pDXDevice;
 		class IDirect3D9          *pDirectX;
+		float4                    LightPosition;
+		float3                    AmbientColor;
+		float3                    LightColor;
 	};
 }

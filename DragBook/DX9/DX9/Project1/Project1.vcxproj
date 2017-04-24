@@ -174,6 +174,7 @@
     <ClCompile Include="..\..\..\..\engine\render\NXDX9TextureManager.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXEngine.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXEffectManager.cpp" />
+    <ClCompile Include="..\..\..\..\engine\render\NXShaderMacro.cpp" />
     <ClCompile Include="..\..\..\..\engine\render\NXViewFrustum.cpp" />
     <ClCompile Include="..\..\..\..\engine\System\Android\NXAndroidMutex.cpp" />
     <ClCompile Include="..\..\..\..\engine\System\Android\NXAndroidSystem.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="..\..\..\..\engine\render\NXDX9TextureManager.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXEngine.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXEffectManager.h" />
+    <ClInclude Include="..\..\..\..\engine\render\NXShaderMacro.h" />
     <ClInclude Include="..\..\..\..\engine\render\NXViewFrustum.h" />
     <ClInclude Include="..\..\..\..\engine\System\Android\NXJNIWrapper.h" />
     <ClInclude Include="..\..\..\..\engine\System\NXMutex.h" />
@@ -284,8 +286,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\engine\render\NXEngine.txt" />
+    <Text Include="..\..\..\..\engine\Shaders\Docs\Shader中各宏.txt" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Basic_Lighting.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
     <FxCompile Include="..\..\..\..\engine\Shaders\DirectX\Cube3D_Effect.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

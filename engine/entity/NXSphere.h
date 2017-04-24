@@ -18,7 +18,7 @@ namespace NX {
 
 	class Sphere : public IEntity {
 	public:
-		Sphere(const std::string &_TextureFilePath, const int _iStacks, const int _iSlices, const float _radius);
+		Sphere(const std::string &_TextureFilePath, const int _iStacks, const int _iSlices, const float _radius, const bool bUseLighting = false);
 		virtual ~Sphere();
 
 	public:
@@ -49,6 +49,7 @@ namespace NX {
 
 	private:
 		void CreateTriangles();
+		void SetupLightingInfo(struct RenderParameter &renderer);
 
 	private:
 		int                                 m_iStacks;

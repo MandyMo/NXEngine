@@ -11,14 +11,20 @@
 #include "../render/NXEffectManager.h"
 #include "../render/NXDX9TextureManager.h"
 #include "../render/NXCamera.h"
+#include "../math/NXAlgorithm.h"
+#include "../render/NXShaderMacro.h"
 
-NX::Sphere::Sphere(const std::string &_TextureFilePath, const int _iStacks, const int _iSlices, const float _fRadius):m_TextureFilePath(_TextureFilePath){
+NX::Sphere::Sphere(const std::string &_TextureFilePath, const int _iStacks, const int _iSlices, const float _fRadius, const bool bUseLighting /** = false */):m_TextureFilePath(_TextureFilePath){
 	m_iSlices         = _iSlices;
 	m_iStacks         = _iStacks;
 	m_fRadius         = _fRadius;
 	m_pVertexs        = nullptr;
 	m_pVertexDesc     = nullptr;
-	m_pEffect         = NX::EffectManager::Instance().GetEffect("Shaders/DirectX/Sphere_Effect.hlsl");
+	ShaderMacros shaderMacros;
+	if(bUseLighting){
+		shaderMacros.SetMacro("ENABLE_BASIC_LIGHTING", "1");
+	}
+	m_pEffect         = NX::EffectManager::Instance().GetEffect("Shaders/DirectX/Sphere_Effect.hlsl", shaderMacros);
 	CreateTriangles();
 }
 
@@ -113,7 +119,7 @@ void NX::Sphere::Render(struct NX::RenderParameter &renderer) {
 	if (!m_pVertexs) {
 		return;
 	}
-
+	SetupLightingInfo(renderer);
 	int nV = (m_iStacks - 1) * (m_iSlices + 1) + 2;
 
 	IDirect3DDevice9 *pDevice = renderer.pDXDevice;
@@ -128,7 +134,6 @@ void NX::Sphere::Render(struct NX::RenderParameter &renderer) {
 		pDevice->SetIndices(m_pIndexBuffer);
 
 		m_pEffect->BeginPass(i);
-
 		pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLEFAN,   0, 0, m_iSlices + 2, 0, m_iSlices);
 		pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, (m_iStacks - 2) * (m_iSlices + 1) * 2, m_iSlices + 2, (m_iStacks - 2) * (m_iSlices + 1) * 2);
 		pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLEFAN,   0, 0, m_iSlices + 2, (m_iStacks - 2) * (m_iSlices + 1) * 2 + m_iSlices + 2, m_iSlices);
@@ -143,4 +148,14 @@ NX::ENTITY_TYPE NX::Sphere::GetEntityType() {
 
 void NX::Sphere::OnTick(const float fDeleta) {
 
+}
+
+void NX::Sphere::SetupLightingInfo(struct RenderParameter &renderer) {
+	{//lighting
+		m_pEffect->SetMatrix(m_pEffect->GetParameterByName(NULL, "RModelMatrix"), (D3DXMATRIX*)(&NX::GetReverse(GetTransform().GetTransformMatrix())));
+		m_pEffect->SetFloatArray(m_pEffect->GetParameterByName(NULL, "EyePotion"), (float*)&renderer.pMVController->GetEyePosition(), 3);
+		m_pEffect->SetFloatArray(m_pEffect->GetParameterByName(NULL, "LightPosition"), (float*)&renderer.LightPosition, 4);
+		m_pEffect->SetFloatArray(m_pEffect->GetParameterByName(NULL, "AmbientColor"), (float*)(&renderer.AmbientColor), 3);
+		m_pEffect->SetFloatArray(m_pEffect->GetParameterByName(NULL, "LightColor"), (float*)(&renderer.LightColor), 3);
+	}
 }
