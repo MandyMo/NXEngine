@@ -1,5 +1,6 @@
 #include "NXEngineDemo.h"
 #include "../../../../engine/math/NXAlgorithm.h""
+#include "../../../../engine/3rdLibs/jsoncpp/json.h"
 
 int main() {
   	srand(time(NULL));

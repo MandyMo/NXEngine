@@ -1,0 +1,12 @@
+﻿{
+	"ResouceType" : "Material",
+	"Macros"      : [ "ENABLE_BASIC_LIGHTING" ],
+	"ShaderFile"  : "PhongLighting",
+	"Parameters"  : {
+		"RModelMatrix"     : {"type" : "matrix"},
+		"EyePotion"        : {"type" : "float3"},
+		"LightPosition"    : {"type" : "float4"},
+		"AmbientColor"     : {"type" : "float3"},
+		"LightColor"       : {"type" : "float3"},
+	},
+}

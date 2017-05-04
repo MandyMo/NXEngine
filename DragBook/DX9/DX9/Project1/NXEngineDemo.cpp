@@ -9,9 +9,9 @@
 
 #include "NXEngineDemo.h"
 
-#include "..\..\..\..\engine\common\nxcore.h"
-#include "..\..\..\..\engine\common\NXLog.h"
-#include "..\..\..\..\engine\math\NXAlgorithm.h"
+#include "../../../../engine/common/nxcore.h"
+#include "../../../../engine/common/NXLog.h"
+#include "../../../../engine/math/NXAlgorithm.h"
 #include "../../../../engine/entity/NXTerrain.h"
 #include "../../../../engine/entity/NXCube.h"
 #include "../../../../engine/render/NXCamera.h"
@@ -50,6 +50,9 @@ void NX::NXEngineDemo::Render() {
 		renderer.pProjectController   = m_pCamera;
 		renderer.pDirectX             = GetD3D9();
 		renderer.pDXDevice            = GetD3D9Device();
+		renderer.LightPosition        = m_pShere->GetTransform().GetTranslation();
+		renderer.AmbientColor         = float3(0.4f, 0.4f, 0.4f);
+		renderer.LightColor           = float3(1.f, 0.71f, 0.29f);
 	}
 
 	if (m_pTerrain) {
@@ -117,7 +120,7 @@ void NX::NXEngineDemo::OnInitDX3Succeed() {
 
 	{
 		for (int i = 0; i < NX::ArrayLength(m_pKity); ++i) {
-			m_pKity[i] = new NX::Sphere("EngineResouces/pics/sb2.jpg", 50, 50, NX::RandFloatInRange(0.2, 1.5) + 0.1);
+			m_pKity[i] = new NX::Sphere("EngineResouces/Bricks/brick1.jpg", 50, 50, NX::RandFloatInRange(0.2, 1.5) + 0.1,  true);
 			m_pKity[i]->GetTransform().SetTranslation(NX::RandFloatInRange(0.f, m_pTerrain->GetMaxRangeByXAxis()), 3 + NX::RandFloatInRange(3, 5), NX::RandFloatInRange(0, m_pTerrain->GetMaxRangeByZAxis()));
 		}
 	}
@@ -215,5 +218,9 @@ void NX::NXEngineDemo::OnTick(const float fDelta) {
 
 	{
 		m_pSnowParticleSystem->OnTick(fDelta);
+	}
+
+	for (int i = 0; i < NX::ArrayLength(m_pKity); ++i) {
+		m_pKity[i]->GetTransform().AddRotation(0.f, 0.1f * fDelta * (i + 1), NX::RandFloatInRange(0, 0.01));
 	}
 }

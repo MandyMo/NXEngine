@@ -1,0 +1,14 @@
+﻿1，ResourceType可以以下各值
+    Material，表明是一个材质
+
+2，Macros
+    定义的无值宏，值为一个列表，如Macros : ["ENABLE_BASIC_LIGHTING", "BASIC_LIGHTING_WITH_BASE_COLOR"]
+
+3，KeyedMacros
+    定义的有值宏，如KeyedMacros: {"RENDER_QUALITY" : "1", "WIRE_FRAME_MODE" : "1"}
+
+4，ShaderFile
+	Shader文件名，对于GLSL，会自动加上_vs.glsl、_ps.glsl然后编译；对于Win32，会使用_Effect.hlsl。比如，定义"ShaderFile" : "Basic"，则 GLSL会使用Basic_vs.glsl、Basic_ps.glsl，而Win32则使用Basic_Effect.hlsl。
+
+5，Parameters
+    Shader中使用的变量，可取值

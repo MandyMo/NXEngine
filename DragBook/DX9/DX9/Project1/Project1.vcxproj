@@ -137,6 +137,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\engine\3rdLibs\jsoncpp\json_reader.cpp" />
+    <ClCompile Include="..\..\..\..\engine\3rdLibs\jsoncpp\json_value.cpp" />
+    <ClCompile Include="..\..\..\..\engine\3rdLibs\jsoncpp\json_writer.cpp" />
     <ClCompile Include="..\..\..\..\engine\common\EventManager\NXEvent.cpp" />
     <ClCompile Include="..\..\..\..\engine\common\EventManager\NXEventManager.cpp" />
     <ClCompile Include="..\..\..\..\engine\common\File\NXMemoryFile.cpp" />
@@ -202,6 +205,18 @@
     <ClCompile Include="NXEngineDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\allocator.h" />
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\assertions.h" />
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\autolink.h" />
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\config.h" />
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\features.h" />
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\forwards.h" />
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\json.h" />
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\json_tool.h" />
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\reader.h" />
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\value.h" />
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\version.h" />
+    <ClInclude Include="..\..\..\..\engine\3rdLibs\jsoncpp\writer.h" />
     <ClInclude Include="..\..\..\..\engine\common\Collection\NXThreadSafeQueue.h" />
     <ClInclude Include="..\..\..\..\engine\common\EventManager\NXEvent.h" />
     <ClInclude Include="..\..\..\..\engine\common\EventManager\NXEventHandler.h" />
@@ -274,6 +289,7 @@
     <ClInclude Include="NXEngineDemo.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\engine\3rdLibs\jsoncpp\json_valueiterator.inl" />
     <None Include="..\..\..\..\engine\common\Collection\NXiOSThreadSafeQueue.mm" />
     <None Include="..\..\..\..\engine\common\File\NXiOSKVFile.mm" />
     <None Include="..\..\..\..\engine\math\NXAlgorithm.inl" />

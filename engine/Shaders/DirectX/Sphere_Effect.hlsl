@@ -63,7 +63,7 @@ PS_OUTPUT PSMain(PS_INPUT input) {
 	PS_OUTPUT o      = (PS_OUTPUT)0;
 	o.Color          = tex2D(SphereColorSampler, input.TexCoord);
 #if defined(ENABLE_BASIC_LIGHTING)
-	o.Color.xyz      = o.Color.xyz * AmbientColor + input.SpecularColor * LightColor;
+	o.Color.xyz      = o.Color.xyz * AmbientColor + input.SpecularColor;
 #endif
 	return o;
 }
